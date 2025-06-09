@@ -36,11 +36,3 @@ Historically, applications at SUL used a combination of several gems to render o
 On the access side, Cocina JSON is available statically via [PURL](https://purl.stanford.edu), but is only updated when an object is published ("shelved") from SDR. This frequently results in data that is technically invalid with respect to `cocina-models` but is still valid in the context of a patron-facing application. Rather than tightly coupling access applications to `cocina-models`, this gem provides a set of helpers designed to safely parse Cocina JSON and render it in a consistent way across applications.
 
 The intent is that both applications that directly render SDR metadata as HTML (PURL, Exhibits) and applications that index it for later display in a catalog (Searchworks, Earthworks, Dataworks) can adopt a single gem for rendering Cocina in a human-readable way. This gem **does not** aim to render HTML or provide view components – that is the responsibility of the consuming application. It **does** provide macros for those applications using Traject to index metadata.
-
-## Contributing
-
-Bug reports and pull requests are welcome on GitHub at https://github.com/sul-dlss/cocina_display.
-
-## License
-
-The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
