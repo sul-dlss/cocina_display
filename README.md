@@ -1,6 +1,6 @@
 # CocinaDisplay
 
-[![Build Status](https://github.com/sul-dlss/cocina_display/workflows/ci/badge.svg)](https://github.com/sul-dlss/cocina_display/actions)
+[![Build Status](https://github.com/sul-dlss/cocina_display/workflows/CI/badge.svg)](https://github.com/sul-dlss/cocina_display/actions)
 [![Gem Version](https://badge.fury.io/rb/cocina_display.svg)](https://badge.fury.io/rb/cocina_display)
 
 Helpers for rendering Cocina metadata in Rails applications and indexing pipelines.
