@@ -11,7 +11,7 @@ Gem::Specification.new do |spec|
   spec.summary = "TODO: Write a short summary, because RubyGems requires one."
   spec.description = "TODO: Write a longer description or delete this line."
   spec.homepage = "TODO: Put your gem's website or public repo URL here."
-  spec.license = "MIT"
+  spec.license = "Apache-2.0"
   spec.required_ruby_version = ">= 3.1.0"
 
   spec.metadata["allowed_push_host"] = "TODO: Set to your gem server 'https://example.com'"
