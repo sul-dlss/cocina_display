@@ -1,0 +1,249 @@
+{
+  "cocinaVersion": "0.75.0",
+  "type": "https://cocina.sul.stanford.edu/models/media",
+  "externalIdentifier": "druid:bz648kf2662",
+  "label": "Concierge 21: History \u0026 Design of Green Library",
+  "version": 7,
+  "access": {
+    "view": "stanford",
+    "download": "stanford",
+    "controlledDigitalLending": false,
+    "copyright": null,
+    "useAndReproductionStatement": "Stanford Libraries Concierge Program videos are made available to the Stanford community for the purpose of research and training. ",
+    "license": "https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode"
+  },
+  "administrative": { "hasAdminPolicy": "druid:cr144dn4045" },
+  "description": {
+    "title": [
+      {
+        "structuredValue": [],
+        "parallelValue": [],
+        "groupedValue": [],
+        "value": "Concierge 21: History \u0026 Design of Green Library",
+        "identifier": [],
+        "note": [],
+        "appliesTo": []
+      }
+    ],
+    "contributor": [
+      {
+        "name": [
+          {
+            "structuredValue": [],
+            "parallelValue": [],
+            "groupedValue": [],
+            "value": "Hartwig, Daniel",
+            "identifier": [],
+            "note": [],
+            "appliesTo": []
+          }
+        ],
+        "type": "person",
+        "role": [
+          {
+            "structuredValue": [],
+            "parallelValue": [],
+            "groupedValue": [],
+            "value": "Creator",
+            "identifier": [],
+            "source": { "code": "marcrelator", "note": [] },
+            "note": [],
+            "appliesTo": []
+          }
+        ],
+        "identifier": [],
+        "note": [],
+        "parallelContributor": []
+      },
+      {
+        "name": [
+          {
+            "structuredValue": [],
+            "parallelValue": [],
+            "groupedValue": [],
+            "value": "Schneider, Josh",
+            "identifier": [],
+            "note": [],
+            "appliesTo": []
+          }
+        ],
+        "type": "person",
+        "role": [
+          {
+            "structuredValue": [],
+            "parallelValue": [],
+            "groupedValue": [],
+            "value": "Creator",
+            "identifier": [],
+            "source": { "code": "marcrelator", "note": [] },
+            "note": [],
+            "appliesTo": []
+          }
+        ],
+        "identifier": [],
+        "note": [],
+        "parallelContributor": []
+      }
+    ],
+    "event": [
+      {
+        "structuredValue": [],
+        "date": [
+          {
+            "structuredValue": [],
+            "parallelValue": [],
+            "groupedValue": [],
+            "value": "2014-09",
+            "type": "creation",
+            "status": "primary",
+            "encoding": { "code": "w3cdtf", "note": [] },
+            "identifier": [],
+            "note": [],
+            "appliesTo": []
+          }
+        ],
+        "contributor": [],
+        "location": [],
+        "identifier": [],
+        "note": [],
+        "parallelEvent": []
+      }
+    ],
+    "form": [
+      {
+        "structuredValue": [],
+        "parallelValue": [],
+        "groupedValue": [],
+        "value": "motion picture",
+        "type": "genre",
+        "identifier": [],
+        "source": { "code": "marcgt", "note": [] },
+        "note": [],
+        "appliesTo": []
+      },
+      {
+        "structuredValue": [],
+        "parallelValue": [],
+        "groupedValue": [],
+        "value": "moving image",
+        "type": "resource type",
+        "identifier": [],
+        "source": { "value": "MODS resource types", "note": [] },
+        "note": [],
+        "appliesTo": []
+      }
+    ],
+    "geographic": [],
+    "language": [],
+    "note": [
+      {
+        "structuredValue": [],
+        "parallelValue": [],
+        "groupedValue": [],
+        "value": "This session is on the history and design of Green Library. Presenters Josh Schneider and Daniel Hartwig from the University Archives will present a rich visual tour of the library and have on hand select items from the Archives for attendees to explore.",
+        "type": "abstract",
+        "identifier": [],
+        "note": [],
+        "appliesTo": []
+      },
+      {
+        "structuredValue": [],
+        "parallelValue": [],
+        "groupedValue": [],
+        "value": "Hartwig, Daniel and  Schneider, Josh. Concierge 21: History \u0026 Design of Green Library. Stanford Digital Repository. Available at: http://purl.stanford.edu/bz648kf2662",
+        "type": "preferred citation",
+        "identifier": [],
+        "displayLabel": "Preferred Citation",
+        "note": [],
+        "appliesTo": []
+      }
+    ],
+    "identifier": [],
+    "subject": [
+      {
+        "structuredValue": [],
+        "parallelValue": [],
+        "groupedValue": [],
+        "value": "Green Library",
+        "type": "topic",
+        "identifier": [],
+        "note": [],
+        "appliesTo": []
+      }
+    ],
+    "access": {
+      "url": [],
+      "physicalLocation": [],
+      "digitalLocation": [],
+      "accessContact": [
+        {
+          "structuredValue": [],
+          "parallelValue": [],
+          "groupedValue": [],
+          "value": "sulair-cpag@lists.stanford.edu",
+          "type": "email",
+          "identifier": [],
+          "displayLabel": "Contact",
+          "note": [],
+          "appliesTo": []
+        }
+      ],
+      "digitalRepository": [],
+      "note": []
+    },
+    "relatedResource": [],
+    "marcEncodedData": [],
+    "purl": "https://purl.stanford.edu/bz648kf2662"
+  },
+  "identification": {
+    "catalogLinks": [],
+    "sourceId": "Hydrus:item-helenj-2016-06-23T20:09:51.615Z"
+  },
+  "structural": {
+    "contains": [
+      {
+        "type": "https://cocina.sul.stanford.edu/models/resources/video",
+        "externalIdentifier": "https://cocina.sul.stanford.edu/fileSet/bz648kf2662-bz648kf2662_1",
+        "label": "",
+        "version": 6,
+        "structural": {
+          "contains": [
+            {
+              "type": "https://cocina.sul.stanford.edu/models/file",
+              "externalIdentifier": "https://cocina.sul.stanford.edu/file/bz648kf2662-bz648kf2662_1/bz648kf2662_sl.mp4",
+              "label": "bz648kf2662_sl.mp4",
+              "filename": "bz648kf2662_sl.mp4",
+              "size": 404853301,
+              "version": 6,
+              "hasMimeType": "video/mp4",
+              "sdrGeneratedText": false,
+              "correctedForAccessibility": false,
+              "hasMessageDigests": [
+                {
+                  "type": "sha1",
+                  "digest": "ea10da4d685fee350140b5b097f14e398be4561a"
+                },
+                { "type": "md5", "digest": "af029e6fcd96cf9ae660cc915cf40795" }
+              ],
+              "access": {
+                "view": "stanford",
+                "download": "stanford",
+                "controlledDigitalLending": false
+              },
+              "administrative": {
+                "publish": true,
+                "sdrPreserve": true,
+                "shelve": true
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "hasMemberOrders": [],
+    "isMemberOf": ["druid:yw836rh9143"]
+  },
+  "created": "2023-01-24T00:20:15.000+00:00",
+  "modified": "2024-06-13T09:00:54.000+00:00",
+  "lock": "druid:bz648kf2662=0=1"
+}

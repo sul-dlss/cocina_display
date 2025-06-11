@@ -1,0 +1,239 @@
+{
+  "cocinaVersion": "0.91.2",
+  "type": "https://cocina.sul.stanford.edu/models/object",
+  "externalIdentifier": "druid:bh114dk3076",
+  "label": "hierarchical files integration test Pickling Spice Cinnamon",
+  "version": 2,
+  "access": {
+    "view": "world",
+    "download": "world",
+    "controlledDigitalLending": false,
+    "useAndReproductionStatement": "Use statement from APO",
+    "license": "https://creativecommons.org/licenses/by-nc/3.0/legalcode"
+  },
+  "administrative": { "hasAdminPolicy": "druid:qc410yz8746" },
+  "description": {
+    "title": [
+      {
+        "structuredValue": [],
+        "parallelValue": [],
+        "groupedValue": [],
+        "value": "hierarchical files integration test Pickling Spice Cinnamon",
+        "identifier": [],
+        "note": [],
+        "appliesTo": []
+      }
+    ],
+    "contributor": [],
+    "event": [],
+    "form": [],
+    "geographic": [],
+    "language": [],
+    "note": [],
+    "identifier": [],
+    "subject": [],
+    "relatedResource": [],
+    "marcEncodedData": [],
+    "purl": "https://sul-purl-stage.stanford.edu/bh114dk3076"
+  },
+  "identification": {
+    "catalogLinks": [],
+    "sourceId": "hierarchical-files-integration-test:tit-ckqkvf"
+  },
+  "structural": {
+    "contains": [
+      {
+        "type": "https://cocina.sul.stanford.edu/models/resources/file",
+        "externalIdentifier": "bh114dk3076_1",
+        "label": "File 1",
+        "version": 1,
+        "structural": {
+          "contains": [
+            {
+              "type": "https://cocina.sul.stanford.edu/models/file",
+              "externalIdentifier": "https://cocina.sul.stanford.edu/file/a2a4ef01-4f70-4e24-9394-f63bd7cd467a",
+              "label": "README.md",
+              "filename": "README.md",
+              "size": 5845,
+              "version": 1,
+              "hasMimeType": "text/plain",
+              "sdrGeneratedText": false,
+              "correctedForAccessibility": false,
+              "hasMessageDigests": [
+                { "type": "md5", "digest": "8ca6be49f597a9018325204430855924" },
+                {
+                  "type": "sha1",
+                  "digest": "3077a78d28cc358ec215a2a95453dff497c406b6"
+                }
+              ],
+              "access": {
+                "view": "world",
+                "download": "world",
+                "controlledDigitalLending": false
+              },
+              "administrative": {
+                "publish": true,
+                "sdrPreserve": true,
+                "shelve": true
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "https://cocina.sul.stanford.edu/models/resources/file",
+        "externalIdentifier": "bh114dk3076_2",
+        "label": "File 2",
+        "version": 1,
+        "structural": {
+          "contains": [
+            {
+              "type": "https://cocina.sul.stanford.edu/models/file",
+              "externalIdentifier": "https://cocina.sul.stanford.edu/file/68e08a02-05c8-4e12-acb9-cb5f6a6fab4a",
+              "label": "config/settings.yml",
+              "filename": "config/settings.yml",
+              "size": 886,
+              "version": 1,
+              "hasMimeType": "text/plain",
+              "sdrGeneratedText": false,
+              "correctedForAccessibility": false,
+              "hasMessageDigests": [
+                { "type": "md5", "digest": "24f1469879953e398df770907195e108" },
+                {
+                  "type": "sha1",
+                  "digest": "fada9229f34c991ae913fb12282d09d54cfa5275"
+                }
+              ],
+              "access": {
+                "view": "world",
+                "download": "world",
+                "controlledDigitalLending": false
+              },
+              "administrative": {
+                "publish": true,
+                "sdrPreserve": true,
+                "shelve": true
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "https://cocina.sul.stanford.edu/models/resources/file",
+        "externalIdentifier": "bh114dk3076_3",
+        "label": "File 3",
+        "version": 1,
+        "structural": {
+          "contains": [
+            {
+              "type": "https://cocina.sul.stanford.edu/models/file",
+              "externalIdentifier": "https://cocina.sul.stanford.edu/file/cddf8248-0f52-4a97-81d5-708c0680aafe",
+              "label": "config/settings/qa.yml",
+              "filename": "config/settings/qa.yml",
+              "size": 900,
+              "version": 1,
+              "hasMimeType": "text/plain",
+              "sdrGeneratedText": false,
+              "correctedForAccessibility": false,
+              "hasMessageDigests": [
+                { "type": "md5", "digest": "b281c667dc43cb60db8e24c5297109c7" },
+                {
+                  "type": "sha1",
+                  "digest": "64a8119d0b3ce39430ec641da4eb87c30c496d97"
+                }
+              ],
+              "access": {
+                "view": "world",
+                "download": "world",
+                "controlledDigitalLending": false
+              },
+              "administrative": {
+                "publish": true,
+                "sdrPreserve": true,
+                "shelve": true
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "https://cocina.sul.stanford.edu/models/resources/file",
+        "externalIdentifier": "bh114dk3076_4",
+        "label": "File 4",
+        "version": 1,
+        "structural": {
+          "contains": [
+            {
+              "type": "https://cocina.sul.stanford.edu/models/file",
+              "externalIdentifier": "https://cocina.sul.stanford.edu/file/0122133d-257d-46ac-8aa4-c37f40ebb320",
+              "label": "config/settings/settings.yml",
+              "filename": "config/settings/settings.yml",
+              "size": 886,
+              "version": 1,
+              "hasMimeType": "text/plain",
+              "sdrGeneratedText": false,
+              "correctedForAccessibility": false,
+              "hasMessageDigests": [
+                { "type": "md5", "digest": "24f1469879953e398df770907195e108" },
+                {
+                  "type": "sha1",
+                  "digest": "fada9229f34c991ae913fb12282d09d54cfa5275"
+                }
+              ],
+              "access": {
+                "view": "world",
+                "download": "world",
+                "controlledDigitalLending": false
+              },
+              "administrative": {
+                "publish": true,
+                "sdrPreserve": true,
+                "shelve": true
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "https://cocina.sul.stanford.edu/models/resources/file",
+        "externalIdentifier": "bh114dk3076_5",
+        "label": "File 5",
+        "version": 1,
+        "structural": {
+          "contains": [
+            {
+              "type": "https://cocina.sul.stanford.edu/models/file",
+              "externalIdentifier": "https://cocina.sul.stanford.edu/file/ddbd323d-0dd9-4f14-ba72-336c2bccfb29",
+              "label": "config/settings/staging.yml",
+              "filename": "config/settings/staging.yml",
+              "size": 905,
+              "version": 1,
+              "hasMimeType": "text/plain",
+              "sdrGeneratedText": false,
+              "correctedForAccessibility": false,
+              "hasMessageDigests": [
+                { "type": "md5", "digest": "648eec510bdd5af43540678a60cf46f4" },
+                {
+                  "type": "sha1",
+                  "digest": "4d01f23561eaef989fb8bdb2f77e8c5bb50e27e6"
+                }
+              ],
+              "access": {
+                "view": "world",
+                "download": "world",
+                "controlledDigitalLending": false
+              },
+              "administrative": {
+                "publish": true,
+                "sdrPreserve": true,
+                "shelve": true
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "hasMemberOrders": [],
+    "isMemberOf": ["druid:bc778pm9866"]
+  }
+}

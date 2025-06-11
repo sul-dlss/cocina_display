@@ -13,3 +13,9 @@ RSpec.configure do |config|
     c.syntax = :expect
   end
 end
+
+# This method is normally provided by ActiveSupport, but easy enough to define
+# on our own and save a dependency
+def file_fixture(filename)
+  File.join(File.dirname(__FILE__), "fixtures", filename)
+end
