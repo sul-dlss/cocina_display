@@ -12,6 +12,10 @@ module CocinaDisplay
       @cocina_doc = JSON.parse(cocina_json)
     end
 
+    def path(path_expression)
+      Janeway.enum_for(path_expression, cocina_doc)
+    end
+
     def druid
       cocina_doc["externalIdentifier"]
     end
@@ -20,8 +24,10 @@ module CocinaDisplay
       druid.delete_prefix("druid:")
     end
 
-    def path(path_expression)
-      Janeway.enum_for(path_expression, cocina_doc)
+    # Only present if there is a FOLIO catalog link; item may still be in the
+    # catalog under its DRUID. Ignores old and non-refresh catalog links.
+    def catkey
+      path("$.identification.catalogLinks[?(@.catalog == 'folio' && @.refresh == true)].catalogRecordId").first
     end
 
     def created_time

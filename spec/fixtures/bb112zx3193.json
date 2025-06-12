@@ -1,1 +1,1000 @@
-{"cocinaVersion":"0.75.0","type":"https://cocina.sul.stanford.edu/models/image","externalIdentifier":"druid:bb112zx3193","label":"Bugatti Type 51A. Road \u0026 Track Salon January 1957","version":6,"access":{"view":"world","download":"none","controlledDigitalLending":false,"useAndReproductionStatement":"Property rights reside with the repository. Copyright resides with the creators of the documents or their heirs. To obtain permission to publish or reproduce, please contact the Special Collections Public Services Librarian at specialcollections@stanford.edu."},"administrative":{"hasAdminPolicy":"druid:sj905ty7979","releaseTags":[{"who":"cebraj","what":"self","date":"2021-01-22T22:22:33.000+00:00","to":"Searchworks","release":true}]},"description":{"title":[{"structuredValue":[],"parallelValue":[],"groupedValue":[],"value":"Bugatti Type 51A. Road \u0026 Track Salon January 1957","identifier":[],"note":[],"appliesTo":[]}],"contributor":[{"name":[{"structuredValue":[],"parallelValue":[],"groupedValue":[],"value":"Hearst Magazines, Inc.","uri":"http://id.loc.gov/authorities/names/n2015050736","identifier":[],"source":{"code":"naf","uri":"http://id.loc.gov/authorities/names/","note":[]},"note":[],"appliesTo":[]}],"type":"organization","status":"primary","role":[{"structuredValue":[],"parallelValue":[],"groupedValue":[],"value":"former owner","code":"fmo","uri":"http://id.loc.gov/vocabulary/relators/fmo","identifier":[],"source":{"code":"marcrelator","uri":"http://id.loc.gov/vocabulary/relators/","note":[]},"note":[],"appliesTo":[]}],"identifier":[],"note":[],"parallelContributor":[]},{"name":[{"structuredValue":[],"parallelValue":[],"groupedValue":[],"value":"Chesebrough, Jerry","identifier":[],"note":[],"appliesTo":[]}],"type":"person","role":[{"structuredValue":[],"parallelValue":[],"groupedValue":[],"value":"photographer","code":"pht","uri":"http://id.loc.gov/vocabulary/relators/pht","identifier":[],"source":{"code":"marcrelator","uri":"http://id.loc.gov/vocabulary/relators/","note":[]},"note":[],"appliesTo":[]}],"identifier":[],"note":[],"parallelContributor":[]}],"event":[{"structuredValue":[],"date":[{"structuredValue":[{"structuredValue":[],"parallelValue":[],"groupedValue":[],"value":"1957","type":"start","status":"primary","identifier":[],"note":[],"appliesTo":[]},{"structuredValue":[],"parallelValue":[],"groupedValue":[],"value":"1961","type":"end","identifier":[],"note":[],"appliesTo":[]}],"parallelValue":[],"groupedValue":[],"type":"creation","encoding":{"code":"w3cdtf","note":[]},"identifier":[],"qualifier":"approximate","note":[],"appliesTo":[]}],"contributor":[],"location":[],"identifier":[],"note":[],"parallelEvent":[]}],"form":[{"structuredValue":[],"parallelValue":[],"groupedValue":[],"value":"Photographic prints","type":"genre","uri":"http://vocab.getty.edu/aat/300127104","identifier":[],"source":{"code":"aat","uri":"http://vocab.getty.edu/aat/","note":[]},"note":[],"appliesTo":[]},{"structuredValue":[],"parallelValue":[],"groupedValue":[],"value":"still image","type":"resource type","identifier":[],"source":{"value":"MODS resource types","note":[]},"note":[],"appliesTo":[]},{"structuredValue":[],"parallelValue":[],"groupedValue":[],"value":"access","type":"reformatting quality","identifier":[],"source":{"value":"MODS reformatting quality terms","note":[]},"note":[],"appliesTo":[]},{"structuredValue":[],"parallelValue":[],"groupedValue":[],"value":"image/tiff","type":"media type","identifier":[],"source":{"value":"IANA media types","note":[]},"note":[],"appliesTo":[]},{"structuredValue":[],"parallelValue":[],"groupedValue":[],"value":"1 folder","type":"extent","identifier":[],"note":[],"appliesTo":[]},{"structuredValue":[],"parallelValue":[],"groupedValue":[],"value":"reformatted digital","type":"digital origin","identifier":[],"source":{"value":"MODS digital origin terms","note":[]},"note":[],"appliesTo":[]}],"geographic":[],"language":[{"appliesTo":[],"code":"eng","groupedValue":[],"note":[],"parallelValue":[],"source":{"code":"iso639-2b","uri":"http://id.loc.gov/vocabulary/iso639-2","note":[]},"structuredValue":[],"uri":"http://id.loc.gov/vocabulary/iso639-2/eng","value":"English"}],"note":[{"structuredValue":[],"parallelValue":[],"groupedValue":[],"value":"Black and white photographic prints of the Bugatti Type 51A, used in issues of Road and Track magazine between 1957 and 1961.","type":"abstract","identifier":[],"note":[],"appliesTo":[]}],"identifier":[{"structuredValue":[],"parallelValue":[],"groupedValue":[],"value":"M1919_b129_f02","type":"local","identifier":[],"source":{"code":"local","note":[]},"displayLabel":"Source ID","note":[],"appliesTo":[]}],"subject":[{"structuredValue":[],"parallelValue":[],"groupedValue":[],"value":"Bugatti","type":"topic","identifier":[],"source":{"code":"local","note":[]},"displayLabel":"Marque","note":[],"appliesTo":[]},{"structuredValue":[],"parallelValue":[],"groupedValue":[],"value":"Bugatti T51A","type":"topic","identifier":[],"source":{"code":"local","note":[]},"displayLabel":"Model","note":[],"appliesTo":[]},{"structuredValue":[],"parallelValue":[],"groupedValue":[],"value":"Bugatti automobile","type":"topic","uri":"http://id.loc.gov/authorities/subjects/sh85017666","identifier":[],"source":{"code":"lcsh","uri":"http://id.loc.gov/authorities/subjects/","note":[]},"note":[],"appliesTo":[]}],"access":{"url":[],"physicalLocation":[{"structuredValue":[],"parallelValue":[],"groupedValue":[],"value":"M1919","type":"shelf locator","identifier":[],"note":[],"appliesTo":[]}],"digitalLocation":[{"structuredValue":[],"parallelValue":[],"groupedValue":[],"value":"Box 129, Folder 2","type":"discovery","identifier":[],"note":[],"appliesTo":[]}],"accessContact":[{"structuredValue":[],"parallelValue":[],"groupedValue":[],"value":"Stanford University. Libraries. Department of Special Collections and University Archives","type":"repository","uri":"http://id.loc.gov/authorities/names/no2014019980","identifier":[],"source":{"code":"naf","note":[]},"note":[],"appliesTo":[]}],"digitalRepository":[],"note":[]},"relatedResource":[],"marcEncodedData":[],"adminMetadata":{"contributor":[{"name":[{"structuredValue":[],"parallelValue":[],"groupedValue":[],"code":"CSt","uri":"http://id.loc.gov/vocabulary/organizations/cst","identifier":[],"source":{"code":"marcorg","uri":"http://id.loc.gov/vocabulary/organizations","note":[]},"note":[],"appliesTo":[]}],"type":"organization","role":[{"structuredValue":[],"parallelValue":[],"groupedValue":[],"value":"original cataloging agency","identifier":[],"note":[],"appliesTo":[]}],"identifier":[],"note":[],"parallelContributor":[]}],"event":[],"language":[{"appliesTo":[],"code":"eng","groupedValue":[],"note":[],"parallelValue":[],"source":{"code":"iso639-2b","uri":"http://id.loc.gov/vocabulary/iso639-2","note":[]},"structuredValue":[],"uri":"http://id.loc.gov/vocabulary/iso639-2/eng"}],"note":[{"structuredValue":[],"parallelValue":[],"groupedValue":[],"value":"human prepared","type":"record origin","identifier":[],"note":[],"appliesTo":[]}],"metadataStandard":[],"identifier":[]},"purl":"https://purl.stanford.edu/bb112zx3193"},"identification":{"catalogLinks":[],"sourceId":"sul:M1919_b129_f2"},"structural":{"contains":[{"type":"https://cocina.sul.stanford.edu/models/resources/image","externalIdentifier":"https://cocina.sul.stanford.edu/fileSet/bb112zx3193-bb112zx3193_1","label":"Image 1","version":6,"structural":{"contains":[{"type":"https://cocina.sul.stanford.edu/models/file","externalIdentifier":"https://cocina.sul.stanford.edu/file/bb112zx3193-bb112zx3193_1/bb112zx3193_00_0001.jp2","label":"bb112zx3193_00_0001.jp2","filename":"bb112zx3193_00_0001.jp2","size":3356880,"version":6,"hasMimeType":"image/jp2","hasMessageDigests":[{"type":"sha1","digest":"77ac46107a812b3ae2ca27060308a77def214411"},{"type":"md5","digest":"2b340d20282d1913d80615f1f7df1c07"}],"access":{"view":"world","download":"none","controlledDigitalLending":false},"administrative":{"publish":true,"sdrPreserve":false,"shelve":true},"presentation":{"height":3704,"width":4804}}]}},{"type":"https://cocina.sul.stanford.edu/models/resources/image","externalIdentifier":"https://cocina.sul.stanford.edu/fileSet/bb112zx3193-bb112zx3193_2","label":"Image 2","version":6,"structural":{"contains":[{"type":"https://cocina.sul.stanford.edu/models/file","externalIdentifier":"https://cocina.sul.stanford.edu/file/bb112zx3193-bb112zx3193_2/bb112zx3193_00_0002.jp2","label":"bb112zx3193_00_0002.jp2","filename":"bb112zx3193_00_0002.jp2","size":2584185,"version":6,"hasMimeType":"image/jp2","hasMessageDigests":[{"type":"sha1","digest":"bbd4e74c9bd84495219472238285ed3b75a2dc7c"},{"type":"md5","digest":"33a84c8f003963978d83c464e210fb4d"}],"access":{"view":"world","download":"none","controlledDigitalLending":false},"administrative":{"publish":true,"sdrPreserve":false,"shelve":true},"presentation":{"height":3337,"width":4101}}]}},{"type":"https://cocina.sul.stanford.edu/models/resources/image","externalIdentifier":"https://cocina.sul.stanford.edu/fileSet/bb112zx3193-bb112zx3193_3","label":"Image 3","version":6,"structural":{"contains":[{"type":"https://cocina.sul.stanford.edu/models/file","externalIdentifier":"https://cocina.sul.stanford.edu/file/bb112zx3193-bb112zx3193_3/bb112zx3193_00_0003.jp2","label":"bb112zx3193_00_0003.jp2","filename":"bb112zx3193_00_0003.jp2","size":2586556,"version":6,"hasMimeType":"image/jp2","hasMessageDigests":[{"type":"sha1","digest":"5f9b15e7b76ad8361650bf833852554c98b76b32"},{"type":"md5","digest":"0e0c55b754562cd9cfeff7cbbbcc3c7f"}],"access":{"view":"world","download":"none","controlledDigitalLending":false},"administrative":{"publish":true,"sdrPreserve":false,"shelve":true},"presentation":{"height":3337,"width":4101}}]}},{"type":"https://cocina.sul.stanford.edu/models/resources/image","externalIdentifier":"https://cocina.sul.stanford.edu/fileSet/bb112zx3193-bb112zx3193_4","label":"Image 4","version":6,"structural":{"contains":[{"type":"https://cocina.sul.stanford.edu/models/file","externalIdentifier":"https://cocina.sul.stanford.edu/file/bb112zx3193-bb112zx3193_4/bb112zx3193_00_0004.jp2","label":"bb112zx3193_00_0004.jp2","filename":"bb112zx3193_00_0004.jp2","size":2584086,"version":6,"hasMimeType":"image/jp2","hasMessageDigests":[{"type":"sha1","digest":"d8ddd8aa28b00ee977e0e28c60f4a25cb8116a8c"},{"type":"md5","digest":"ce95ace3ddab26e42db284b7ced1a4d8"}],"access":{"view":"world","download":"none","controlledDigitalLending":false},"administrative":{"publish":true,"sdrPreserve":false,"shelve":true},"presentation":{"height":3337,"width":4101}}]}},{"type":"https://cocina.sul.stanford.edu/models/resources/image","externalIdentifier":"https://cocina.sul.stanford.edu/fileSet/bb112zx3193-bb112zx3193_5","label":"Image 5","version":6,"structural":{"contains":[{"type":"https://cocina.sul.stanford.edu/models/file","externalIdentifier":"https://cocina.sul.stanford.edu/file/bb112zx3193-bb112zx3193_5/bb112zx3193_00_0005.jp2","label":"bb112zx3193_00_0005.jp2","filename":"bb112zx3193_00_0005.jp2","size":2586450,"version":6,"hasMimeType":"image/jp2","hasMessageDigests":[{"type":"sha1","digest":"aaa0c849bbcf5abafb5631144426962c15b606c4"},{"type":"md5","digest":"983133bcff36b29f8422834913c3bcdb"}],"access":{"view":"world","download":"none","controlledDigitalLending":false},"administrative":{"publish":true,"sdrPreserve":false,"shelve":true},"presentation":{"height":3337,"width":4101}}]}},{"type":"https://cocina.sul.stanford.edu/models/resources/image","externalIdentifier":"https://cocina.sul.stanford.edu/fileSet/bb112zx3193-bb112zx3193_6","label":"Image 6","version":6,"structural":{"contains":[{"type":"https://cocina.sul.stanford.edu/models/file","externalIdentifier":"https://cocina.sul.stanford.edu/file/bb112zx3193-bb112zx3193_6/bb112zx3193_00_0006.jp2","label":"bb112zx3193_00_0006.jp2","filename":"bb112zx3193_00_0006.jp2","size":2584159,"version":6,"hasMimeType":"image/jp2","hasMessageDigests":[{"type":"sha1","digest":"771e563705aac6c0168fee7b29bb44d8fe7703fc"},{"type":"md5","digest":"b825f535c6123c4e80847d9ec00dbba9"}],"access":{"view":"world","download":"none","controlledDigitalLending":false},"administrative":{"publish":true,"sdrPreserve":false,"shelve":true},"presentation":{"height":3337,"width":4101}}]}},{"type":"https://cocina.sul.stanford.edu/models/resources/image","externalIdentifier":"https://cocina.sul.stanford.edu/fileSet/bb112zx3193-bb112zx3193_7","label":"Image 7","version":6,"structural":{"contains":[{"type":"https://cocina.sul.stanford.edu/models/file","externalIdentifier":"https://cocina.sul.stanford.edu/file/bb112zx3193-bb112zx3193_7/bb112zx3193_00_0007.jp2","label":"bb112zx3193_00_0007.jp2","filename":"bb112zx3193_00_0007.jp2","size":2586327,"version":6,"hasMimeType":"image/jp2","hasMessageDigests":[{"type":"sha1","digest":"a892faf747c35b8beaf38e6597ab6197dda9d4d6"},{"type":"md5","digest":"fe6ea9f4d0d9f9908485a2d777dc56d5"}],"access":{"view":"world","download":"none","controlledDigitalLending":false},"administrative":{"publish":true,"sdrPreserve":false,"shelve":true},"presentation":{"height":3337,"width":4101}}]}},{"type":"https://cocina.sul.stanford.edu/models/resources/image","externalIdentifier":"https://cocina.sul.stanford.edu/fileSet/bb112zx3193-bb112zx3193_8","label":"Image 8","version":6,"structural":{"contains":[{"type":"https://cocina.sul.stanford.edu/models/file","externalIdentifier":"https://cocina.sul.stanford.edu/file/bb112zx3193-bb112zx3193_8/bb112zx3193_00_0008.jp2","label":"bb112zx3193_00_0008.jp2","filename":"bb112zx3193_00_0008.jp2","size":2584162,"version":6,"hasMimeType":"image/jp2","hasMessageDigests":[{"type":"sha1","digest":"e542366c4c86c15b3867f0325274b0a65d11c202"},{"type":"md5","digest":"7cc36abd52a87f1ab02d81d30cc60d14"}],"access":{"view":"world","download":"none","controlledDigitalLending":false},"administrative":{"publish":true,"sdrPreserve":false,"shelve":true},"presentation":{"height":3337,"width":4101}}]}},{"type":"https://cocina.sul.stanford.edu/models/resources/image","externalIdentifier":"https://cocina.sul.stanford.edu/fileSet/bb112zx3193-bb112zx3193_9","label":"Image 9","version":6,"structural":{"contains":[{"type":"https://cocina.sul.stanford.edu/models/file","externalIdentifier":"https://cocina.sul.stanford.edu/file/bb112zx3193-bb112zx3193_9/bb112zx3193_00_0009.jp2","label":"bb112zx3193_00_0009.jp2","filename":"bb112zx3193_00_0009.jp2","size":2586535,"version":6,"hasMimeType":"image/jp2","hasMessageDigests":[{"type":"sha1","digest":"7bd851a7c28b70bde8080f2e865e2e0f48daa5f7"},{"type":"md5","digest":"9e29d2b5b58d8740b350e4c10c131517"}],"access":{"view":"world","download":"none","controlledDigitalLending":false},"administrative":{"publish":true,"sdrPreserve":false,"shelve":true},"presentation":{"height":3337,"width":4101}}]}},{"type":"https://cocina.sul.stanford.edu/models/resources/image","externalIdentifier":"https://cocina.sul.stanford.edu/fileSet/bb112zx3193-bb112zx3193_10","label":"Image 10","version":6,"structural":{"contains":[{"type":"https://cocina.sul.stanford.edu/models/file","externalIdentifier":"https://cocina.sul.stanford.edu/file/bb112zx3193-bb112zx3193_10/bb112zx3193_00_0010.jp2","label":"bb112zx3193_00_0010.jp2","filename":"bb112zx3193_00_0010.jp2","size":2584031,"version":6,"hasMimeType":"image/jp2","hasMessageDigests":[{"type":"sha1","digest":"bbd86fc756b087448df6668a4a283ce30021d948"},{"type":"md5","digest":"f45dad1e77f5c5dbdcc18f7f7b55884b"}],"access":{"view":"world","download":"none","controlledDigitalLending":false},"administrative":{"publish":true,"sdrPreserve":false,"shelve":true},"presentation":{"height":3337,"width":4101}}]}},{"type":"https://cocina.sul.stanford.edu/models/resources/image","externalIdentifier":"https://cocina.sul.stanford.edu/fileSet/bb112zx3193-bb112zx3193_11","label":"Image 11","version":6,"structural":{"contains":[{"type":"https://cocina.sul.stanford.edu/models/file","externalIdentifier":"https://cocina.sul.stanford.edu/file/bb112zx3193-bb112zx3193_11/bb112zx3193_00_0011.jp2","label":"bb112zx3193_00_0011.jp2","filename":"bb112zx3193_00_0011.jp2","size":2586387,"version":6,"hasMimeType":"image/jp2","hasMessageDigests":[{"type":"sha1","digest":"61f5abebc5d7fed77aac2c4536c572c956a390ce"},{"type":"md5","digest":"94af1e90b14368cea871b4d7188f26a9"}],"access":{"view":"world","download":"none","controlledDigitalLending":false},"administrative":{"publish":true,"sdrPreserve":false,"shelve":true},"presentation":{"height":3337,"width":4101}}]}},{"type":"https://cocina.sul.stanford.edu/models/resources/image","externalIdentifier":"https://cocina.sul.stanford.edu/fileSet/bb112zx3193-bb112zx3193_12","label":"Image 12","version":6,"structural":{"contains":[{"type":"https://cocina.sul.stanford.edu/models/file","externalIdentifier":"https://cocina.sul.stanford.edu/file/bb112zx3193-bb112zx3193_12/bb112zx3193_00_0012.jp2","label":"bb112zx3193_00_0012.jp2","filename":"bb112zx3193_00_0012.jp2","size":2167883,"version":6,"hasMimeType":"image/jp2","hasMessageDigests":[{"type":"sha1","digest":"67d610f9e49659c539639b274cb0717cbb451cca"},{"type":"md5","digest":"73e9508b94bea9258778e4722c324175"}],"access":{"view":"world","download":"none","controlledDigitalLending":false},"administrative":{"publish":true,"sdrPreserve":false,"shelve":true},"presentation":{"height":2734,"width":4197}}]}},{"type":"https://cocina.sul.stanford.edu/models/resources/image","externalIdentifier":"https://cocina.sul.stanford.edu/fileSet/bb112zx3193-bb112zx3193_13","label":"Image 13","version":6,"structural":{"contains":[{"type":"https://cocina.sul.stanford.edu/models/file","externalIdentifier":"https://cocina.sul.stanford.edu/file/bb112zx3193-bb112zx3193_13/bb112zx3193_00_0013.jp2","label":"bb112zx3193_00_0013.jp2","filename":"bb112zx3193_00_0013.jp2","size":2170431,"version":6,"hasMimeType":"image/jp2","hasMessageDigests":[{"type":"sha1","digest":"8db0624503fe9c440788465b11200bd6f51e8574"},{"type":"md5","digest":"f5a703bfb33cbd47103f080230a813e6"}],"access":{"view":"world","download":"none","controlledDigitalLending":false},"administrative":{"publish":true,"sdrPreserve":false,"shelve":true},"presentation":{"height":2734,"width":4197}}]}},{"type":"https://cocina.sul.stanford.edu/models/resources/image","externalIdentifier":"https://cocina.sul.stanford.edu/fileSet/bb112zx3193-bb112zx3193_14","label":"Image 14","version":6,"structural":{"contains":[{"type":"https://cocina.sul.stanford.edu/models/file","externalIdentifier":"https://cocina.sul.stanford.edu/file/bb112zx3193-bb112zx3193_14/bb112zx3193_00_0014.jp2","label":"bb112zx3193_00_0014.jp2","filename":"bb112zx3193_00_0014.jp2","size":2143876,"version":6,"hasMimeType":"image/jp2","hasMessageDigests":[{"type":"sha1","digest":"7d799297c8f06bde5bb2efa63d5ba85b340ba6e8"},{"type":"md5","digest":"d3dd9863735404fe9b31e0152f52fe31"}],"access":{"view":"world","download":"none","controlledDigitalLending":false},"administrative":{"publish":true,"sdrPreserve":false,"shelve":true},"presentation":{"height":3042,"width":3731}}]}},{"type":"https://cocina.sul.stanford.edu/models/resources/image","externalIdentifier":"https://cocina.sul.stanford.edu/fileSet/bb112zx3193-bb112zx3193_15","label":"Image 15","version":6,"structural":{"contains":[{"type":"https://cocina.sul.stanford.edu/models/file","externalIdentifier":"https://cocina.sul.stanford.edu/file/bb112zx3193-bb112zx3193_15/bb112zx3193_00_0015.jp2","label":"bb112zx3193_00_0015.jp2","filename":"bb112zx3193_00_0015.jp2","size":2146224,"version":6,"hasMimeType":"image/jp2","hasMessageDigests":[{"type":"sha1","digest":"e84fcf1a43990aef11656a4479884e909de7bb64"},{"type":"md5","digest":"f1281f5343e5fd82c78c5ad0cdca0b51"}],"access":{"view":"world","download":"none","controlledDigitalLending":false},"administrative":{"publish":true,"sdrPreserve":false,"shelve":true},"presentation":{"height":3042,"width":3731}}]}}],"hasMemberOrders":[],"isMemberOf":["druid:mr163sv5231"]},"created":"2022-04-26T18:17:45.000+00:00","modified":"2022-04-26T18:17:45.000+00:00","lock":"druid:bb112zx3193=0"}
+{
+  "cocinaVersion": "0.75.0",
+  "type": "https://cocina.sul.stanford.edu/models/image",
+  "externalIdentifier": "druid:bb112zx3193",
+  "label": "Bugatti Type 51A. Road \u0026 Track Salon January 1957",
+  "version": 6,
+  "access": {
+    "view": "world",
+    "download": "none",
+    "controlledDigitalLending": false,
+    "useAndReproductionStatement": "Property rights reside with the repository. Copyright resides with the creators of the documents or their heirs. To obtain permission to publish or reproduce, please contact the Special Collections Public Services Librarian at specialcollections@stanford.edu."
+  },
+  "administrative": {
+    "hasAdminPolicy": "druid:sj905ty7979",
+    "releaseTags": [
+      {
+        "who": "cebraj",
+        "what": "self",
+        "date": "2021-01-22T22:22:33.000+00:00",
+        "to": "Searchworks",
+        "release": true
+      }
+    ]
+  },
+  "description": {
+    "title": [
+      {
+        "structuredValue": [],
+        "parallelValue": [],
+        "groupedValue": [],
+        "value": "Bugatti Type 51A. Road \u0026 Track Salon January 1957",
+        "identifier": [],
+        "note": [],
+        "appliesTo": []
+      }
+    ],
+    "contributor": [
+      {
+        "name": [
+          {
+            "structuredValue": [],
+            "parallelValue": [],
+            "groupedValue": [],
+            "value": "Hearst Magazines, Inc.",
+            "uri": "http://id.loc.gov/authorities/names/n2015050736",
+            "identifier": [],
+            "source": {
+              "code": "naf",
+              "uri": "http://id.loc.gov/authorities/names/",
+              "note": []
+            },
+            "note": [],
+            "appliesTo": []
+          }
+        ],
+        "type": "organization",
+        "status": "primary",
+        "role": [
+          {
+            "structuredValue": [],
+            "parallelValue": [],
+            "groupedValue": [],
+            "value": "former owner",
+            "code": "fmo",
+            "uri": "http://id.loc.gov/vocabulary/relators/fmo",
+            "identifier": [],
+            "source": {
+              "code": "marcrelator",
+              "uri": "http://id.loc.gov/vocabulary/relators/",
+              "note": []
+            },
+            "note": [],
+            "appliesTo": []
+          }
+        ],
+        "identifier": [],
+        "note": [],
+        "parallelContributor": []
+      },
+      {
+        "name": [
+          {
+            "structuredValue": [],
+            "parallelValue": [],
+            "groupedValue": [],
+            "value": "Chesebrough, Jerry",
+            "identifier": [],
+            "note": [],
+            "appliesTo": []
+          }
+        ],
+        "type": "person",
+        "role": [
+          {
+            "structuredValue": [],
+            "parallelValue": [],
+            "groupedValue": [],
+            "value": "photographer",
+            "code": "pht",
+            "uri": "http://id.loc.gov/vocabulary/relators/pht",
+            "identifier": [],
+            "source": {
+              "code": "marcrelator",
+              "uri": "http://id.loc.gov/vocabulary/relators/",
+              "note": []
+            },
+            "note": [],
+            "appliesTo": []
+          }
+        ],
+        "identifier": [],
+        "note": [],
+        "parallelContributor": []
+      }
+    ],
+    "event": [
+      {
+        "structuredValue": [],
+        "date": [
+          {
+            "structuredValue": [
+              {
+                "structuredValue": [],
+                "parallelValue": [],
+                "groupedValue": [],
+                "value": "1957",
+                "type": "start",
+                "status": "primary",
+                "identifier": [],
+                "note": [],
+                "appliesTo": []
+              },
+              {
+                "structuredValue": [],
+                "parallelValue": [],
+                "groupedValue": [],
+                "value": "1961",
+                "type": "end",
+                "identifier": [],
+                "note": [],
+                "appliesTo": []
+              }
+            ],
+            "parallelValue": [],
+            "groupedValue": [],
+            "type": "creation",
+            "encoding": { "code": "w3cdtf", "note": [] },
+            "identifier": [],
+            "qualifier": "approximate",
+            "note": [],
+            "appliesTo": []
+          }
+        ],
+        "contributor": [],
+        "location": [],
+        "identifier": [],
+        "note": [],
+        "parallelEvent": []
+      }
+    ],
+    "form": [
+      {
+        "structuredValue": [],
+        "parallelValue": [],
+        "groupedValue": [],
+        "value": "Photographic prints",
+        "type": "genre",
+        "uri": "http://vocab.getty.edu/aat/300127104",
+        "identifier": [],
+        "source": {
+          "code": "aat",
+          "uri": "http://vocab.getty.edu/aat/",
+          "note": []
+        },
+        "note": [],
+        "appliesTo": []
+      },
+      {
+        "structuredValue": [],
+        "parallelValue": [],
+        "groupedValue": [],
+        "value": "still image",
+        "type": "resource type",
+        "identifier": [],
+        "source": { "value": "MODS resource types", "note": [] },
+        "note": [],
+        "appliesTo": []
+      },
+      {
+        "structuredValue": [],
+        "parallelValue": [],
+        "groupedValue": [],
+        "value": "access",
+        "type": "reformatting quality",
+        "identifier": [],
+        "source": { "value": "MODS reformatting quality terms", "note": [] },
+        "note": [],
+        "appliesTo": []
+      },
+      {
+        "structuredValue": [],
+        "parallelValue": [],
+        "groupedValue": [],
+        "value": "image/tiff",
+        "type": "media type",
+        "identifier": [],
+        "source": { "value": "IANA media types", "note": [] },
+        "note": [],
+        "appliesTo": []
+      },
+      {
+        "structuredValue": [],
+        "parallelValue": [],
+        "groupedValue": [],
+        "value": "1 folder",
+        "type": "extent",
+        "identifier": [],
+        "note": [],
+        "appliesTo": []
+      },
+      {
+        "structuredValue": [],
+        "parallelValue": [],
+        "groupedValue": [],
+        "value": "reformatted digital",
+        "type": "digital origin",
+        "identifier": [],
+        "source": { "value": "MODS digital origin terms", "note": [] },
+        "note": [],
+        "appliesTo": []
+      }
+    ],
+    "geographic": [],
+    "language": [
+      {
+        "appliesTo": [],
+        "code": "eng",
+        "groupedValue": [],
+        "note": [],
+        "parallelValue": [],
+        "source": {
+          "code": "iso639-2b",
+          "uri": "http://id.loc.gov/vocabulary/iso639-2",
+          "note": []
+        },
+        "structuredValue": [],
+        "uri": "http://id.loc.gov/vocabulary/iso639-2/eng",
+        "value": "English"
+      }
+    ],
+    "note": [
+      {
+        "structuredValue": [],
+        "parallelValue": [],
+        "groupedValue": [],
+        "value": "Black and white photographic prints of the Bugatti Type 51A, used in issues of Road and Track magazine between 1957 and 1961.",
+        "type": "abstract",
+        "identifier": [],
+        "note": [],
+        "appliesTo": []
+      }
+    ],
+    "identifier": [
+      {
+        "structuredValue": [],
+        "parallelValue": [],
+        "groupedValue": [],
+        "value": "M1919_b129_f02",
+        "type": "local",
+        "identifier": [],
+        "source": { "code": "local", "note": [] },
+        "displayLabel": "Source ID",
+        "note": [],
+        "appliesTo": []
+      }
+    ],
+    "subject": [
+      {
+        "structuredValue": [],
+        "parallelValue": [],
+        "groupedValue": [],
+        "value": "Bugatti",
+        "type": "topic",
+        "identifier": [],
+        "source": { "code": "local", "note": [] },
+        "displayLabel": "Marque",
+        "note": [],
+        "appliesTo": []
+      },
+      {
+        "structuredValue": [],
+        "parallelValue": [],
+        "groupedValue": [],
+        "value": "Bugatti T51A",
+        "type": "topic",
+        "identifier": [],
+        "source": { "code": "local", "note": [] },
+        "displayLabel": "Model",
+        "note": [],
+        "appliesTo": []
+      },
+      {
+        "structuredValue": [],
+        "parallelValue": [],
+        "groupedValue": [],
+        "value": "Bugatti automobile",
+        "type": "topic",
+        "uri": "http://id.loc.gov/authorities/subjects/sh85017666",
+        "identifier": [],
+        "source": {
+          "code": "lcsh",
+          "uri": "http://id.loc.gov/authorities/subjects/",
+          "note": []
+        },
+        "note": [],
+        "appliesTo": []
+      }
+    ],
+    "access": {
+      "url": [],
+      "physicalLocation": [
+        {
+          "structuredValue": [],
+          "parallelValue": [],
+          "groupedValue": [],
+          "value": "M1919",
+          "type": "shelf locator",
+          "identifier": [],
+          "note": [],
+          "appliesTo": []
+        }
+      ],
+      "digitalLocation": [
+        {
+          "structuredValue": [],
+          "parallelValue": [],
+          "groupedValue": [],
+          "value": "Box 129, Folder 2",
+          "type": "discovery",
+          "identifier": [],
+          "note": [],
+          "appliesTo": []
+        }
+      ],
+      "accessContact": [
+        {
+          "structuredValue": [],
+          "parallelValue": [],
+          "groupedValue": [],
+          "value": "Stanford University. Libraries. Department of Special Collections and University Archives",
+          "type": "repository",
+          "uri": "http://id.loc.gov/authorities/names/no2014019980",
+          "identifier": [],
+          "source": { "code": "naf", "note": [] },
+          "note": [],
+          "appliesTo": []
+        }
+      ],
+      "digitalRepository": [],
+      "note": []
+    },
+    "relatedResource": [],
+    "marcEncodedData": [],
+    "adminMetadata": {
+      "contributor": [
+        {
+          "name": [
+            {
+              "structuredValue": [],
+              "parallelValue": [],
+              "groupedValue": [],
+              "code": "CSt",
+              "uri": "http://id.loc.gov/vocabulary/organizations/cst",
+              "identifier": [],
+              "source": {
+                "code": "marcorg",
+                "uri": "http://id.loc.gov/vocabulary/organizations",
+                "note": []
+              },
+              "note": [],
+              "appliesTo": []
+            }
+          ],
+          "type": "organization",
+          "role": [
+            {
+              "structuredValue": [],
+              "parallelValue": [],
+              "groupedValue": [],
+              "value": "original cataloging agency",
+              "identifier": [],
+              "note": [],
+              "appliesTo": []
+            }
+          ],
+          "identifier": [],
+          "note": [],
+          "parallelContributor": []
+        }
+      ],
+      "event": [],
+      "language": [
+        {
+          "appliesTo": [],
+          "code": "eng",
+          "groupedValue": [],
+          "note": [],
+          "parallelValue": [],
+          "source": {
+            "code": "iso639-2b",
+            "uri": "http://id.loc.gov/vocabulary/iso639-2",
+            "note": []
+          },
+          "structuredValue": [],
+          "uri": "http://id.loc.gov/vocabulary/iso639-2/eng"
+        }
+      ],
+      "note": [
+        {
+          "structuredValue": [],
+          "parallelValue": [],
+          "groupedValue": [],
+          "value": "human prepared",
+          "type": "record origin",
+          "identifier": [],
+          "note": [],
+          "appliesTo": []
+        }
+      ],
+      "metadataStandard": [],
+      "identifier": []
+    },
+    "purl": "https://purl.stanford.edu/bb112zx3193"
+  },
+  "identification": { "catalogLinks": [], "sourceId": "sul:M1919_b129_f2" },
+  "structural": {
+    "contains": [
+      {
+        "type": "https://cocina.sul.stanford.edu/models/resources/image",
+        "externalIdentifier": "https://cocina.sul.stanford.edu/fileSet/bb112zx3193-bb112zx3193_1",
+        "label": "Image 1",
+        "version": 6,
+        "structural": {
+          "contains": [
+            {
+              "type": "https://cocina.sul.stanford.edu/models/file",
+              "externalIdentifier": "https://cocina.sul.stanford.edu/file/bb112zx3193-bb112zx3193_1/bb112zx3193_00_0001.jp2",
+              "label": "bb112zx3193_00_0001.jp2",
+              "filename": "bb112zx3193_00_0001.jp2",
+              "size": 3356880,
+              "version": 6,
+              "hasMimeType": "image/jp2",
+              "hasMessageDigests": [
+                {
+                  "type": "sha1",
+                  "digest": "77ac46107a812b3ae2ca27060308a77def214411"
+                },
+                { "type": "md5", "digest": "2b340d20282d1913d80615f1f7df1c07" }
+              ],
+              "access": {
+                "view": "world",
+                "download": "none",
+                "controlledDigitalLending": false
+              },
+              "administrative": {
+                "publish": true,
+                "sdrPreserve": false,
+                "shelve": true
+              },
+              "presentation": { "height": 3704, "width": 4804 }
+            }
+          ]
+        }
+      },
+      {
+        "type": "https://cocina.sul.stanford.edu/models/resources/image",
+        "externalIdentifier": "https://cocina.sul.stanford.edu/fileSet/bb112zx3193-bb112zx3193_2",
+        "label": "Image 2",
+        "version": 6,
+        "structural": {
+          "contains": [
+            {
+              "type": "https://cocina.sul.stanford.edu/models/file",
+              "externalIdentifier": "https://cocina.sul.stanford.edu/file/bb112zx3193-bb112zx3193_2/bb112zx3193_00_0002.jp2",
+              "label": "bb112zx3193_00_0002.jp2",
+              "filename": "bb112zx3193_00_0002.jp2",
+              "size": 2584185,
+              "version": 6,
+              "hasMimeType": "image/jp2",
+              "hasMessageDigests": [
+                {
+                  "type": "sha1",
+                  "digest": "bbd4e74c9bd84495219472238285ed3b75a2dc7c"
+                },
+                { "type": "md5", "digest": "33a84c8f003963978d83c464e210fb4d" }
+              ],
+              "access": {
+                "view": "world",
+                "download": "none",
+                "controlledDigitalLending": false
+              },
+              "administrative": {
+                "publish": true,
+                "sdrPreserve": false,
+                "shelve": true
+              },
+              "presentation": { "height": 3337, "width": 4101 }
+            }
+          ]
+        }
+      },
+      {
+        "type": "https://cocina.sul.stanford.edu/models/resources/image",
+        "externalIdentifier": "https://cocina.sul.stanford.edu/fileSet/bb112zx3193-bb112zx3193_3",
+        "label": "Image 3",
+        "version": 6,
+        "structural": {
+          "contains": [
+            {
+              "type": "https://cocina.sul.stanford.edu/models/file",
+              "externalIdentifier": "https://cocina.sul.stanford.edu/file/bb112zx3193-bb112zx3193_3/bb112zx3193_00_0003.jp2",
+              "label": "bb112zx3193_00_0003.jp2",
+              "filename": "bb112zx3193_00_0003.jp2",
+              "size": 2586556,
+              "version": 6,
+              "hasMimeType": "image/jp2",
+              "hasMessageDigests": [
+                {
+                  "type": "sha1",
+                  "digest": "5f9b15e7b76ad8361650bf833852554c98b76b32"
+                },
+                { "type": "md5", "digest": "0e0c55b754562cd9cfeff7cbbbcc3c7f" }
+              ],
+              "access": {
+                "view": "world",
+                "download": "none",
+                "controlledDigitalLending": false
+              },
+              "administrative": {
+                "publish": true,
+                "sdrPreserve": false,
+                "shelve": true
+              },
+              "presentation": { "height": 3337, "width": 4101 }
+            }
+          ]
+        }
+      },
+      {
+        "type": "https://cocina.sul.stanford.edu/models/resources/image",
+        "externalIdentifier": "https://cocina.sul.stanford.edu/fileSet/bb112zx3193-bb112zx3193_4",
+        "label": "Image 4",
+        "version": 6,
+        "structural": {
+          "contains": [
+            {
+              "type": "https://cocina.sul.stanford.edu/models/file",
+              "externalIdentifier": "https://cocina.sul.stanford.edu/file/bb112zx3193-bb112zx3193_4/bb112zx3193_00_0004.jp2",
+              "label": "bb112zx3193_00_0004.jp2",
+              "filename": "bb112zx3193_00_0004.jp2",
+              "size": 2584086,
+              "version": 6,
+              "hasMimeType": "image/jp2",
+              "hasMessageDigests": [
+                {
+                  "type": "sha1",
+                  "digest": "d8ddd8aa28b00ee977e0e28c60f4a25cb8116a8c"
+                },
+                { "type": "md5", "digest": "ce95ace3ddab26e42db284b7ced1a4d8" }
+              ],
+              "access": {
+                "view": "world",
+                "download": "none",
+                "controlledDigitalLending": false
+              },
+              "administrative": {
+                "publish": true,
+                "sdrPreserve": false,
+                "shelve": true
+              },
+              "presentation": { "height": 3337, "width": 4101 }
+            }
+          ]
+        }
+      },
+      {
+        "type": "https://cocina.sul.stanford.edu/models/resources/image",
+        "externalIdentifier": "https://cocina.sul.stanford.edu/fileSet/bb112zx3193-bb112zx3193_5",
+        "label": "Image 5",
+        "version": 6,
+        "structural": {
+          "contains": [
+            {
+              "type": "https://cocina.sul.stanford.edu/models/file",
+              "externalIdentifier": "https://cocina.sul.stanford.edu/file/bb112zx3193-bb112zx3193_5/bb112zx3193_00_0005.jp2",
+              "label": "bb112zx3193_00_0005.jp2",
+              "filename": "bb112zx3193_00_0005.jp2",
+              "size": 2586450,
+              "version": 6,
+              "hasMimeType": "image/jp2",
+              "hasMessageDigests": [
+                {
+                  "type": "sha1",
+                  "digest": "aaa0c849bbcf5abafb5631144426962c15b606c4"
+                },
+                { "type": "md5", "digest": "983133bcff36b29f8422834913c3bcdb" }
+              ],
+              "access": {
+                "view": "world",
+                "download": "none",
+                "controlledDigitalLending": false
+              },
+              "administrative": {
+                "publish": true,
+                "sdrPreserve": false,
+                "shelve": true
+              },
+              "presentation": { "height": 3337, "width": 4101 }
+            }
+          ]
+        }
+      },
+      {
+        "type": "https://cocina.sul.stanford.edu/models/resources/image",
+        "externalIdentifier": "https://cocina.sul.stanford.edu/fileSet/bb112zx3193-bb112zx3193_6",
+        "label": "Image 6",
+        "version": 6,
+        "structural": {
+          "contains": [
+            {
+              "type": "https://cocina.sul.stanford.edu/models/file",
+              "externalIdentifier": "https://cocina.sul.stanford.edu/file/bb112zx3193-bb112zx3193_6/bb112zx3193_00_0006.jp2",
+              "label": "bb112zx3193_00_0006.jp2",
+              "filename": "bb112zx3193_00_0006.jp2",
+              "size": 2584159,
+              "version": 6,
+              "hasMimeType": "image/jp2",
+              "hasMessageDigests": [
+                {
+                  "type": "sha1",
+                  "digest": "771e563705aac6c0168fee7b29bb44d8fe7703fc"
+                },
+                { "type": "md5", "digest": "b825f535c6123c4e80847d9ec00dbba9" }
+              ],
+              "access": {
+                "view": "world",
+                "download": "none",
+                "controlledDigitalLending": false
+              },
+              "administrative": {
+                "publish": true,
+                "sdrPreserve": false,
+                "shelve": true
+              },
+              "presentation": { "height": 3337, "width": 4101 }
+            }
+          ]
+        }
+      },
+      {
+        "type": "https://cocina.sul.stanford.edu/models/resources/image",
+        "externalIdentifier": "https://cocina.sul.stanford.edu/fileSet/bb112zx3193-bb112zx3193_7",
+        "label": "Image 7",
+        "version": 6,
+        "structural": {
+          "contains": [
+            {
+              "type": "https://cocina.sul.stanford.edu/models/file",
+              "externalIdentifier": "https://cocina.sul.stanford.edu/file/bb112zx3193-bb112zx3193_7/bb112zx3193_00_0007.jp2",
+              "label": "bb112zx3193_00_0007.jp2",
+              "filename": "bb112zx3193_00_0007.jp2",
+              "size": 2586327,
+              "version": 6,
+              "hasMimeType": "image/jp2",
+              "hasMessageDigests": [
+                {
+                  "type": "sha1",
+                  "digest": "a892faf747c35b8beaf38e6597ab6197dda9d4d6"
+                },
+                { "type": "md5", "digest": "fe6ea9f4d0d9f9908485a2d777dc56d5" }
+              ],
+              "access": {
+                "view": "world",
+                "download": "none",
+                "controlledDigitalLending": false
+              },
+              "administrative": {
+                "publish": true,
+                "sdrPreserve": false,
+                "shelve": true
+              },
+              "presentation": { "height": 3337, "width": 4101 }
+            }
+          ]
+        }
+      },
+      {
+        "type": "https://cocina.sul.stanford.edu/models/resources/image",
+        "externalIdentifier": "https://cocina.sul.stanford.edu/fileSet/bb112zx3193-bb112zx3193_8",
+        "label": "Image 8",
+        "version": 6,
+        "structural": {
+          "contains": [
+            {
+              "type": "https://cocina.sul.stanford.edu/models/file",
+              "externalIdentifier": "https://cocina.sul.stanford.edu/file/bb112zx3193-bb112zx3193_8/bb112zx3193_00_0008.jp2",
+              "label": "bb112zx3193_00_0008.jp2",
+              "filename": "bb112zx3193_00_0008.jp2",
+              "size": 2584162,
+              "version": 6,
+              "hasMimeType": "image/jp2",
+              "hasMessageDigests": [
+                {
+                  "type": "sha1",
+                  "digest": "e542366c4c86c15b3867f0325274b0a65d11c202"
+                },
+                { "type": "md5", "digest": "7cc36abd52a87f1ab02d81d30cc60d14" }
+              ],
+              "access": {
+                "view": "world",
+                "download": "none",
+                "controlledDigitalLending": false
+              },
+              "administrative": {
+                "publish": true,
+                "sdrPreserve": false,
+                "shelve": true
+              },
+              "presentation": { "height": 3337, "width": 4101 }
+            }
+          ]
+        }
+      },
+      {
+        "type": "https://cocina.sul.stanford.edu/models/resources/image",
+        "externalIdentifier": "https://cocina.sul.stanford.edu/fileSet/bb112zx3193-bb112zx3193_9",
+        "label": "Image 9",
+        "version": 6,
+        "structural": {
+          "contains": [
+            {
+              "type": "https://cocina.sul.stanford.edu/models/file",
+              "externalIdentifier": "https://cocina.sul.stanford.edu/file/bb112zx3193-bb112zx3193_9/bb112zx3193_00_0009.jp2",
+              "label": "bb112zx3193_00_0009.jp2",
+              "filename": "bb112zx3193_00_0009.jp2",
+              "size": 2586535,
+              "version": 6,
+              "hasMimeType": "image/jp2",
+              "hasMessageDigests": [
+                {
+                  "type": "sha1",
+                  "digest": "7bd851a7c28b70bde8080f2e865e2e0f48daa5f7"
+                },
+                { "type": "md5", "digest": "9e29d2b5b58d8740b350e4c10c131517" }
+              ],
+              "access": {
+                "view": "world",
+                "download": "none",
+                "controlledDigitalLending": false
+              },
+              "administrative": {
+                "publish": true,
+                "sdrPreserve": false,
+                "shelve": true
+              },
+              "presentation": { "height": 3337, "width": 4101 }
+            }
+          ]
+        }
+      },
+      {
+        "type": "https://cocina.sul.stanford.edu/models/resources/image",
+        "externalIdentifier": "https://cocina.sul.stanford.edu/fileSet/bb112zx3193-bb112zx3193_10",
+        "label": "Image 10",
+        "version": 6,
+        "structural": {
+          "contains": [
+            {
+              "type": "https://cocina.sul.stanford.edu/models/file",
+              "externalIdentifier": "https://cocina.sul.stanford.edu/file/bb112zx3193-bb112zx3193_10/bb112zx3193_00_0010.jp2",
+              "label": "bb112zx3193_00_0010.jp2",
+              "filename": "bb112zx3193_00_0010.jp2",
+              "size": 2584031,
+              "version": 6,
+              "hasMimeType": "image/jp2",
+              "hasMessageDigests": [
+                {
+                  "type": "sha1",
+                  "digest": "bbd86fc756b087448df6668a4a283ce30021d948"
+                },
+                { "type": "md5", "digest": "f45dad1e77f5c5dbdcc18f7f7b55884b" }
+              ],
+              "access": {
+                "view": "world",
+                "download": "none",
+                "controlledDigitalLending": false
+              },
+              "administrative": {
+                "publish": true,
+                "sdrPreserve": false,
+                "shelve": true
+              },
+              "presentation": { "height": 3337, "width": 4101 }
+            }
+          ]
+        }
+      },
+      {
+        "type": "https://cocina.sul.stanford.edu/models/resources/image",
+        "externalIdentifier": "https://cocina.sul.stanford.edu/fileSet/bb112zx3193-bb112zx3193_11",
+        "label": "Image 11",
+        "version": 6,
+        "structural": {
+          "contains": [
+            {
+              "type": "https://cocina.sul.stanford.edu/models/file",
+              "externalIdentifier": "https://cocina.sul.stanford.edu/file/bb112zx3193-bb112zx3193_11/bb112zx3193_00_0011.jp2",
+              "label": "bb112zx3193_00_0011.jp2",
+              "filename": "bb112zx3193_00_0011.jp2",
+              "size": 2586387,
+              "version": 6,
+              "hasMimeType": "image/jp2",
+              "hasMessageDigests": [
+                {
+                  "type": "sha1",
+                  "digest": "61f5abebc5d7fed77aac2c4536c572c956a390ce"
+                },
+                { "type": "md5", "digest": "94af1e90b14368cea871b4d7188f26a9" }
+              ],
+              "access": {
+                "view": "world",
+                "download": "none",
+                "controlledDigitalLending": false
+              },
+              "administrative": {
+                "publish": true,
+                "sdrPreserve": false,
+                "shelve": true
+              },
+              "presentation": { "height": 3337, "width": 4101 }
+            }
+          ]
+        }
+      },
+      {
+        "type": "https://cocina.sul.stanford.edu/models/resources/image",
+        "externalIdentifier": "https://cocina.sul.stanford.edu/fileSet/bb112zx3193-bb112zx3193_12",
+        "label": "Image 12",
+        "version": 6,
+        "structural": {
+          "contains": [
+            {
+              "type": "https://cocina.sul.stanford.edu/models/file",
+              "externalIdentifier": "https://cocina.sul.stanford.edu/file/bb112zx3193-bb112zx3193_12/bb112zx3193_00_0012.jp2",
+              "label": "bb112zx3193_00_0012.jp2",
+              "filename": "bb112zx3193_00_0012.jp2",
+              "size": 2167883,
+              "version": 6,
+              "hasMimeType": "image/jp2",
+              "hasMessageDigests": [
+                {
+                  "type": "sha1",
+                  "digest": "67d610f9e49659c539639b274cb0717cbb451cca"
+                },
+                { "type": "md5", "digest": "73e9508b94bea9258778e4722c324175" }
+              ],
+              "access": {
+                "view": "world",
+                "download": "none",
+                "controlledDigitalLending": false
+              },
+              "administrative": {
+                "publish": true,
+                "sdrPreserve": false,
+                "shelve": true
+              },
+              "presentation": { "height": 2734, "width": 4197 }
+            }
+          ]
+        }
+      },
+      {
+        "type": "https://cocina.sul.stanford.edu/models/resources/image",
+        "externalIdentifier": "https://cocina.sul.stanford.edu/fileSet/bb112zx3193-bb112zx3193_13",
+        "label": "Image 13",
+        "version": 6,
+        "structural": {
+          "contains": [
+            {
+              "type": "https://cocina.sul.stanford.edu/models/file",
+              "externalIdentifier": "https://cocina.sul.stanford.edu/file/bb112zx3193-bb112zx3193_13/bb112zx3193_00_0013.jp2",
+              "label": "bb112zx3193_00_0013.jp2",
+              "filename": "bb112zx3193_00_0013.jp2",
+              "size": 2170431,
+              "version": 6,
+              "hasMimeType": "image/jp2",
+              "hasMessageDigests": [
+                {
+                  "type": "sha1",
+                  "digest": "8db0624503fe9c440788465b11200bd6f51e8574"
+                },
+                { "type": "md5", "digest": "f5a703bfb33cbd47103f080230a813e6" }
+              ],
+              "access": {
+                "view": "world",
+                "download": "none",
+                "controlledDigitalLending": false
+              },
+              "administrative": {
+                "publish": true,
+                "sdrPreserve": false,
+                "shelve": true
+              },
+              "presentation": { "height": 2734, "width": 4197 }
+            }
+          ]
+        }
+      },
+      {
+        "type": "https://cocina.sul.stanford.edu/models/resources/image",
+        "externalIdentifier": "https://cocina.sul.stanford.edu/fileSet/bb112zx3193-bb112zx3193_14",
+        "label": "Image 14",
+        "version": 6,
+        "structural": {
+          "contains": [
+            {
+              "type": "https://cocina.sul.stanford.edu/models/file",
+              "externalIdentifier": "https://cocina.sul.stanford.edu/file/bb112zx3193-bb112zx3193_14/bb112zx3193_00_0014.jp2",
+              "label": "bb112zx3193_00_0014.jp2",
+              "filename": "bb112zx3193_00_0014.jp2",
+              "size": 2143876,
+              "version": 6,
+              "hasMimeType": "image/jp2",
+              "hasMessageDigests": [
+                {
+                  "type": "sha1",
+                  "digest": "7d799297c8f06bde5bb2efa63d5ba85b340ba6e8"
+                },
+                { "type": "md5", "digest": "d3dd9863735404fe9b31e0152f52fe31" }
+              ],
+              "access": {
+                "view": "world",
+                "download": "none",
+                "controlledDigitalLending": false
+              },
+              "administrative": {
+                "publish": true,
+                "sdrPreserve": false,
+                "shelve": true
+              },
+              "presentation": { "height": 3042, "width": 3731 }
+            }
+          ]
+        }
+      },
+      {
+        "type": "https://cocina.sul.stanford.edu/models/resources/image",
+        "externalIdentifier": "https://cocina.sul.stanford.edu/fileSet/bb112zx3193-bb112zx3193_15",
+        "label": "Image 15",
+        "version": 6,
+        "structural": {
+          "contains": [
+            {
+              "type": "https://cocina.sul.stanford.edu/models/file",
+              "externalIdentifier": "https://cocina.sul.stanford.edu/file/bb112zx3193-bb112zx3193_15/bb112zx3193_00_0015.jp2",
+              "label": "bb112zx3193_00_0015.jp2",
+              "filename": "bb112zx3193_00_0015.jp2",
+              "size": 2146224,
+              "version": 6,
+              "hasMimeType": "image/jp2",
+              "hasMessageDigests": [
+                {
+                  "type": "sha1",
+                  "digest": "e84fcf1a43990aef11656a4479884e909de7bb64"
+                },
+                { "type": "md5", "digest": "f1281f5343e5fd82c78c5ad0cdca0b51" }
+              ],
+              "access": {
+                "view": "world",
+                "download": "none",
+                "controlledDigitalLending": false
+              },
+              "administrative": {
+                "publish": true,
+                "sdrPreserve": false,
+                "shelve": true
+              },
+              "presentation": { "height": 3042, "width": 3731 }
+            }
+          ]
+        }
+      }
+    ],
+    "hasMemberOrders": [],
+    "isMemberOf": ["druid:mr163sv5231"]
+  },
+  "created": "2022-04-26T18:17:45.000+00:00",
+  "modified": "2022-04-26T18:17:45.000+00:00",
+  "lock": "druid:bb112zx3193=0"
+}
