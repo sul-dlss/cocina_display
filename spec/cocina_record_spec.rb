@@ -56,37 +56,29 @@ RSpec.describe CocinaDisplay::CocinaRecord do
       end
     end
 
-    context "when there are no catalog links with refresh true" do
-      let(:druid) { "bx658jh7339" }
-      let(:cocina_json) do
-        {
-          "identification" => {
-            "catalogLinks" => [
-              {
-                "catalog" => "folio",
-                "refresh" => false,
-                "catalogRecordId" => "a123456"
-              },
-              {
-                "catalog" => "symphony",
-                "refresh" => false,
-                "catalogRecordId" => "123456"
-              }
-            ]
-          }
-        }.to_json
-      end
-
-      it "returns nil" do
-        expect(subject.catkey).to be_nil
-      end
-    end
-
-    context "when there is a FOLIO catalog link with refresh true" do
+    context "when there is a FOLIO catalog link" do
       let(:druid) { "pv074by7080" }
 
       it "returns the correct catkey" do
         expect(subject.catkey).to eq "a12845814"
+      end
+    end
+  end
+
+  describe "#searchworks_id" do
+    context "when there is a catkey" do
+      let(:druid) { "pv074by7080" }
+
+      it "returns the catkey" do
+        expect(subject.searchworks_id).to eq "a12845814"
+      end
+    end
+
+    context "when there is no catkey" do
+      let(:druid) { "bx658jh7339" }
+
+      it "returns the druid" do
+        expect(subject.searchworks_id).to eq "bx658jh7339"
       end
     end
   end

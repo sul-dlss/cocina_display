@@ -25,9 +25,14 @@ module CocinaDisplay
     end
 
     # Only present if there is a FOLIO catalog link; item may still be in the
-    # catalog under its DRUID. Ignores old and non-refresh catalog links.
+    # catalog under its DRUID. Ignores old (symphony) links.
     def catkey
-      path("$.identification.catalogLinks[?(@.catalog == 'folio' && @.refresh == true)].catalogRecordId").first
+      path("$.identification.catalogLinks[?(@.catalog == 'folio')].catalogRecordId").first
+    end
+
+    # Does not imply the item is actually released to Searchworks!
+    def searchworks_id
+      catkey || bare_druid
     end
 
     def created_time
