@@ -201,11 +201,10 @@ RSpec.describe CocinaDisplay::CocinaRecord do
     end
 
     context "for a staging object" do
-      let(:druid) { "bh114dk3076" }
-      let(:purl_base_url) { "https://sul-purl-stage.stanford.edu" }
+      let(:druid) { "qr918wy2257" }
 
       it "returns the correct PURL URL" do
-        expect(subject.purl_url(purl_base_url: purl_base_url)).to eq "https://sul-purl-stage.stanford.edu/bh114dk3076"
+        expect(subject.purl_url).to eq "https://sul-purl-stage.stanford.edu/qr918wy2257"
       end
     end
   end
@@ -218,11 +217,10 @@ RSpec.describe CocinaDisplay::CocinaRecord do
     end
 
     context "for a staging object" do
-      let(:druid) { "bh114dk3076" }
-      let(:purl_base_url) { "https://sul-purl-stage.stanford.edu" }
+      let(:druid) { "qr918wy2257" }
 
       it "returns the correct oEmbed URL" do
-        expect(subject.oembed_url(purl_base_url: purl_base_url)).to eq "https://sul-purl-stage.stanford.edu/embed.json?url=https%3A%2F%2Fsul-purl-stage.stanford.edu%2Fbh114dk3076"
+        expect(subject.oembed_url).to eq "https://sul-purl-stage.stanford.edu/embed.json?url=https%3A%2F%2Fsul-purl-stage.stanford.edu%2Fqr918wy2257"
       end
     end
   end
@@ -235,11 +233,10 @@ RSpec.describe CocinaDisplay::CocinaRecord do
     end
 
     context "for a staging object" do
-      let(:druid) { "bh114dk3076" }
-      let(:stacks_base_url) { "https://sul-stacks-stage.stanford.edu" }
+      let(:druid) { "qr918wy2257" }
 
       it "returns the correct download URL" do
-        expect(subject.download_url(stacks_base_url: stacks_base_url)).to eq "https://sul-stacks-stage.stanford.edu/object/bh114dk3076"
+        expect(subject.download_url).to eq "https://sul-stacks-stage.stanford.edu/object/qr918wy2257"
       end
     end
   end
@@ -258,11 +255,10 @@ RSpec.describe CocinaDisplay::CocinaRecord do
     end
 
     context "for a staging object" do
-      let(:druid) { "bh114dk3076" }
-      let(:purl_base_url) { "https://sul-purl-stage.stanford.edu" }
+      let(:druid) { "qr918wy2257" }
 
       it "returns the correct IIIF manifest URL" do
-        expect(subject.iiif_manifest_url(purl_base_url: purl_base_url)).to eq "https://sul-purl-stage.stanford.edu/bh114dk3076/iiif3/manifest"
+        expect(subject.iiif_manifest_url).to eq "https://sul-purl-stage.stanford.edu/qr918wy2257/iiif3/manifest"
       end
     end
   end

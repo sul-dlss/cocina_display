@@ -74,35 +74,48 @@ module CocinaDisplay
     end
 
     # The PURL URL for the object
-    # @param purl_base_url [String] Base URL for the PURL environment
-    # TODO: use `description.purl` for this instead?
-    def purl_url(purl_base_url: "https://purl.stanford.edu")
-      "#{purl_base_url}/#{bare_druid}"
+    def purl_url
+      cocina_doc.dig("description", "purl") || "https://purl.stanford.edu/#{bare_druid}"
+    end
+
+    # The URL to the PURL environment this object is from
+    # NOTE: objects accessed via UAT will still have a production PURL URL
+    def purl_base_url
+      URI(purl_url).origin
+    end
+
+    # The URL to the stacks environment this object is shelved in
+    # Corresponds to the PURL environment
+    def stacks_base_url
+      if purl_base_url == "https://sul-purl-stage.stanford.edu"
+        "https://sul-stacks-stage.stanford.edu"
+      else
+        "https://stacks.stanford.edu"
+      end
     end
 
     # The oEmbed URL for the object, optionally with additional params
     # PURL generates the oEmbed response
-    # @param purl_base_url [String] Base URL for the PURL environment
-    def oembed_url(purl_base_url: "https://purl.stanford.edu", params: {})
+    # @param params [Hash] Additional parameters to include in the oEmbed URL
+    def oembed_url(params: {})
       return if collection?
 
-      params[:url] ||= purl_url(purl_base_url:)
+      params[:url] ||= purl_url
       "#{purl_base_url}/embed.json?#{params.to_query}"
     end
 
     # The download URL to get the entire object as a .zip file
     # Stacks generates the .zip for the object
-    # @param stacks_base_url [String] Base URL for the stacks environment
-    def download_url(stacks_base_url: "https://stacks.stanford.edu")
+    def download_url
       "#{stacks_base_url}/object/#{bare_druid}"
     end
 
     # The IIIF manifest URL for the object, version 3 by default
     # PURL generates the IIIF manifest
-    # @param purl_base_url [String] Base URL for the PURL environment
     # @param version [Integer] The IIIF version to use (3 or 2)
-    def iiif_manifest_url(purl_base_url: "https://purl.stanford.edu", version: 3)
-      "#{purl_url(purl_base_url:)}/#{(version == 3) ? "iiif3" : "iiif"}/manifest"
+    def iiif_manifest_url(version: 3)
+      iiif_path = (version == 3) ? "iiif3" : "iiif"
+      "#{purl_url}/#{iiif_path}/manifest"
     end
 
     # List of titles for the object
