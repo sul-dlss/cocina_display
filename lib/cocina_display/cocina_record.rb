@@ -6,25 +6,46 @@ require "janeway"
 module CocinaDisplay
   # Public Cocina metadata for an SDR object
   class CocinaRecord
+    # The parsed Cocina document.
+    # @return [Hash]
     attr_reader :cocina_doc
 
     def initialize(cocina_json)
       @cocina_doc = JSON.parse(cocina_json)
     end
 
+    # Evaluate a JSONPath expression against the Cocina document.
+    # @return [Enumerator] An enumerator that yields results matching the expression.
+    # @param path_expression [String] The JSONPath expression to evaluate.
+    # @see https://www.rubydoc.info/gems/janeway-jsonpath/0.6.0/file/README.md
+    # @example Name values for contributors
+    #  record.path("$.description.contributor[*].name[*].value").search #=> ["Smith, John", "ACME Corp."]
+    # @example Filtering nodes using a condition
+    #  record.path("$.description.contributor[?(@.type == 'person')].name[*].value").search #=> ["Smith, John"]
     def path(path_expression)
       Janeway.enum_for(path_expression, cocina_doc)
     end
 
+    # The DRUID for the object, with the +druid:+ prefix.
+    # @return [String]
+    # @example
+    #   record.druid #=> "druid:bb099mt5053"
     def druid
       cocina_doc["externalIdentifier"]
     end
 
+    # The DRUID for the object, without the +druid:+ prefix.
+    # @return [String]
+    # @example
+    #   record.bare_druid #=> "bb099mt5053"
     def bare_druid
       druid.delete_prefix("druid:")
     end
 
-    # The DOI for the object, just the identifier part. "10.25740/ppax-bf07"
+    # The DOI for the object, if there is one – just the identifier part.
+    # @return [String, nil]
+    # @example
+    #   record.doi #=> "10.25740/ppax-bf07"
     def doi
       doi_id = path("$.identification.doi").first ||
         path("$.description.identifier[?match(@.type, 'doi|DOI')].value").first ||
@@ -33,59 +54,96 @@ module CocinaDisplay
       URI(doi_id).path.delete_prefix("/") if doi_id.present?
     end
 
-    # DOI as a URL. Any valid DOI should resolve via doi.org.
+    # The DOI as a URL, if there is one. Any valid DOI should resolve via doi.org.
+    # @return [String, nil]
+    # @example
+    #   record.doi_url #=> "https://doi.org/10.25740/ppax-bf07"
     def doi_url
       URI.join("https://doi.org", doi).to_s if doi.present?
     end
 
-    # Item might still be in Searchworks under its druid instead.
+    # The HRID of the item in FOLIO, if defined.
+    # @note This doesn't imply the object is available in Searchworks at this ID.
+    # @return [String, nil]
+    # @example
+    #   record.folio_hrid #=> "a12845814"
     def folio_hrid
       path("$.identification.catalogLinks[?(@.catalog == 'folio')].catalogRecordId").first
     end
 
-    # Does not imply the item is actually released to Searchworks!
+    # The FOLIO HRID if defined, otherwise the bare DRUID.
+    # @note This doesn't imply the object is available in Searchworks at this ID.
+    # @see folio_hrid
+    # @see bare_druid
+    # @return [String]
     def searchworks_id
       folio_hrid || bare_druid
     end
 
-    # This is for the metadata itself, not the object
+    # Timestamp when the Cocina was created.
+    # @note This is for the metadata itself, not the object.
+    # @return [Time]
     def created_time
       Time.parse(cocina_doc["created"])
     end
 
-    # This is for the metadata itself, not the object
+    # Timestamp when the Cocina was last modified.
+    # @note This is for the metadata itself, not the object.
+    # @return [Time]
     def modified_time
       Time.parse(cocina_doc["modified"])
     end
 
-    # "image", "map", "book", etc.
+    # SDR content type of the object.
+    # @return [String]
+    # @see https://github.com/sul-dlss/cocina-models/blob/main/openapi.yml#L532-L546
+    # @example
+    #  record.content_type #=> "image"
     def content_type
       cocina_doc["type"].split("/").last
     end
 
+    # True if the object is a collection.
+    # @return [Boolean]
     def collection?
       content_type == "collection"
     end
 
-    # Flatten nested FileSet structure to get all files in the object
-    # @return [Enumerator[Hash]] Array of File objects
+    # Traverse nested FileSets and return an enumerator over their files.
+    # Each file is a +Hash+.
+    # @return [Enumerator] Enumerator over file hashes
+    # @example
+    #  record.files.each do |file|
+    #   puts file["filename"] #=> "image1.jpg"
+    #   puts file["size"] #=> 123456
+    #  end
     def files
       path("$.structural.contains[*].structural.contains[*]")
     end
 
-    # The PURL URL for the object
+    # The PURL URL for this object.
+    # @return [String]
+    # @example
+    #  record.purl_url #=> "https://purl.stanford.edu/bx658jh7339"
     def purl_url
       cocina_doc.dig("description", "purl") || "https://purl.stanford.edu/#{bare_druid}"
     end
 
-    # The URL to the PURL environment this object is from
-    # NOTE: objects accessed via UAT will still have a production PURL URL
+    # The URL to the PURL environment this object is from.
+    # @note Objects accessed via UAT will still have a production PURL base URL.
+    # @return [String]
+    # @example
+    #   record.purl_base_url #=> "https://purl.stanford.edu"
     def purl_base_url
       URI(purl_url).origin
     end
 
-    # The URL to the stacks environment this object is shelved in
-    # Corresponds to the PURL environment
+    # The URL to the stacks environment this object is shelved in.
+    # Corresponds to the PURL environment.
+    # @see purl_base_url
+    # @return [String]
+    # @example
+    #  record.stacks_base_url #=> "https://stacks.stanford.edu"
     def stacks_base_url
       if purl_base_url == "https://sul-purl-stage.stanford.edu"
         "https://sul-stacks-stage.stanford.edu"
@@ -94,9 +152,13 @@ module CocinaDisplay
       end
     end
 
-    # The oEmbed URL for the object, optionally with additional params
-    # PURL generates the oEmbed response
-    # @param params [Hash] Additional parameters to include in the oEmbed URL
+    # The oEmbed URL for the object, optionally with additional parameters.
+    # Corresponds to the PURL environment.
+    # @param params [Hash] Additional parameters to include in the oEmbed URL.
+    # @return [String]
+    # @return [nil] if the object is a collection.
+    # @example Generate an oEmbed URL for the viewer and hide the title
+    #   record.oembed_url(hide_title: true) #=> "https://purl.stanford.edu/bx658jh7339/embed.json?hide_title=true"
     def oembed_url(params: {})
       return if collection?
 
@@ -104,15 +166,21 @@ module CocinaDisplay
       "#{purl_base_url}/embed.json?#{params.to_query}"
     end
 
-    # The download URL to get the entire object as a .zip file
-    # Stacks generates the .zip for the object
+    # The download URL to get the entire object as a .zip file.
+    # Stacks generates the .zip for the object on request.
+    # @return [String]
+    # @example
+    #   record.download_url #=> "https://stacks.stanford.edu/object/bx658jh7339"
     def download_url
       "#{stacks_base_url}/object/#{bare_druid}"
     end
 
-    # The IIIF manifest URL for the object, version 3 by default
-    # PURL generates the IIIF manifest
-    # @param version [Integer] The IIIF version to use (3 or 2)
+    # The IIIF manifest URL for the object.
+    # PURL generates the IIIF manifest.
+    # @param version [Integer] The IIIF presentation spec version to use (3 or 2).
+    # @return [String]
+    # @example
+    #  record.iiif_manifest_url #=> "https://purl.stanford.edu/bx658jh7339/iiif3/manifest"
     def iiif_manifest_url(version: 3)
       iiif_path = (version == 3) ? "iiif3" : "iiif"
       "#{purl_url}/#{iiif_path}/manifest"
