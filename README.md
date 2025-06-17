@@ -1,6 +1,7 @@
 # CocinaDisplay
 
 [![Build Status](https://github.com/sul-dlss/cocina_display/workflows/CI/badge.svg)](https://github.com/sul-dlss/cocina_display/actions)
+[![Docs Status](https://github.com/sul-dlss/cocina_display/actions/workflows/docs.yml/badge.svg)](https://github.com/sul-dlss/cocina_display/actions/workflows/docs.yml)
 [![Gem Version](https://badge.fury.io/rb/cocina_display.svg)](https://badge.fury.io/rb/cocina_display)
 
 Helpers for rendering Cocina metadata in Rails applications and indexing pipelines.
@@ -54,6 +55,8 @@ Once you have the JSON, you can initialize a `CocinaRecord` object and start wor
 > record.cocina_doc.dig("description", "contributor", 0, "name", 0, "value")  # access the hash representation
 => "Hearst Magazines, Inc."
 ```
+
+See the [API Documentation](https://sul-dlss.github.io/cocina_display/CocinaDisplay/CocinaRecord.html) for more details on the methods available in the `CocinaRecord` class.
 
 ### Fetching nested data
 
