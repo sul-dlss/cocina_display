@@ -183,6 +183,7 @@ GEM
       unicode-emoji (~> 4.0, >= 4.0.4)
     unicode-emoji (4.0.4)
     uri (1.0.3)
+    yard (0.9.37)
     zeitwerk (2.7.3)
 
 PLATFORMS
@@ -196,6 +197,7 @@ DEPENDENCIES
   rspec (~> 3.0)
   simplecov (~> 0.22.0)
   standard (~> 1.3)
+  yard (~> 0.9.37)
 
 BUNDLED WITH
    2.6.9
