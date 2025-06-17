@@ -69,7 +69,7 @@ The previous example used `Hash#dig` to access the first contributor's first nam
 > 
 ```
 
-The JsonPath implementation used is [`janeway-jsonpath`](https://www.rubydoc.info/gems/janeway-jsonpath/0.6.0/file/README.md), which supports the full syntax from the finalized 2024 version of the specification. Results returned from `#path` are Enumerators.
+The JsonPath implementation used is [`janeway-jsonpath`](https://www.rubydoc.info/gems/janeway-jsonpath/0.6.0/file/README.md), which supports the full syntax from the [finalized 2024 version of the specification](https://www.rfc-editor.org/rfc/rfc9535.html). Results returned from `#path` are Enumerators.
 
 In the following example, we start an expression with `"$.."` to search for contributor nodes at _any_ level (e.g. `event.contributors`) and discover that there is a third contributor, but it has no `name` value. Using the `['code', 'value']` syntax, we can retrieve both `code` and `value` and show where they came from:
 
