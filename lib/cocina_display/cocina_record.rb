@@ -117,20 +117,5 @@ module CocinaDisplay
       iiif_path = (version == 3) ? "iiif3" : "iiif"
       "#{purl_url}/#{iiif_path}/manifest"
     end
-
-    # List of titles for the object
-    def titles(type: :main)
-      titles = cocina_doc.dig("description", "title").map { |title| Cocina::Models::Title.new(title) }
-      case type
-      when :main
-        Cocina::Models::Builders::TitleBuilder.main_title(titles)
-      when :full
-        Cocina::Models::Builders::TitleBuilder.full_title(titles)
-      when :additional
-        Cocina::Models::Builders::TitleBuilder.additional_titles(titles)
-      else
-        raise ArgumentError, "Invalid title type: #{type}"
-      end
-    end
   end
 end
