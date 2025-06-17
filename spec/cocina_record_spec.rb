@@ -26,12 +26,96 @@ RSpec.describe CocinaDisplay::CocinaRecord do
     end
   end
 
-  describe "#catkey" do
+  describe "#doi" do
+    context "when there is no DOI" do
+      let(:druid) { "bx658jh7339" }
+
+      it "returns nil" do
+        expect(subject.doi).to be_nil
+      end
+    end
+
+    context "when the DOI is listed under identifiers" do
+      let(:druid) { "vk217bh4910" }
+
+      it "returns the DOI without url" do
+        expect(subject.doi).to eq "10.25740/ppax-bf07"
+      end
+    end
+
+    context "when the DOI is listed under identification" do
+      let(:druid) { "zs631wn7371" }
+
+      it "returns the DOI without url" do
+        expect(subject.doi).to eq "10.25740/zs631wn7371"
+      end
+    end
+
+    context "when the DOI is only available as a URI" do
+      let(:cocina_json) do
+        {
+          "description" => {
+            "identifier" => [{
+              "uri" => "https://doi.org/10.25740/ppax-bf07"
+            }]
+          }
+        }.to_json
+      end
+
+      it "returns the DOI without url" do
+        expect(subject.doi).to eq "10.25740/ppax-bf07"
+      end
+    end
+  end
+
+  describe "#doi_url" do
+    context "when there is no DOI" do
+      let(:druid) { "bx658jh7339" }
+
+      it "returns nil" do
+        expect(subject.doi_url).to be_nil
+      end
+    end
+
+    context "when the DOI is listed under identifiers" do
+      let(:druid) { "vk217bh4910" }
+
+      it "returns the DOI URL" do
+        expect(subject.doi_url).to eq "https://doi.org/10.25740/ppax-bf07"
+      end
+    end
+
+    context "when the DOI is listed under identification" do
+      let(:druid) { "zs631wn7371" }
+
+      it "returns the DOI URL" do
+        expect(subject.doi_url).to eq "https://doi.org/10.25740/zs631wn7371"
+      end
+    end
+
+    context "when the DOI is only available as a URI" do
+      let(:cocina_json) do
+        {
+          "description" => {
+            "identifier" => [{
+              "uri" => "https://doi.org/10.25740/ppax-bf07"
+            }]
+          }
+        }.to_json
+      end
+
+      it "returns the DOI without url" do
+        expect(subject.doi_url).to eq "https://doi.org/10.25740/ppax-bf07"
+      end
+    end
+  end
+
+  describe "#folio_hrid" do
     context "when there are no catalog links" do
       let(:druid) { "bx658jh7339" }
 
       it "returns nil" do
-        expect(subject.catkey).to be_nil
+        expect(subject.folio_hrid).to be_nil
       end
     end
 
@@ -52,15 +136,15 @@ RSpec.describe CocinaDisplay::CocinaRecord do
       end
 
       it "returns nil" do
-        expect(subject.catkey).to be_nil
+        expect(subject.folio_hrid).to be_nil
       end
     end
 
     context "when there is a FOLIO catalog link" do
       let(:druid) { "pv074by7080" }
 
-      it "returns the correct catkey" do
-        expect(subject.catkey).to eq "a12845814"
+      it "returns the correct id" do
+        expect(subject.folio_hrid).to eq "a12845814"
       end
     end
   end

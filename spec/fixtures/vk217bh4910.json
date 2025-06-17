@@ -1,0 +1,5442 @@
+{
+  "cocinaVersion": "0.75.0",
+  "type": "https://cocina.sul.stanford.edu/models/object",
+  "externalIdentifier": "druid:vk217bh4910",
+  "label": "Hydrus",
+  "version": 11,
+  "access": {
+    "view": "world",
+    "download": "world",
+    "controlledDigitalLending": false,
+    "useAndReproductionStatement": "User agrees that, where applicable, content will not be used to identify or to otherwise infringe the privacy or confidentiality rights of individuals. Content distributed via the Stanford Digital Repository may be subject to additional license and use restrictions applied by the depositor.",
+    "license": "https://creativecommons.org/licenses/by/3.0/legalcode"
+  },
+  "administrative": { "hasAdminPolicy": "druid:zw306xn5593" },
+  "description": {
+    "title": [
+      {
+        "structuredValue": [],
+        "parallelValue": [],
+        "groupedValue": [],
+        "value": "2010 Machine Learning Data Set for NASA's Solar Dynamics Observatory - Atmospheric Imaging Assembly",
+        "identifier": [],
+        "note": [],
+        "appliesTo": []
+      }
+    ],
+    "contributor": [
+      {
+        "name": [
+          {
+            "structuredValue": [],
+            "parallelValue": [],
+            "groupedValue": [],
+            "value": "Fouhey, David",
+            "identifier": [],
+            "note": [],
+            "appliesTo": []
+          }
+        ],
+        "type": "person",
+        "role": [
+          {
+            "structuredValue": [],
+            "parallelValue": [],
+            "groupedValue": [],
+            "value": "author",
+            "code": "aut",
+            "uri": "http://id.loc.gov/vocabulary/relators/aut",
+            "identifier": [],
+            "source": {
+              "code": "marcrelator",
+              "uri": "http://id.loc.gov/vocabulary/relators/",
+              "note": []
+            },
+            "note": [],
+            "appliesTo": []
+          }
+        ],
+        "identifier": [
+          {
+            "structuredValue": [],
+            "parallelValue": [],
+            "groupedValue": [],
+            "type": "ORCID",
+            "uri": "https://orcid.org/0000-0001-5028-5161",
+            "identifier": [],
+            "source": { "code": "orcid", "note": [] },
+            "note": [],
+            "appliesTo": []
+          }
+        ],
+        "note": [
+          {
+            "structuredValue": [],
+            "parallelValue": [],
+            "groupedValue": [],
+            "value": "Electrical Engineering and Computer Science Department, University of Michigan",
+            "type": "affiliation",
+            "identifier": [],
+            "note": [],
+            "appliesTo": []
+          }
+        ],
+        "parallelContributor": []
+      },
+      {
+        "name": [
+          {
+            "structuredValue": [],
+            "parallelValue": [],
+            "groupedValue": [],
+            "value": "Jin, Meng",
+            "identifier": [],
+            "note": [],
+            "appliesTo": []
+          }
+        ],
+        "type": "person",
+        "role": [
+          {
+            "structuredValue": [],
+            "parallelValue": [],
+            "groupedValue": [],
+            "value": "author",
+            "code": "aut",
+            "uri": "http://id.loc.gov/vocabulary/relators/aut",
+            "identifier": [],
+            "source": {
+              "code": "marcrelator",
+              "uri": "http://id.loc.gov/vocabulary/relators/",
+              "note": []
+            },
+            "note": [],
+            "appliesTo": []
+          }
+        ],
+        "identifier": [
+          {
+            "structuredValue": [],
+            "parallelValue": [],
+            "groupedValue": [],
+            "type": "ORCID",
+            "uri": "https://orcid.org/0000-0002-9672-3873",
+            "identifier": [],
+            "source": { "code": "orcid", "note": [] },
+            "note": [],
+            "appliesTo": []
+          }
+        ],
+        "note": [
+          {
+            "structuredValue": [],
+            "parallelValue": [],
+            "groupedValue": [],
+            "value": "SETI Institute",
+            "type": "affiliation",
+            "identifier": [],
+            "note": [],
+            "appliesTo": []
+          },
+          {
+            "structuredValue": [],
+            "parallelValue": [],
+            "groupedValue": [],
+            "value": "Lockheed Martin Solar \u0026 Astrophysics Laboratory",
+            "type": "affiliation",
+            "identifier": [],
+            "note": [],
+            "appliesTo": []
+          }
+        ],
+        "parallelContributor": []
+      },
+      {
+        "name": [
+          {
+            "structuredValue": [],
+            "parallelValue": [],
+            "groupedValue": [],
+            "value": "Cheung, Mark",
+            "identifier": [],
+            "note": [],
+            "appliesTo": []
+          }
+        ],
+        "type": "person",
+        "role": [
+          {
+            "structuredValue": [],
+            "parallelValue": [],
+            "groupedValue": [],
+            "value": "author",
+            "code": "aut",
+            "uri": "http://id.loc.gov/vocabulary/relators/aut",
+            "identifier": [],
+            "source": {
+              "code": "marcrelator",
+              "uri": "http://id.loc.gov/vocabulary/relators/",
+              "note": []
+            },
+            "note": [],
+            "appliesTo": []
+          }
+        ],
+        "identifier": [
+          {
+            "structuredValue": [],
+            "parallelValue": [],
+            "groupedValue": [],
+            "type": "ORCID",
+            "uri": "https://orcid.org/0000-0003-2110-9753",
+            "identifier": [],
+            "source": { "code": "orcid", "note": [] },
+            "note": [],
+            "appliesTo": []
+          }
+        ],
+        "note": [
+          {
+            "structuredValue": [],
+            "parallelValue": [],
+            "groupedValue": [],
+            "value": "Lockheed Martin Solar \u0026 Astrophysics Laboratory",
+            "type": "affiliation",
+            "identifier": [],
+            "note": [],
+            "appliesTo": []
+          },
+          {
+            "structuredValue": [],
+            "parallelValue": [],
+            "groupedValue": [],
+            "value": "Hansen Experimental Physics Laboratory, Stanford University",
+            "type": "affiliation",
+            "identifier": [],
+            "note": [],
+            "appliesTo": []
+          }
+        ],
+        "parallelContributor": []
+      },
+      {
+        "name": [
+          {
+            "structuredValue": [],
+            "parallelValue": [],
+            "groupedValue": [],
+            "value": "Munoz-Jaramillo, Abndres",
+            "identifier": [],
+            "note": [],
+            "appliesTo": []
+          }
+        ],
+        "type": "person",
+        "role": [
+          {
+            "structuredValue": [],
+            "parallelValue": [],
+            "groupedValue": [],
+            "value": "author",
+            "code": "aut",
+            "uri": "http://id.loc.gov/vocabulary/relators/aut",
+            "identifier": [],
+            "source": {
+              "code": "marcrelator",
+              "uri": "http://id.loc.gov/vocabulary/relators/",
+              "note": []
+            },
+            "note": [],
+            "appliesTo": []
+          }
+        ],
+        "identifier": [
+          {
+            "structuredValue": [],
+            "parallelValue": [],
+            "groupedValue": [],
+            "type": "ORCID",
+            "uri": "https://orcid.org/0000-0002-4716-0840",
+            "identifier": [],
+            "source": { "code": "orcid", "note": [] },
+            "note": [],
+            "appliesTo": []
+          }
+        ],
+        "note": [
+          {
+            "structuredValue": [],
+            "parallelValue": [],
+            "groupedValue": [],
+            "value": "Southwest Research Institute",
+            "type": "affiliation",
+            "identifier": [],
+            "note": [],
+            "appliesTo": []
+          }
+        ],
+        "parallelContributor": []
+      },
+      {
+        "name": [
+          {
+            "structuredValue": [],
+            "parallelValue": [],
+            "groupedValue": [],
+            "value": "Galvez, Richard",
+            "identifier": [],
+            "note": [],
+            "appliesTo": []
+          }
+        ],
+        "type": "person",
+        "role": [
+          {
+            "structuredValue": [],
+            "parallelValue": [],
+            "groupedValue": [],
+            "value": "author",
+            "code": "aut",
+            "uri": "http://id.loc.gov/vocabulary/relators/aut",
+            "identifier": [],
+            "source": {
+              "code": "marcrelator",
+              "uri": "http://id.loc.gov/vocabulary/relators/",
+              "note": []
+            },
+            "note": [],
+            "appliesTo": []
+          }
+        ],
+        "identifier": [
+          {
+            "structuredValue": [],
+            "parallelValue": [],
+            "groupedValue": [],
+            "type": "ORCID",
+            "uri": "https://orcid.org/0000-0002-4780-9566",
+            "identifier": [],
+            "source": { "code": "orcid", "note": [] },
+            "note": [],
+            "appliesTo": []
+          }
+        ],
+        "note": [
+          {
+            "structuredValue": [],
+            "parallelValue": [],
+            "groupedValue": [],
+            "value": "Center for Data Science, New York University",
+            "type": "affiliation",
+            "identifier": [],
+            "note": [],
+            "appliesTo": []
+          }
+        ],
+        "parallelContributor": []
+      },
+      {
+        "name": [
+          {
+            "structuredValue": [],
+            "parallelValue": [],
+            "groupedValue": [],
+            "value": "Thomas, Rajat",
+            "identifier": [],
+            "note": [],
+            "appliesTo": []
+          }
+        ],
+        "type": "person",
+        "role": [
+          {
+            "structuredValue": [],
+            "parallelValue": [],
+            "groupedValue": [],
+            "value": "author",
+            "code": "aut",
+            "uri": "http://id.loc.gov/vocabulary/relators/aut",
+            "identifier": [],
+            "source": {
+              "code": "marcrelator",
+              "uri": "http://id.loc.gov/vocabulary/relators/",
+              "note": []
+            },
+            "note": [],
+            "appliesTo": []
+          }
+        ],
+        "identifier": [
+          {
+            "structuredValue": [],
+            "parallelValue": [],
+            "groupedValue": [],
+            "type": "ORCID",
+            "uri": "https://orcid.org/0000-0002-5362-4816",
+            "identifier": [],
+            "source": { "code": "orcid", "note": [] },
+            "note": [],
+            "appliesTo": []
+          }
+        ],
+        "note": [
+          {
+            "structuredValue": [],
+            "parallelValue": [],
+            "groupedValue": [],
+            "value": "Department of Psychiatry, University of Amsterdam",
+            "type": "affiliation",
+            "identifier": [],
+            "note": [],
+            "appliesTo": []
+          }
+        ],
+        "parallelContributor": []
+      },
+      {
+        "name": [
+          {
+            "structuredValue": [],
+            "parallelValue": [],
+            "groupedValue": [],
+            "value": "Wright, Paul",
+            "identifier": [],
+            "note": [],
+            "appliesTo": []
+          }
+        ],
+        "type": "person",
+        "role": [
+          {
+            "structuredValue": [],
+            "parallelValue": [],
+            "groupedValue": [],
+            "value": "author",
+            "code": "aut",
+            "uri": "http://id.loc.gov/vocabulary/relators/aut",
+            "identifier": [],
+            "source": {
+              "code": "marcrelator",
+              "uri": "http://id.loc.gov/vocabulary/relators/",
+              "note": []
+            },
+            "note": [],
+            "appliesTo": []
+          }
+        ],
+        "identifier": [
+          {
+            "structuredValue": [],
+            "parallelValue": [],
+            "groupedValue": [],
+            "type": "ORCID",
+            "uri": "https://orcid.org/0000-0001-9021-611X",
+            "identifier": [],
+            "source": { "code": "orcid", "note": [] },
+            "note": [],
+            "appliesTo": []
+          }
+        ],
+        "note": [
+          {
+            "structuredValue": [],
+            "parallelValue": [],
+            "groupedValue": [],
+            "value": "SUPA School of Physics and Astronomy, University of Glasgow",
+            "type": "affiliation",
+            "identifier": [],
+            "note": [],
+            "appliesTo": []
+          }
+        ],
+        "parallelContributor": []
+      },
+      {
+        "name": [
+          {
+            "structuredValue": [],
+            "parallelValue": [],
+            "groupedValue": [],
+            "value": "Szenicer, Alexander",
+            "identifier": [],
+            "note": [],
+            "appliesTo": []
+          }
+        ],
+        "type": "person",
+        "role": [
+          {
+            "structuredValue": [],
+            "parallelValue": [],
+            "groupedValue": [],
+            "value": "author",
+            "code": "aut",
+            "uri": "http://id.loc.gov/vocabulary/relators/aut",
+            "identifier": [],
+            "source": {
+              "code": "marcrelator",
+              "uri": "http://id.loc.gov/vocabulary/relators/",
+              "note": []
+            },
+            "note": [],
+            "appliesTo": []
+          }
+        ],
+        "identifier": [
+          {
+            "structuredValue": [],
+            "parallelValue": [],
+            "groupedValue": [],
+            "type": "ORCID",
+            "uri": "https://orcid.org/0000-0002-4829-5739",
+            "identifier": [],
+            "source": { "code": "orcid", "note": [] },
+            "note": [],
+            "appliesTo": []
+          }
+        ],
+        "note": [
+          {
+            "structuredValue": [],
+            "parallelValue": [],
+            "groupedValue": [],
+            "value": "University of Oxford, Department of Earth Sciences",
+            "type": "affiliation",
+            "identifier": [],
+            "note": [],
+            "appliesTo": []
+          }
+        ],
+        "parallelContributor": []
+      },
+      {
+        "name": [
+          {
+            "structuredValue": [],
+            "parallelValue": [],
+            "groupedValue": [],
+            "value": "Bobra, Monica G.",
+            "identifier": [],
+            "note": [],
+            "appliesTo": []
+          }
+        ],
+        "type": "person",
+        "role": [
+          {
+            "structuredValue": [],
+            "parallelValue": [],
+            "groupedValue": [],
+            "value": "author",
+            "code": "aut",
+            "uri": "http://id.loc.gov/vocabulary/relators/aut",
+            "identifier": [],
+            "source": {
+              "code": "marcrelator",
+              "uri": "http://id.loc.gov/vocabulary/relators/",
+              "note": []
+            },
+            "note": [],
+            "appliesTo": []
+          }
+        ],
+        "identifier": [
+          {
+            "structuredValue": [],
+            "parallelValue": [],
+            "groupedValue": [],
+            "type": "ORCID",
+            "uri": "https://orcid.org/0000-0002-5662-9604",
+            "identifier": [],
+            "source": { "code": "orcid", "note": [] },
+            "note": [],
+            "appliesTo": []
+          }
+        ],
+        "note": [
+          {
+            "structuredValue": [],
+            "parallelValue": [],
+            "groupedValue": [],
+            "value": "Hansen Experimental Physics Laboratory, Stanford University",
+            "type": "affiliation",
+            "identifier": [],
+            "note": [],
+            "appliesTo": []
+          }
+        ],
+        "parallelContributor": []
+      },
+      {
+        "name": [
+          {
+            "structuredValue": [],
+            "parallelValue": [],
+            "groupedValue": [],
+            "value": "Liu, Yang",
+            "identifier": [],
+            "note": [],
+            "appliesTo": []
+          }
+        ],
+        "type": "person",
+        "role": [
+          {
+            "structuredValue": [],
+            "parallelValue": [],
+            "groupedValue": [],
+            "value": "author",
+            "code": "aut",
+            "uri": "http://id.loc.gov/vocabulary/relators/aut",
+            "identifier": [],
+            "source": {
+              "code": "marcrelator",
+              "uri": "http://id.loc.gov/vocabulary/relators/",
+              "note": []
+            },
+            "note": [],
+            "appliesTo": []
+          }
+        ],
+        "identifier": [
+          {
+            "structuredValue": [],
+            "parallelValue": [],
+            "groupedValue": [],
+            "type": "ORCID",
+            "uri": "https://orcid.org/0000-0002-0671-689X",
+            "identifier": [],
+            "source": { "code": "orcid", "note": [] },
+            "note": [],
+            "appliesTo": []
+          }
+        ],
+        "note": [
+          {
+            "structuredValue": [],
+            "parallelValue": [],
+            "groupedValue": [],
+            "value": "Hansen Experimental Physics Laboratory, Stanford University",
+            "type": "affiliation",
+            "identifier": [],
+            "note": [],
+            "appliesTo": []
+          }
+        ],
+        "parallelContributor": []
+      },
+      {
+        "name": [
+          {
+            "structuredValue": [],
+            "parallelValue": [],
+            "groupedValue": [],
+            "value": "Mason, James",
+            "identifier": [],
+            "note": [],
+            "appliesTo": []
+          }
+        ],
+        "type": "person",
+        "role": [
+          {
+            "structuredValue": [],
+            "parallelValue": [],
+            "groupedValue": [],
+            "value": "author",
+            "code": "aut",
+            "uri": "http://id.loc.gov/vocabulary/relators/aut",
+            "identifier": [],
+            "source": {
+              "code": "marcrelator",
+              "uri": "http://id.loc.gov/vocabulary/relators/",
+              "note": []
+            },
+            "note": [],
+            "appliesTo": []
+          }
+        ],
+        "identifier": [
+          {
+            "structuredValue": [],
+            "parallelValue": [],
+            "groupedValue": [],
+            "type": "ORCID",
+            "uri": "https://orcid.org/0000-0002-3783-5509",
+            "identifier": [],
+            "source": { "code": "orcid", "note": [] },
+            "note": [],
+            "appliesTo": []
+          }
+        ],
+        "note": [
+          {
+            "structuredValue": [],
+            "parallelValue": [],
+            "groupedValue": [],
+            "value": "NASA Goddard Space Flight Center",
+            "type": "affiliation",
+            "identifier": [],
+            "note": [],
+            "appliesTo": []
+          }
+        ],
+        "parallelContributor": []
+      },
+      {
+        "name": [
+          {
+            "structuredValue": [],
+            "parallelValue": [],
+            "groupedValue": [],
+            "value": "Lockheed Martin",
+            "identifier": [],
+            "note": [],
+            "appliesTo": []
+          }
+        ],
+        "type": "organization",
+        "role": [],
+        "identifier": [],
+        "note": [],
+        "parallelContributor": []
+      },
+      {
+        "name": [
+          {
+            "structuredValue": [],
+            "parallelValue": [],
+            "groupedValue": [],
+            "value": "IBM",
+            "identifier": [],
+            "note": [],
+            "appliesTo": []
+          }
+        ],
+        "type": "organization",
+        "role": [],
+        "identifier": [],
+        "note": [],
+        "parallelContributor": []
+      }
+    ],
+    "event": [
+      {
+        "structuredValue": [],
+        "date": [
+          {
+            "structuredValue": [],
+            "parallelValue": [],
+            "groupedValue": [],
+            "value": "2018",
+            "type": "creation",
+            "encoding": { "code": "w3cdtf", "note": [] },
+            "identifier": [],
+            "note": [],
+            "appliesTo": []
+          },
+          {
+            "structuredValue": [],
+            "parallelValue": [],
+            "groupedValue": [],
+            "value": "2018",
+            "type": "publication",
+            "status": "primary",
+            "encoding": { "code": "w3cdtf", "note": [] },
+            "identifier": [],
+            "note": [],
+            "appliesTo": []
+          }
+        ],
+        "contributor": [],
+        "location": [],
+        "identifier": [],
+        "note": [],
+        "parallelEvent": []
+      }
+    ],
+    "form": [
+      {
+        "structuredValue": [],
+        "parallelValue": [],
+        "groupedValue": [],
+        "value": "dataset",
+        "type": "genre",
+        "identifier": [],
+        "source": { "code": "local", "note": [] },
+        "note": [],
+        "appliesTo": []
+      },
+      {
+        "structuredValue": [],
+        "parallelValue": [],
+        "groupedValue": [],
+        "value": "quantitative data",
+        "type": "genre",
+        "identifier": [],
+        "note": [],
+        "appliesTo": []
+      },
+      {
+        "structuredValue": [],
+        "parallelValue": [],
+        "groupedValue": [],
+        "value": "software, multimedia",
+        "type": "resource type",
+        "identifier": [],
+        "source": { "value": "MODS resource types", "note": [] },
+        "note": [],
+        "appliesTo": []
+      }
+    ],
+    "geographic": [],
+    "language": [],
+    "note": [
+      {
+        "structuredValue": [],
+        "parallelValue": [],
+        "groupedValue": [],
+        "value": "We present a curated dataset from the NASA Solar Dynamics Observatory (SDO) mission in a format suitable for machine learning research. Beginning from level 1 scientific products we have processed various instrumental corrections, downsampled to manageable spatial and temporal resolutions, and synchronized observations spatially and temporally. We anticipate this curated dataset will facilitate machine learning research in heliophysics and the physical sciences generally, increasing the scientific return of the SDO mission. This work is a deliverable of the 2018 NASA Frontier Development Lab program. This page includes data from 2010. Data from 2011-2018 are also available. See links to related items elsewhere on this page.",
+        "type": "abstract",
+        "identifier": [],
+        "note": [],
+        "appliesTo": []
+      },
+      {
+        "structuredValue": [],
+        "parallelValue": [],
+        "groupedValue": [],
+        "value": "Fouhey, David and Jin, Meng and Cheung, Mark and Munoz-Jaramillo, Andres and Galvez, Richard and Thomas, Rajat and Wright, Paul and Szenicer, Alexander and Bobra, Monica G. and Liu, Yang and Mason, James. (2018). 2010 Machine Learning Data Set for NASA's Solar Dynamics Observatory - Atmospheric Imaging Assembly. Stanford Digital Repository. Available at: https://purl.stanford.edu/vk217bh4910 https://doi.org/10.25740/ppax-bf07",
+        "type": "preferred citation",
+        "identifier": [],
+        "displayLabel": "Preferred citation",
+        "note": [],
+        "appliesTo": []
+      },
+      {
+        "structuredValue": [],
+        "parallelValue": [],
+        "groupedValue": [],
+        "value": "NASA Solar Dynamics Observatory/Atmospheric Imaging Assembly NNG04EA00C",
+        "identifier": [],
+        "displayLabel": "Funding information",
+        "note": [],
+        "appliesTo": []
+      },
+      {
+        "structuredValue": [],
+        "parallelValue": [],
+        "groupedValue": [],
+        "value": "NASA Frontier Development Lab NNX14AT27A",
+        "identifier": [],
+        "displayLabel": "Funding information",
+        "note": [],
+        "appliesTo": []
+      }
+    ],
+    "identifier": [
+      {
+        "structuredValue": [],
+        "parallelValue": [],
+        "groupedValue": [],
+        "value": "https://doi.org/10.25740/ppax-bf07",
+        "type": "DOI",
+        "identifier": [],
+        "source": { "code": "doi", "note": [] },
+        "displayLabel": "DOI",
+        "note": [],
+        "appliesTo": []
+      }
+    ],
+    "subject": [
+      {
+        "structuredValue": [],
+        "parallelValue": [],
+        "groupedValue": [],
+        "value": "NASA",
+        "type": "topic",
+        "identifier": [],
+        "note": [],
+        "appliesTo": []
+      },
+      {
+        "structuredValue": [],
+        "parallelValue": [],
+        "groupedValue": [],
+        "value": "Solar Dynamics Observatory (SDO)",
+        "type": "topic",
+        "identifier": [],
+        "note": [],
+        "appliesTo": []
+      },
+      {
+        "structuredValue": [],
+        "parallelValue": [],
+        "groupedValue": [],
+        "value": "Atmospheric Imaging Assembly (AIA)",
+        "type": "topic",
+        "identifier": [],
+        "note": [],
+        "appliesTo": []
+      },
+      {
+        "structuredValue": [],
+        "parallelValue": [],
+        "groupedValue": [],
+        "value": "Helioseismic and Magnetic Imager (HMI)",
+        "type": "topic",
+        "identifier": [],
+        "note": [],
+        "appliesTo": []
+      },
+      {
+        "structuredValue": [],
+        "parallelValue": [],
+        "groupedValue": [],
+        "value": "Extreme Ultraviolet Variability Experiment (EVE)",
+        "type": "topic",
+        "identifier": [],
+        "note": [],
+        "appliesTo": []
+      },
+      {
+        "structuredValue": [],
+        "parallelValue": [],
+        "groupedValue": [],
+        "value": "Heliophysics",
+        "type": "topic",
+        "identifier": [],
+        "note": [],
+        "appliesTo": []
+      },
+      {
+        "structuredValue": [],
+        "parallelValue": [],
+        "groupedValue": [],
+        "value": "Astronomy",
+        "type": "topic",
+        "identifier": [],
+        "note": [],
+        "appliesTo": []
+      },
+      {
+        "structuredValue": [],
+        "parallelValue": [],
+        "groupedValue": [],
+        "value": "Sun",
+        "type": "topic",
+        "identifier": [],
+        "note": [],
+        "appliesTo": []
+      },
+      {
+        "structuredValue": [],
+        "parallelValue": [],
+        "groupedValue": [],
+        "value": "Solar Irradiance",
+        "type": "topic",
+        "identifier": [],
+        "note": [],
+        "appliesTo": []
+      },
+      {
+        "structuredValue": [],
+        "parallelValue": [],
+        "groupedValue": [],
+        "value": "Solar Magnetic Field",
+        "type": "topic",
+        "identifier": [],
+        "note": [],
+        "appliesTo": []
+      },
+      {
+        "structuredValue": [],
+        "parallelValue": [],
+        "groupedValue": [],
+        "value": "Solar EUV",
+        "type": "topic",
+        "identifier": [],
+        "note": [],
+        "appliesTo": []
+      },
+      {
+        "structuredValue": [],
+        "parallelValue": [],
+        "groupedValue": [],
+        "value": "Machine Learning",
+        "type": "topic",
+        "identifier": [],
+        "note": [],
+        "appliesTo": []
+      },
+      {
+        "structuredValue": [],
+        "parallelValue": [],
+        "groupedValue": [],
+        "value": "Computer Vision",
+        "type": "topic",
+        "identifier": [],
+        "note": [],
+        "appliesTo": []
+      },
+      {
+        "structuredValue": [],
+        "parallelValue": [],
+        "groupedValue": [],
+        "value": "Deep Learning",
+        "type": "topic",
+        "identifier": [],
+        "note": [],
+        "appliesTo": []
+      },
+      {
+        "structuredValue": [],
+        "parallelValue": [],
+        "groupedValue": [],
+        "value": "Python",
+        "type": "topic",
+        "identifier": [],
+        "note": [],
+        "appliesTo": []
+      }
+    ],
+    "access": {
+      "url": [],
+      "physicalLocation": [],
+      "digitalLocation": [],
+      "accessContact": [
+        {
+          "structuredValue": [],
+          "parallelValue": [],
+          "groupedValue": [],
+          "value": "jth@stanford.edu",
+          "type": "email",
+          "identifier": [],
+          "displayLabel": "Contact",
+          "note": [],
+          "appliesTo": []
+        },
+        {
+          "structuredValue": [],
+          "parallelValue": [],
+          "groupedValue": [],
+          "value": "jinmeng@lmsal.com",
+          "type": "email",
+          "identifier": [],
+          "displayLabel": "Contact",
+          "note": [],
+          "appliesTo": []
+        }
+      ],
+      "digitalRepository": [],
+      "note": []
+    },
+    "relatedResource": [
+      {
+        "type": "succeeded by",
+        "title": [
+          {
+            "structuredValue": [],
+            "parallelValue": [],
+            "groupedValue": [],
+            "value": "2011 Machine Learning Data Set for NASA's Solar Dynamics Observatory - Atmospheric Imaging Assembly",
+            "identifier": [],
+            "note": [],
+            "appliesTo": []
+          }
+        ],
+        "contributor": [],
+        "event": [],
+        "form": [],
+        "language": [],
+        "note": [],
+        "identifier": [
+          {
+            "structuredValue": [],
+            "parallelValue": [],
+            "groupedValue": [],
+            "value": "https://doi.org/10.25740/sb4q-wj06",
+            "type": "DOI",
+            "identifier": [],
+            "source": { "code": "doi", "note": [] },
+            "note": [],
+            "appliesTo": []
+          }
+        ],
+        "subject": [],
+        "purl": "https://purl.stanford.edu/jc488jb7715",
+        "relatedResource": []
+      },
+      {
+        "type": "succeeded by",
+        "title": [
+          {
+            "structuredValue": [],
+            "parallelValue": [],
+            "groupedValue": [],
+            "value": "2012 Machine Learning Data Set for NASA's Solar Dynamics Observatory - Atmospheric Imaging Assembly",
+            "identifier": [],
+            "note": [],
+            "appliesTo": []
+          }
+        ],
+        "contributor": [],
+        "event": [],
+        "form": [],
+        "language": [],
+        "note": [],
+        "identifier": [
+          {
+            "structuredValue": [],
+            "parallelValue": [],
+            "groupedValue": [],
+            "value": "https://doi.org/10.25740/1vyz-b592",
+            "type": "DOI",
+            "identifier": [],
+            "source": { "code": "doi", "note": [] },
+            "note": [],
+            "appliesTo": []
+          }
+        ],
+        "subject": [],
+        "purl": "https://purl.stanford.edu/dc156hp0190",
+        "relatedResource": []
+      },
+      {
+        "type": "succeeded by",
+        "title": [
+          {
+            "structuredValue": [],
+            "parallelValue": [],
+            "groupedValue": [],
+            "value": "2013 Machine Learning Data Set for NASA's Solar Dynamics Observatory - Atmospheric Imaging Assembly",
+            "identifier": [],
+            "note": [],
+            "appliesTo": []
+          }
+        ],
+        "contributor": [],
+        "event": [],
+        "form": [],
+        "language": [],
+        "note": [],
+        "identifier": [
+          {
+            "structuredValue": [],
+            "parallelValue": [],
+            "groupedValue": [],
+            "value": "https://doi.org/10.25740/2zme-3q44",
+            "type": "DOI",
+            "identifier": [],
+            "source": { "code": "doi", "note": [] },
+            "note": [],
+            "appliesTo": []
+          }
+        ],
+        "subject": [],
+        "purl": "https://purl.stanford.edu/km388vz4371",
+        "relatedResource": []
+      },
+      {
+        "type": "succeeded by",
+        "title": [
+          {
+            "structuredValue": [],
+            "parallelValue": [],
+            "groupedValue": [],
+            "value": "2014 Machine Learning Data Set for NASA's Solar Dynamics Observatory - Atmospheric Imaging Assembly",
+            "identifier": [],
+            "note": [],
+            "appliesTo": []
+          }
+        ],
+        "contributor": [],
+        "event": [],
+        "form": [],
+        "language": [],
+        "note": [],
+        "identifier": [
+          {
+            "structuredValue": [],
+            "parallelValue": [],
+            "groupedValue": [],
+            "value": "https://doi.org/10.25740/3jhw-x180",
+            "type": "DOI",
+            "identifier": [],
+            "source": { "code": "doi", "note": [] },
+            "note": [],
+            "appliesTo": []
+          }
+        ],
+        "subject": [],
+        "purl": "https://purl.stanford.edu/sr325xz9271",
+        "relatedResource": []
+      },
+      {
+        "type": "succeeded by",
+        "title": [
+          {
+            "structuredValue": [],
+            "parallelValue": [],
+            "groupedValue": [],
+            "value": "2015 Machine Learning Data Set for NASA's Solar Dynamics Observatory - Atmospheric Imaging Assembly",
+            "identifier": [],
+            "note": [],
+            "appliesTo": []
+          }
+        ],
+        "contributor": [],
+        "event": [],
+        "form": [],
+        "language": [],
+        "note": [],
+        "identifier": [
+          {
+            "structuredValue": [],
+            "parallelValue": [],
+            "groupedValue": [],
+            "value": "https://doi.org/10.25740/0fbp-re41",
+            "type": "DOI",
+            "identifier": [],
+            "source": { "code": "doi", "note": [] },
+            "note": [],
+            "appliesTo": []
+          }
+        ],
+        "subject": [],
+        "purl": "https://purl.stanford.edu/qw012qy2533",
+        "relatedResource": []
+      },
+      {
+        "type": "succeeded by",
+        "title": [
+          {
+            "structuredValue": [],
+            "parallelValue": [],
+            "groupedValue": [],
+            "value": "2016 Machine Learning Data Set for NASA's Solar Dynamics Observatory - Atmospheric Imaging Assembly",
+            "identifier": [],
+            "note": [],
+            "appliesTo": []
+          }
+        ],
+        "contributor": [],
+        "event": [],
+        "form": [],
+        "language": [],
+        "note": [],
+        "identifier": [
+          {
+            "structuredValue": [],
+            "parallelValue": [],
+            "groupedValue": [],
+            "value": "https://doi.org/10.25740/64cr-bc95",
+            "type": "DOI",
+            "identifier": [],
+            "source": { "code": "doi", "note": [] },
+            "note": [],
+            "appliesTo": []
+          }
+        ],
+        "subject": [],
+        "purl": "https://purl.stanford.edu/vf806tr8954",
+        "relatedResource": []
+      },
+      {
+        "type": "succeeded by",
+        "title": [
+          {
+            "structuredValue": [],
+            "parallelValue": [],
+            "groupedValue": [],
+            "value": "2017 Machine Learning Data Set for NASA's Solar Dynamics Observatory - Atmospheric Imaging Assembly",
+            "identifier": [],
+            "note": [],
+            "appliesTo": []
+          }
+        ],
+        "contributor": [],
+        "event": [],
+        "form": [],
+        "language": [],
+        "note": [],
+        "identifier": [
+          {
+            "structuredValue": [],
+            "parallelValue": [],
+            "groupedValue": [],
+            "value": "https://doi.org/10.25740/c8bw-ar96",
+            "type": "DOI",
+            "identifier": [],
+            "source": { "code": "doi", "note": [] },
+            "note": [],
+            "appliesTo": []
+          }
+        ],
+        "subject": [],
+        "purl": "https://purl.stanford.edu/kp222tm1554",
+        "relatedResource": []
+      },
+      {
+        "type": "succeeded by",
+        "title": [
+          {
+            "structuredValue": [],
+            "parallelValue": [],
+            "groupedValue": [],
+            "value": "2018 Machine Learning Data Set for NASA's Solar Dynamics Observatory - Atmospheric Imaging Assembly",
+            "identifier": [],
+            "note": [],
+            "appliesTo": []
+          }
+        ],
+        "contributor": [],
+        "event": [],
+        "form": [],
+        "language": [],
+        "note": [],
+        "identifier": [
+          {
+            "structuredValue": [],
+            "parallelValue": [],
+            "groupedValue": [],
+            "value": "https://doi.org/10.25740/pknx-5s37",
+            "type": "DOI",
+            "identifier": [],
+            "source": { "code": "doi", "note": [] },
+            "note": [],
+            "appliesTo": []
+          }
+        ],
+        "subject": [],
+        "purl": "https://purl.stanford.edu/nk828sc2920",
+        "relatedResource": []
+      },
+      {
+        "title": [
+          {
+            "structuredValue": [],
+            "parallelValue": [],
+            "groupedValue": [],
+            "value": "FLPedBrain",
+            "identifier": [],
+            "note": [],
+            "appliesTo": []
+          }
+        ],
+        "contributor": [],
+        "event": [],
+        "form": [],
+        "language": [],
+        "note": [],
+        "identifier": [],
+        "subject": [],
+        "access": {
+          "url": [
+            {
+              "structuredValue": [],
+              "parallelValue": [],
+              "groupedValue": [],
+              "value": "https://github.com/edhlee/FLPedBrain",
+              "identifier": [],
+              "note": [],
+              "appliesTo": []
+            }
+          ],
+          "physicalLocation": [],
+          "digitalLocation": [],
+          "accessContact": [],
+          "digitalRepository": [],
+          "note": []
+        },
+        "relatedResource": []
+      },
+      {
+        "title": [
+          {
+            "structuredValue": [],
+            "parallelValue": [],
+            "groupedValue": [],
+            "value": "FLPedBrain with PURL",
+            "identifier": [],
+            "note": [],
+            "appliesTo": []
+          }
+        ],
+        "contributor": [],
+        "event": [],
+        "form": [],
+        "language": [],
+        "note": [],
+        "identifier": [],
+        "subject": [],
+        "purl": "https://purl.stanford.edu/zx935qw7203",
+        "relatedResource": []
+      }        
+    ],
+    "marcEncodedData": [],
+    "adminMetadata": {
+      "contributor": [
+        {
+          "name": [
+            {
+              "structuredValue": [],
+              "parallelValue": [],
+              "groupedValue": [],
+              "code": "CSt",
+              "uri": "http://id.loc.gov/vocabulary/organizations/cst",
+              "identifier": [],
+              "source": {
+                "code": "marcorg",
+                "uri": "http://id.loc.gov/vocabulary/organizations",
+                "note": []
+              },
+              "note": [],
+              "appliesTo": []
+            }
+          ],
+          "type": "organization",
+          "role": [
+            {
+              "structuredValue": [],
+              "parallelValue": [],
+              "groupedValue": [],
+              "value": "original cataloging agency",
+              "identifier": [],
+              "note": [],
+              "appliesTo": []
+            }
+          ],
+          "identifier": [],
+          "note": [],
+          "parallelContributor": []
+        }
+      ],
+      "event": [],
+      "language": [
+        {
+          "appliesTo": [],
+          "code": "eng",
+          "groupedValue": [],
+          "note": [],
+          "parallelValue": [],
+          "source": {
+            "code": "iso639-2b",
+            "uri": "http://id.loc.gov/vocabulary/iso639-2",
+            "note": []
+          },
+          "structuredValue": [],
+          "uri": "http://id.loc.gov/vocabulary/iso639-2/eng",
+          "value": "English"
+        }
+      ],
+      "note": [],
+      "metadataStandard": [],
+      "identifier": []
+    },
+    "purl": "https://purl.stanford.edu/vk217bh4910"
+  },
+  "identification": {
+    "catalogLinks": [],
+    "sourceId": "Hydrus:item-amyhodge-2019-01-29T21:42:11.711Z"
+  },
+  "structural": {
+    "contains": [
+      {
+        "type": "https://cocina.sul.stanford.edu/models/resources/file",
+        "externalIdentifier": "https://cocina.sul.stanford.edu/fileSet/vk217bh4910-vk217bh4910_1",
+        "label": "File 1",
+        "version": 9,
+        "structural": {
+          "contains": [
+            {
+              "type": "https://cocina.sul.stanford.edu/models/file",
+              "externalIdentifier": "https://cocina.sul.stanford.edu/file/vk217bh4910-vk217bh4910_1/AIA_0094_201005.tar",
+              "label": "AIA_0094_201005.tar",
+              "filename": "AIA_0094_201005.tar",
+              "size": 3334683907,
+              "version": 9,
+              "hasMimeType": "application/x-gzip",
+              "sdrGeneratedText": false,
+              "correctedForAccessibility": false,
+              "hasMessageDigests": [
+                {
+                  "type": "sha1",
+                  "digest": "4bf8edd60b50078cbd21eb3652d07511ca574e8c"
+                },
+                { "type": "md5", "digest": "d5f133c709f1e87f57b687d3421f4b1e" }
+              ],
+              "access": {
+                "view": "world",
+                "download": "world",
+                "controlledDigitalLending": false
+              },
+              "administrative": {
+                "publish": true,
+                "sdrPreserve": true,
+                "shelve": true
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "https://cocina.sul.stanford.edu/models/resources/file",
+        "externalIdentifier": "https://cocina.sul.stanford.edu/fileSet/vk217bh4910-vk217bh4910_2",
+        "label": "File 2",
+        "version": 9,
+        "structural": {
+          "contains": [
+            {
+              "type": "https://cocina.sul.stanford.edu/models/file",
+              "externalIdentifier": "https://cocina.sul.stanford.edu/file/vk217bh4910-vk217bh4910_2/AIA_0094_201006.tar",
+              "label": "AIA_0094_201006.tar",
+              "filename": "AIA_0094_201006.tar",
+              "size": 6566984618,
+              "version": 9,
+              "hasMimeType": "application/x-gzip",
+              "sdrGeneratedText": false,
+              "correctedForAccessibility": false,
+              "hasMessageDigests": [
+                {
+                  "type": "sha1",
+                  "digest": "b020f03a7769b06ebb4ca9c7be6e79d51e75a6f8"
+                },
+                { "type": "md5", "digest": "fab8bf4d21577fcda080f95925f89725" }
+              ],
+              "access": {
+                "view": "world",
+                "download": "world",
+                "controlledDigitalLending": false
+              },
+              "administrative": {
+                "publish": true,
+                "sdrPreserve": true,
+                "shelve": true
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "https://cocina.sul.stanford.edu/models/resources/file",
+        "externalIdentifier": "https://cocina.sul.stanford.edu/fileSet/vk217bh4910-vk217bh4910_3",
+        "label": "File 3",
+        "version": 9,
+        "structural": {
+          "contains": [
+            {
+              "type": "https://cocina.sul.stanford.edu/models/file",
+              "externalIdentifier": "https://cocina.sul.stanford.edu/file/vk217bh4910-vk217bh4910_3/AIA_0094_201007.tar",
+              "label": "AIA_0094_201007.tar",
+              "filename": "AIA_0094_201007.tar",
+              "size": 5917085821,
+              "version": 9,
+              "hasMimeType": "application/x-gzip",
+              "sdrGeneratedText": false,
+              "correctedForAccessibility": false,
+              "hasMessageDigests": [
+                {
+                  "type": "sha1",
+                  "digest": "25a0671fdf750928b4ec7425971120bde27bebdc"
+                },
+                { "type": "md5", "digest": "d8a5eb35f888402a59548a3a40916e14" }
+              ],
+              "access": {
+                "view": "world",
+                "download": "world",
+                "controlledDigitalLending": false
+              },
+              "administrative": {
+                "publish": true,
+                "sdrPreserve": true,
+                "shelve": true
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "https://cocina.sul.stanford.edu/models/resources/file",
+        "externalIdentifier": "https://cocina.sul.stanford.edu/fileSet/vk217bh4910-vk217bh4910_4",
+        "label": "File 4",
+        "version": 9,
+        "structural": {
+          "contains": [
+            {
+              "type": "https://cocina.sul.stanford.edu/models/file",
+              "externalIdentifier": "https://cocina.sul.stanford.edu/file/vk217bh4910-vk217bh4910_4/AIA_0094_201008.tar",
+              "label": "AIA_0094_201008.tar",
+              "filename": "AIA_0094_201008.tar",
+              "size": 6387990512,
+              "version": 9,
+              "hasMimeType": "application/x-gzip",
+              "sdrGeneratedText": false,
+              "correctedForAccessibility": false,
+              "hasMessageDigests": [
+                {
+                  "type": "sha1",
+                  "digest": "dc856590c3c73de3d3d38b5b635db2f5a3cdb26a"
+                },
+                { "type": "md5", "digest": "5331c56adc3fec13e5c81c162edddea5" }
+              ],
+              "access": {
+                "view": "world",
+                "download": "world",
+                "controlledDigitalLending": false
+              },
+              "administrative": {
+                "publish": true,
+                "sdrPreserve": true,
+                "shelve": true
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "https://cocina.sul.stanford.edu/models/resources/file",
+        "externalIdentifier": "https://cocina.sul.stanford.edu/fileSet/vk217bh4910-vk217bh4910_5",
+        "label": "File 5",
+        "version": 9,
+        "structural": {
+          "contains": [
+            {
+              "type": "https://cocina.sul.stanford.edu/models/file",
+              "externalIdentifier": "https://cocina.sul.stanford.edu/file/vk217bh4910-vk217bh4910_5/AIA_0094_201009.tar",
+              "label": "AIA_0094_201009.tar",
+              "filename": "AIA_0094_201009.tar",
+              "size": 5948837430,
+              "version": 9,
+              "hasMimeType": "application/x-gzip",
+              "sdrGeneratedText": false,
+              "correctedForAccessibility": false,
+              "hasMessageDigests": [
+                {
+                  "type": "sha1",
+                  "digest": "a824c92f369976c44f186d5e0b04a38731e1510d"
+                },
+                { "type": "md5", "digest": "058471d38e786445cce05630b9b6c6a6" }
+              ],
+              "access": {
+                "view": "world",
+                "download": "world",
+                "controlledDigitalLending": false
+              },
+              "administrative": {
+                "publish": true,
+                "sdrPreserve": true,
+                "shelve": true
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "https://cocina.sul.stanford.edu/models/resources/file",
+        "externalIdentifier": "https://cocina.sul.stanford.edu/fileSet/vk217bh4910-vk217bh4910_6",
+        "label": "File 6",
+        "version": 9,
+        "structural": {
+          "contains": [
+            {
+              "type": "https://cocina.sul.stanford.edu/models/file",
+              "externalIdentifier": "https://cocina.sul.stanford.edu/file/vk217bh4910-vk217bh4910_6/AIA_0094_201010.tar",
+              "label": "AIA_0094_201010.tar",
+              "filename": "AIA_0094_201010.tar",
+              "size": 6350651439,
+              "version": 9,
+              "hasMimeType": "application/x-gzip",
+              "sdrGeneratedText": false,
+              "correctedForAccessibility": false,
+              "hasMessageDigests": [
+                {
+                  "type": "sha1",
+                  "digest": "0bcdb62ab498172fb1e3e1e6a4e595e913d5e57c"
+                },
+                { "type": "md5", "digest": "9e3ee77d58a522cc6a4d03f7caee5562" }
+              ],
+              "access": {
+                "view": "world",
+                "download": "world",
+                "controlledDigitalLending": false
+              },
+              "administrative": {
+                "publish": true,
+                "sdrPreserve": true,
+                "shelve": true
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "https://cocina.sul.stanford.edu/models/resources/file",
+        "externalIdentifier": "https://cocina.sul.stanford.edu/fileSet/vk217bh4910-vk217bh4910_7",
+        "label": "File 7",
+        "version": 9,
+        "structural": {
+          "contains": [
+            {
+              "type": "https://cocina.sul.stanford.edu/models/file",
+              "externalIdentifier": "https://cocina.sul.stanford.edu/file/vk217bh4910-vk217bh4910_7/AIA_0094_201011.tar",
+              "label": "AIA_0094_201011.tar",
+              "filename": "AIA_0094_201011.tar",
+              "size": 6186322861,
+              "version": 9,
+              "hasMimeType": "application/x-gzip",
+              "sdrGeneratedText": false,
+              "correctedForAccessibility": false,
+              "hasMessageDigests": [
+                {
+                  "type": "sha1",
+                  "digest": "75baf816ede86b7d81438c328054b9d94de9b9e5"
+                },
+                { "type": "md5", "digest": "a67542ac697e02c91f60eeff3f3ea618" }
+              ],
+              "access": {
+                "view": "world",
+                "download": "world",
+                "controlledDigitalLending": false
+              },
+              "administrative": {
+                "publish": true,
+                "sdrPreserve": true,
+                "shelve": true
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "https://cocina.sul.stanford.edu/models/resources/file",
+        "externalIdentifier": "https://cocina.sul.stanford.edu/fileSet/vk217bh4910-vk217bh4910_8",
+        "label": "File 8",
+        "version": 9,
+        "structural": {
+          "contains": [
+            {
+              "type": "https://cocina.sul.stanford.edu/models/file",
+              "externalIdentifier": "https://cocina.sul.stanford.edu/file/vk217bh4910-vk217bh4910_8/AIA_0094_201012.tar",
+              "label": "AIA_0094_201012.tar",
+              "filename": "AIA_0094_201012.tar",
+              "size": 6496896594,
+              "version": 9,
+              "hasMimeType": "application/x-gzip",
+              "sdrGeneratedText": false,
+              "correctedForAccessibility": false,
+              "hasMessageDigests": [
+                {
+                  "type": "sha1",
+                  "digest": "457a8801560e08ba480bba4e472029dd3b8ee2b1"
+                },
+                { "type": "md5", "digest": "9f1f7a78e9083819f0a06ee56c301f2f" }
+              ],
+              "access": {
+                "view": "world",
+                "download": "world",
+                "controlledDigitalLending": false
+              },
+              "administrative": {
+                "publish": true,
+                "sdrPreserve": true,
+                "shelve": true
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "https://cocina.sul.stanford.edu/models/resources/file",
+        "externalIdentifier": "https://cocina.sul.stanford.edu/fileSet/vk217bh4910-vk217bh4910_9",
+        "label": "File 9",
+        "version": 9,
+        "structural": {
+          "contains": [
+            {
+              "type": "https://cocina.sul.stanford.edu/models/file",
+              "externalIdentifier": "https://cocina.sul.stanford.edu/file/vk217bh4910-vk217bh4910_9/AIA_0131_201005.tar",
+              "label": "AIA_0131_201005.tar",
+              "filename": "AIA_0131_201005.tar",
+              "size": 3765023878,
+              "version": 9,
+              "hasMimeType": "application/x-gzip",
+              "sdrGeneratedText": false,
+              "correctedForAccessibility": false,
+              "hasMessageDigests": [
+                {
+                  "type": "sha1",
+                  "digest": "ad4fede68fa14b398228c971e52a2701a34d5991"
+                },
+                { "type": "md5", "digest": "9163c6b7a15e42cce5c08ad2efb710e7" }
+              ],
+              "access": {
+                "view": "world",
+                "download": "world",
+                "controlledDigitalLending": false
+              },
+              "administrative": {
+                "publish": true,
+                "sdrPreserve": true,
+                "shelve": true
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "https://cocina.sul.stanford.edu/models/resources/file",
+        "externalIdentifier": "https://cocina.sul.stanford.edu/fileSet/vk217bh4910-vk217bh4910_10",
+        "label": "File 10",
+        "version": 9,
+        "structural": {
+          "contains": [
+            {
+              "type": "https://cocina.sul.stanford.edu/models/file",
+              "externalIdentifier": "https://cocina.sul.stanford.edu/file/vk217bh4910-vk217bh4910_10/AIA_0131_201006.tar",
+              "label": "AIA_0131_201006.tar",
+              "filename": "AIA_0131_201006.tar",
+              "size": 6595256437,
+              "version": 9,
+              "hasMimeType": "application/x-gzip",
+              "sdrGeneratedText": false,
+              "correctedForAccessibility": false,
+              "hasMessageDigests": [
+                {
+                  "type": "sha1",
+                  "digest": "1d3c4f6ebd83e692443fdcda2ffbff0874057fc8"
+                },
+                { "type": "md5", "digest": "e23eb0a21101b3296a0e231bef9171ff" }
+              ],
+              "access": {
+                "view": "world",
+                "download": "world",
+                "controlledDigitalLending": false
+              },
+              "administrative": {
+                "publish": true,
+                "sdrPreserve": true,
+                "shelve": true
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "https://cocina.sul.stanford.edu/models/resources/file",
+        "externalIdentifier": "https://cocina.sul.stanford.edu/fileSet/vk217bh4910-vk217bh4910_11",
+        "label": "File 11",
+        "version": 9,
+        "structural": {
+          "contains": [
+            {
+              "type": "https://cocina.sul.stanford.edu/models/file",
+              "externalIdentifier": "https://cocina.sul.stanford.edu/file/vk217bh4910-vk217bh4910_11/AIA_0131_201007.tar",
+              "label": "AIA_0131_201007.tar",
+              "filename": "AIA_0131_201007.tar",
+              "size": 5973965658,
+              "version": 9,
+              "hasMimeType": "application/x-gzip",
+              "sdrGeneratedText": false,
+              "correctedForAccessibility": false,
+              "hasMessageDigests": [
+                {
+                  "type": "sha1",
+                  "digest": "ab3e1286276302ba3ce84fde9a6ec9fbbb873f63"
+                },
+                { "type": "md5", "digest": "1b1399d7a20df46ab546ca8d1ae0cd43" }
+              ],
+              "access": {
+                "view": "world",
+                "download": "world",
+                "controlledDigitalLending": false
+              },
+              "administrative": {
+                "publish": true,
+                "sdrPreserve": true,
+                "shelve": true
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "https://cocina.sul.stanford.edu/models/resources/file",
+        "externalIdentifier": "https://cocina.sul.stanford.edu/fileSet/vk217bh4910-vk217bh4910_12",
+        "label": "File 12",
+        "version": 9,
+        "structural": {
+          "contains": [
+            {
+              "type": "https://cocina.sul.stanford.edu/models/file",
+              "externalIdentifier": "https://cocina.sul.stanford.edu/file/vk217bh4910-vk217bh4910_12/AIA_0131_201008.tar",
+              "label": "AIA_0131_201008.tar",
+              "filename": "AIA_0131_201008.tar",
+              "size": 6448216187,
+              "version": 9,
+              "hasMimeType": "application/x-gzip",
+              "sdrGeneratedText": false,
+              "correctedForAccessibility": false,
+              "hasMessageDigests": [
+                {
+                  "type": "sha1",
+                  "digest": "527d0944ca333044be59de85182b3c4290186354"
+                },
+                { "type": "md5", "digest": "0e75561e44880c1ccbb1d683f8a58832" }
+              ],
+              "access": {
+                "view": "world",
+                "download": "world",
+                "controlledDigitalLending": false
+              },
+              "administrative": {
+                "publish": true,
+                "sdrPreserve": true,
+                "shelve": true
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "https://cocina.sul.stanford.edu/models/resources/file",
+        "externalIdentifier": "https://cocina.sul.stanford.edu/fileSet/vk217bh4910-vk217bh4910_13",
+        "label": "File 13",
+        "version": 9,
+        "structural": {
+          "contains": [
+            {
+              "type": "https://cocina.sul.stanford.edu/models/file",
+              "externalIdentifier": "https://cocina.sul.stanford.edu/file/vk217bh4910-vk217bh4910_13/AIA_0131_201009.tar",
+              "label": "AIA_0131_201009.tar",
+              "filename": "AIA_0131_201009.tar",
+              "size": 6003556186,
+              "version": 9,
+              "hasMimeType": "application/x-gzip",
+              "sdrGeneratedText": false,
+              "correctedForAccessibility": false,
+              "hasMessageDigests": [
+                {
+                  "type": "sha1",
+                  "digest": "033f9090ea88ff0f1ff1d41fdcfd723355af062a"
+                },
+                { "type": "md5", "digest": "bf66ef1ae51107ecfd4679b8cb5fd080" }
+              ],
+              "access": {
+                "view": "world",
+                "download": "world",
+                "controlledDigitalLending": false
+              },
+              "administrative": {
+                "publish": true,
+                "sdrPreserve": true,
+                "shelve": true
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "https://cocina.sul.stanford.edu/models/resources/file",
+        "externalIdentifier": "https://cocina.sul.stanford.edu/fileSet/vk217bh4910-vk217bh4910_14",
+        "label": "File 14",
+        "version": 9,
+        "structural": {
+          "contains": [
+            {
+              "type": "https://cocina.sul.stanford.edu/models/file",
+              "externalIdentifier": "https://cocina.sul.stanford.edu/file/vk217bh4910-vk217bh4910_14/AIA_0131_201010.tar",
+              "label": "AIA_0131_201010.tar",
+              "filename": "AIA_0131_201010.tar",
+              "size": 6390248095,
+              "version": 9,
+              "hasMimeType": "application/x-gzip",
+              "sdrGeneratedText": false,
+              "correctedForAccessibility": false,
+              "hasMessageDigests": [
+                {
+                  "type": "sha1",
+                  "digest": "5450c8aa5741e3b5a51fd7328e98c32cd40f50f5"
+                },
+                { "type": "md5", "digest": "97e2f7524a335769d673a0b36ad2636c" }
+              ],
+              "access": {
+                "view": "world",
+                "download": "world",
+                "controlledDigitalLending": false
+              },
+              "administrative": {
+                "publish": true,
+                "sdrPreserve": true,
+                "shelve": true
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "https://cocina.sul.stanford.edu/models/resources/file",
+        "externalIdentifier": "https://cocina.sul.stanford.edu/fileSet/vk217bh4910-vk217bh4910_15",
+        "label": "File 15",
+        "version": 9,
+        "structural": {
+          "contains": [
+            {
+              "type": "https://cocina.sul.stanford.edu/models/file",
+              "externalIdentifier": "https://cocina.sul.stanford.edu/file/vk217bh4910-vk217bh4910_15/AIA_0131_201011.tar",
+              "label": "AIA_0131_201011.tar",
+              "filename": "AIA_0131_201011.tar",
+              "size": 6211852304,
+              "version": 9,
+              "hasMimeType": "application/x-gzip",
+              "sdrGeneratedText": false,
+              "correctedForAccessibility": false,
+              "hasMessageDigests": [
+                {
+                  "type": "sha1",
+                  "digest": "8f757822b0ef9811c4751fc1a53c70ef60a6fd1f"
+                },
+                { "type": "md5", "digest": "7ac208aafb209232b57ca28b6d533635" }
+              ],
+              "access": {
+                "view": "world",
+                "download": "world",
+                "controlledDigitalLending": false
+              },
+              "administrative": {
+                "publish": true,
+                "sdrPreserve": true,
+                "shelve": true
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "https://cocina.sul.stanford.edu/models/resources/file",
+        "externalIdentifier": "https://cocina.sul.stanford.edu/fileSet/vk217bh4910-vk217bh4910_16",
+        "label": "File 16",
+        "version": 9,
+        "structural": {
+          "contains": [
+            {
+              "type": "https://cocina.sul.stanford.edu/models/file",
+              "externalIdentifier": "https://cocina.sul.stanford.edu/file/vk217bh4910-vk217bh4910_16/AIA_0131_201012.tar",
+              "label": "AIA_0131_201012.tar",
+              "filename": "AIA_0131_201012.tar",
+              "size": 6539053895,
+              "version": 9,
+              "hasMimeType": "application/x-gzip",
+              "sdrGeneratedText": false,
+              "correctedForAccessibility": false,
+              "hasMessageDigests": [
+                {
+                  "type": "sha1",
+                  "digest": "7693e0b1c2269502c6800c2e717c6394659271c1"
+                },
+                { "type": "md5", "digest": "9172e52270a93eddc5519d1eb7866562" }
+              ],
+              "access": {
+                "view": "world",
+                "download": "world",
+                "controlledDigitalLending": false
+              },
+              "administrative": {
+                "publish": true,
+                "sdrPreserve": true,
+                "shelve": true
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "https://cocina.sul.stanford.edu/models/resources/file",
+        "externalIdentifier": "https://cocina.sul.stanford.edu/fileSet/vk217bh4910-vk217bh4910_17",
+        "label": "File 17",
+        "version": 9,
+        "structural": {
+          "contains": [
+            {
+              "type": "https://cocina.sul.stanford.edu/models/file",
+              "externalIdentifier": "https://cocina.sul.stanford.edu/file/vk217bh4910-vk217bh4910_17/AIA_0171_201005.tar",
+              "label": "AIA_0171_201005.tar",
+              "filename": "AIA_0171_201005.tar",
+              "size": 3800135790,
+              "version": 9,
+              "hasMimeType": "application/x-gzip",
+              "sdrGeneratedText": false,
+              "correctedForAccessibility": false,
+              "hasMessageDigests": [
+                {
+                  "type": "sha1",
+                  "digest": "dfa4ad854fed66d7deaab674cdda727c6f96ea5f"
+                },
+                { "type": "md5", "digest": "5aaceb1e43c6645c922d5e8222882181" }
+              ],
+              "access": {
+                "view": "world",
+                "download": "world",
+                "controlledDigitalLending": false
+              },
+              "administrative": {
+                "publish": true,
+                "sdrPreserve": true,
+                "shelve": true
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "https://cocina.sul.stanford.edu/models/resources/file",
+        "externalIdentifier": "https://cocina.sul.stanford.edu/fileSet/vk217bh4910-vk217bh4910_18",
+        "label": "File 18",
+        "version": 9,
+        "structural": {
+          "contains": [
+            {
+              "type": "https://cocina.sul.stanford.edu/models/file",
+              "externalIdentifier": "https://cocina.sul.stanford.edu/file/vk217bh4910-vk217bh4910_18/AIA_0171_201006.tar",
+              "label": "AIA_0171_201006.tar",
+              "filename": "AIA_0171_201006.tar",
+              "size": 6700528123,
+              "version": 9,
+              "hasMimeType": "application/x-gzip",
+              "sdrGeneratedText": false,
+              "correctedForAccessibility": false,
+              "hasMessageDigests": [
+                {
+                  "type": "sha1",
+                  "digest": "80896d37ce11e8ec507749dc4af63caf5836d080"
+                },
+                { "type": "md5", "digest": "6a357b2834f4e569ab1e5953ea954fbe" }
+              ],
+              "access": {
+                "view": "world",
+                "download": "world",
+                "controlledDigitalLending": false
+              },
+              "administrative": {
+                "publish": true,
+                "sdrPreserve": true,
+                "shelve": true
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "https://cocina.sul.stanford.edu/models/resources/file",
+        "externalIdentifier": "https://cocina.sul.stanford.edu/fileSet/vk217bh4910-vk217bh4910_19",
+        "label": "File 19",
+        "version": 9,
+        "structural": {
+          "contains": [
+            {
+              "type": "https://cocina.sul.stanford.edu/models/file",
+              "externalIdentifier": "https://cocina.sul.stanford.edu/file/vk217bh4910-vk217bh4910_19/AIA_0171_201007.tar",
+              "label": "AIA_0171_201007.tar",
+              "filename": "AIA_0171_201007.tar",
+              "size": 6020998897,
+              "version": 9,
+              "hasMimeType": "application/x-gzip",
+              "sdrGeneratedText": false,
+              "correctedForAccessibility": false,
+              "hasMessageDigests": [
+                {
+                  "type": "sha1",
+                  "digest": "65466cd02d1acf33cac31287f7bb67d5562038bd"
+                },
+                { "type": "md5", "digest": "6990e7dea006ea95f8f421bfb9c1cb24" }
+              ],
+              "access": {
+                "view": "world",
+                "download": "world",
+                "controlledDigitalLending": false
+              },
+              "administrative": {
+                "publish": true,
+                "sdrPreserve": true,
+                "shelve": true
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "https://cocina.sul.stanford.edu/models/resources/file",
+        "externalIdentifier": "https://cocina.sul.stanford.edu/fileSet/vk217bh4910-vk217bh4910_20",
+        "label": "File 20",
+        "version": 9,
+        "structural": {
+          "contains": [
+            {
+              "type": "https://cocina.sul.stanford.edu/models/file",
+              "externalIdentifier": "https://cocina.sul.stanford.edu/file/vk217bh4910-vk217bh4910_20/AIA_0171_201008.tar",
+              "label": "AIA_0171_201008.tar",
+              "filename": "AIA_0171_201008.tar",
+              "size": 6494098800,
+              "version": 9,
+              "hasMimeType": "application/x-gzip",
+              "sdrGeneratedText": false,
+              "correctedForAccessibility": false,
+              "hasMessageDigests": [
+                {
+                  "type": "sha1",
+                  "digest": "1e81a75774bc0a8fc5c3bde7c5ff7a2324ac75d3"
+                },
+                { "type": "md5", "digest": "9c96620083a4b4545ebb1177c8ff11ae" }
+              ],
+              "access": {
+                "view": "world",
+                "download": "world",
+                "controlledDigitalLending": false
+              },
+              "administrative": {
+                "publish": true,
+                "sdrPreserve": true,
+                "shelve": true
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "https://cocina.sul.stanford.edu/models/resources/file",
+        "externalIdentifier": "https://cocina.sul.stanford.edu/fileSet/vk217bh4910-vk217bh4910_21",
+        "label": "File 21",
+        "version": 9,
+        "structural": {
+          "contains": [
+            {
+              "type": "https://cocina.sul.stanford.edu/models/file",
+              "externalIdentifier": "https://cocina.sul.stanford.edu/file/vk217bh4910-vk217bh4910_21/AIA_0171_201009.tar",
+              "label": "AIA_0171_201009.tar",
+              "filename": "AIA_0171_201009.tar",
+              "size": 6044228342,
+              "version": 9,
+              "hasMimeType": "application/x-gzip",
+              "sdrGeneratedText": false,
+              "correctedForAccessibility": false,
+              "hasMessageDigests": [
+                {
+                  "type": "sha1",
+                  "digest": "95ba5104e5724726fc1e8d279cc800aef651bbc1"
+                },
+                { "type": "md5", "digest": "8a4736c20945ca6e51b816fc66feb09c" }
+              ],
+              "access": {
+                "view": "world",
+                "download": "world",
+                "controlledDigitalLending": false
+              },
+              "administrative": {
+                "publish": true,
+                "sdrPreserve": true,
+                "shelve": true
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "https://cocina.sul.stanford.edu/models/resources/file",
+        "externalIdentifier": "https://cocina.sul.stanford.edu/fileSet/vk217bh4910-vk217bh4910_22",
+        "label": "File 22",
+        "version": 9,
+        "structural": {
+          "contains": [
+            {
+              "type": "https://cocina.sul.stanford.edu/models/file",
+              "externalIdentifier": "https://cocina.sul.stanford.edu/file/vk217bh4910-vk217bh4910_22/AIA_0171_201010.tar",
+              "label": "AIA_0171_201010.tar",
+              "filename": "AIA_0171_201010.tar",
+              "size": 6447223388,
+              "version": 9,
+              "hasMimeType": "application/x-gzip",
+              "sdrGeneratedText": false,
+              "correctedForAccessibility": false,
+              "hasMessageDigests": [
+                {
+                  "type": "sha1",
+                  "digest": "452d5a1e14a02f1bbcada26fbef8d3119a4e6ec5"
+                },
+                { "type": "md5", "digest": "3741f8487fa4c253068b315de51af29f" }
+              ],
+              "access": {
+                "view": "world",
+                "download": "world",
+                "controlledDigitalLending": false
+              },
+              "administrative": {
+                "publish": true,
+                "sdrPreserve": true,
+                "shelve": true
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "https://cocina.sul.stanford.edu/models/resources/file",
+        "externalIdentifier": "https://cocina.sul.stanford.edu/fileSet/vk217bh4910-vk217bh4910_23",
+        "label": "File 23",
+        "version": 9,
+        "structural": {
+          "contains": [
+            {
+              "type": "https://cocina.sul.stanford.edu/models/file",
+              "externalIdentifier": "https://cocina.sul.stanford.edu/file/vk217bh4910-vk217bh4910_23/AIA_0171_201011.tar",
+              "label": "AIA_0171_201011.tar",
+              "filename": "AIA_0171_201011.tar",
+              "size": 6283948847,
+              "version": 9,
+              "hasMimeType": "application/x-gzip",
+              "sdrGeneratedText": false,
+              "correctedForAccessibility": false,
+              "hasMessageDigests": [
+                {
+                  "type": "sha1",
+                  "digest": "0ec5c5f065c6f2e3f32cea748e2f9c8199598bef"
+                },
+                { "type": "md5", "digest": "671af3cf3e15dce48385949735723a7b" }
+              ],
+              "access": {
+                "view": "world",
+                "download": "world",
+                "controlledDigitalLending": false
+              },
+              "administrative": {
+                "publish": true,
+                "sdrPreserve": true,
+                "shelve": true
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "https://cocina.sul.stanford.edu/models/resources/file",
+        "externalIdentifier": "https://cocina.sul.stanford.edu/fileSet/vk217bh4910-vk217bh4910_24",
+        "label": "File 24",
+        "version": 9,
+        "structural": {
+          "contains": [
+            {
+              "type": "https://cocina.sul.stanford.edu/models/file",
+              "externalIdentifier": "https://cocina.sul.stanford.edu/file/vk217bh4910-vk217bh4910_24/AIA_0171_201012.tar",
+              "label": "AIA_0171_201012.tar",
+              "filename": "AIA_0171_201012.tar",
+              "size": 6598433982,
+              "version": 9,
+              "hasMimeType": "application/x-gzip",
+              "sdrGeneratedText": false,
+              "correctedForAccessibility": false,
+              "hasMessageDigests": [
+                {
+                  "type": "sha1",
+                  "digest": "a990bd56b0ba488f7e2f00d7b693a0f2a2555745"
+                },
+                { "type": "md5", "digest": "26d350666eb9ad1701f1dc6f328c3f07" }
+              ],
+              "access": {
+                "view": "world",
+                "download": "world",
+                "controlledDigitalLending": false
+              },
+              "administrative": {
+                "publish": true,
+                "sdrPreserve": true,
+                "shelve": true
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "https://cocina.sul.stanford.edu/models/resources/file",
+        "externalIdentifier": "https://cocina.sul.stanford.edu/fileSet/vk217bh4910-vk217bh4910_25",
+        "label": "File 25",
+        "version": 9,
+        "structural": {
+          "contains": [
+            {
+              "type": "https://cocina.sul.stanford.edu/models/file",
+              "externalIdentifier": "https://cocina.sul.stanford.edu/file/vk217bh4910-vk217bh4910_25/AIA_0193_201005.tar",
+              "label": "AIA_0193_201005.tar",
+              "filename": "AIA_0193_201005.tar",
+              "size": 3792027972,
+              "version": 9,
+              "hasMimeType": "application/x-gzip",
+              "sdrGeneratedText": false,
+              "correctedForAccessibility": false,
+              "hasMessageDigests": [
+                {
+                  "type": "sha1",
+                  "digest": "64fc719d5d4437379db42ab5de1d8ccc47939a9e"
+                },
+                { "type": "md5", "digest": "25d4f012bc85e69bcf2693585ed7924e" }
+              ],
+              "access": {
+                "view": "world",
+                "download": "world",
+                "controlledDigitalLending": false
+              },
+              "administrative": {
+                "publish": true,
+                "sdrPreserve": true,
+                "shelve": true
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "https://cocina.sul.stanford.edu/models/resources/file",
+        "externalIdentifier": "https://cocina.sul.stanford.edu/fileSet/vk217bh4910-vk217bh4910_26",
+        "label": "File 26",
+        "version": 9,
+        "structural": {
+          "contains": [
+            {
+              "type": "https://cocina.sul.stanford.edu/models/file",
+              "externalIdentifier": "https://cocina.sul.stanford.edu/file/vk217bh4910-vk217bh4910_26/AIA_0193_201006.tar",
+              "label": "AIA_0193_201006.tar",
+              "filename": "AIA_0193_201006.tar",
+              "size": 6633031802,
+              "version": 9,
+              "hasMimeType": "application/x-gzip",
+              "sdrGeneratedText": false,
+              "correctedForAccessibility": false,
+              "hasMessageDigests": [
+                {
+                  "type": "sha1",
+                  "digest": "0e8045eb92f354c9723d97bc8f984a31397648b1"
+                },
+                { "type": "md5", "digest": "609332ddd12eccb65b6b89c82a8d72ca" }
+              ],
+              "access": {
+                "view": "world",
+                "download": "world",
+                "controlledDigitalLending": false
+              },
+              "administrative": {
+                "publish": true,
+                "sdrPreserve": true,
+                "shelve": true
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "https://cocina.sul.stanford.edu/models/resources/file",
+        "externalIdentifier": "https://cocina.sul.stanford.edu/fileSet/vk217bh4910-vk217bh4910_27",
+        "label": "File 27",
+        "version": 9,
+        "structural": {
+          "contains": [
+            {
+              "type": "https://cocina.sul.stanford.edu/models/file",
+              "externalIdentifier": "https://cocina.sul.stanford.edu/file/vk217bh4910-vk217bh4910_27/AIA_0193_201007.tar",
+              "label": "AIA_0193_201007.tar",
+              "filename": "AIA_0193_201007.tar",
+              "size": 6005828857,
+              "version": 9,
+              "hasMimeType": "application/x-gzip",
+              "sdrGeneratedText": false,
+              "correctedForAccessibility": false,
+              "hasMessageDigests": [
+                {
+                  "type": "sha1",
+                  "digest": "f83ca4667148437d531340ead7d3993684630a9c"
+                },
+                { "type": "md5", "digest": "ea5341a5bcc86af6efbb98f8014dd722" }
+              ],
+              "access": {
+                "view": "world",
+                "download": "world",
+                "controlledDigitalLending": false
+              },
+              "administrative": {
+                "publish": true,
+                "sdrPreserve": true,
+                "shelve": true
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "https://cocina.sul.stanford.edu/models/resources/file",
+        "externalIdentifier": "https://cocina.sul.stanford.edu/fileSet/vk217bh4910-vk217bh4910_28",
+        "label": "File 28",
+        "version": 9,
+        "structural": {
+          "contains": [
+            {
+              "type": "https://cocina.sul.stanford.edu/models/file",
+              "externalIdentifier": "https://cocina.sul.stanford.edu/file/vk217bh4910-vk217bh4910_28/AIA_0193_201008.tar",
+              "label": "AIA_0193_201008.tar",
+              "filename": "AIA_0193_201008.tar",
+              "size": 6480323782,
+              "version": 9,
+              "hasMimeType": "application/x-gzip",
+              "sdrGeneratedText": false,
+              "correctedForAccessibility": false,
+              "hasMessageDigests": [
+                {
+                  "type": "sha1",
+                  "digest": "3cac744ac5c062852b6f839f41194f56f5bccb47"
+                },
+                { "type": "md5", "digest": "9a39659b64020710658a0c697e992cf2" }
+              ],
+              "access": {
+                "view": "world",
+                "download": "world",
+                "controlledDigitalLending": false
+              },
+              "administrative": {
+                "publish": true,
+                "sdrPreserve": true,
+                "shelve": true
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "https://cocina.sul.stanford.edu/models/resources/file",
+        "externalIdentifier": "https://cocina.sul.stanford.edu/fileSet/vk217bh4910-vk217bh4910_29",
+        "label": "File 29",
+        "version": 9,
+        "structural": {
+          "contains": [
+            {
+              "type": "https://cocina.sul.stanford.edu/models/file",
+              "externalIdentifier": "https://cocina.sul.stanford.edu/file/vk217bh4910-vk217bh4910_29/AIA_0193_201009.tar",
+              "label": "AIA_0193_201009.tar",
+              "filename": "AIA_0193_201009.tar",
+              "size": 6032776541,
+              "version": 9,
+              "hasMimeType": "application/x-gzip",
+              "sdrGeneratedText": false,
+              "correctedForAccessibility": false,
+              "hasMessageDigests": [
+                {
+                  "type": "sha1",
+                  "digest": "06bf270bee3254652f33dc898a0ab0d54185e246"
+                },
+                { "type": "md5", "digest": "ad01e9495aadf2bd113096a416f8f3df" }
+              ],
+              "access": {
+                "view": "world",
+                "download": "world",
+                "controlledDigitalLending": false
+              },
+              "administrative": {
+                "publish": true,
+                "sdrPreserve": true,
+                "shelve": true
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "https://cocina.sul.stanford.edu/models/resources/file",
+        "externalIdentifier": "https://cocina.sul.stanford.edu/fileSet/vk217bh4910-vk217bh4910_30",
+        "label": "File 30",
+        "version": 9,
+        "structural": {
+          "contains": [
+            {
+              "type": "https://cocina.sul.stanford.edu/models/file",
+              "externalIdentifier": "https://cocina.sul.stanford.edu/file/vk217bh4910-vk217bh4910_30/AIA_0193_201010.tar",
+              "label": "AIA_0193_201010.tar",
+              "filename": "AIA_0193_201010.tar",
+              "size": 6415279164,
+              "version": 9,
+              "hasMimeType": "application/x-gzip",
+              "sdrGeneratedText": false,
+              "correctedForAccessibility": false,
+              "hasMessageDigests": [
+                {
+                  "type": "sha1",
+                  "digest": "d3728663353247c7d6077a0949593b54b1fe50f8"
+                },
+                { "type": "md5", "digest": "286fc24262b1803d56397d8ec5fa2fb2" }
+              ],
+              "access": {
+                "view": "world",
+                "download": "world",
+                "controlledDigitalLending": false
+              },
+              "administrative": {
+                "publish": true,
+                "sdrPreserve": true,
+                "shelve": true
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "https://cocina.sul.stanford.edu/models/resources/file",
+        "externalIdentifier": "https://cocina.sul.stanford.edu/fileSet/vk217bh4910-vk217bh4910_31",
+        "label": "File 31",
+        "version": 9,
+        "structural": {
+          "contains": [
+            {
+              "type": "https://cocina.sul.stanford.edu/models/file",
+              "externalIdentifier": "https://cocina.sul.stanford.edu/file/vk217bh4910-vk217bh4910_31/AIA_0193_201011.tar",
+              "label": "AIA_0193_201011.tar",
+              "filename": "AIA_0193_201011.tar",
+              "size": 6253143732,
+              "version": 9,
+              "hasMimeType": "application/x-gzip",
+              "sdrGeneratedText": false,
+              "correctedForAccessibility": false,
+              "hasMessageDigests": [
+                {
+                  "type": "sha1",
+                  "digest": "a8fd67282c4d21b0d4da25854918e5a7424b7d53"
+                },
+                { "type": "md5", "digest": "1f246d85d371c8a3e60616c90b1586ab" }
+              ],
+              "access": {
+                "view": "world",
+                "download": "world",
+                "controlledDigitalLending": false
+              },
+              "administrative": {
+                "publish": true,
+                "sdrPreserve": true,
+                "shelve": true
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "https://cocina.sul.stanford.edu/models/resources/file",
+        "externalIdentifier": "https://cocina.sul.stanford.edu/fileSet/vk217bh4910-vk217bh4910_32",
+        "label": "File 32",
+        "version": 9,
+        "structural": {
+          "contains": [
+            {
+              "type": "https://cocina.sul.stanford.edu/models/file",
+              "externalIdentifier": "https://cocina.sul.stanford.edu/file/vk217bh4910-vk217bh4910_32/AIA_0193_201012.tar",
+              "label": "AIA_0193_201012.tar",
+              "filename": "AIA_0193_201012.tar",
+              "size": 6574874497,
+              "version": 9,
+              "hasMimeType": "application/x-gzip",
+              "sdrGeneratedText": false,
+              "correctedForAccessibility": false,
+              "hasMessageDigests": [
+                {
+                  "type": "sha1",
+                  "digest": "cf3349b8b7d31ea0055ac2ae415555ddf6b80148"
+                },
+                { "type": "md5", "digest": "a2aef39a223b15b5cb4e272ae138adf6" }
+              ],
+              "access": {
+                "view": "world",
+                "download": "world",
+                "controlledDigitalLending": false
+              },
+              "administrative": {
+                "publish": true,
+                "sdrPreserve": true,
+                "shelve": true
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "https://cocina.sul.stanford.edu/models/resources/file",
+        "externalIdentifier": "https://cocina.sul.stanford.edu/fileSet/vk217bh4910-vk217bh4910_33",
+        "label": "File 33",
+        "version": 9,
+        "structural": {
+          "contains": [
+            {
+              "type": "https://cocina.sul.stanford.edu/models/file",
+              "externalIdentifier": "https://cocina.sul.stanford.edu/file/vk217bh4910-vk217bh4910_33/AIA_0211_201005.tar",
+              "label": "AIA_0211_201005.tar",
+              "filename": "AIA_0211_201005.tar",
+              "size": 3778527938,
+              "version": 9,
+              "hasMimeType": "application/x-gzip",
+              "sdrGeneratedText": false,
+              "correctedForAccessibility": false,
+              "hasMessageDigests": [
+                {
+                  "type": "sha1",
+                  "digest": "d723077dc1d837515baeda2be5844f7c6b2da87f"
+                },
+                { "type": "md5", "digest": "440cd43058f47cdc191288b9d1ce9eac" }
+              ],
+              "access": {
+                "view": "world",
+                "download": "world",
+                "controlledDigitalLending": false
+              },
+              "administrative": {
+                "publish": true,
+                "sdrPreserve": true,
+                "shelve": true
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "https://cocina.sul.stanford.edu/models/resources/file",
+        "externalIdentifier": "https://cocina.sul.stanford.edu/fileSet/vk217bh4910-vk217bh4910_34",
+        "label": "File 34",
+        "version": 9,
+        "structural": {
+          "contains": [
+            {
+              "type": "https://cocina.sul.stanford.edu/models/file",
+              "externalIdentifier": "https://cocina.sul.stanford.edu/file/vk217bh4910-vk217bh4910_34/AIA_0211_201006.tar",
+              "label": "AIA_0211_201006.tar",
+              "filename": "AIA_0211_201006.tar",
+              "size": 6670487858,
+              "version": 9,
+              "hasMimeType": "application/x-gzip",
+              "sdrGeneratedText": false,
+              "correctedForAccessibility": false,
+              "hasMessageDigests": [
+                {
+                  "type": "sha1",
+                  "digest": "dcc4c5b9a0207eff0ac8456d8559b50ad11243a6"
+                },
+                { "type": "md5", "digest": "399ca1f3a49c568dea8facbb456247cb" }
+              ],
+              "access": {
+                "view": "world",
+                "download": "world",
+                "controlledDigitalLending": false
+              },
+              "administrative": {
+                "publish": true,
+                "sdrPreserve": true,
+                "shelve": true
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "https://cocina.sul.stanford.edu/models/resources/file",
+        "externalIdentifier": "https://cocina.sul.stanford.edu/fileSet/vk217bh4910-vk217bh4910_35",
+        "label": "File 35",
+        "version": 9,
+        "structural": {
+          "contains": [
+            {
+              "type": "https://cocina.sul.stanford.edu/models/file",
+              "externalIdentifier": "https://cocina.sul.stanford.edu/file/vk217bh4910-vk217bh4910_35/AIA_0211_201007.tar",
+              "label": "AIA_0211_201007.tar",
+              "filename": "AIA_0211_201007.tar",
+              "size": 6004819907,
+              "version": 9,
+              "hasMimeType": "application/x-gzip",
+              "sdrGeneratedText": false,
+              "correctedForAccessibility": false,
+              "hasMessageDigests": [
+                {
+                  "type": "sha1",
+                  "digest": "f1b2ad1d6cb5461b860a547a39662b903907c4c5"
+                },
+                { "type": "md5", "digest": "92b61bbe96a4bafcdd1b46b5c0f3c930" }
+              ],
+              "access": {
+                "view": "world",
+                "download": "world",
+                "controlledDigitalLending": false
+              },
+              "administrative": {
+                "publish": true,
+                "sdrPreserve": true,
+                "shelve": true
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "https://cocina.sul.stanford.edu/models/resources/file",
+        "externalIdentifier": "https://cocina.sul.stanford.edu/fileSet/vk217bh4910-vk217bh4910_36",
+        "label": "File 36",
+        "version": 9,
+        "structural": {
+          "contains": [
+            {
+              "type": "https://cocina.sul.stanford.edu/models/file",
+              "externalIdentifier": "https://cocina.sul.stanford.edu/file/vk217bh4910-vk217bh4910_36/AIA_0211_201008.tar",
+              "label": "AIA_0211_201008.tar",
+              "filename": "AIA_0211_201008.tar",
+              "size": 6480123074,
+              "version": 9,
+              "hasMimeType": "application/x-gzip",
+              "sdrGeneratedText": false,
+              "correctedForAccessibility": false,
+              "hasMessageDigests": [
+                {
+                  "type": "sha1",
+                  "digest": "477f652f35ceb7d67632ccf291795d3bddf2a3ce"
+                },
+                { "type": "md5", "digest": "66d91d618449b6a36940d3c1c802fad7" }
+              ],
+              "access": {
+                "view": "world",
+                "download": "world",
+                "controlledDigitalLending": false
+              },
+              "administrative": {
+                "publish": true,
+                "sdrPreserve": true,
+                "shelve": true
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "https://cocina.sul.stanford.edu/models/resources/file",
+        "externalIdentifier": "https://cocina.sul.stanford.edu/fileSet/vk217bh4910-vk217bh4910_37",
+        "label": "File 37",
+        "version": 9,
+        "structural": {
+          "contains": [
+            {
+              "type": "https://cocina.sul.stanford.edu/models/file",
+              "externalIdentifier": "https://cocina.sul.stanford.edu/file/vk217bh4910-vk217bh4910_37/AIA_0211_201009.tar",
+              "label": "AIA_0211_201009.tar",
+              "filename": "AIA_0211_201009.tar",
+              "size": 6023632369,
+              "version": 9,
+              "hasMimeType": "application/x-gzip",
+              "sdrGeneratedText": false,
+              "correctedForAccessibility": false,
+              "hasMessageDigests": [
+                {
+                  "type": "sha1",
+                  "digest": "a5794108a3b1697cba34d33ad34e29894e2adf7d"
+                },
+                { "type": "md5", "digest": "caa52d19e59445f18c69eb14635f6c1d" }
+              ],
+              "access": {
+                "view": "world",
+                "download": "world",
+                "controlledDigitalLending": false
+              },
+              "administrative": {
+                "publish": true,
+                "sdrPreserve": true,
+                "shelve": true
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "https://cocina.sul.stanford.edu/models/resources/file",
+        "externalIdentifier": "https://cocina.sul.stanford.edu/fileSet/vk217bh4910-vk217bh4910_38",
+        "label": "File 38",
+        "version": 9,
+        "structural": {
+          "contains": [
+            {
+              "type": "https://cocina.sul.stanford.edu/models/file",
+              "externalIdentifier": "https://cocina.sul.stanford.edu/file/vk217bh4910-vk217bh4910_38/AIA_0211_201010.tar",
+              "label": "AIA_0211_201010.tar",
+              "filename": "AIA_0211_201010.tar",
+              "size": 6408983245,
+              "version": 9,
+              "hasMimeType": "application/x-gzip",
+              "sdrGeneratedText": false,
+              "correctedForAccessibility": false,
+              "hasMessageDigests": [
+                {
+                  "type": "sha1",
+                  "digest": "e3ff93b7adc1b738e0867dccba9e0dc093b863f6"
+                },
+                { "type": "md5", "digest": "024bfaaffef9c5712749d532b2bbb640" }
+              ],
+              "access": {
+                "view": "world",
+                "download": "world",
+                "controlledDigitalLending": false
+              },
+              "administrative": {
+                "publish": true,
+                "sdrPreserve": true,
+                "shelve": true
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "https://cocina.sul.stanford.edu/models/resources/file",
+        "externalIdentifier": "https://cocina.sul.stanford.edu/fileSet/vk217bh4910-vk217bh4910_39",
+        "label": "File 39",
+        "version": 9,
+        "structural": {
+          "contains": [
+            {
+              "type": "https://cocina.sul.stanford.edu/models/file",
+              "externalIdentifier": "https://cocina.sul.stanford.edu/file/vk217bh4910-vk217bh4910_39/AIA_0211_201011.tar",
+              "label": "AIA_0211_201011.tar",
+              "filename": "AIA_0211_201011.tar",
+              "size": 6250797823,
+              "version": 9,
+              "hasMimeType": "application/x-gzip",
+              "sdrGeneratedText": false,
+              "correctedForAccessibility": false,
+              "hasMessageDigests": [
+                {
+                  "type": "sha1",
+                  "digest": "dbe38fb3228978690465d6ace5c467f705c47063"
+                },
+                { "type": "md5", "digest": "9cb497444e7428e749c5f120d8ce3de7" }
+              ],
+              "access": {
+                "view": "world",
+                "download": "world",
+                "controlledDigitalLending": false
+              },
+              "administrative": {
+                "publish": true,
+                "sdrPreserve": true,
+                "shelve": true
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "https://cocina.sul.stanford.edu/models/resources/file",
+        "externalIdentifier": "https://cocina.sul.stanford.edu/fileSet/vk217bh4910-vk217bh4910_40",
+        "label": "File 40",
+        "version": 9,
+        "structural": {
+          "contains": [
+            {
+              "type": "https://cocina.sul.stanford.edu/models/file",
+              "externalIdentifier": "https://cocina.sul.stanford.edu/file/vk217bh4910-vk217bh4910_40/AIA_0211_201012.tar",
+              "label": "AIA_0211_201012.tar",
+              "filename": "AIA_0211_201012.tar",
+              "size": 6569917530,
+              "version": 9,
+              "hasMimeType": "application/x-gzip",
+              "sdrGeneratedText": false,
+              "correctedForAccessibility": false,
+              "hasMessageDigests": [
+                {
+                  "type": "sha1",
+                  "digest": "2da215a827e74c104dd28e90d22e5cf8a5ab224f"
+                },
+                { "type": "md5", "digest": "91d8e3726e41ea938abb29dbcbf218f9" }
+              ],
+              "access": {
+                "view": "world",
+                "download": "world",
+                "controlledDigitalLending": false
+              },
+              "administrative": {
+                "publish": true,
+                "sdrPreserve": true,
+                "shelve": true
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "https://cocina.sul.stanford.edu/models/resources/file",
+        "externalIdentifier": "https://cocina.sul.stanford.edu/fileSet/vk217bh4910-vk217bh4910_41",
+        "label": "File 41",
+        "version": 9,
+        "structural": {
+          "contains": [
+            {
+              "type": "https://cocina.sul.stanford.edu/models/file",
+              "externalIdentifier": "https://cocina.sul.stanford.edu/file/vk217bh4910-vk217bh4910_41/AIA_0304_201005.tar",
+              "label": "AIA_0304_201005.tar",
+              "filename": "AIA_0304_201005.tar",
+              "size": 3786322900,
+              "version": 9,
+              "hasMimeType": "application/x-gzip",
+              "sdrGeneratedText": false,
+              "correctedForAccessibility": false,
+              "hasMessageDigests": [
+                {
+                  "type": "sha1",
+                  "digest": "59c02ae46e209bc2fe69452ee66f07f366bff04e"
+                },
+                { "type": "md5", "digest": "6d7dc38356ad8191d5636a01428b8b0f" }
+              ],
+              "access": {
+                "view": "world",
+                "download": "world",
+                "controlledDigitalLending": false
+              },
+              "administrative": {
+                "publish": true,
+                "sdrPreserve": true,
+                "shelve": true
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "https://cocina.sul.stanford.edu/models/resources/file",
+        "externalIdentifier": "https://cocina.sul.stanford.edu/fileSet/vk217bh4910-vk217bh4910_42",
+        "label": "File 42",
+        "version": 9,
+        "structural": {
+          "contains": [
+            {
+              "type": "https://cocina.sul.stanford.edu/models/file",
+              "externalIdentifier": "https://cocina.sul.stanford.edu/file/vk217bh4910-vk217bh4910_42/AIA_0304_201006.tar",
+              "label": "AIA_0304_201006.tar",
+              "filename": "AIA_0304_201006.tar",
+              "size": 6630442602,
+              "version": 9,
+              "hasMimeType": "application/x-gzip",
+              "sdrGeneratedText": false,
+              "correctedForAccessibility": false,
+              "hasMessageDigests": [
+                {
+                  "type": "sha1",
+                  "digest": "f5477b1323ea5d64ff0622d5dd3ddcd9b4a29664"
+                },
+                { "type": "md5", "digest": "b4e5235964dcdd35bca6c846a27cec09" }
+              ],
+              "access": {
+                "view": "world",
+                "download": "world",
+                "controlledDigitalLending": false
+              },
+              "administrative": {
+                "publish": true,
+                "sdrPreserve": true,
+                "shelve": true
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "https://cocina.sul.stanford.edu/models/resources/file",
+        "externalIdentifier": "https://cocina.sul.stanford.edu/fileSet/vk217bh4910-vk217bh4910_43",
+        "label": "File 43",
+        "version": 9,
+        "structural": {
+          "contains": [
+            {
+              "type": "https://cocina.sul.stanford.edu/models/file",
+              "externalIdentifier": "https://cocina.sul.stanford.edu/file/vk217bh4910-vk217bh4910_43/AIA_0304_201007.tar",
+              "label": "AIA_0304_201007.tar",
+              "filename": "AIA_0304_201007.tar",
+              "size": 6007488142,
+              "version": 9,
+              "hasMimeType": "application/x-gzip",
+              "sdrGeneratedText": false,
+              "correctedForAccessibility": false,
+              "hasMessageDigests": [
+                {
+                  "type": "sha1",
+                  "digest": "d696e2d0cbc120e4e6bbce15816e8892404eed54"
+                },
+                { "type": "md5", "digest": "35f74c4f02bb6a39cf7a3810f9c6328e" }
+              ],
+              "access": {
+                "view": "world",
+                "download": "world",
+                "controlledDigitalLending": false
+              },
+              "administrative": {
+                "publish": true,
+                "sdrPreserve": true,
+                "shelve": true
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "https://cocina.sul.stanford.edu/models/resources/file",
+        "externalIdentifier": "https://cocina.sul.stanford.edu/fileSet/vk217bh4910-vk217bh4910_44",
+        "label": "File 44",
+        "version": 9,
+        "structural": {
+          "contains": [
+            {
+              "type": "https://cocina.sul.stanford.edu/models/file",
+              "externalIdentifier": "https://cocina.sul.stanford.edu/file/vk217bh4910-vk217bh4910_44/AIA_0304_201008.tar",
+              "label": "AIA_0304_201008.tar",
+              "filename": "AIA_0304_201008.tar",
+              "size": 6480917235,
+              "version": 9,
+              "hasMimeType": "application/x-gzip",
+              "sdrGeneratedText": false,
+              "correctedForAccessibility": false,
+              "hasMessageDigests": [
+                {
+                  "type": "sha1",
+                  "digest": "bbb80963928b5bb929bed5a3438bd762ad35bcb6"
+                },
+                { "type": "md5", "digest": "8b9b0fbfd1c003578ed2a7882b211fc0" }
+              ],
+              "access": {
+                "view": "world",
+                "download": "world",
+                "controlledDigitalLending": false
+              },
+              "administrative": {
+                "publish": true,
+                "sdrPreserve": true,
+                "shelve": true
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "https://cocina.sul.stanford.edu/models/resources/file",
+        "externalIdentifier": "https://cocina.sul.stanford.edu/fileSet/vk217bh4910-vk217bh4910_45",
+        "label": "File 45",
+        "version": 9,
+        "structural": {
+          "contains": [
+            {
+              "type": "https://cocina.sul.stanford.edu/models/file",
+              "externalIdentifier": "https://cocina.sul.stanford.edu/file/vk217bh4910-vk217bh4910_45/AIA_0304_201009.tar",
+              "label": "AIA_0304_201009.tar",
+              "filename": "AIA_0304_201009.tar",
+              "size": 6030020167,
+              "version": 9,
+              "hasMimeType": "application/x-gzip",
+              "sdrGeneratedText": false,
+              "correctedForAccessibility": false,
+              "hasMessageDigests": [
+                {
+                  "type": "sha1",
+                  "digest": "449921f89505b6ae41869a1febc571684110fad4"
+                },
+                { "type": "md5", "digest": "03a3c87657138d76fc5a0c295fdb0776" }
+              ],
+              "access": {
+                "view": "world",
+                "download": "world",
+                "controlledDigitalLending": false
+              },
+              "administrative": {
+                "publish": true,
+                "sdrPreserve": true,
+                "shelve": true
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "https://cocina.sul.stanford.edu/models/resources/file",
+        "externalIdentifier": "https://cocina.sul.stanford.edu/fileSet/vk217bh4910-vk217bh4910_46",
+        "label": "File 46",
+        "version": 9,
+        "structural": {
+          "contains": [
+            {
+              "type": "https://cocina.sul.stanford.edu/models/file",
+              "externalIdentifier": "https://cocina.sul.stanford.edu/file/vk217bh4910-vk217bh4910_46/AIA_0304_201010.tar",
+              "label": "AIA_0304_201010.tar",
+              "filename": "AIA_0304_201010.tar",
+              "size": 6419880506,
+              "version": 9,
+              "hasMimeType": "application/x-gzip",
+              "sdrGeneratedText": false,
+              "correctedForAccessibility": false,
+              "hasMessageDigests": [
+                {
+                  "type": "sha1",
+                  "digest": "cc0d8c7ed84761e0adf7211203dfcb5599008421"
+                },
+                { "type": "md5", "digest": "8e7205204e2456b6d3560433f2db3edf" }
+              ],
+              "access": {
+                "view": "world",
+                "download": "world",
+                "controlledDigitalLending": false
+              },
+              "administrative": {
+                "publish": true,
+                "sdrPreserve": true,
+                "shelve": true
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "https://cocina.sul.stanford.edu/models/resources/file",
+        "externalIdentifier": "https://cocina.sul.stanford.edu/fileSet/vk217bh4910-vk217bh4910_47",
+        "label": "File 47",
+        "version": 9,
+        "structural": {
+          "contains": [
+            {
+              "type": "https://cocina.sul.stanford.edu/models/file",
+              "externalIdentifier": "https://cocina.sul.stanford.edu/file/vk217bh4910-vk217bh4910_47/AIA_0304_201011.tar",
+              "label": "AIA_0304_201011.tar",
+              "filename": "AIA_0304_201011.tar",
+              "size": 6252691338,
+              "version": 9,
+              "hasMimeType": "application/x-gzip",
+              "sdrGeneratedText": false,
+              "correctedForAccessibility": false,
+              "hasMessageDigests": [
+                {
+                  "type": "sha1",
+                  "digest": "b80e555a6453ebf57bc4688fc9591cb75b2442d1"
+                },
+                { "type": "md5", "digest": "cb448ca378c68bb71a326b65fb4437e0" }
+              ],
+              "access": {
+                "view": "world",
+                "download": "world",
+                "controlledDigitalLending": false
+              },
+              "administrative": {
+                "publish": true,
+                "sdrPreserve": true,
+                "shelve": true
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "https://cocina.sul.stanford.edu/models/resources/file",
+        "externalIdentifier": "https://cocina.sul.stanford.edu/fileSet/vk217bh4910-vk217bh4910_48",
+        "label": "File 48",
+        "version": 9,
+        "structural": {
+          "contains": [
+            {
+              "type": "https://cocina.sul.stanford.edu/models/file",
+              "externalIdentifier": "https://cocina.sul.stanford.edu/file/vk217bh4910-vk217bh4910_48/AIA_0304_201012.tar",
+              "label": "AIA_0304_201012.tar",
+              "filename": "AIA_0304_201012.tar",
+              "size": 6568322377,
+              "version": 9,
+              "hasMimeType": "application/x-gzip",
+              "sdrGeneratedText": false,
+              "correctedForAccessibility": false,
+              "hasMessageDigests": [
+                {
+                  "type": "sha1",
+                  "digest": "def98cc0d2adbfeb83965aaa8103c29c77a03aa0"
+                },
+                { "type": "md5", "digest": "0b0dbfb27e4146f79763f976c1481df5" }
+              ],
+              "access": {
+                "view": "world",
+                "download": "world",
+                "controlledDigitalLending": false
+              },
+              "administrative": {
+                "publish": true,
+                "sdrPreserve": true,
+                "shelve": true
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "https://cocina.sul.stanford.edu/models/resources/file",
+        "externalIdentifier": "https://cocina.sul.stanford.edu/fileSet/vk217bh4910-vk217bh4910_49",
+        "label": "File 49",
+        "version": 9,
+        "structural": {
+          "contains": [
+            {
+              "type": "https://cocina.sul.stanford.edu/models/file",
+              "externalIdentifier": "https://cocina.sul.stanford.edu/file/vk217bh4910-vk217bh4910_49/AIA_0335_201005.tar",
+              "label": "AIA_0335_201005.tar",
+              "filename": "AIA_0335_201005.tar",
+              "size": 3769336225,
+              "version": 9,
+              "hasMimeType": "application/x-gzip",
+              "sdrGeneratedText": false,
+              "correctedForAccessibility": false,
+              "hasMessageDigests": [
+                {
+                  "type": "sha1",
+                  "digest": "19ba2eda29af09d40bd33bd839a39fc27e74c481"
+                },
+                { "type": "md5", "digest": "414f15feceb053fc6afc21a319fe07fc" }
+              ],
+              "access": {
+                "view": "world",
+                "download": "world",
+                "controlledDigitalLending": false
+              },
+              "administrative": {
+                "publish": true,
+                "sdrPreserve": true,
+                "shelve": true
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "https://cocina.sul.stanford.edu/models/resources/file",
+        "externalIdentifier": "https://cocina.sul.stanford.edu/fileSet/vk217bh4910-vk217bh4910_50",
+        "label": "File 50",
+        "version": 9,
+        "structural": {
+          "contains": [
+            {
+              "type": "https://cocina.sul.stanford.edu/models/file",
+              "externalIdentifier": "https://cocina.sul.stanford.edu/file/vk217bh4910-vk217bh4910_50/AIA_0335_201006.tar",
+              "label": "AIA_0335_201006.tar",
+              "filename": "AIA_0335_201006.tar",
+              "size": 6642191232,
+              "version": 9,
+              "hasMimeType": "application/x-gzip",
+              "sdrGeneratedText": false,
+              "correctedForAccessibility": false,
+              "hasMessageDigests": [
+                {
+                  "type": "sha1",
+                  "digest": "6af3758eec0cbc5fb495173749e46c2b7a66638d"
+                },
+                { "type": "md5", "digest": "75cf10fb69f5d2f788fc7fbf015b67ec" }
+              ],
+              "access": {
+                "view": "world",
+                "download": "world",
+                "controlledDigitalLending": false
+              },
+              "administrative": {
+                "publish": true,
+                "sdrPreserve": true,
+                "shelve": true
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "https://cocina.sul.stanford.edu/models/resources/file",
+        "externalIdentifier": "https://cocina.sul.stanford.edu/fileSet/vk217bh4910-vk217bh4910_51",
+        "label": "File 51",
+        "version": 9,
+        "structural": {
+          "contains": [
+            {
+              "type": "https://cocina.sul.stanford.edu/models/file",
+              "externalIdentifier": "https://cocina.sul.stanford.edu/file/vk217bh4910-vk217bh4910_51/AIA_0335_201007.tar",
+              "label": "AIA_0335_201007.tar",
+              "filename": "AIA_0335_201007.tar",
+              "size": 5978559926,
+              "version": 9,
+              "hasMimeType": "application/x-gzip",
+              "sdrGeneratedText": false,
+              "correctedForAccessibility": false,
+              "hasMessageDigests": [
+                {
+                  "type": "sha1",
+                  "digest": "adb857bbf46c991bdf99b45cdd4b7a631920902d"
+                },
+                { "type": "md5", "digest": "a2ea30eae311d5a84ee2ca29b5656061" }
+              ],
+              "access": {
+                "view": "world",
+                "download": "world",
+                "controlledDigitalLending": false
+              },
+              "administrative": {
+                "publish": true,
+                "sdrPreserve": true,
+                "shelve": true
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "https://cocina.sul.stanford.edu/models/resources/file",
+        "externalIdentifier": "https://cocina.sul.stanford.edu/fileSet/vk217bh4910-vk217bh4910_52",
+        "label": "File 52",
+        "version": 9,
+        "structural": {
+          "contains": [
+            {
+              "type": "https://cocina.sul.stanford.edu/models/file",
+              "externalIdentifier": "https://cocina.sul.stanford.edu/file/vk217bh4910-vk217bh4910_52/AIA_0335_201008.tar",
+              "label": "AIA_0335_201008.tar",
+              "filename": "AIA_0335_201008.tar",
+              "size": 6451002723,
+              "version": 9,
+              "hasMimeType": "application/x-gzip",
+              "sdrGeneratedText": false,
+              "correctedForAccessibility": false,
+              "hasMessageDigests": [
+                {
+                  "type": "sha1",
+                  "digest": "55082c6f0690c062234b60a437ae1814db3651f0"
+                },
+                { "type": "md5", "digest": "7cf35c48b0a7dbafef28d034de849a4a" }
+              ],
+              "access": {
+                "view": "world",
+                "download": "world",
+                "controlledDigitalLending": false
+              },
+              "administrative": {
+                "publish": true,
+                "sdrPreserve": true,
+                "shelve": true
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "https://cocina.sul.stanford.edu/models/resources/file",
+        "externalIdentifier": "https://cocina.sul.stanford.edu/fileSet/vk217bh4910-vk217bh4910_53",
+        "label": "File 53",
+        "version": 9,
+        "structural": {
+          "contains": [
+            {
+              "type": "https://cocina.sul.stanford.edu/models/file",
+              "externalIdentifier": "https://cocina.sul.stanford.edu/file/vk217bh4910-vk217bh4910_53/AIA_0335_201009.tar",
+              "label": "AIA_0335_201009.tar",
+              "filename": "AIA_0335_201009.tar",
+              "size": 6003089916,
+              "version": 9,
+              "hasMimeType": "application/x-gzip",
+              "sdrGeneratedText": false,
+              "correctedForAccessibility": false,
+              "hasMessageDigests": [
+                {
+                  "type": "sha1",
+                  "digest": "31f3d415a50e640f38c10a5b8cb763ad0c37efb6"
+                },
+                { "type": "md5", "digest": "921b59c5b988c624a9b6143fb5e913db" }
+              ],
+              "access": {
+                "view": "world",
+                "download": "world",
+                "controlledDigitalLending": false
+              },
+              "administrative": {
+                "publish": true,
+                "sdrPreserve": true,
+                "shelve": true
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "https://cocina.sul.stanford.edu/models/resources/file",
+        "externalIdentifier": "https://cocina.sul.stanford.edu/fileSet/vk217bh4910-vk217bh4910_54",
+        "label": "File 54",
+        "version": 9,
+        "structural": {
+          "contains": [
+            {
+              "type": "https://cocina.sul.stanford.edu/models/file",
+              "externalIdentifier": "https://cocina.sul.stanford.edu/file/vk217bh4910-vk217bh4910_54/AIA_0335_201010.tar",
+              "label": "AIA_0335_201010.tar",
+              "filename": "AIA_0335_201010.tar",
+              "size": 6381443745,
+              "version": 9,
+              "hasMimeType": "application/x-gzip",
+              "sdrGeneratedText": false,
+              "correctedForAccessibility": false,
+              "hasMessageDigests": [
+                {
+                  "type": "sha1",
+                  "digest": "c531b2b1fcf93e23027df18ddd5e1ce6a0f8c3bd"
+                },
+                { "type": "md5", "digest": "a586ed3c5142675314197fff52ac0673" }
+              ],
+              "access": {
+                "view": "world",
+                "download": "world",
+                "controlledDigitalLending": false
+              },
+              "administrative": {
+                "publish": true,
+                "sdrPreserve": true,
+                "shelve": true
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "https://cocina.sul.stanford.edu/models/resources/file",
+        "externalIdentifier": "https://cocina.sul.stanford.edu/fileSet/vk217bh4910-vk217bh4910_55",
+        "label": "File 55",
+        "version": 9,
+        "structural": {
+          "contains": [
+            {
+              "type": "https://cocina.sul.stanford.edu/models/file",
+              "externalIdentifier": "https://cocina.sul.stanford.edu/file/vk217bh4910-vk217bh4910_55/AIA_0335_201011.tar",
+              "label": "AIA_0335_201011.tar",
+              "filename": "AIA_0335_201011.tar",
+              "size": 6219784115,
+              "version": 9,
+              "hasMimeType": "application/x-gzip",
+              "sdrGeneratedText": false,
+              "correctedForAccessibility": false,
+              "hasMessageDigests": [
+                {
+                  "type": "sha1",
+                  "digest": "590c99f55fe57f7e79a6e2d7e3a9b8a696cd9c9f"
+                },
+                { "type": "md5", "digest": "9a2aa9d5d9a6b4db04c70d8d4e408ec3" }
+              ],
+              "access": {
+                "view": "world",
+                "download": "world",
+                "controlledDigitalLending": false
+              },
+              "administrative": {
+                "publish": true,
+                "sdrPreserve": true,
+                "shelve": true
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "https://cocina.sul.stanford.edu/models/resources/file",
+        "externalIdentifier": "https://cocina.sul.stanford.edu/fileSet/vk217bh4910-vk217bh4910_56",
+        "label": "File 56",
+        "version": 9,
+        "structural": {
+          "contains": [
+            {
+              "type": "https://cocina.sul.stanford.edu/models/file",
+              "externalIdentifier": "https://cocina.sul.stanford.edu/file/vk217bh4910-vk217bh4910_56/AIA_0335_201012.tar",
+              "label": "AIA_0335_201012.tar",
+              "filename": "AIA_0335_201012.tar",
+              "size": 6531336808,
+              "version": 9,
+              "hasMimeType": "application/x-gzip",
+              "sdrGeneratedText": false,
+              "correctedForAccessibility": false,
+              "hasMessageDigests": [
+                {
+                  "type": "sha1",
+                  "digest": "435b7e7b0e2536404e43137eae87ede207dda849"
+                },
+                { "type": "md5", "digest": "29d37bbeb100cc8985dbcd96d979181e" }
+              ],
+              "access": {
+                "view": "world",
+                "download": "world",
+                "controlledDigitalLending": false
+              },
+              "administrative": {
+                "publish": true,
+                "sdrPreserve": true,
+                "shelve": true
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "https://cocina.sul.stanford.edu/models/resources/file",
+        "externalIdentifier": "https://cocina.sul.stanford.edu/fileSet/vk217bh4910-vk217bh4910_57",
+        "label": "File 57",
+        "version": 9,
+        "structural": {
+          "contains": [
+            {
+              "type": "https://cocina.sul.stanford.edu/models/file",
+              "externalIdentifier": "https://cocina.sul.stanford.edu/file/vk217bh4910-vk217bh4910_57/AIA_1600_201005.tar",
+              "label": "AIA_1600_201005.tar",
+              "filename": "AIA_1600_201005.tar",
+              "size": 3722311994,
+              "version": 9,
+              "hasMimeType": "application/x-gzip",
+              "sdrGeneratedText": false,
+              "correctedForAccessibility": false,
+              "hasMessageDigests": [
+                {
+                  "type": "sha1",
+                  "digest": "cb6cf08f381be69eff74c4d18555b5c8f0309506"
+                },
+                { "type": "md5", "digest": "5591ce776b7114b61755a7922912058c" }
+              ],
+              "access": {
+                "view": "world",
+                "download": "world",
+                "controlledDigitalLending": false
+              },
+              "administrative": {
+                "publish": true,
+                "sdrPreserve": true,
+                "shelve": true
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "https://cocina.sul.stanford.edu/models/resources/file",
+        "externalIdentifier": "https://cocina.sul.stanford.edu/fileSet/vk217bh4910-vk217bh4910_58",
+        "label": "File 58",
+        "version": 9,
+        "structural": {
+          "contains": [
+            {
+              "type": "https://cocina.sul.stanford.edu/models/file",
+              "externalIdentifier": "https://cocina.sul.stanford.edu/file/vk217bh4910-vk217bh4910_58/AIA_1600_201006.tar",
+              "label": "AIA_1600_201006.tar",
+              "filename": "AIA_1600_201006.tar",
+              "size": 6499336622,
+              "version": 9,
+              "hasMimeType": "application/x-gzip",
+              "sdrGeneratedText": false,
+              "correctedForAccessibility": false,
+              "hasMessageDigests": [
+                {
+                  "type": "sha1",
+                  "digest": "37747492ebc0683206621f58f8a0b287873b0f93"
+                },
+                { "type": "md5", "digest": "fff4b4a2a0f244740d6196b1ccbf9818" }
+              ],
+              "access": {
+                "view": "world",
+                "download": "world",
+                "controlledDigitalLending": false
+              },
+              "administrative": {
+                "publish": true,
+                "sdrPreserve": true,
+                "shelve": true
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "https://cocina.sul.stanford.edu/models/resources/file",
+        "externalIdentifier": "https://cocina.sul.stanford.edu/fileSet/vk217bh4910-vk217bh4910_59",
+        "label": "File 59",
+        "version": 9,
+        "structural": {
+          "contains": [
+            {
+              "type": "https://cocina.sul.stanford.edu/models/file",
+              "externalIdentifier": "https://cocina.sul.stanford.edu/file/vk217bh4910-vk217bh4910_59/AIA_1600_201007.tar",
+              "label": "AIA_1600_201007.tar",
+              "filename": "AIA_1600_201007.tar",
+              "size": 6005403727,
+              "version": 9,
+              "hasMimeType": "application/x-gzip",
+              "sdrGeneratedText": false,
+              "correctedForAccessibility": false,
+              "hasMessageDigests": [
+                {
+                  "type": "sha1",
+                  "digest": "4b5a9c0048f525007d064ee32d03dd58038e96d8"
+                },
+                { "type": "md5", "digest": "0d237ee7279bb945ba77c24a275060c4" }
+              ],
+              "access": {
+                "view": "world",
+                "download": "world",
+                "controlledDigitalLending": false
+              },
+              "administrative": {
+                "publish": true,
+                "sdrPreserve": true,
+                "shelve": true
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "https://cocina.sul.stanford.edu/models/resources/file",
+        "externalIdentifier": "https://cocina.sul.stanford.edu/fileSet/vk217bh4910-vk217bh4910_60",
+        "label": "File 60",
+        "version": 9,
+        "structural": {
+          "contains": [
+            {
+              "type": "https://cocina.sul.stanford.edu/models/file",
+              "externalIdentifier": "https://cocina.sul.stanford.edu/file/vk217bh4910-vk217bh4910_60/AIA_1600_201008.tar",
+              "label": "AIA_1600_201008.tar",
+              "filename": "AIA_1600_201008.tar",
+              "size": 6360446725,
+              "version": 9,
+              "hasMimeType": "application/x-gzip",
+              "sdrGeneratedText": false,
+              "correctedForAccessibility": false,
+              "hasMessageDigests": [
+                {
+                  "type": "sha1",
+                  "digest": "91c7ff49185beec2af1a53d43c3cacf737a07a2d"
+                },
+                { "type": "md5", "digest": "b44867d43637771bd06c59eda0c92198" }
+              ],
+              "access": {
+                "view": "world",
+                "download": "world",
+                "controlledDigitalLending": false
+              },
+              "administrative": {
+                "publish": true,
+                "sdrPreserve": true,
+                "shelve": true
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "https://cocina.sul.stanford.edu/models/resources/file",
+        "externalIdentifier": "https://cocina.sul.stanford.edu/fileSet/vk217bh4910-vk217bh4910_61",
+        "label": "File 61",
+        "version": 9,
+        "structural": {
+          "contains": [
+            {
+              "type": "https://cocina.sul.stanford.edu/models/file",
+              "externalIdentifier": "https://cocina.sul.stanford.edu/file/vk217bh4910-vk217bh4910_61/AIA_1600_201009.tar",
+              "label": "AIA_1600_201009.tar",
+              "filename": "AIA_1600_201009.tar",
+              "size": 5917667142,
+              "version": 9,
+              "hasMimeType": "application/x-gzip",
+              "sdrGeneratedText": false,
+              "correctedForAccessibility": false,
+              "hasMessageDigests": [
+                {
+                  "type": "sha1",
+                  "digest": "0a1d086eeb9912f9e3c06eb565755430de8280b7"
+                },
+                { "type": "md5", "digest": "bd3546853548b9f3425dead3ed0eb43d" }
+              ],
+              "access": {
+                "view": "world",
+                "download": "world",
+                "controlledDigitalLending": false
+              },
+              "administrative": {
+                "publish": true,
+                "sdrPreserve": true,
+                "shelve": true
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "https://cocina.sul.stanford.edu/models/resources/file",
+        "externalIdentifier": "https://cocina.sul.stanford.edu/fileSet/vk217bh4910-vk217bh4910_62",
+        "label": "File 62",
+        "version": 9,
+        "structural": {
+          "contains": [
+            {
+              "type": "https://cocina.sul.stanford.edu/models/file",
+              "externalIdentifier": "https://cocina.sul.stanford.edu/file/vk217bh4910-vk217bh4910_62/AIA_1600_201010.tar",
+              "label": "AIA_1600_201010.tar",
+              "filename": "AIA_1600_201010.tar",
+              "size": 6621550521,
+              "version": 9,
+              "hasMimeType": "application/x-gzip",
+              "sdrGeneratedText": false,
+              "correctedForAccessibility": false,
+              "hasMessageDigests": [
+                {
+                  "type": "sha1",
+                  "digest": "1249c8fc81e700642c318f9536d6faf14918e75c"
+                },
+                { "type": "md5", "digest": "8353d6a6cd1c7d8baf46914a5cfd4ab5" }
+              ],
+              "access": {
+                "view": "world",
+                "download": "world",
+                "controlledDigitalLending": false
+              },
+              "administrative": {
+                "publish": true,
+                "sdrPreserve": true,
+                "shelve": true
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "https://cocina.sul.stanford.edu/models/resources/file",
+        "externalIdentifier": "https://cocina.sul.stanford.edu/fileSet/vk217bh4910-vk217bh4910_63",
+        "label": "File 63",
+        "version": 9,
+        "structural": {
+          "contains": [
+            {
+              "type": "https://cocina.sul.stanford.edu/models/file",
+              "externalIdentifier": "https://cocina.sul.stanford.edu/file/vk217bh4910-vk217bh4910_63/AIA_1600_201011.tar",
+              "label": "AIA_1600_201011.tar",
+              "filename": "AIA_1600_201011.tar",
+              "size": 6343873260,
+              "version": 9,
+              "hasMimeType": "application/x-gzip",
+              "sdrGeneratedText": false,
+              "correctedForAccessibility": false,
+              "hasMessageDigests": [
+                {
+                  "type": "sha1",
+                  "digest": "e4c6508a087aa474698e9b11d8b10a9a648d7a85"
+                },
+                { "type": "md5", "digest": "a2496eeb1a0cfda36205aefcc0705742" }
+              ],
+              "access": {
+                "view": "world",
+                "download": "world",
+                "controlledDigitalLending": false
+              },
+              "administrative": {
+                "publish": true,
+                "sdrPreserve": true,
+                "shelve": true
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "https://cocina.sul.stanford.edu/models/resources/file",
+        "externalIdentifier": "https://cocina.sul.stanford.edu/fileSet/vk217bh4910-vk217bh4910_64",
+        "label": "File 64",
+        "version": 9,
+        "structural": {
+          "contains": [
+            {
+              "type": "https://cocina.sul.stanford.edu/models/file",
+              "externalIdentifier": "https://cocina.sul.stanford.edu/file/vk217bh4910-vk217bh4910_64/AIA_1600_201012.tar",
+              "label": "AIA_1600_201012.tar",
+              "filename": "AIA_1600_201012.tar",
+              "size": 6618944328,
+              "version": 9,
+              "hasMimeType": "application/x-gzip",
+              "sdrGeneratedText": false,
+              "correctedForAccessibility": false,
+              "hasMessageDigests": [
+                {
+                  "type": "sha1",
+                  "digest": "49e9099bb42203eb7837d8624e9e599f3ae50d00"
+                },
+                { "type": "md5", "digest": "decbf562c62740c083de2770c2bb8a6a" }
+              ],
+              "access": {
+                "view": "world",
+                "download": "world",
+                "controlledDigitalLending": false
+              },
+              "administrative": {
+                "publish": true,
+                "sdrPreserve": true,
+                "shelve": true
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "https://cocina.sul.stanford.edu/models/resources/file",
+        "externalIdentifier": "https://cocina.sul.stanford.edu/fileSet/vk217bh4910-vk217bh4910_65",
+        "label": "File 65",
+        "version": 9,
+        "structural": {
+          "contains": [
+            {
+              "type": "https://cocina.sul.stanford.edu/models/file",
+              "externalIdentifier": "https://cocina.sul.stanford.edu/file/vk217bh4910-vk217bh4910_65/AIA_1700_201005.tar",
+              "label": "AIA_1700_201005.tar",
+              "filename": "AIA_1700_201005.tar",
+              "size": 2713317989,
+              "version": 9,
+              "hasMimeType": "application/x-gzip",
+              "sdrGeneratedText": false,
+              "correctedForAccessibility": false,
+              "hasMessageDigests": [
+                {
+                  "type": "sha1",
+                  "digest": "89e3449570fa0b23549b903cd1b76cd5cd2beadf"
+                },
+                { "type": "md5", "digest": "b115f04a45c2de9ee90f11182d52b561" }
+              ],
+              "access": {
+                "view": "world",
+                "download": "world",
+                "controlledDigitalLending": false
+              },
+              "administrative": {
+                "publish": true,
+                "sdrPreserve": true,
+                "shelve": true
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "https://cocina.sul.stanford.edu/models/resources/file",
+        "externalIdentifier": "https://cocina.sul.stanford.edu/fileSet/vk217bh4910-vk217bh4910_66",
+        "label": "File 66",
+        "version": 9,
+        "structural": {
+          "contains": [
+            {
+              "type": "https://cocina.sul.stanford.edu/models/file",
+              "externalIdentifier": "https://cocina.sul.stanford.edu/file/vk217bh4910-vk217bh4910_66/AIA_1700_201006.tar",
+              "label": "AIA_1700_201006.tar",
+              "filename": "AIA_1700_201006.tar",
+              "size": 6098030705,
+              "version": 9,
+              "hasMimeType": "application/x-gzip",
+              "sdrGeneratedText": false,
+              "correctedForAccessibility": false,
+              "hasMessageDigests": [
+                {
+                  "type": "sha1",
+                  "digest": "3469023d95ef80af89c8b071fc611e05604240e7"
+                },
+                { "type": "md5", "digest": "8426785dc23f5369f02dc933843efc97" }
+              ],
+              "access": {
+                "view": "world",
+                "download": "world",
+                "controlledDigitalLending": false
+              },
+              "administrative": {
+                "publish": true,
+                "sdrPreserve": true,
+                "shelve": true
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "https://cocina.sul.stanford.edu/models/resources/file",
+        "externalIdentifier": "https://cocina.sul.stanford.edu/fileSet/vk217bh4910-vk217bh4910_67",
+        "label": "File 67",
+        "version": 9,
+        "structural": {
+          "contains": [
+            {
+              "type": "https://cocina.sul.stanford.edu/models/file",
+              "externalIdentifier": "https://cocina.sul.stanford.edu/file/vk217bh4910-vk217bh4910_67/AIA_1700_201007.tar",
+              "label": "AIA_1700_201007.tar",
+              "filename": "AIA_1700_201007.tar",
+              "size": 6037904152,
+              "version": 9,
+              "hasMimeType": "application/x-gzip",
+              "sdrGeneratedText": false,
+              "correctedForAccessibility": false,
+              "hasMessageDigests": [
+                {
+                  "type": "sha1",
+                  "digest": "539b167db5d30cab3a24403590ed84a50670ea78"
+                },
+                { "type": "md5", "digest": "dbd00b23214119d9bdf294fcff2b79c2" }
+              ],
+              "access": {
+                "view": "world",
+                "download": "world",
+                "controlledDigitalLending": false
+              },
+              "administrative": {
+                "publish": true,
+                "sdrPreserve": true,
+                "shelve": true
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "https://cocina.sul.stanford.edu/models/resources/file",
+        "externalIdentifier": "https://cocina.sul.stanford.edu/fileSet/vk217bh4910-vk217bh4910_68",
+        "label": "File 68",
+        "version": 9,
+        "structural": {
+          "contains": [
+            {
+              "type": "https://cocina.sul.stanford.edu/models/file",
+              "externalIdentifier": "https://cocina.sul.stanford.edu/file/vk217bh4910-vk217bh4910_68/AIA_1700_201008.tar",
+              "label": "AIA_1700_201008.tar",
+              "filename": "AIA_1700_201008.tar",
+              "size": 6397771652,
+              "version": 9,
+              "hasMimeType": "application/x-gzip",
+              "sdrGeneratedText": false,
+              "correctedForAccessibility": false,
+              "hasMessageDigests": [
+                {
+                  "type": "sha1",
+                  "digest": "baf23fc631ecd7ab14da8bb57444565a938534c4"
+                },
+                { "type": "md5", "digest": "d28495a4b3c9f6e5558a38121d72bbe3" }
+              ],
+              "access": {
+                "view": "world",
+                "download": "world",
+                "controlledDigitalLending": false
+              },
+              "administrative": {
+                "publish": true,
+                "sdrPreserve": true,
+                "shelve": true
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "https://cocina.sul.stanford.edu/models/resources/file",
+        "externalIdentifier": "https://cocina.sul.stanford.edu/fileSet/vk217bh4910-vk217bh4910_69",
+        "label": "File 69",
+        "version": 9,
+        "structural": {
+          "contains": [
+            {
+              "type": "https://cocina.sul.stanford.edu/models/file",
+              "externalIdentifier": "https://cocina.sul.stanford.edu/file/vk217bh4910-vk217bh4910_69/AIA_1700_201009.tar",
+              "label": "AIA_1700_201009.tar",
+              "filename": "AIA_1700_201009.tar",
+              "size": 5952085523,
+              "version": 9,
+              "hasMimeType": "application/x-gzip",
+              "sdrGeneratedText": false,
+              "correctedForAccessibility": false,
+              "hasMessageDigests": [
+                {
+                  "type": "sha1",
+                  "digest": "bfa9f4bf2ca0c63c395aa2a8030a779f5165cbe7"
+                },
+                { "type": "md5", "digest": "a0b10e6e44d0444fb5ea02a71228d3d5" }
+              ],
+              "access": {
+                "view": "world",
+                "download": "world",
+                "controlledDigitalLending": false
+              },
+              "administrative": {
+                "publish": true,
+                "sdrPreserve": true,
+                "shelve": true
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "https://cocina.sul.stanford.edu/models/resources/file",
+        "externalIdentifier": "https://cocina.sul.stanford.edu/fileSet/vk217bh4910-vk217bh4910_70",
+        "label": "File 70",
+        "version": 9,
+        "structural": {
+          "contains": [
+            {
+              "type": "https://cocina.sul.stanford.edu/models/file",
+              "externalIdentifier": "https://cocina.sul.stanford.edu/file/vk217bh4910-vk217bh4910_70/AIA_1700_201010.tar",
+              "label": "AIA_1700_201010.tar",
+              "filename": "AIA_1700_201010.tar",
+              "size": 6662077277,
+              "version": 9,
+              "hasMimeType": "application/x-gzip",
+              "sdrGeneratedText": false,
+              "correctedForAccessibility": false,
+              "hasMessageDigests": [
+                {
+                  "type": "sha1",
+                  "digest": "2737f82878a041407a4404bf16db00fd9af226db"
+                },
+                { "type": "md5", "digest": "b6da6d726eaa0f0d38337d9d52362adb" }
+              ],
+              "access": {
+                "view": "world",
+                "download": "world",
+                "controlledDigitalLending": false
+              },
+              "administrative": {
+                "publish": true,
+                "sdrPreserve": true,
+                "shelve": true
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "https://cocina.sul.stanford.edu/models/resources/file",
+        "externalIdentifier": "https://cocina.sul.stanford.edu/fileSet/vk217bh4910-vk217bh4910_71",
+        "label": "File 71",
+        "version": 9,
+        "structural": {
+          "contains": [
+            {
+              "type": "https://cocina.sul.stanford.edu/models/file",
+              "externalIdentifier": "https://cocina.sul.stanford.edu/file/vk217bh4910-vk217bh4910_71/AIA_1700_201011.tar",
+              "label": "AIA_1700_201011.tar",
+              "filename": "AIA_1700_201011.tar",
+              "size": 6383857091,
+              "version": 9,
+              "hasMimeType": "application/x-gzip",
+              "sdrGeneratedText": false,
+              "correctedForAccessibility": false,
+              "hasMessageDigests": [
+                {
+                  "type": "sha1",
+                  "digest": "2925d9a32a458a776d262552d58a4b8bde344470"
+                },
+                { "type": "md5", "digest": "7bd448809184dbe43b8300f23c85b05d" }
+              ],
+              "access": {
+                "view": "world",
+                "download": "world",
+                "controlledDigitalLending": false
+              },
+              "administrative": {
+                "publish": true,
+                "sdrPreserve": true,
+                "shelve": true
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "https://cocina.sul.stanford.edu/models/resources/file",
+        "externalIdentifier": "https://cocina.sul.stanford.edu/fileSet/vk217bh4910-vk217bh4910_72",
+        "label": "File 72",
+        "version": 9,
+        "structural": {
+          "contains": [
+            {
+              "type": "https://cocina.sul.stanford.edu/models/file",
+              "externalIdentifier": "https://cocina.sul.stanford.edu/file/vk217bh4910-vk217bh4910_72/AIA_1700_201012.tar",
+              "label": "AIA_1700_201012.tar",
+              "filename": "AIA_1700_201012.tar",
+              "size": 6660715351,
+              "version": 9,
+              "hasMimeType": "application/x-gzip",
+              "sdrGeneratedText": false,
+              "correctedForAccessibility": false,
+              "hasMessageDigests": [
+                {
+                  "type": "sha1",
+                  "digest": "46f3b244e3c1dfa6b27c3a4654741b3683384bd4"
+                },
+                { "type": "md5", "digest": "4513293a519065be7204d0327c6b78d2" }
+              ],
+              "access": {
+                "view": "world",
+                "download": "world",
+                "controlledDigitalLending": false
+              },
+              "administrative": {
+                "publish": true,
+                "sdrPreserve": true,
+                "shelve": true
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "https://cocina.sul.stanford.edu/models/resources/file",
+        "externalIdentifier": "https://cocina.sul.stanford.edu/fileSet/vk217bh4910-vk217bh4910_73",
+        "label": "File 73",
+        "version": 9,
+        "structural": {
+          "contains": [
+            {
+              "type": "https://cocina.sul.stanford.edu/models/file",
+              "externalIdentifier": "https://cocina.sul.stanford.edu/file/vk217bh4910-vk217bh4910_73/AIA_4500_201005.tar",
+              "label": "AIA_4500_201005.tar",
+              "filename": "AIA_4500_201005.tar",
+              "size": 45,
+              "version": 9,
+              "hasMimeType": "application/x-gzip",
+              "sdrGeneratedText": false,
+              "correctedForAccessibility": false,
+              "hasMessageDigests": [
+                {
+                  "type": "sha1",
+                  "digest": "e353c0922d12506a633b37629cb279378560bc4a"
+                },
+                { "type": "md5", "digest": "b9c7b6e17c147fd3e22b179ec760b6d0" }
+              ],
+              "access": {
+                "view": "world",
+                "download": "world",
+                "controlledDigitalLending": false
+              },
+              "administrative": {
+                "publish": true,
+                "sdrPreserve": true,
+                "shelve": true
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "https://cocina.sul.stanford.edu/models/resources/file",
+        "externalIdentifier": "https://cocina.sul.stanford.edu/fileSet/vk217bh4910-vk217bh4910_74",
+        "label": "File 74",
+        "version": 9,
+        "structural": {
+          "contains": [
+            {
+              "type": "https://cocina.sul.stanford.edu/models/file",
+              "externalIdentifier": "https://cocina.sul.stanford.edu/file/vk217bh4910-vk217bh4910_74/AIA_4500_201006.tar",
+              "label": "AIA_4500_201006.tar",
+              "filename": "AIA_4500_201006.tar",
+              "size": 518054856,
+              "version": 9,
+              "hasMimeType": "application/x-gzip",
+              "sdrGeneratedText": false,
+              "correctedForAccessibility": false,
+              "hasMessageDigests": [
+                {
+                  "type": "sha1",
+                  "digest": "843466944030be0ee4a178226d5e6529c2d5d30b"
+                },
+                { "type": "md5", "digest": "c63e4e337f136c16bfcd89a47756994e" }
+              ],
+              "access": {
+                "view": "world",
+                "download": "world",
+                "controlledDigitalLending": false
+              },
+              "administrative": {
+                "publish": true,
+                "sdrPreserve": true,
+                "shelve": true
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "https://cocina.sul.stanford.edu/models/resources/file",
+        "externalIdentifier": "https://cocina.sul.stanford.edu/fileSet/vk217bh4910-vk217bh4910_75",
+        "label": "File 75",
+        "version": 9,
+        "structural": {
+          "contains": [
+            {
+              "type": "https://cocina.sul.stanford.edu/models/file",
+              "externalIdentifier": "https://cocina.sul.stanford.edu/file/vk217bh4910-vk217bh4910_75/AIA_4500_201007.tar",
+              "label": "AIA_4500_201007.tar",
+              "filename": "AIA_4500_201007.tar",
+              "size": 539314157,
+              "version": 9,
+              "hasMimeType": "application/x-gzip",
+              "sdrGeneratedText": false,
+              "correctedForAccessibility": false,
+              "hasMessageDigests": [
+                {
+                  "type": "sha1",
+                  "digest": "3899570485ce201895ad380835a0c89fef1f0f01"
+                },
+                { "type": "md5", "digest": "22d84fb4b3eb1456cc58e52fe464b06f" }
+              ],
+              "access": {
+                "view": "world",
+                "download": "world",
+                "controlledDigitalLending": false
+              },
+              "administrative": {
+                "publish": true,
+                "sdrPreserve": true,
+                "shelve": true
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "https://cocina.sul.stanford.edu/models/resources/file",
+        "externalIdentifier": "https://cocina.sul.stanford.edu/fileSet/vk217bh4910-vk217bh4910_76",
+        "label": "File 76",
+        "version": 9,
+        "structural": {
+          "contains": [
+            {
+              "type": "https://cocina.sul.stanford.edu/models/file",
+              "externalIdentifier": "https://cocina.sul.stanford.edu/file/vk217bh4910-vk217bh4910_76/AIA_4500_201008.tar",
+              "label": "AIA_4500_201008.tar",
+              "filename": "AIA_4500_201008.tar",
+              "size": 612603045,
+              "version": 9,
+              "hasMimeType": "application/x-gzip",
+              "sdrGeneratedText": false,
+              "correctedForAccessibility": false,
+              "hasMessageDigests": [
+                {
+                  "type": "sha1",
+                  "digest": "bb62a8a9e370e5f949931a9d2a21f049e22cfb4e"
+                },
+                { "type": "md5", "digest": "18d89849ade3ee6f07d2a4712d2d2acf" }
+              ],
+              "access": {
+                "view": "world",
+                "download": "world",
+                "controlledDigitalLending": false
+              },
+              "administrative": {
+                "publish": true,
+                "sdrPreserve": true,
+                "shelve": true
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "https://cocina.sul.stanford.edu/models/resources/file",
+        "externalIdentifier": "https://cocina.sul.stanford.edu/fileSet/vk217bh4910-vk217bh4910_77",
+        "label": "File 77",
+        "version": 9,
+        "structural": {
+          "contains": [
+            {
+              "type": "https://cocina.sul.stanford.edu/models/file",
+              "externalIdentifier": "https://cocina.sul.stanford.edu/file/vk217bh4910-vk217bh4910_77/AIA_4500_201009.tar",
+              "label": "AIA_4500_201009.tar",
+              "filename": "AIA_4500_201009.tar",
+              "size": 564020923,
+              "version": 9,
+              "hasMimeType": "application/x-gzip",
+              "sdrGeneratedText": false,
+              "correctedForAccessibility": false,
+              "hasMessageDigests": [
+                {
+                  "type": "sha1",
+                  "digest": "a69bfba7b6949ed096853a1ddfff9b1a8dfa5e67"
+                },
+                { "type": "md5", "digest": "2233ac3798d056262b368c6db024b2b8" }
+              ],
+              "access": {
+                "view": "world",
+                "download": "world",
+                "controlledDigitalLending": false
+              },
+              "administrative": {
+                "publish": true,
+                "sdrPreserve": true,
+                "shelve": true
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "https://cocina.sul.stanford.edu/models/resources/file",
+        "externalIdentifier": "https://cocina.sul.stanford.edu/fileSet/vk217bh4910-vk217bh4910_78",
+        "label": "File 78",
+        "version": 9,
+        "structural": {
+          "contains": [
+            {
+              "type": "https://cocina.sul.stanford.edu/models/file",
+              "externalIdentifier": "https://cocina.sul.stanford.edu/file/vk217bh4910-vk217bh4910_78/AIA_4500_201010.tar",
+              "label": "AIA_4500_201010.tar",
+              "filename": "AIA_4500_201010.tar",
+              "size": 631994063,
+              "version": 9,
+              "hasMimeType": "application/x-gzip",
+              "sdrGeneratedText": false,
+              "correctedForAccessibility": false,
+              "hasMessageDigests": [
+                {
+                  "type": "sha1",
+                  "digest": "a022eb129bf2806014605a23d3f4eba157938ace"
+                },
+                { "type": "md5", "digest": "024d5a69a012cf242d2215d6a941a764" }
+              ],
+              "access": {
+                "view": "world",
+                "download": "world",
+                "controlledDigitalLending": false
+              },
+              "administrative": {
+                "publish": true,
+                "sdrPreserve": true,
+                "shelve": true
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "https://cocina.sul.stanford.edu/models/resources/file",
+        "externalIdentifier": "https://cocina.sul.stanford.edu/fileSet/vk217bh4910-vk217bh4910_79",
+        "label": "File 79",
+        "version": 9,
+        "structural": {
+          "contains": [
+            {
+              "type": "https://cocina.sul.stanford.edu/models/file",
+              "externalIdentifier": "https://cocina.sul.stanford.edu/file/vk217bh4910-vk217bh4910_79/AIA_4500_201011.tar",
+              "label": "AIA_4500_201011.tar",
+              "filename": "AIA_4500_201011.tar",
+              "size": 610427518,
+              "version": 9,
+              "hasMimeType": "application/x-gzip",
+              "sdrGeneratedText": false,
+              "correctedForAccessibility": false,
+              "hasMessageDigests": [
+                {
+                  "type": "sha1",
+                  "digest": "3527af5667dddd19c7cb35fd99426b0dc8385c3f"
+                },
+                { "type": "md5", "digest": "7ebc0ed7e54735b4cfc99f1b29c12115" }
+              ],
+              "access": {
+                "view": "world",
+                "download": "world",
+                "controlledDigitalLending": false
+              },
+              "administrative": {
+                "publish": true,
+                "sdrPreserve": true,
+                "shelve": true
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "https://cocina.sul.stanford.edu/models/resources/file",
+        "externalIdentifier": "https://cocina.sul.stanford.edu/fileSet/vk217bh4910-vk217bh4910_80",
+        "label": "File 80",
+        "version": 9,
+        "structural": {
+          "contains": [
+            {
+              "type": "https://cocina.sul.stanford.edu/models/file",
+              "externalIdentifier": "https://cocina.sul.stanford.edu/file/vk217bh4910-vk217bh4910_80/AIA_4500_201012.tar",
+              "label": "AIA_4500_201012.tar",
+              "filename": "AIA_4500_201012.tar",
+              "size": 654382724,
+              "version": 9,
+              "hasMimeType": "application/x-gzip",
+              "sdrGeneratedText": false,
+              "correctedForAccessibility": false,
+              "hasMessageDigests": [
+                {
+                  "type": "sha1",
+                  "digest": "f279b5b51f668e97d0eeedf0999e4b4c4406416f"
+                },
+                { "type": "md5", "digest": "53217680b407f908b89973db5d82fb3e" }
+              ],
+              "access": {
+                "view": "world",
+                "download": "world",
+                "controlledDigitalLending": false
+              },
+              "administrative": {
+                "publish": true,
+                "sdrPreserve": true,
+                "shelve": true
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "https://cocina.sul.stanford.edu/models/resources/file",
+        "externalIdentifier": "https://cocina.sul.stanford.edu/fileSet/vk217bh4910-vk217bh4910_81",
+        "label": "File 81",
+        "version": 9,
+        "structural": {
+          "contains": [
+            {
+              "type": "https://cocina.sul.stanford.edu/models/file",
+              "externalIdentifier": "https://cocina.sul.stanford.edu/file/vk217bh4910-vk217bh4910_81/HMI_Bx_201005.tar",
+              "label": "HMI_Bx_201005.tar",
+              "filename": "HMI_Bx_201005.tar",
+              "size": 1555184750,
+              "version": 9,
+              "hasMimeType": "application/x-gzip",
+              "sdrGeneratedText": false,
+              "correctedForAccessibility": false,
+              "hasMessageDigests": [
+                {
+                  "type": "sha1",
+                  "digest": "bc1d60ca26f98fb8425cfdf9eac32c539cc0ced9"
+                },
+                { "type": "md5", "digest": "72e0be55cb6d537a4213e5384bfefa70" }
+              ],
+              "access": {
+                "view": "world",
+                "download": "world",
+                "controlledDigitalLending": false
+              },
+              "administrative": {
+                "publish": true,
+                "sdrPreserve": true,
+                "shelve": true
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "https://cocina.sul.stanford.edu/models/resources/file",
+        "externalIdentifier": "https://cocina.sul.stanford.edu/fileSet/vk217bh4910-vk217bh4910_82",
+        "label": "File 82",
+        "version": 9,
+        "structural": {
+          "contains": [
+            {
+              "type": "https://cocina.sul.stanford.edu/models/file",
+              "externalIdentifier": "https://cocina.sul.stanford.edu/file/vk217bh4910-vk217bh4910_82/HMI_Bx_201006.tar",
+              "label": "HMI_Bx_201006.tar",
+              "filename": "HMI_Bx_201006.tar",
+              "size": 1508649888,
+              "version": 9,
+              "hasMimeType": "application/x-gzip",
+              "sdrGeneratedText": false,
+              "correctedForAccessibility": false,
+              "hasMessageDigests": [
+                {
+                  "type": "sha1",
+                  "digest": "1fd5854dce2923a9ff990436cb62f88d124d435a"
+                },
+                { "type": "md5", "digest": "1613ce3dcbb18d1c486dc6bf86527a38" }
+              ],
+              "access": {
+                "view": "world",
+                "download": "world",
+                "controlledDigitalLending": false
+              },
+              "administrative": {
+                "publish": true,
+                "sdrPreserve": true,
+                "shelve": true
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "https://cocina.sul.stanford.edu/models/resources/file",
+        "externalIdentifier": "https://cocina.sul.stanford.edu/fileSet/vk217bh4910-vk217bh4910_83",
+        "label": "File 83",
+        "version": 9,
+        "structural": {
+          "contains": [
+            {
+              "type": "https://cocina.sul.stanford.edu/models/file",
+              "externalIdentifier": "https://cocina.sul.stanford.edu/file/vk217bh4910-vk217bh4910_83/HMI_Bx_201007.tar",
+              "label": "HMI_Bx_201007.tar",
+              "filename": "HMI_Bx_201007.tar",
+              "size": 1508446860,
+              "version": 9,
+              "hasMimeType": "application/x-gzip",
+              "sdrGeneratedText": false,
+              "correctedForAccessibility": false,
+              "hasMessageDigests": [
+                {
+                  "type": "sha1",
+                  "digest": "fe19db34bcd95e5291aea5b0f222da7af00424eb"
+                },
+                { "type": "md5", "digest": "d39737e2a0bcea78b3bbf988d2d29535" }
+              ],
+              "access": {
+                "view": "world",
+                "download": "world",
+                "controlledDigitalLending": false
+              },
+              "administrative": {
+                "publish": true,
+                "sdrPreserve": true,
+                "shelve": true
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "https://cocina.sul.stanford.edu/models/resources/file",
+        "externalIdentifier": "https://cocina.sul.stanford.edu/fileSet/vk217bh4910-vk217bh4910_84",
+        "label": "File 84",
+        "version": 9,
+        "structural": {
+          "contains": [
+            {
+              "type": "https://cocina.sul.stanford.edu/models/file",
+              "externalIdentifier": "https://cocina.sul.stanford.edu/file/vk217bh4910-vk217bh4910_84/HMI_Bx_201008.tar",
+              "label": "HMI_Bx_201008.tar",
+              "filename": "HMI_Bx_201008.tar",
+              "size": 1564854723,
+              "version": 9,
+              "hasMimeType": "application/x-gzip",
+              "sdrGeneratedText": false,
+              "correctedForAccessibility": false,
+              "hasMessageDigests": [
+                {
+                  "type": "sha1",
+                  "digest": "930396e44d0639e6ec1f80f58ec5cc4107d49bcf"
+                },
+                { "type": "md5", "digest": "a1bab5b42a72c7a9677252931a650241" }
+              ],
+              "access": {
+                "view": "world",
+                "download": "world",
+                "controlledDigitalLending": false
+              },
+              "administrative": {
+                "publish": true,
+                "sdrPreserve": true,
+                "shelve": true
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "https://cocina.sul.stanford.edu/models/resources/file",
+        "externalIdentifier": "https://cocina.sul.stanford.edu/fileSet/vk217bh4910-vk217bh4910_85",
+        "label": "File 85",
+        "version": 9,
+        "structural": {
+          "contains": [
+            {
+              "type": "https://cocina.sul.stanford.edu/models/file",
+              "externalIdentifier": "https://cocina.sul.stanford.edu/file/vk217bh4910-vk217bh4910_85/HMI_Bx_201009.tar",
+              "label": "HMI_Bx_201009.tar",
+              "filename": "HMI_Bx_201009.tar",
+              "size": 1285299457,
+              "version": 9,
+              "hasMimeType": "application/x-gzip",
+              "sdrGeneratedText": false,
+              "correctedForAccessibility": false,
+              "hasMessageDigests": [
+                {
+                  "type": "sha1",
+                  "digest": "e4b0d1e670e87f320ab7cd78e08e8671825e3670"
+                },
+                { "type": "md5", "digest": "dc5ea9bdaf81e05765fec72aca96d3f6" }
+              ],
+              "access": {
+                "view": "world",
+                "download": "world",
+                "controlledDigitalLending": false
+              },
+              "administrative": {
+                "publish": true,
+                "sdrPreserve": true,
+                "shelve": true
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "https://cocina.sul.stanford.edu/models/resources/file",
+        "externalIdentifier": "https://cocina.sul.stanford.edu/fileSet/vk217bh4910-vk217bh4910_86",
+        "label": "File 86",
+        "version": 9,
+        "structural": {
+          "contains": [
+            {
+              "type": "https://cocina.sul.stanford.edu/models/file",
+              "externalIdentifier": "https://cocina.sul.stanford.edu/file/vk217bh4910-vk217bh4910_86/HMI_Bx_201010.tar",
+              "label": "HMI_Bx_201010.tar",
+              "filename": "HMI_Bx_201010.tar",
+              "size": 1330274684,
+              "version": 9,
+              "hasMimeType": "application/x-gzip",
+              "sdrGeneratedText": false,
+              "correctedForAccessibility": false,
+              "hasMessageDigests": [
+                {
+                  "type": "sha1",
+                  "digest": "42685d0cfa4efcf7e924c53b1d212ed869f44bc2"
+                },
+                { "type": "md5", "digest": "cc03e65e9d451fefef219d281365a7d7" }
+              ],
+              "access": {
+                "view": "world",
+                "download": "world",
+                "controlledDigitalLending": false
+              },
+              "administrative": {
+                "publish": true,
+                "sdrPreserve": true,
+                "shelve": true
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "https://cocina.sul.stanford.edu/models/resources/file",
+        "externalIdentifier": "https://cocina.sul.stanford.edu/fileSet/vk217bh4910-vk217bh4910_87",
+        "label": "File 87",
+        "version": 9,
+        "structural": {
+          "contains": [
+            {
+              "type": "https://cocina.sul.stanford.edu/models/file",
+              "externalIdentifier": "https://cocina.sul.stanford.edu/file/vk217bh4910-vk217bh4910_87/HMI_Bx_201011.tar",
+              "label": "HMI_Bx_201011.tar",
+              "filename": "HMI_Bx_201011.tar",
+              "size": 1529165545,
+              "version": 9,
+              "hasMimeType": "application/x-gzip",
+              "sdrGeneratedText": false,
+              "correctedForAccessibility": false,
+              "hasMessageDigests": [
+                {
+                  "type": "sha1",
+                  "digest": "e5b7b11d0321895ba7641d4a0c3a9b8265fcc6c1"
+                },
+                { "type": "md5", "digest": "f370a4ab60c68e8eb0458971287cdb9d" }
+              ],
+              "access": {
+                "view": "world",
+                "download": "world",
+                "controlledDigitalLending": false
+              },
+              "administrative": {
+                "publish": true,
+                "sdrPreserve": true,
+                "shelve": true
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "https://cocina.sul.stanford.edu/models/resources/file",
+        "externalIdentifier": "https://cocina.sul.stanford.edu/fileSet/vk217bh4910-vk217bh4910_88",
+        "label": "File 88",
+        "version": 9,
+        "structural": {
+          "contains": [
+            {
+              "type": "https://cocina.sul.stanford.edu/models/file",
+              "externalIdentifier": "https://cocina.sul.stanford.edu/file/vk217bh4910-vk217bh4910_88/HMI_Bx_201012.tar",
+              "label": "HMI_Bx_201012.tar",
+              "filename": "HMI_Bx_201012.tar",
+              "size": 1676082238,
+              "version": 9,
+              "hasMimeType": "application/x-gzip",
+              "sdrGeneratedText": false,
+              "correctedForAccessibility": false,
+              "hasMessageDigests": [
+                {
+                  "type": "sha1",
+                  "digest": "2b24b3f6ac6e7112457233fc3fd62e32210de95a"
+                },
+                { "type": "md5", "digest": "5a6521e278a2e621234496e4f2d83711" }
+              ],
+              "access": {
+                "view": "world",
+                "download": "world",
+                "controlledDigitalLending": false
+              },
+              "administrative": {
+                "publish": true,
+                "sdrPreserve": true,
+                "shelve": true
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "https://cocina.sul.stanford.edu/models/resources/file",
+        "externalIdentifier": "https://cocina.sul.stanford.edu/fileSet/vk217bh4910-vk217bh4910_89",
+        "label": "File 89",
+        "version": 9,
+        "structural": {
+          "contains": [
+            {
+              "type": "https://cocina.sul.stanford.edu/models/file",
+              "externalIdentifier": "https://cocina.sul.stanford.edu/file/vk217bh4910-vk217bh4910_89/HMI_By_201005.tar",
+              "label": "HMI_By_201005.tar",
+              "filename": "HMI_By_201005.tar",
+              "size": 1555393430,
+              "version": 9,
+              "hasMimeType": "application/x-gzip",
+              "sdrGeneratedText": false,
+              "correctedForAccessibility": false,
+              "hasMessageDigests": [
+                {
+                  "type": "sha1",
+                  "digest": "f7766b0132f8e6e8982ad0752f7afc2e3cab1576"
+                },
+                { "type": "md5", "digest": "32692bcac06897674690c459facbb115" }
+              ],
+              "access": {
+                "view": "world",
+                "download": "world",
+                "controlledDigitalLending": false
+              },
+              "administrative": {
+                "publish": true,
+                "sdrPreserve": true,
+                "shelve": true
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "https://cocina.sul.stanford.edu/models/resources/file",
+        "externalIdentifier": "https://cocina.sul.stanford.edu/fileSet/vk217bh4910-vk217bh4910_90",
+        "label": "File 90",
+        "version": 9,
+        "structural": {
+          "contains": [
+            {
+              "type": "https://cocina.sul.stanford.edu/models/file",
+              "externalIdentifier": "https://cocina.sul.stanford.edu/file/vk217bh4910-vk217bh4910_90/HMI_By_201006.tar",
+              "label": "HMI_By_201006.tar",
+              "filename": "HMI_By_201006.tar",
+              "size": 1509335298,
+              "version": 9,
+              "hasMimeType": "application/x-gzip",
+              "sdrGeneratedText": false,
+              "correctedForAccessibility": false,
+              "hasMessageDigests": [
+                {
+                  "type": "sha1",
+                  "digest": "2a25a5bc423f5f28eb5f0b64b8daff33db309e15"
+                },
+                { "type": "md5", "digest": "beccaeae2109fbe6945660dfd37351ff" }
+              ],
+              "access": {
+                "view": "world",
+                "download": "world",
+                "controlledDigitalLending": false
+              },
+              "administrative": {
+                "publish": true,
+                "sdrPreserve": true,
+                "shelve": true
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "https://cocina.sul.stanford.edu/models/resources/file",
+        "externalIdentifier": "https://cocina.sul.stanford.edu/fileSet/vk217bh4910-vk217bh4910_91",
+        "label": "File 91",
+        "version": 9,
+        "structural": {
+          "contains": [
+            {
+              "type": "https://cocina.sul.stanford.edu/models/file",
+              "externalIdentifier": "https://cocina.sul.stanford.edu/file/vk217bh4910-vk217bh4910_91/HMI_By_201007.tar",
+              "label": "HMI_By_201007.tar",
+              "filename": "HMI_By_201007.tar",
+              "size": 1508651472,
+              "version": 9,
+              "hasMimeType": "application/x-gzip",
+              "sdrGeneratedText": false,
+              "correctedForAccessibility": false,
+              "hasMessageDigests": [
+                {
+                  "type": "sha1",
+                  "digest": "cb93ab0208cd28119cd662b8e64b107fd38f7b0f"
+                },
+                { "type": "md5", "digest": "51d4e5f53b4c48f2cbba678fbcdfdfa1" }
+              ],
+              "access": {
+                "view": "world",
+                "download": "world",
+                "controlledDigitalLending": false
+              },
+              "administrative": {
+                "publish": true,
+                "sdrPreserve": true,
+                "shelve": true
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "https://cocina.sul.stanford.edu/models/resources/file",
+        "externalIdentifier": "https://cocina.sul.stanford.edu/fileSet/vk217bh4910-vk217bh4910_92",
+        "label": "File 92",
+        "version": 9,
+        "structural": {
+          "contains": [
+            {
+              "type": "https://cocina.sul.stanford.edu/models/file",
+              "externalIdentifier": "https://cocina.sul.stanford.edu/file/vk217bh4910-vk217bh4910_92/HMI_By_201008.tar",
+              "label": "HMI_By_201008.tar",
+              "filename": "HMI_By_201008.tar",
+              "size": 1565649536,
+              "version": 9,
+              "hasMimeType": "application/x-gzip",
+              "sdrGeneratedText": false,
+              "correctedForAccessibility": false,
+              "hasMessageDigests": [
+                {
+                  "type": "sha1",
+                  "digest": "a5e35a5dfc74fc4e4bce37dfb3407e35edb65ff1"
+                },
+                { "type": "md5", "digest": "23cf19ae55b593f5043ec6c6068b7eec" }
+              ],
+              "access": {
+                "view": "world",
+                "download": "world",
+                "controlledDigitalLending": false
+              },
+              "administrative": {
+                "publish": true,
+                "sdrPreserve": true,
+                "shelve": true
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "https://cocina.sul.stanford.edu/models/resources/file",
+        "externalIdentifier": "https://cocina.sul.stanford.edu/fileSet/vk217bh4910-vk217bh4910_93",
+        "label": "File 93",
+        "version": 9,
+        "structural": {
+          "contains": [
+            {
+              "type": "https://cocina.sul.stanford.edu/models/file",
+              "externalIdentifier": "https://cocina.sul.stanford.edu/file/vk217bh4910-vk217bh4910_93/HMI_By_201009.tar",
+              "label": "HMI_By_201009.tar",
+              "filename": "HMI_By_201009.tar",
+              "size": 1285589933,
+              "version": 9,
+              "hasMimeType": "application/x-gzip",
+              "sdrGeneratedText": false,
+              "correctedForAccessibility": false,
+              "hasMessageDigests": [
+                {
+                  "type": "sha1",
+                  "digest": "49588e5996b73e0971893bc8c0488fd3b452d7d0"
+                },
+                { "type": "md5", "digest": "516c2caf66e9408b2694ac5755951d76" }
+              ],
+              "access": {
+                "view": "world",
+                "download": "world",
+                "controlledDigitalLending": false
+              },
+              "administrative": {
+                "publish": true,
+                "sdrPreserve": true,
+                "shelve": true
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "https://cocina.sul.stanford.edu/models/resources/file",
+        "externalIdentifier": "https://cocina.sul.stanford.edu/fileSet/vk217bh4910-vk217bh4910_94",
+        "label": "File 94",
+        "version": 9,
+        "structural": {
+          "contains": [
+            {
+              "type": "https://cocina.sul.stanford.edu/models/file",
+              "externalIdentifier": "https://cocina.sul.stanford.edu/file/vk217bh4910-vk217bh4910_94/HMI_By_201010.tar",
+              "label": "HMI_By_201010.tar",
+              "filename": "HMI_By_201010.tar",
+              "size": 1330710947,
+              "version": 9,
+              "hasMimeType": "application/x-gzip",
+              "sdrGeneratedText": false,
+              "correctedForAccessibility": false,
+              "hasMessageDigests": [
+                {
+                  "type": "sha1",
+                  "digest": "2c09e2e19fcf2358644c5aafe6e742a52cdb0577"
+                },
+                { "type": "md5", "digest": "d775858768f7333bb232a1984f9b1f96" }
+              ],
+              "access": {
+                "view": "world",
+                "download": "world",
+                "controlledDigitalLending": false
+              },
+              "administrative": {
+                "publish": true,
+                "sdrPreserve": true,
+                "shelve": true
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "https://cocina.sul.stanford.edu/models/resources/file",
+        "externalIdentifier": "https://cocina.sul.stanford.edu/fileSet/vk217bh4910-vk217bh4910_95",
+        "label": "File 95",
+        "version": 9,
+        "structural": {
+          "contains": [
+            {
+              "type": "https://cocina.sul.stanford.edu/models/file",
+              "externalIdentifier": "https://cocina.sul.stanford.edu/file/vk217bh4910-vk217bh4910_95/HMI_By_201011.tar",
+              "label": "HMI_By_201011.tar",
+              "filename": "HMI_By_201011.tar",
+              "size": 1529878695,
+              "version": 9,
+              "hasMimeType": "application/x-gzip",
+              "sdrGeneratedText": false,
+              "correctedForAccessibility": false,
+              "hasMessageDigests": [
+                {
+                  "type": "sha1",
+                  "digest": "2aa9268400b51f99d65a4a45b6ae0dfa7b108d3d"
+                },
+                { "type": "md5", "digest": "9afb28eeab859494502d06d924c7425e" }
+              ],
+              "access": {
+                "view": "world",
+                "download": "world",
+                "controlledDigitalLending": false
+              },
+              "administrative": {
+                "publish": true,
+                "sdrPreserve": true,
+                "shelve": true
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "https://cocina.sul.stanford.edu/models/resources/file",
+        "externalIdentifier": "https://cocina.sul.stanford.edu/fileSet/vk217bh4910-vk217bh4910_96",
+        "label": "File 96",
+        "version": 9,
+        "structural": {
+          "contains": [
+            {
+              "type": "https://cocina.sul.stanford.edu/models/file",
+              "externalIdentifier": "https://cocina.sul.stanford.edu/file/vk217bh4910-vk217bh4910_96/HMI_By_201012.tar",
+              "label": "HMI_By_201012.tar",
+              "filename": "HMI_By_201012.tar",
+              "size": 1677394676,
+              "version": 9,
+              "hasMimeType": "application/x-gzip",
+              "sdrGeneratedText": false,
+              "correctedForAccessibility": false,
+              "hasMessageDigests": [
+                {
+                  "type": "sha1",
+                  "digest": "5f0cebfb6fc66277925c283df67eec21ecd97641"
+                },
+                { "type": "md5", "digest": "ae2096f28428ee598112b5424f42af20" }
+              ],
+              "access": {
+                "view": "world",
+                "download": "world",
+                "controlledDigitalLending": false
+              },
+              "administrative": {
+                "publish": true,
+                "sdrPreserve": true,
+                "shelve": true
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "https://cocina.sul.stanford.edu/models/resources/file",
+        "externalIdentifier": "https://cocina.sul.stanford.edu/fileSet/vk217bh4910-vk217bh4910_97",
+        "label": "File 97",
+        "version": 9,
+        "structural": {
+          "contains": [
+            {
+              "type": "https://cocina.sul.stanford.edu/models/file",
+              "externalIdentifier": "https://cocina.sul.stanford.edu/file/vk217bh4910-vk217bh4910_97/HMI_Bz_201005.tar",
+              "label": "HMI_Bz_201005.tar",
+              "filename": "HMI_Bz_201005.tar",
+              "size": 1566619631,
+              "version": 9,
+              "hasMimeType": "application/x-gzip",
+              "sdrGeneratedText": false,
+              "correctedForAccessibility": false,
+              "hasMessageDigests": [
+                {
+                  "type": "sha1",
+                  "digest": "64cefd9f6fe8a104cbb5a3696e772ce0fee99bce"
+                },
+                { "type": "md5", "digest": "2bfa6a073bdd9ad9d07474c0df0392bc" }
+              ],
+              "access": {
+                "view": "world",
+                "download": "world",
+                "controlledDigitalLending": false
+              },
+              "administrative": {
+                "publish": true,
+                "sdrPreserve": true,
+                "shelve": true
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "https://cocina.sul.stanford.edu/models/resources/file",
+        "externalIdentifier": "https://cocina.sul.stanford.edu/fileSet/vk217bh4910-vk217bh4910_98",
+        "label": "File 98",
+        "version": 9,
+        "structural": {
+          "contains": [
+            {
+              "type": "https://cocina.sul.stanford.edu/models/file",
+              "externalIdentifier": "https://cocina.sul.stanford.edu/file/vk217bh4910-vk217bh4910_98/HMI_Bz_201006.tar",
+              "label": "HMI_Bz_201006.tar",
+              "filename": "HMI_Bz_201006.tar",
+              "size": 1519944478,
+              "version": 9,
+              "hasMimeType": "application/x-gzip",
+              "sdrGeneratedText": false,
+              "correctedForAccessibility": false,
+              "hasMessageDigests": [
+                {
+                  "type": "sha1",
+                  "digest": "51b2eca04e587546ce7ce8858ed21b756e9448ae"
+                },
+                { "type": "md5", "digest": "9008a4ac90933bd107b0cdef4b86d1a8" }
+              ],
+              "access": {
+                "view": "world",
+                "download": "world",
+                "controlledDigitalLending": false
+              },
+              "administrative": {
+                "publish": true,
+                "sdrPreserve": true,
+                "shelve": true
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "https://cocina.sul.stanford.edu/models/resources/file",
+        "externalIdentifier": "https://cocina.sul.stanford.edu/fileSet/vk217bh4910-vk217bh4910_99",
+        "label": "File 99",
+        "version": 9,
+        "structural": {
+          "contains": [
+            {
+              "type": "https://cocina.sul.stanford.edu/models/file",
+              "externalIdentifier": "https://cocina.sul.stanford.edu/file/vk217bh4910-vk217bh4910_99/HMI_Bz_201007.tar",
+              "label": "HMI_Bz_201007.tar",
+              "filename": "HMI_Bz_201007.tar",
+              "size": 1519988566,
+              "version": 9,
+              "hasMimeType": "application/x-gzip",
+              "sdrGeneratedText": false,
+              "correctedForAccessibility": false,
+              "hasMessageDigests": [
+                {
+                  "type": "sha1",
+                  "digest": "2dcfa914b9481a6eccc9ae198eb48fef01ceae93"
+                },
+                { "type": "md5", "digest": "a48f2b08d304b2d38f29edb7ba50266c" }
+              ],
+              "access": {
+                "view": "world",
+                "download": "world",
+                "controlledDigitalLending": false
+              },
+              "administrative": {
+                "publish": true,
+                "sdrPreserve": true,
+                "shelve": true
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "https://cocina.sul.stanford.edu/models/resources/file",
+        "externalIdentifier": "https://cocina.sul.stanford.edu/fileSet/vk217bh4910-vk217bh4910_100",
+        "label": "File 100",
+        "version": 9,
+        "structural": {
+          "contains": [
+            {
+              "type": "https://cocina.sul.stanford.edu/models/file",
+              "externalIdentifier": "https://cocina.sul.stanford.edu/file/vk217bh4910-vk217bh4910_100/HMI_Bz_201008.tar",
+              "label": "HMI_Bz_201008.tar",
+              "filename": "HMI_Bz_201008.tar",
+              "size": 1576962731,
+              "version": 9,
+              "hasMimeType": "application/x-gzip",
+              "sdrGeneratedText": false,
+              "correctedForAccessibility": false,
+              "hasMessageDigests": [
+                {
+                  "type": "sha1",
+                  "digest": "bbef0bcca916729a85ae83ee5fd96527e8af4fd0"
+                },
+                { "type": "md5", "digest": "8e209ab0394a372feef2cf3f59490de8" }
+              ],
+              "access": {
+                "view": "world",
+                "download": "world",
+                "controlledDigitalLending": false
+              },
+              "administrative": {
+                "publish": true,
+                "sdrPreserve": true,
+                "shelve": true
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "https://cocina.sul.stanford.edu/models/resources/file",
+        "externalIdentifier": "https://cocina.sul.stanford.edu/fileSet/vk217bh4910-vk217bh4910_101",
+        "label": "File 101",
+        "version": 9,
+        "structural": {
+          "contains": [
+            {
+              "type": "https://cocina.sul.stanford.edu/models/file",
+              "externalIdentifier": "https://cocina.sul.stanford.edu/file/vk217bh4910-vk217bh4910_101/HMI_Bz_201009.tar",
+              "label": "HMI_Bz_201009.tar",
+              "filename": "HMI_Bz_201009.tar",
+              "size": 1295421817,
+              "version": 9,
+              "hasMimeType": "application/x-gzip",
+              "sdrGeneratedText": false,
+              "correctedForAccessibility": false,
+              "hasMessageDigests": [
+                {
+                  "type": "sha1",
+                  "digest": "d1090a8a05a18d2bba58af927657917b8cccbedc"
+                },
+                { "type": "md5", "digest": "a1362b3ecff2017c9bfb6524cce4ee9d" }
+              ],
+              "access": {
+                "view": "world",
+                "download": "world",
+                "controlledDigitalLending": false
+              },
+              "administrative": {
+                "publish": true,
+                "sdrPreserve": true,
+                "shelve": true
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "https://cocina.sul.stanford.edu/models/resources/file",
+        "externalIdentifier": "https://cocina.sul.stanford.edu/fileSet/vk217bh4910-vk217bh4910_102",
+        "label": "File 102",
+        "version": 9,
+        "structural": {
+          "contains": [
+            {
+              "type": "https://cocina.sul.stanford.edu/models/file",
+              "externalIdentifier": "https://cocina.sul.stanford.edu/file/vk217bh4910-vk217bh4910_102/HMI_Bz_201010.tar",
+              "label": "HMI_Bz_201010.tar",
+              "filename": "HMI_Bz_201010.tar",
+              "size": 1340557052,
+              "version": 9,
+              "hasMimeType": "application/x-gzip",
+              "sdrGeneratedText": false,
+              "correctedForAccessibility": false,
+              "hasMessageDigests": [
+                {
+                  "type": "sha1",
+                  "digest": "bbe28fe08a483915670299fc4e18fed7c07483a3"
+                },
+                { "type": "md5", "digest": "0b1decdbfb435ef74fa83f06f990b058" }
+              ],
+              "access": {
+                "view": "world",
+                "download": "world",
+                "controlledDigitalLending": false
+              },
+              "administrative": {
+                "publish": true,
+                "sdrPreserve": true,
+                "shelve": true
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "https://cocina.sul.stanford.edu/models/resources/file",
+        "externalIdentifier": "https://cocina.sul.stanford.edu/fileSet/vk217bh4910-vk217bh4910_103",
+        "label": "File 103",
+        "version": 9,
+        "structural": {
+          "contains": [
+            {
+              "type": "https://cocina.sul.stanford.edu/models/file",
+              "externalIdentifier": "https://cocina.sul.stanford.edu/file/vk217bh4910-vk217bh4910_103/HMI_Bz_201011.tar",
+              "label": "HMI_Bz_201011.tar",
+              "filename": "HMI_Bz_201011.tar",
+              "size": 1541006831,
+              "version": 9,
+              "hasMimeType": "application/x-gzip",
+              "sdrGeneratedText": false,
+              "correctedForAccessibility": false,
+              "hasMessageDigests": [
+                {
+                  "type": "sha1",
+                  "digest": "8d0654cdd7e3ecae640b536760e6fbce69d797e2"
+                },
+                { "type": "md5", "digest": "1a37e3e754b48b4ab916311baa72c684" }
+              ],
+              "access": {
+                "view": "world",
+                "download": "world",
+                "controlledDigitalLending": false
+              },
+              "administrative": {
+                "publish": true,
+                "sdrPreserve": true,
+                "shelve": true
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "https://cocina.sul.stanford.edu/models/resources/file",
+        "externalIdentifier": "https://cocina.sul.stanford.edu/fileSet/vk217bh4910-vk217bh4910_104",
+        "label": "File 104",
+        "version": 9,
+        "structural": {
+          "contains": [
+            {
+              "type": "https://cocina.sul.stanford.edu/models/file",
+              "externalIdentifier": "https://cocina.sul.stanford.edu/file/vk217bh4910-vk217bh4910_104/HMI_Bz_201012.tar",
+              "label": "HMI_Bz_201012.tar",
+              "filename": "HMI_Bz_201012.tar",
+              "size": 1688798732,
+              "version": 9,
+              "hasMimeType": "application/x-gzip",
+              "sdrGeneratedText": false,
+              "correctedForAccessibility": false,
+              "hasMessageDigests": [
+                {
+                  "type": "sha1",
+                  "digest": "8e58f0ccd4dc7dabb56d208cfe2b25917f6e347d"
+                },
+                { "type": "md5", "digest": "f57652b0b686e0dcc9d51f737839efc0" }
+              ],
+              "access": {
+                "view": "world",
+                "download": "world",
+                "controlledDigitalLending": false
+              },
+              "administrative": {
+                "publish": true,
+                "sdrPreserve": true,
+                "shelve": true
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "https://cocina.sul.stanford.edu/models/resources/file",
+        "externalIdentifier": "https://cocina.sul.stanford.edu/fileSet/vk217bh4910-vk217bh4910_105",
+        "label": "File 105",
+        "version": 9,
+        "structural": {
+          "contains": [
+            {
+              "type": "https://cocina.sul.stanford.edu/models/file",
+              "externalIdentifier": "https://cocina.sul.stanford.edu/file/vk217bh4910-vk217bh4910_105/EVE_lines_MEGS-A.tar.gz",
+              "label": "EVE_lines_MEGS-A.tar.gz",
+              "filename": "EVE_lines_MEGS-A.tar.gz",
+              "size": 156713080,
+              "version": 9,
+              "hasMimeType": "application/x-gzip",
+              "sdrGeneratedText": false,
+              "correctedForAccessibility": false,
+              "hasMessageDigests": [
+                {
+                  "type": "sha1",
+                  "digest": "6efd4daaaacee9b60dfce0c1969dd22e471c18b1"
+                },
+                { "type": "md5", "digest": "554f1c5e55c21509a724af8f2f7bc961" }
+              ],
+              "access": {
+                "view": "world",
+                "download": "world",
+                "controlledDigitalLending": false
+              },
+              "administrative": {
+                "publish": true,
+                "sdrPreserve": true,
+                "shelve": true
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "hasMemberOrders": [],
+    "isMemberOf": ["druid:md919gh6774"]
+  },
+  "created": "2024-06-19T18:25:23.000+00:00",
+  "modified": "2024-06-19T18:26:05.000+00:00",
+  "lock": "W/\"druid:vk217bh4910=2=2-gzip\""
+}

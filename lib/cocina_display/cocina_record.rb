@@ -24,25 +24,41 @@ module CocinaDisplay
       druid.delete_prefix("druid:")
     end
 
-    # Only present if there is a FOLIO catalog link; item may still be in the
-    # catalog under its DRUID. Ignores old (symphony) links.
-    def catkey
+    # The DOI for the object, just the identifier part. "10.25740/ppax-bf07"
+    def doi
+      doi_id = path("$.identification.doi").first ||
+        path("$.description.identifier[?match(@.type, 'doi|DOI')].value").first ||
+        path("$.description.identifier[?search(@.uri, 'doi.org')].uri").first
+
+      URI(doi_id).path.delete_prefix("/") if doi_id.present?
+    end
+
+    # DOI as a URL. Any valid DOI should resolve via doi.org.
+    def doi_url
+      URI.join("https://doi.org", doi).to_s if doi.present?
+    end
+
+    # Item might still be in Searchworks under its druid instead.
+    def folio_hrid
       path("$.identification.catalogLinks[?(@.catalog == 'folio')].catalogRecordId").first
     end
 
     # Does not imply the item is actually released to Searchworks!
     def searchworks_id
-      catkey || bare_druid
+      folio_hrid || bare_druid
     end
 
+    # This is for the metadata itself, not the object
     def created_time
       Time.parse(cocina_doc["created"])
     end
 
+    # This is for the metadata itself, not the object
     def modified_time
       Time.parse(cocina_doc["modified"])
     end
 
+    # "image", "map", "book", etc.
     def content_type
       cocina_doc["type"].split("/").last
     end
@@ -59,6 +75,7 @@ module CocinaDisplay
 
     # The PURL URL for the object
     # @param purl_base_url [String] Base URL for the PURL environment
+    # TODO: use `description.purl` for this instead?
     def purl_url(purl_base_url: "https://purl.stanford.edu")
       "#{purl_base_url}/#{bare_druid}"
     end
