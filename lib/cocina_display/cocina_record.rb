@@ -68,7 +68,7 @@ module CocinaDisplay
     end
 
     # Flatten nested FileSet structure to get all files in the object
-    # @return [Array[Hash]] Array of File objects
+    # @return [Enumerator[Hash]] Array of File objects
     def files
       path("$.structural.contains[*].structural.contains[*]")
     end
