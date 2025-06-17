@@ -150,15 +150,15 @@ RSpec.describe CocinaDisplay::CocinaRecord do
   end
 
   describe "#searchworks_id" do
-    context "when there is a catkey" do
+    context "when there is a folio hrid" do
       let(:druid) { "pv074by7080" }
 
-      it "returns the catkey" do
+      it "returns the folio hrid" do
         expect(subject.searchworks_id).to eq "a12845814"
       end
     end
 
-    context "when there is no catkey" do
+    context "when there is no folio hrid" do
       let(:druid) { "bx658jh7339" }
 
       it "returns the druid" do
@@ -175,7 +175,7 @@ RSpec.describe CocinaDisplay::CocinaRecord do
     end
   end
 
-  describe "collection?" do
+  describe "#collection?" do
     context "with an item" do
       let(:druid) { "bx658jh7339" }
 
@@ -190,6 +190,34 @@ RSpec.describe CocinaDisplay::CocinaRecord do
       it "returns true" do
         expect(subject.collection?).to be true
       end
+    end
+  end
+
+  describe "#created_time" do
+    let(:druid) { "bx658jh7339" }
+
+    it "returns the correct created time" do
+      expect(subject.created_time).to eq Time.parse("2022-04-27T00:21:13.000+00:00")
+    end
+  end
+
+  describe "#modified_time" do
+    let(:druid) { "bx658jh7339" }
+
+    it "returns the correct modified time" do
+      expect(subject.modified_time).to eq Time.parse("2022-04-27T00:21:13.000+00:00")
+    end
+  end
+
+  describe "#files" do
+    let(:druid) { "bx658jh7339" }
+
+    it "returns the files" do
+      expect(subject.files.to_a.first).to include(
+        "filename" => "T0000001.jp2",
+        "size" => 824964,
+        "version" => 1
+      )
     end
   end
 
