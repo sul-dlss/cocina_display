@@ -1,9 +1,12 @@
 # frozen_string_literal: true
 
+# These have to come before importing any other code for coverage to work!
 require "simplecov"
+require "simplecov-rspec"
 SimpleCov.start do
   add_filter "/spec/"
 end
+SimpleCov::RSpec.start(list_uncovered_lines: true)
 
 require "cocina_display"
 
