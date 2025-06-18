@@ -36,6 +36,9 @@ Gem::Specification.new do |spec|
   spec.add_dependency "cocina-models", "~> 0.101" # for TitleBuilder
   spec.add_dependency "janeway-jsonpath", "~> 0.6" # for nested JSON queries
 
-  # For more information and examples about making a new gem, check out our
-  # guide at: https://bundler.io/guides/creating_gem.html
+  spec.add_development_dependency "rake", "~> 13.0"
+  spec.add_development_dependency "rspec", "~> 3.0"
+  spec.add_development_dependency "standard", "~> 1.3"
+  spec.add_development_dependency "simplecov", "~> 0.22.0"
+  spec.add_development_dependency "yard", "~> 0.9.37"
 end
