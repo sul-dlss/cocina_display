@@ -72,7 +72,7 @@ The previous example used `Hash#dig` to access the first contributor's first nam
 > 
 ```
 
-The JsonPath implementation used is [`janeway-jsonpath`](https://www.rubydoc.info/gems/janeway-jsonpath/0.6.0/file/README.md), which supports the full syntax from the [finalized 2024 version of the specification](https://www.rfc-editor.org/rfc/rfc9535.html). Results returned from `#path` are Enumerators.
+The JsonPath implementation used is [janeway](https://www.rubydoc.info/gems/janeway-jsonpath/0.6.0/file/README.md), which supports the full syntax from the [finalized 2024 version of the specification](https://www.rfc-editor.org/rfc/rfc9535.html). Results returned from `#path` are Enumerators.
 
 In the following example, we start an expression with `"$.."` to search for contributor nodes at _any_ level (e.g. `event.contributors`) and discover that there is a third contributor, but it has no `name` value. Using the `['code', 'value']` syntax, we can retrieve both `code` and `value` and show where they came from:
 
@@ -103,7 +103,7 @@ Documentation is generated using [yard](https://yardoc.org). You can generate it
 
 ## Background
 
-Historically, applications at SUL used a combination of several gems to render objects represented by MODS XML. With the transition to the Cocina data model, infrastructure applications adopted the [`cocina-models` gem](https://github.com/sul-dlss/cocina-models), which provides accessor objects and validators over Cocina JSON. Internal applications can fetch such objects over HTTP using [`dor-services-client`](https://github.com/sul-dlss/dor-services-client).
+Historically, applications at SUL used a combination of several gems to render objects represented by MODS XML. With the transition to the Cocina data model, infrastructure applications adopted the [cocina-models gem](https://github.com/sul-dlss/cocina-models), which provides accessor objects and validators over Cocina JSON. Internal applications can fetch such objects over HTTP using [dor-services-client](https://github.com/sul-dlss/dor-services-client).
 
 On the access side, Cocina JSON (the "public Cocina") is available statically via [PURL](https://purl.stanford.edu), but is only updated when an object is published ("shelved") from SDR. This frequently results in data that is technically invalid with respect to `cocina-models` but is still valid in the context of a patron-facing application.
 
