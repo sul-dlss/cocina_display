@@ -1,10 +1,13 @@
 # frozen_string_literal: true
 
-require "cocina/models"
 require "janeway"
+require "uri"
+require "active_support"
+require "active_support/core_ext/object/blank"
+require "active_support/core_ext/hash/conversions"
 
 module CocinaDisplay
-  # Public Cocina metadata for an SDR object
+  # Public Cocina metadata for an SDR object, as fetched from PURL.
   class CocinaRecord
     # The parsed Cocina document.
     # @return [Hash]
