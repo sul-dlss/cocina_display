@@ -193,6 +193,42 @@ RSpec.describe CocinaDisplay::CocinaRecord do
     end
   end
 
+  describe "#title" do
+    context "when there is a subtitle" do
+      let(:druid) { "bx658jh7339" }
+
+      it "returns the title formatted to include the subtitle" do
+        expect(subject.title).to eq "M. de Courville : [estampe]"
+      end
+    end
+
+    context "when there are escaped characters" do
+      let(:druid) { "bb112zx3193" }
+
+      it "renders the title correctly" do
+        expect(subject.title).to eq "Bugatti Type 51A. Road & Track Salon January 1957"
+      end
+    end
+  end
+
+  describe "#additional_titles" do
+    context "when there is an alternative title" do
+      let(:druid) { "nz187ct8959" }
+
+      it "returns the alternative title" do
+        expect(subject.additional_titles).to eq ["Two thousand and ten China province population census data with GIS maps"]
+      end
+    end
+
+    context "when there is a parallel translated title" do
+      let(:druid) { "bt553vr2845" }
+
+      it "returns the parallel title" do
+        expect(subject.additional_titles).to eq ["Master i Margarita. English"]
+      end
+    end
+  end
+
   describe "#created_time" do
     let(:druid) { "bx658jh7339" }
 

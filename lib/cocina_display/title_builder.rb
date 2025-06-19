@@ -6,13 +6,13 @@ require "active_support/core_ext/string/access"
 require "active_support/core_ext/string/starts_ends_with"
 
 module CocinaDisplay
-  # TitleBuilder selects the preferred title from the cocina object for solr indexing
+  # Select and format title data as a string for display or indexing.
   class TitleBuilder
-    # @param [Array<Hash>] titles the titles to consider
-    # @param [Array<Hash>] catalog_links the folio catalog links to check for digital serials part labels
-    # @param [Symbol] strategy ":first" is the strategy for selection when primary or display title are missing
-    # @param [Boolean] add_punctuation determines if the title should be formatted with punctuation
-    # @return [String, Array] the title value for Solr - for :first strategy, a string; for :all strategy, an array
+    # @param titles [Array<Hash>] The titles to consider.
+    # @param catalog_links [Array<Hash>] The folio catalog links to check for digital serials part labels.
+    # @param strategy [Symbol] ":first" is the strategy for selection when primary or display title are missing.
+    # @param add_punctuation [Boolean] Determines if the title should be formatted with punctuation.
+    # @return [String, Array] The title value for Solr - for :first strategy, a string; for :all strategy, an array.
     #   (e.g. title displayed in blacklight search results vs boosting values for search result rankings)
     def self.build(titles, catalog_links: [], strategy: :first, add_punctuation: true)
       part_label = catalog_links.find { |link| link["catalog"] == "folio" }&.fetch("partLabel", nil)
@@ -20,40 +20,39 @@ module CocinaDisplay
     end
 
     # the "main title" is the title withOUT subtitle, part name, etc.  We want to index it separately so
-    #   we can boost matches on it in search results (boost matching this string higher than matching full title string)
-    #   e.g. "The Hobbit" (main_title) vs "The Hobbit, or, There and Back Again (full_title)
-    # @param [Array<Hash>] titles the titles to consider
-    # @return [Array<String>] the main title value(s) for Solr - array due to possible parallelValue
+    # we can boost matches on it in search results (boost matching this string higher than matching full title string)
+    # e.g. "The Hobbit" (main_title) vs "The Hobbit, or, There and Back Again (full_title)
+    # @param titles [Array<Hash>] The titles to consider.
+    # @return [Array<String>] The main title value(s) for Solr - array due to possible parallelValue
     def self.main_title(titles)
       new(strategy: :first, add_punctuation: false).main_title(titles)
     end
 
     # the "full title" is the title WITH subtitle, part name, etc.  We want to able able to index it separately so
-    #   we can boost matches on it in search results (boost matching this string higher than other titles present)
-    # @param [Array<Hash>] titles the titles to consider
-    # @param [Array<Hash>] catalog_links the folio catalog links to check for digital serials part labels
-    # @return [Array<String>] the full title value(s) for Solr - array due to possible parallelValue
+    # we can boost matches on it in search results (boost matching this string higher than other titles present)
+    # @param titles [Array<Hash>] The titles to consider.
+    # @param catalog_links [Array<Hash>] The folio catalog links to check for digital serials part labels.
+    # @return [Array<String>] The full title value(s) for Solr - array due to possible parallelValue
     def self.full_title(titles, catalog_links: [])
       part_label = catalog_links.find { |link| link["catalog"] == "folio" }&.fetch("partLabel", nil)
       [new(strategy: :first, add_punctuation: false, only_one_parallel_value: false, part_label: part_label).build(titles)].flatten.compact
     end
 
     # "additional titles" are all title data except for full_title.  We want to able able to index it separately so
-    #   we can boost matches on it in search results (boost matching these strings lower than other titles present)
-    # @param [Array<Hash>] titles the titles to consider
-    # @return [Array<String>] the values for Solr
+    # we can boost matches on it in search results (boost matching these strings lower than other titles present)
+    # @param titles [Array<Hash>] The titles to consider.
+    # @return [Array<String>] The values for Solr.
     def self.additional_titles(titles)
       [new(strategy: :all, add_punctuation: false).build(titles)].flatten - full_title(titles)
     end
 
     # @param strategy [Symbol] ":first" selects a single title value based on precedence of
-    #   primary, untyped, first occurrence. ":all" returns an array containing all the values.
+    # primary, untyped, first occurrence. ":all" returns an array containing all the values.
     # @param add_punctuation [boolean] whether the title should be formatted with punctuation (think of a structured
-    #   value coming from a MARC record, which is designed for catalog cards.)
+    # value coming from a MARC record, which is designed for catalog cards.)
     # @param only_one_parallel_value [boolean] when true, choose one of the parallel values according to precedence
-    #   of primary, untyped, first occurrence.  When false, return an array containing all the parallel values.
-    #   Why? Think of e.g. title displayed in blacklight search results vs boosting values for ranking of search
-    #   results
+    # of primary, untyped, first occurrence.  When false, return an array containing all the parallel values.
+    # Why? Think of e.g. title displayed in blacklight search results vs boosting values for ranking of search results
     # @param part_label [String] the partLabel to add for digital serials display
     def initialize(strategy:, add_punctuation:, only_one_parallel_value: true, part_label: nil)
       @strategy = strategy
@@ -64,8 +63,7 @@ module CocinaDisplay
 
     # @param [Array<Hash>] cocina_titles the titles to consider
     # @return [String, Array] the title value for Solr - for :first strategy, a string; for :all strategy, an array
-    #   (e.g. title displayed in blacklight search results vs boosting values for search result rankings)
-    #
+    # (e.g. title displayed in blacklight search results vs boosting values for search result rankings)
     # rubocop:disable Metrics/PerceivedComplexity
     def build(cocina_titles)
       cocina_title = primary_title(cocina_titles) || untyped_title(cocina_titles)
@@ -86,7 +84,7 @@ module CocinaDisplay
     # rubocop:enable Metrics/PerceivedComplexity
 
     # this is the single "short title" - the title without subtitle, part name, etc.
-    #    this may be useful for boosting and exact matching for search results
+    # this may be useful for boosting and exact matching for search results
     # @return [Array<String>] the main title value(s) for Solr - can be array due to parallel titles
     def main_title(titles)
       cocina_title = primary_title(titles) || untyped_title(titles)
@@ -203,7 +201,7 @@ module CocinaDisplay
       end
     end
 
-    # @param [Hash] title with structured values
+    # @param cocina_title [Hash] title with structured values
     # @return [String] the title value from combining the pieces of the structured_values by type and order
     #   with desired punctuation per specs
     #
@@ -281,7 +279,7 @@ module CocinaDisplay
     # rubocop:enable Metrics/PerceivedComplexity
 
     # main_title is title.structuredValue.value with type 'main title' (or just title.value)
-    # @param [Hash] title with structured values
+    # @param cocina_title [Hash] Title with structured values
     # @return [String] the main title value
     #
     # rubocop:disable Metrics/MethodLength
