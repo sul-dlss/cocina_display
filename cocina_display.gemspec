@@ -29,8 +29,8 @@ Gem::Specification.new do |spec|
   spec.executables = spec.files.grep(%r{\Aexe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
-  spec.add_dependency "cocina-models", "~> 0.101" # for TitleBuilder
   spec.add_dependency "janeway-jsonpath", "~> 0.6" # for nested JSON queries
+  spec.add_dependency "activesupport", "~> 8.0", ">= 8.0.2" # for helpers like present?
 
   spec.add_development_dependency "rake", "~> 13.0"
   spec.add_development_dependency "rspec", "~> 3.0"

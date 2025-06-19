@@ -6,3 +6,4 @@ source "https://rubygems.org"
 gemspec
 
 gem "irb"
+gem "debug", "~> 1.11"
