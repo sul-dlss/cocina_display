@@ -38,4 +38,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "simplecov", "~> 0.22.0"
   spec.add_development_dependency "simplecov-rspec", "~> 0.4"
   spec.add_development_dependency "yard", "~> 0.9.37"
+  spec.add_development_dependency "webrick", "~> 1.9", ">= 1.9.1" # for yard server
 end

@@ -46,8 +46,8 @@ Once you have the JSON, you can initialize a `CocinaRecord` object and start wor
 =>
 #<CocinaDisplay::CocinaRecord:0x000000012d11b600
 ...
-> record.titles
-=> ["Bugatti Type 51A. Road & Track Salon January 1957"]
+> record.title
+=> "Bugatti Type 51A. Road & Track Salon January 1957"
 > record.content_type
 => "image"
 > record.iiif_manifest_url 

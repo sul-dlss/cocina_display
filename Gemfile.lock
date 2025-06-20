@@ -128,6 +128,7 @@ GEM
       unicode-emoji (~> 4.0, >= 4.0.4)
     unicode-emoji (4.0.4)
     uri (1.0.3)
+    webrick (1.9.1)
     yard (0.9.37)
 
 PLATFORMS
@@ -144,6 +145,7 @@ DEPENDENCIES
   simplecov (~> 0.22.0)
   simplecov-rspec (~> 0.4)
   standard (~> 1.3)
+  webrick (~> 1.9, >= 1.9.1)
   yard (~> 0.9.37)
 
 BUNDLED WITH
