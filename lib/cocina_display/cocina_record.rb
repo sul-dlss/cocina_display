@@ -3,6 +3,7 @@
 require "janeway"
 require "json"
 require "uri"
+require "time"
 require "active_support"
 require "active_support/core_ext/object/blank"
 require "active_support/core_ext/hash/conversions"
@@ -88,16 +89,20 @@ module CocinaDisplay
 
     # Timestamp when the Cocina was created.
     # @note This is for the metadata itself, not the object.
-    # @return [Time]
+    # @return [Time, nil]
     def created_time
       Time.parse(cocina_doc["created"])
+    rescue ArgumentError, TypeError
+      nil
     end
 
     # Timestamp when the Cocina was last modified.
     # @note This is for the metadata itself, not the object.
-    # @return [Time]
+    # @return [Time, nil]
     def modified_time
       Time.parse(cocina_doc["modified"])
+    rescue ArgumentError, TypeError
+      nil
     end
 
     # SDR content type of the object.

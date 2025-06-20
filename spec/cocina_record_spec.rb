@@ -235,6 +235,26 @@ RSpec.describe CocinaDisplay::CocinaRecord do
     it "returns the correct created time" do
       expect(subject.created_time).to eq Time.parse("2022-04-27T00:21:13.000+00:00")
     end
+
+    context "when the created time is not parsable" do
+      let(:cocina_json) do
+        {
+          "created" => "invalid-date"
+        }.to_json
+      end
+
+      it "returns nil" do
+        expect(subject.created_time).to be_nil
+      end
+    end
+
+    context "when the created time is not present" do
+      let(:cocina_json) { {}.to_json }
+
+      it "returns nil" do
+        expect(subject.created_time).to be_nil
+      end
+    end
   end
 
   describe "#modified_time" do
@@ -242,6 +262,26 @@ RSpec.describe CocinaDisplay::CocinaRecord do
 
     it "returns the correct modified time" do
       expect(subject.modified_time).to eq Time.parse("2022-04-27T00:21:13.000+00:00")
+    end
+
+    context "when the modified time is not parsable" do
+      let(:cocina_json) do
+        {
+          "modified" => "invalid-date"
+        }.to_json
+      end
+
+      it "returns nil" do
+        expect(subject.modified_time).to be_nil
+      end
+    end
+
+    context "when the modified time is not present" do
+      let(:cocina_json) { {}.to_json }
+
+      it "returns nil" do
+        expect(subject.modified_time).to be_nil
+      end
     end
   end
 
