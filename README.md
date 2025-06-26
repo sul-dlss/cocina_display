@@ -52,7 +52,8 @@ Once you have the JSON, you can initialize a `CocinaRecord` object and start wor
 => "image"
 > record.iiif_manifest_url 
 => "https://purl.stanford.edu/bb112zx3193/iiif3/manifest"
-> record.cocina_doc.dig("description", "contributor", 0, "name", 0, "value")  # access the hash representation
+# access the hash representation
+> record.cocina_doc.dig("description", "contributor", 0, "name", 0, "value")  
 => "Hearst Magazines, Inc."
 ```
 
@@ -65,11 +66,12 @@ Fetching data deeply nested in the record, especially when you need to filter ba
 The previous example used `Hash#dig` to access the first contributor's first name value. Using `#path`, you can query for _all_ contributor name values, or even filter to particular contributors:
 
 ```ruby
-> record.path('$.description.contributor[*].name[*].value').search # name values for all contributors in description
+# name values for all contributors in description
+> record.path('$.description.contributor[*].name[*].value').search
 => ["Hearst Magazines, Inc.", "Chesebrough, Jerry"]
-> record.path("$.description.contributor[?@.role[?@.value == 'photographer']].name[*].value").search # only contributors with a role with value "photographer"
+# only contributors with a role with value "photographer"
+> record.path("$.description.contributor[?@.role[?@.value == 'photographer']].name[*].value").search
 => ["Chesebrough, Jerry"]
-> 
 ```
 
 The JsonPath implementation used is [janeway](https://www.rubydoc.info/gems/janeway-jsonpath/0.6.0/file/README.md), which supports the full syntax from the [finalized 2024 version of the specification](https://www.rfc-editor.org/rfc/rfc9535.html). Results returned from `#path` are Enumerators.
