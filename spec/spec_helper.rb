@@ -3,10 +3,14 @@
 # These have to come before importing any other code for coverage to work!
 require "simplecov"
 require "simplecov-rspec"
-SimpleCov.start do
-  add_filter "/spec/"
+
+# Ignore coverage if running a single file; otherwise turn it on
+if RSpec.configuration.files_to_run.count > 1
+  SimpleCov.start do
+    add_filter "/spec/"
+  end
+  SimpleCov::RSpec.start(list_uncovered_lines: true)
 end
-SimpleCov::RSpec.start(list_uncovered_lines: true)
 
 require "cocina_display"
 
