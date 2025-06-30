@@ -2,10 +2,25 @@
 
 require "spec_helper"
 
-require_relative "../lib/cocina_display/date_range"
+require_relative "../../lib/cocina_display/dates/date_range"
 
 RSpec.describe CocinaDisplay::Dates::DateRange do
   subject(:date_range) { described_class.from_cocina(cocina) }
+
+  describe "construction" do
+    let(:cocina) do
+      {
+        "structuredValue" => [
+          {"value" => "2023-01-01", "type" => "start", "encoding" => {"code" => "edtf"}},
+          {"value" => "2023-12-31", "type" => "end", "encoding" => {"code" => "edtf"}}
+        ]
+      }
+    end
+
+    it "is also possible using the Date.from_cocina method" do
+      expect(CocinaDisplay::Dates::Date.from_cocina(cocina).value).to eq(date_range.value)
+    end
+  end
 
   describe "#sort_key" do
     let(:date_pairs) do
