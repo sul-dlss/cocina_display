@@ -8,10 +8,12 @@ require "active_support/core_ext/object/blank"
 require "active_support/core_ext/hash/conversions"
 
 require_relative "title_builder"
+require_relative "concerns/events"
 
 module CocinaDisplay
   # Public Cocina metadata for an SDR object, as fetched from PURL.
   class CocinaRecord
+    include CocinaDisplay::Concerns::Events
     # The parsed Cocina document.
     # @return [Hash]
     attr_reader :cocina_doc
