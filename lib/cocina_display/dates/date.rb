@@ -12,8 +12,8 @@ module CocinaDisplay
       # @param cocina [Hash] Cocina date data
       # @return [CocinaDisplay::Date]
       def self.from_cocina(cocina)
-        # TODO: handle structuredValue arrays (date ranges)
-        return if cocina["structuredValue"].present?
+        # Create a DateRange instead if structuredValue(s) are present
+        return DateRange.from_cocina(cocina) if cocina["structuredValue"].present?
 
         # If an encoding was declared, use it. Cocina validates this
         case cocina.dig("encoding", "code")
