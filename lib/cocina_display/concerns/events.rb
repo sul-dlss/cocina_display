@@ -4,14 +4,14 @@ require_relative "../dates/date_range"
 module CocinaDisplay
   module Concerns
     module Events
-      # The earliest preferred publication year as an integer.
-      # If the date was a range, uses the start date (or end if not present).
+      # The earliest preferred publication date as an EDTF::Date object.
+      # If the date was a range or interval, uses the start (or end if no start).
       # Considers publication, creation, and capture dates in that order.
       # Prefers dates marked as primary and those with a declared encoding.
       # @param ignore_qualified [Boolean] Reject qualified dates (e.g. approximate)
-      # @return [Integer, nil]
-      # @note 6 BCE will return -5; 4 CE will return 4.
-      def pub_year_int(ignore_qualified: false)
+      # @return [EDTF::Date, nil]
+      # @see https://github.com/inukshuk/edtf-ruby
+      def pub_date_edtf(ignore_qualified: false)
         date = pub_date(ignore_qualified: ignore_qualified)
         return unless date
 
@@ -19,14 +19,25 @@ module CocinaDisplay
           date = date.start || date.stop
         end
 
-        edtf_date = date&.date
+        edtf_date = date.date
         return unless edtf_date
 
         if edtf_date.is_a? EDTF::Interval
-          edtf_date.from.year
+          edtf_date.from
         else
-          edtf_date.year
+          edtf_date
         end
+      end
+
+      # The earliest preferred publication year as an integer.
+      # If the date was a range or interval, uses the start (or end if no start).
+      # Considers publication, creation, and capture dates in that order.
+      # Prefers dates marked as primary and those with a declared encoding.
+      # @param ignore_qualified [Boolean] Reject qualified dates (e.g. approximate)
+      # @return [Integer, nil]
+      # @note 6 BCE will return -5; 4 CE will return 4.
+      def pub_year_int(ignore_qualified: false)
+        pub_date_edtf(ignore_qualified: ignore_qualified)&.year
       end
 
       # String for displaying the earliest preferred publication year or range.
@@ -55,7 +66,7 @@ module CocinaDisplay
         Enumerator::Chain.new(
           path("$.description.event[*].date[#{filter_expr}]"),
           path("$.description.event[#{filter_expr}].date[*]")
-        ).map do |date|
+        ).uniq.map do |date|
           CocinaDisplay::Dates::Date.from_cocina(date)
         end
       end

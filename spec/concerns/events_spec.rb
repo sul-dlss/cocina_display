@@ -58,6 +58,27 @@ RSpec.describe CocinaDisplay::CocinaRecord do
       end
     end
 
+    context "when both the event and date have valid types" do
+      let(:cocina_json) do
+        {
+          "description" => {
+            "event" => [
+              {
+                "type" => "publication",
+                "date" => [
+                  {"value" => "2022", "type" => "publication"}
+                ]
+              }
+            ]
+          }
+        }.to_json
+      end
+
+      it "returns the publication date" do
+        is_expected.to eq("2022")
+      end
+    end
+
     context "when there are multiple dates with different valid types" do
       let(:dates) do
         [
