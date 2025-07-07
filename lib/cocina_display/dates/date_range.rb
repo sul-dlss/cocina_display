@@ -16,6 +16,7 @@ module CocinaDisplay
         dates = cocina["structuredValue"].map { |sv| Date.from_cocina(sv) }
         start = dates.find(&:start?)
         stop = dates.find(&:end?)
+        return unless start || stop
 
         DateRange.new(cocina, start: start, stop: stop)
       end
@@ -44,6 +45,13 @@ module CocinaDisplay
       # @return [String]
       def sort_key
         [start&.sort_key, stop&.sort_key].join(" - ")
+      end
+
+      # Base values of start/end as single string. Used for comparison/deduping.
+      # @note This is important for uniqueness checks in Imprint display.
+      # @return [String]
+      def base_value
+        "#{@start&.base_value}-#{@stop&.base_value}"
       end
 
       # The encoding value for the range.
@@ -100,6 +108,14 @@ module CocinaDisplay
         else
           "#{start&.qualified_value} - #{stop&.qualified_value}"
         end
+      end
+
+      # Express the range as an EDTF::Interval between the start and stop dates.
+      # @return [EDTF::Interval]
+      def as_interval
+        interval_start = start&.date&.edtf || "open"
+        interval_stop = stop&.date&.edtf || "open"
+        ::Date.edtf("#{interval_start}/#{interval_stop}")
       end
     end
   end

@@ -8,6 +8,9 @@ module CocinaDisplay
   module Dates
     # A date to be converted to a Date object.
     class Date
+      # List of values that we shouldn't even attempt to parse.
+      UNPARSABLE_VALUES = ["0000-00-00", "9999", "uuuu", "[uuuu]"].freeze
+
       # Construct a Date from parsed Cocina data.
       # @param cocina [Hash] Cocina date data
       # @return [CocinaDisplay::Date]
@@ -51,7 +54,7 @@ module CocinaDisplay
           ].find { |klass| klass.supports?(value) }
 
           # If no specific format matched, use the base class
-          date_class ||= Date
+          date_class ||= CocinaDisplay::Dates::Date
 
           date_class.new(cocina)
         end
@@ -60,11 +63,9 @@ module CocinaDisplay
       # Parse a string to a Date object according to the given encoding.
       # Delegates to the parser subclass {normalize_to_edtf} method.
       # @param value [String] the date value to parse
-      # @return [EDTF::Date]
+      # @return [Date]
       # @return [nil] if the date is blank or invalid
       def self.parse_date(value)
-        return if value.blank? || ["0000-00-00", "9999", "uuuu", "[uuuu]"].include?(value)
-
         ::Date.edtf(normalize_to_edtf(value))
       end
 
@@ -166,6 +167,12 @@ module CocinaDisplay
         cocina["status"] == "primary"
       end
 
+      # Is the value present and not a known unparsable value like "9999"?
+      # @return [Boolean]
+      def parsable?
+        value.present? && !UNPARSABLE_VALUES.include?(value)
+      end
+
       # Did we successfully parse a date from the Cocina data?
       # @return [Boolean]
       def parsed_date?
@@ -203,9 +210,9 @@ module CocinaDisplay
 
       # Key used to sort this date. Respects BCE/CE ordering and precision.
       # @return [String]
-      # @return [nil] if the date could not be parsed
       def sort_key
-        return unless parsed_date?
+        # Even if not parsed, we might need to sort it for display later
+        return "" unless parsed_date?
 
         # Use the start of an interval for sorting
         sort_date = date.is_a?(EDTF::Interval) ? date.from : date
@@ -243,6 +250,17 @@ module CocinaDisplay
         else
           [year_str, month_str, day_str].join
         end
+      end
+
+      # Value reduced to digits and hyphen. Used for comparison/deduping.
+      # @note This is important for uniqueness checks in Imprint display.
+      # @return [String]
+      def base_value
+        if value =~ /^\[?1\d{3}-\d{2}\??\]?$/
+          return value.sub(/(\d{2})(\d{2})-(\d{2})/, '\1\2-\1\3')
+        end
+
+        value.gsub(/(?<![\d])(\d{1,3})([xu-]{1,3})/i) { "#{Regexp.last_match(1)}#{"0" * Regexp.last_match(2).length}" }.scan(/[\d-]/).join
       end
 
       # Decoded version of the date with "BCE" or "CE". Strips leading zeroes.
@@ -302,7 +320,7 @@ module CocinaDisplay
         earliest_date..latest_date
       end
 
-      # Array of all years that fall into the range of possible dates in the data.
+      # Array of all dates that fall into the range of possible dates in the data.
       # @note Some encodings support disjoint sets of ranges, so this method could be more accurate than {#as_range}.
       # @return [Array]
       def to_a
@@ -319,7 +337,7 @@ module CocinaDisplay
       class << self
         # Returns the date in the format specified by the precision.
         # Supports e.g. retrieving year precision when the actual date is more precise.
-        # @param date [EDTF::Date] The date to format.
+        # @param date [Date] The date to format.
         # @param precision [Symbol] The precision to format the date at, e.g. :month
         # @param allowed_precisions [Array<Symbol>] List of allowed precisions for the output.
         #   Options are [:day, :month, :year, :decade, :century].
@@ -355,7 +373,7 @@ module CocinaDisplay
       end
 
       # Earliest possible date encoded in data, respecting unspecified/imprecise info.
-      # @return [EDTF::Date]
+      # @return [Date]
       def earliest_date
         return nil if date.nil?
 
@@ -377,7 +395,7 @@ module CocinaDisplay
       end
 
       # Latest possible date encoded in data, respecting unspecified/imprecise info.
-      # @return [EDTF::Date]
+      # @return [Date]
       def latest_date
         return nil if date.nil?
 
@@ -401,7 +419,7 @@ module CocinaDisplay
       # Expand placeholders like "19XX" into an object representing the full range.
       # @note This is different from dates with an explicit start/end in the Cocina.
       # @see CocinaDisplay::Dates::DateRange
-      # @return [EDTF::Date]
+      # @return [Date]
       def date_range
         @date_range ||= if /u/.match?(value)
           ::Date.edtf(value.tr("u", "x").tr("X", "x")) || date

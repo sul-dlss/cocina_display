@@ -242,4 +242,76 @@ RSpec.describe CocinaDisplay::CocinaRecord do
       it { is_expected.to eq(-5) }
     end
   end
+
+  describe "#imprint_display_str" do
+    subject { record.imprint_display_str }
+
+    let(:cocina_json) do
+      {
+        "description" => {
+          "event" => events
+        }
+      }.to_json
+    end
+
+    context "with multiple events, single imprint" do
+      # from druid:bm971cx9348
+      let(:events) do
+        [
+          {
+            "date" => [
+              {
+                "structuredValue" => [
+                  {"value" => "1920", "type" => "start"}
+                ],
+                "type" => "publication",
+                "encoding" => {"code" => "marc"}
+              }
+            ],
+            "location" => [
+              {"code" => "enk", "source" => {"code" => "marccountry"}}
+            ],
+            "note" => [
+              {"type" => "issuance", "value" => "monographic", "source" => {"value" => "MODS issuance terms"}}
+            ]
+          },
+          {
+            "date" => [
+              {"value" => "[192-?]-[193-?]", "type" => "publication"}
+            ],
+            "note" => [
+              {"type" => "edition", "value" => "2nd ed."}
+            ],
+            "contributor" => [
+              {
+                "name" => [
+                  {"value" => "H.M. Stationery Off."}
+                ],
+                "role" => [
+                  {
+                    "value" => "publisher",
+                    "code" => "pbl",
+                    "uri" => "http://id.loc.gov/vocabulary/relators/pbl",
+                    "source" => {
+                      "code" => "marcrelator",
+                      "uri" => "http://id.loc.gov/vocabulary/relators/"
+                    }
+                  }
+                ],
+                "type" => "organization"
+              }
+            ],
+            "location" => [
+              {"value" => "London"},
+              {"source" => {"code" => "marccountry"}, "code" => "enk"}
+            ]
+          }
+        ]
+      end
+
+      it "renders the imprint statement" do
+        is_expected.to eq "2nd ed. - London : H.M. Stationery Off., [192-?]-[193-?]"
+      end
+    end
+  end
 end

@@ -1,15 +1,16 @@
 require_relative "../dates/date"
 require_relative "../dates/date_range"
+require_relative "../imprint"
 
 module CocinaDisplay
   module Concerns
     module Events
-      # The earliest preferred publication date as an EDTF::Date object.
+      # The earliest preferred publication date as a Date object.
       # If the date was a range or interval, uses the start (or end if no start).
       # Considers publication, creation, and capture dates in that order.
       # Prefers dates marked as primary and those with a declared encoding.
       # @param ignore_qualified [Boolean] Reject qualified dates (e.g. approximate)
-      # @return [EDTF::Date, nil]
+      # @return [Date, nil]
       # @see https://github.com/inukshuk/edtf-ruby
       def pub_date_edtf(ignore_qualified: false)
         date = pub_date(ignore_qualified: ignore_qualified)
@@ -54,6 +55,15 @@ module CocinaDisplay
         date.decoded_value(allowed_precisions: [:year, :decade, :century])
       end
 
+      # String for displaying the imprint statement(s).
+      # @return [String, nil]
+      # @see CocinaDisplay::Imprint#display_str
+      # @example
+      #   CocinaRecord.fetch('bt553vr2845').imprint_display_str #=> "New York : Meridian Book, 1993, c1967"
+      def imprint_display_str
+        imprints.map(&:display_str).compact_blank.join("; ")
+      end
+
       private
 
       # Event dates as an array of CocinaDisplay::Dates::Date objects.
@@ -69,6 +79,24 @@ module CocinaDisplay
         ).uniq.map do |date|
           CocinaDisplay::Dates::Date.from_cocina(date)
         end
+      end
+
+      # Array of CocinaDisplay::Imprint objects for all relevant Cocina events.
+      # Considers publication, creation, capture, and copyright events.
+      # Considers event types as well as date types if the event is untyped.
+      # Prefers events where the date was not encoded, if any.
+      # @return [Array<CocinaDisplay::Imprint>] The list of Imprint objects
+      def imprints
+        filter_expr = "\"(publication|creation|capture|copyright)\""
+
+        imprints = Enumerator::Chain.new(
+          path("$.description.event[?match(@.type, #{filter_expr})]"),
+          path("$.description.event[?@.date[?match(@.type, #{filter_expr})]]")
+        ).uniq.map do |event|
+          CocinaDisplay::Imprint.new(event)
+        end
+
+        imprints.reject(&:date_encoding?).presence || imprints
       end
 
       # The earliest preferred publication date as a CocinaDisplay::Dates::Date object.
