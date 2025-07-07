@@ -28,24 +28,18 @@ To start, you need some Cocina in JSON form.
 
 You can download some directly from PURL by visiting an object's PURL URL and appending `.json` to the end, like `https://purl.stanford.edu/bb112zx3193.json`. Some examples are available in the `spec/fixtures` directory.
 
-You can also use the built-in `HTTP` library or `faraday` gem to fetch the record for you, e.g.:
+There is also a helper method to fetch the Cocina JSON for a given DRUID and immediately parse it into a `CocinaRecord` object:
 
 ```ruby
-require 'http'
-cocina_json = HTTP.get('https://purl.stanford.edu/bb112zx3193.json').to_s
+> record = CocinaDisplay::CocinaRecord.fetch('bb112zx3193')
+=> #<CocinaDisplay::CocinaRecord:0x00007f8c8c0b5c80
 ```
 
 ### Working with objects
 
-Once you have the JSON, you can initialize a `CocinaRecord` object and start working with it. The `CocinaRecord` class provides some methods to access common fields, as well as an underlying hash representation parsed from the JSON.
+The `CocinaRecord` class provides some methods to access common fields, as well as an underlying hash representation parsed from the JSON.
 
 ```ruby
-> require 'cocina_display/cocina_record'
-=> true
-> record = CocinaDisplay::CocinaRecord.new(cocina_json)
-=>
-#<CocinaDisplay::CocinaRecord:0x000000012d11b600
-...
 > record.title
 => "Bugatti Type 51A. Road & Track Salon January 1957"
 > record.content_type
