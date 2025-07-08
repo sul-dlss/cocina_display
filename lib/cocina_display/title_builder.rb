@@ -46,6 +46,16 @@ module CocinaDisplay
       [new(strategy: :all, add_punctuation: false).build(titles)].flatten - full_title(titles)
     end
 
+    # Like the full title, but with any non-sorting characters and punctuation removed.
+    # @param titles [Array<Hash>] The titles to consider.
+    # @param catalog_links [Array<Hash>] The folio catalog links to check for digital serials part labels.
+    # @return [Array<String>] The sort title value(s) for Solr - array due to possible parallelValue
+    def self.sort_title(titles, catalog_links: [])
+      part_label = catalog_links.find { |link| link["catalog"] == "folio" }&.fetch("partLabel", nil)
+      [new(strategy: :first, add_punctuation: false, only_one_parallel_value: false, part_label: part_label, sortable: true).build(titles)]
+        .flatten.compact.map { |title| title.gsub(/[[:punct:]]*/, "").strip }
+    end
+
     # @param strategy [Symbol] ":first" selects a single title value based on precedence of
     # primary, untyped, first occurrence. ":all" returns an array containing all the values.
     # @param add_punctuation [boolean] whether the title should be formatted with punctuation (think of a structured
@@ -54,11 +64,13 @@ module CocinaDisplay
     # of primary, untyped, first occurrence.  When false, return an array containing all the parallel values.
     # Why? Think of e.g. title displayed in blacklight search results vs boosting values for ranking of search results
     # @param part_label [String] the partLabel to add for digital serials display
-    def initialize(strategy:, add_punctuation:, only_one_parallel_value: true, part_label: nil)
+    # @param sortable [boolean] whether the title is intended for sorting, and should have non-sorting parts removed
+    def initialize(strategy:, add_punctuation:, only_one_parallel_value: true, part_label: nil, sortable: false)
       @strategy = strategy
       @add_punctuation = add_punctuation
       @only_one_parallel_value = only_one_parallel_value
       @part_label = part_label
+      @sortable = sortable
     end
 
     # @param [Array<Hash>] cocina_titles the titles to consider
@@ -161,6 +173,10 @@ module CocinaDisplay
       @only_one_parallel_value
     end
 
+    def sortable?
+      @sortable
+    end
+
     # @return [Hash, nil] title that has status=primary
     def primary_title(cocina_titles)
       primary_title = cocina_titles.find { |title| title["status"] == "primary" }
@@ -221,7 +237,7 @@ module CocinaDisplay
     # rubocop:disable Metrics/CyclomaticComplexity
     # rubocop:disable Metrics/MethodLength
     # rubocop:disable Metrics/PerceivedComplexity
-    def rebuild_structured_value(cocina_title)
+    def rebuild_structured_value(cocina_title, sortable: false)
       result = ""
       part_name_number = ""
       cocina_title["structuredValue"].each do |structured_value| # rubocop:disable Metrics/BlockLength
@@ -235,8 +251,10 @@ module CocinaDisplay
         # additional types ignored here, e.g. name, uniform ...
         case structured_value["type"]&.downcase
         when "nonsorting characters"
-          padding = non_sorting_padding(cocina_title, value)
-          result = add_non_sorting_value(result, value, padding)
+          unless sortable?
+            padding = non_sorting_padding(cocina_title, value)
+            result = add_non_sorting_value(result, value, padding)
+          end
         when "part name", "part number"
           # even if there is a partLabel, use any existing structuredValue
           # part name/number that remains for non-digital serials purposes
@@ -286,7 +304,7 @@ module CocinaDisplay
     # rubocop:disable Metrics/PerceivedComplexity
     # rubocop:disable Metrics/AbcSize
     # rubocop:disable Metrics/CyclomaticComplexity
-    def main_title_from_structured_values(cocina_title)
+    def main_title_from_structured_values(cocina_title, sortable: false)
       result = ""
       # combine pieces of the cocina structuredValue into a single title
       cocina_title["structuredValue"].each do |structured_value|
@@ -299,8 +317,10 @@ module CocinaDisplay
 
         case structured_value["type"]&.downcase
         when "nonsorting characters"
-          padding = non_sorting_padding(cocina_title, value)
-          result = add_non_sorting_value(result, value, padding)
+          unless sortable?
+            padding = non_sorting_padding(cocina_title, value)
+            result = add_non_sorting_value(result, value, padding)
+          end
         when "main title", "title"
           result = if ["'", "-"].include?(result.last)
             [result, value].join

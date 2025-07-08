@@ -7,10 +7,10 @@ require "active_support"
 require "active_support/core_ext/object/blank"
 require "active_support/core_ext/hash/conversions"
 
-require_relative "title_builder"
 require_relative "concerns/events"
 require_relative "concerns/contributors"
 require_relative "concerns/identifiers"
+require_relative "concerns/titles"
 
 module CocinaDisplay
   # Public Cocina metadata for an SDR object, as fetched from PURL.
@@ -18,6 +18,7 @@ module CocinaDisplay
     include CocinaDisplay::Concerns::Events
     include CocinaDisplay::Concerns::Contributors
     include CocinaDisplay::Concerns::Identifiers
+    include CocinaDisplay::Concerns::Titles
 
     # Fetch a public Cocina document from PURL and create a CocinaRecord.
     # @note This is intended to be used in development or testing only.
@@ -76,28 +77,6 @@ module CocinaDisplay
     # @return [Boolean]
     def collection?
       content_type == "collection"
-    end
-
-    # The main title for the object.
-    # @note If you need more formatting control, consider using {CocinaDisplay::TitleBuilder} directly.
-    # @return [String]
-    # @example
-    #   record.title #=> "Bugatti Type 51A. Road & Track Salon January 1957"
-    def title
-      CocinaDisplay::TitleBuilder.build(
-        cocina_doc.dig("description", "title"),
-        catalog_links: cocina_doc.dig("identification", "catalogLinks")
-      )
-    end
-
-    # Alternative or translated titles for the object. Does not include the main title.
-    # @return [Array<String>]
-    # @example
-    #  record.additional_titles #=> ["Alternate title 1", "Alternate title 2"]
-    def additional_titles
-      CocinaDisplay::TitleBuilder.additional_titles(
-        cocina_doc.dig("description", "title")
-      )
     end
 
     # Traverse nested FileSets and return an enumerator over their files.
