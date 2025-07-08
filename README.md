@@ -40,7 +40,7 @@ There is also a helper method to fetch the Cocina JSON for a given DRUID and imm
 The `CocinaRecord` class provides some methods to access common fields, as well as an underlying hash representation parsed from the JSON.
 
 ```ruby
-> record.title
+> record.main_title
 => "Bugatti Type 51A. Road & Track Salon January 1957"
 > record.content_type
 => "image"
