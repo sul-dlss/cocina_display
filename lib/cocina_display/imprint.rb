@@ -5,9 +5,10 @@ require "active_support"
 require "active_support/core_ext/enumerable"
 require "active_support/core_ext/object/blank"
 
+require_relative "utils"
+require_relative "marc_country_codes"
 require_relative "dates/date"
 require_relative "dates/date_range"
-require_relative "marc_country_codes"
 
 module CocinaDisplay
   # Wrapper for Cocina events used to generate an imprint statement for display.
@@ -18,23 +19,6 @@ module CocinaDisplay
     # @return [Array<CocinaDisplay::Dates::Date | CocinaDisplay::Dates::DateRange>]
     def self.parse_dates(cocina_dates)
       cocina_dates.map { |cd| CocinaDisplay::Dates::Date.from_cocina(cd) }.filter(&:parsable?).compact
-    end
-
-    # Join non-empty values into a string using provided delimiter.
-    # If values already end in delimiter (ignoring whitespace), join with a space instead.
-    # @param values [Array<String>] The values to compact and join
-    # @param delimiter [String] The delimiter to use for joining, default is space
-    def self.compact_and_join(values, delimiter: " ")
-      compacted_values = values.compact_blank.map(&:strip)
-      return compacted_values.first if compacted_values.one?
-
-      compacted_values.reduce(+"") do |result, value|
-        result << if value.end_with?(delimiter.strip)
-          value + " "
-        else
-          value + delimiter
-        end
-      end.delete_suffix(delimiter)
     end
 
     attr_reader :cocina, :dates
@@ -49,9 +33,9 @@ module CocinaDisplay
     # The entire imprint statement formatted as a string for display.
     # @return [String]
     def display_str
-      place_pub = self.class.compact_and_join([place_str, publisher_str], delimiter: " : ")
-      edition_place_pub = self.class.compact_and_join([edition_str, place_pub], delimiter: " - ")
-      self.class.compact_and_join([edition_place_pub, date_str], delimiter: ", ")
+      place_pub = Utils.compact_and_join([place_str, publisher_str], delimiter: " : ")
+      edition_place_pub = Utils.compact_and_join([edition_str, place_pub], delimiter: " - ")
+      Utils.compact_and_join([edition_place_pub, date_str], delimiter: ", ")
     end
 
     # Were any of the dates encoded?
@@ -65,25 +49,25 @@ module CocinaDisplay
     # The date portion of the imprint statement, comprising all unique dates.
     # @return [String]
     def date_str
-      self.class.compact_and_join(unique_dates_for_display.map(&:qualified_value))
+      Utils.compact_and_join(unique_dates_for_display.map(&:qualified_value))
     end
 
     # The editions portion of the imprint statement, combining all edition notes.
     # @return [String]
     def edition_str
-      self.class.compact_and_join(Janeway.enum_for("$.note[?@.type == 'edition'].value", cocina))
+      Utils.compact_and_join(Janeway.enum_for("$.note[?@.type == 'edition'].value", cocina))
     end
 
     # The place of publication, combining all location values.
     # @return [String]
     def place_str
-      self.class.compact_and_join(locations_for_display, delimiter: " : ")
+      Utils.compact_and_join(locations_for_display, delimiter: " : ")
     end
 
     # The publisher information, combining all name values for publishers.
     # @return [String]
     def publisher_str
-      self.class.compact_and_join(Janeway.enum_for("$.contributor[?@.role[?@.value == 'publisher']].name[*].value", cocina), delimiter: " : ")
+      Utils.compact_and_join(Janeway.enum_for("$.contributor[?@.role[?@.value == 'publisher']].name[*].value", cocina), delimiter: " : ")
     end
 
     # Get the place name for a location, decoding from MARC if necessary.
