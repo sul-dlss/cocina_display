@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    cocina_display (0.2.0)
+    cocina_display (0.3.0)
       activesupport (~> 8.0, >= 8.0.2)
       edtf (~> 3.2)
       janeway-jsonpath (~> 0.6)
