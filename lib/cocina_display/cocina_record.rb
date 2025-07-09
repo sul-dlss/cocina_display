@@ -11,6 +11,7 @@ require_relative "concerns/events"
 require_relative "concerns/contributors"
 require_relative "concerns/identifiers"
 require_relative "concerns/titles"
+require_relative "concerns/access"
 
 module CocinaDisplay
   # Public Cocina metadata for an SDR object, as fetched from PURL.
@@ -19,6 +20,7 @@ module CocinaDisplay
     include CocinaDisplay::Concerns::Contributors
     include CocinaDisplay::Concerns::Identifiers
     include CocinaDisplay::Concerns::Titles
+    include CocinaDisplay::Concerns::Access
 
     # Fetch a public Cocina document from PURL and create a CocinaRecord.
     # @note This is intended to be used in development or testing only.
@@ -89,71 +91,6 @@ module CocinaDisplay
     #  end
     def files
       path("$.structural.contains[*].structural.contains[*]")
-    end
-
-    # The PURL URL for this object.
-    # @return [String]
-    # @example
-    #  record.purl_url #=> "https://purl.stanford.edu/bx658jh7339"
-    def purl_url
-      cocina_doc.dig("description", "purl") || "https://purl.stanford.edu/#{bare_druid}"
-    end
-
-    # The URL to the PURL environment this object is from.
-    # @note Objects accessed via UAT will still have a production PURL base URL.
-    # @return [String]
-    # @example
-    #   record.purl_base_url #=> "https://purl.stanford.edu"
-    def purl_base_url
-      URI(purl_url).origin
-    end
-
-    # The URL to the stacks environment this object is shelved in.
-    # Corresponds to the PURL environment.
-    # @see purl_base_url
-    # @return [String]
-    # @example
-    #  record.stacks_base_url #=> "https://stacks.stanford.edu"
-    def stacks_base_url
-      if purl_base_url == "https://sul-purl-stage.stanford.edu"
-        "https://sul-stacks-stage.stanford.edu"
-      else
-        "https://stacks.stanford.edu"
-      end
-    end
-
-    # The oEmbed URL for the object, optionally with additional parameters.
-    # Corresponds to the PURL environment.
-    # @param params [Hash] Additional parameters to include in the oEmbed URL.
-    # @return [String]
-    # @return [nil] if the object is a collection.
-    # @example Generate an oEmbed URL for the viewer and hide the title
-    #   record.oembed_url(hide_title: true) #=> "https://purl.stanford.edu/bx658jh7339/embed.json?hide_title=true"
-    def oembed_url(params: {})
-      return if collection?
-
-      params[:url] ||= purl_url
-      "#{purl_base_url}/embed.json?#{params.to_query}"
-    end
-
-    # The download URL to get the entire object as a .zip file.
-    # Stacks generates the .zip for the object on request.
-    # @return [String]
-    # @example
-    #   record.download_url #=> "https://stacks.stanford.edu/object/bx658jh7339"
-    def download_url
-      "#{stacks_base_url}/object/#{bare_druid}"
-    end
-
-    # The IIIF manifest URL for the object.
-    # PURL generates the IIIF manifest.
-    # @param version [Integer] The IIIF presentation spec version to use (3 or 2).
-    # @return [String]
-    # @example
-    #  record.iiif_manifest_url #=> "https://purl.stanford.edu/bx658jh7339/iiif3/manifest"
-    def iiif_manifest_url(version: 3)
-      iiif_path = (version == 3) ? "iiif3" : "iiif"
-      "#{purl_url}/#{iiif_path}/manifest"
     end
   end
 end
