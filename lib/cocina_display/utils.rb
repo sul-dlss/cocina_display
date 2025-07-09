@@ -5,6 +5,7 @@ module CocinaDisplay
     # If values already end in delimiter (ignoring whitespace), join with a space instead.
     # @param values [Array<String>] The values to compact and join
     # @param delimiter [String] The delimiter to use for joining, default is space
+    # @return [String] The compacted and joined string
     def self.compact_and_join(values, delimiter: " ")
       compacted_values = values.compact_blank.map(&:strip)
       return compacted_values.first if compacted_values.one?

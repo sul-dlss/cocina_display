@@ -10,12 +10,14 @@ require "active_support/core_ext/hash/conversions"
 require_relative "title_builder"
 require_relative "concerns/events"
 require_relative "concerns/contributors"
+require_relative "concerns/identifiers"
 
 module CocinaDisplay
   # Public Cocina metadata for an SDR object, as fetched from PURL.
   class CocinaRecord
     include CocinaDisplay::Concerns::Events
     include CocinaDisplay::Concerns::Contributors
+    include CocinaDisplay::Concerns::Identifiers
 
     # Fetch a public Cocina document from PURL and create a CocinaRecord.
     # @note This is intended to be used in development or testing only.
@@ -45,60 +47,6 @@ module CocinaDisplay
     #  record.path("$.description.contributor[?(@.type == 'person')].name[*].value").search #=> ["Smith, John"]
     def path(path_expression)
       Janeway.enum_for(path_expression, cocina_doc)
-    end
-
-    # The DRUID for the object, with the +druid:+ prefix.
-    # @return [String]
-    # @example
-    #   record.druid #=> "druid:bb099mt5053"
-    def druid
-      cocina_doc["externalIdentifier"]
-    end
-
-    # The DRUID for the object, without the +druid:+ prefix.
-    # @return [String]
-    # @example
-    #   record.bare_druid #=> "bb099mt5053"
-    def bare_druid
-      druid.delete_prefix("druid:")
-    end
-
-    # The DOI for the object, if there is one – just the identifier part.
-    # @return [String, nil]
-    # @example
-    #   record.doi #=> "10.25740/ppax-bf07"
-    def doi
-      doi_id = path("$.identification.doi").first ||
-        path("$.description.identifier[?match(@.type, 'doi|DOI')].value").first ||
-        path("$.description.identifier[?search(@.uri, 'doi.org')].uri").first
-
-      URI(doi_id).path.delete_prefix("/") if doi_id.present?
-    end
-
-    # The DOI as a URL, if there is one. Any valid DOI should resolve via doi.org.
-    # @return [String, nil]
-    # @example
-    #   record.doi_url #=> "https://doi.org/10.25740/ppax-bf07"
-    def doi_url
-      URI.join("https://doi.org", doi).to_s if doi.present?
-    end
-
-    # The HRID of the item in FOLIO, if defined.
-    # @note This doesn't imply the object is available in Searchworks at this ID.
-    # @return [String, nil]
-    # @example
-    #   record.folio_hrid #=> "a12845814"
-    def folio_hrid
-      path("$.identification.catalogLinks[?(@.catalog == 'folio')].catalogRecordId").first
-    end
-
-    # The FOLIO HRID if defined, otherwise the bare DRUID.
-    # @note This doesn't imply the object is available in Searchworks at this ID.
-    # @see folio_hrid
-    # @see bare_druid
-    # @return [String]
-    def searchworks_id
-      folio_hrid || bare_druid
     end
 
     # Timestamp when the Cocina was created.
