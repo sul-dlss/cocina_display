@@ -348,5 +348,26 @@ RSpec.describe CocinaDisplay::Contributor do
 
       it { is_expected.to eq("John Paul II, Pope") }
     end
+
+    context "with parallelValue with display version" do
+      # from druid:wz456vz8306
+      let(:cocina) do
+        {
+          "type" => "person",
+          "name" => [
+            {
+              "parallelValue" => [
+                {"value" => "Love, Brian J. (Law teacher)"},
+                {"value" => "Love, Brian J. (Law teacher), Stanford Law School graduate, J.D. (2007)", "type" => "display"}
+              ]
+            }
+          ]
+        }
+      end
+
+      it "uses the display version" do
+        is_expected.to eq("Love, Brian J. (Law teacher), Stanford Law School graduate, J.D. (2007)")
+      end
+    end
   end
 end
