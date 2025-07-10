@@ -100,6 +100,10 @@ module CocinaDisplay
       end
 
       # The display string for the name, optionally including life dates.
+      # Uses these values in order, if present:
+      # 1. Unstructured value
+      # 2. Any structured/parallel values marked as "display"
+      # 3. Joined structured values, optionally with life dates
       # @param with_date [Boolean] Include life dates, if present
       # @return [String]
       # @example no dates
@@ -107,7 +111,11 @@ module CocinaDisplay
       # @example with dates
       #   name.display_name(with_date: true) # => "King, Martin Luther, Jr., 1929-1968"
       def display_str(with_date: false)
-        if dates_str.present? && with_date
+        if cocina["value"].present?
+          cocina["value"]
+        elsif display_name_str.present?
+          display_name_str
+        elsif dates_str.present? && with_date
           Utils.compact_and_join([full_name_str, dates_str], delimiter: ", ")
         else
           full_name_str
@@ -116,12 +124,10 @@ module CocinaDisplay
 
       private
 
-      # The full name as a string.
-      # If any names were marked as "display", prefer those.
-      # Otherwise, combine all name components.
+      # The full name as a string, combining all name components.
       # @return [String]
       def full_name_str
-        display_name_str.presence || Utils.compact_and_join(name_components, delimiter: ", ")
+        Utils.compact_and_join(name_components, delimiter: ", ")
       end
 
       # Flattened form of any names explicitly marked as "display name".
@@ -168,7 +174,7 @@ module CocinaDisplay
       # @see https://github.com/sul-dlss/cocina-models/blob/main/docs/description_types.md#contributor-name-part-types-for-structured-value
       # @note Currently we do nothing with "alternative", "inverted full name", "pseudonym", and "transliteration" types.
       def name_values
-        Utils.flatten_structured_values(cocina).each_with_object({}) do |node, hash|
+        Utils.flatten_nested_values(cocina).each_with_object({}) do |node, hash|
           type = node["type"] || "name"
           hash[type] ||= []
           hash[type] << node["value"]
