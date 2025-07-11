@@ -40,11 +40,19 @@ module CocinaDisplay
 
       # The HRID of the item in FOLIO, if defined.
       # @note This doesn't imply the object is available in Searchworks at this ID.
+      # @param [refresh] [Boolean] Filter to links with refresh set to this value.
       # @return [String, nil]
-      # @example
+      # @example With a link regardless of refresh:
       #   record.folio_hrid #=> "a12845814"
-      def folio_hrid
-        path("$.identification.catalogLinks[?(@.catalog == 'folio')].catalogRecordId").first
+      # @example With a link that is not refreshed:
+      #   record.folio_hrid(refresh: true) #=> nil
+      def folio_hrid(refresh: nil)
+        link = path("$.identification.catalogLinks[?(@.catalog == 'folio')]").first
+        hrid = link&.dig("catalogRecordId")
+        return if hrid.blank?
+        return hrid if refresh.nil?
+
+        (link["refresh"] == refresh) ? hrid : nil
       end
 
       # The FOLIO HRID if defined, otherwise the bare DRUID.

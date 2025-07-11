@@ -145,6 +145,41 @@ RSpec.describe CocinaDisplay::CocinaRecord do
         expect(subject.folio_hrid).to eq "a12845814"
       end
     end
+
+    context "when there is a non-refreshed FOLIO catalog link" do
+      let(:druid) { "pv074by7080" }
+      let(:cocina_json) do
+        {
+          "identification" => {
+            "catalogLinks" => [
+              {
+                "catalog" => "folio",
+                "refresh" => false,
+                "catalogRecordId" => "a12845814"
+              }
+            ]
+          }
+        }.to_json
+      end
+
+      context "no refresh option" do
+        it "returns the catalog record id" do
+          expect(subject.folio_hrid).to eq "a12845814"
+        end
+      end
+
+      context "when refresh is true" do
+        it "returns nil" do
+          expect(subject.folio_hrid(refresh: true)).to be_nil
+        end
+      end
+
+      context "when refresh is false" do
+        it "returns the catalog record id" do
+          expect(subject.folio_hrid(refresh: false)).to eq "a12845814"
+        end
+      end
+    end
   end
 
   describe "#searchworks_id" do
