@@ -52,6 +52,14 @@ RSpec.describe CocinaDisplay::CocinaRecord do
     end
   end
 
+  describe "#label" do
+    let(:druid) { "bx658jh7339" }
+
+    it "returns the label" do
+      expect(subject.label).to eq "M. de Courville : [estampe]"
+    end
+  end
+
   describe "#files" do
     let(:druid) { "bx658jh7339" }
 
