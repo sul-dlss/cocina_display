@@ -41,6 +41,20 @@ module CocinaDisplay
         pub_date_edtf(ignore_qualified: ignore_qualified)&.year
       end
 
+      # The range of preferred publication years as an array of integers.
+      # Considers publication, creation, and capture dates in that order.
+      # Prefers dates marked as primary and those with a declared encoding.
+      # @param ignore_qualified [Boolean] Reject qualified dates (e.g. approximate)
+      # @return [Array<Integer>, nil]
+      # @note 6 BCE will appear as -5; 4 CE will appear as 4.
+      def pub_year_int_range(ignore_qualified: false)
+        date = pub_date(ignore_qualified: ignore_qualified)
+        return unless date
+
+        date = date.as_interval if date.is_a? CocinaDisplay::Dates::DateRange
+        date.to_a.map(&:year).compact.uniq.sort
+      end
+
       # String for displaying the earliest preferred publication year or range.
       # Considers publication, creation, and capture dates in that order.
       # Prefers dates marked as primary and those with a declared encoding.
