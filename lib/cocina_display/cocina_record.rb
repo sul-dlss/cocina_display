@@ -77,6 +77,13 @@ module CocinaDisplay
       cocina_doc["type"].split("/").last
     end
 
+    # Primary processing label for the object.
+    # @note This may or may not be the same as the title.
+    # @return [String, nil]
+    def label
+      cocina_doc["label"]
+    end
+
     # True if the object is a collection.
     # @return [Boolean]
     def collection?
