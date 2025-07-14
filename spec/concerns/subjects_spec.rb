@@ -289,4 +289,48 @@ RSpec.describe CocinaDisplay::CocinaRecord do
       end
     end
   end
+
+  describe "faceting methods" do
+    let(:subjects) do
+      [
+        {"type" => "topic", "value" => "Climate change"},
+        {"type" => "occupation", "value" => "Software Engineer"},
+        {"type" => "title", "value" => "The Great Gatsby"},
+        {"type" => "genre", "value" => "Fiction"},
+        {"type" => "time", "value" => "2020"},
+        {"type" => "name", "value" => "John Doe"}
+      ]
+    end
+    describe "#subject_all_facet" do
+      subject { record.subject_all_facet }
+
+      it "combines all subject facets" do
+        is_expected.to eq(["Climate change", "Software Engineer", "John Doe", "The Great Gatsby", "2020", "Fiction"])
+      end
+    end
+
+    describe "#subject_facet" do
+      subject { record.subject_facet }
+
+      it "returns topic, occupation, name, and title facets" do
+        is_expected.to eq(["Climate change", "Software Engineer", "John Doe", "The Great Gatsby"])
+      end
+    end
+
+    describe "#subject_other_facet" do
+      subject { record.subject_other_facet }
+
+      it "returns occupation, name, and title facets" do
+        is_expected.to eq(["Software Engineer", "John Doe", "The Great Gatsby"])
+      end
+    end
+
+    describe "#subject_temporal_genre_facet" do
+      subject { record.subject_temporal_genre_facet }
+
+      it "returns temporal and genre facets" do
+        is_expected.to eq(["2020", "Fiction"])
+      end
+    end
+  end
 end
