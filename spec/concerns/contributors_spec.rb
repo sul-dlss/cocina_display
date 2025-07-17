@@ -298,4 +298,62 @@ RSpec.describe CocinaDisplay::CocinaRecord do
       it { is_expected.to eq("\u{10FFFF}") } # Unicode replacement character for missing value
     end
   end
+
+  describe "#contributors_by_role" do
+    subject { record.contributors_by_role(with_date: with_date) }
+
+    context "with multiple contributors and roles and with date" do
+      let(:with_date) { true }
+      let(:contributors) do
+        [
+          {
+            "name" => [{"value" => "Doe, John"}],
+            "role" => [{"value" => "author"}],
+            "type" => "person"
+          },
+          {
+            "name" => [{"value" => "Smith, Jane"}],
+            "role" => [{"value" => "editor"}],
+            "type" => "person"
+          },
+          {
+            "name" => [{"value" => "ACME Corp"}],
+            "role" => [{"value" => "publisher"}],
+            "type" => "organization"
+          },
+          # from druid:kj040zn0537
+          {
+            "type" => "person",
+            "name" => [
+              {
+                "structuredValue" => [
+                  {"value" => "Lasinio, Carlo", "type" => "name"},
+                  {"value" => "1759-1838", "type" => "life dates"}
+                ]
+              }
+            ],
+            "status" => "primary",
+            "role" => [
+              {"code" => "egr", "source" => {"code" => "marcrelator"}}
+            ]
+          }
+        ]
+      end
+
+      it "groups contributors by their roles" do
+        is_expected.to eq({
+          "author" => ["Doe, John"],
+          "editor" => ["Smith, Jane"],
+          "publisher" => ["ACME Corp"],
+          "engraver" => ["Lasinio, Carlo, 1759-1838"]
+        })
+      end
+    end
+
+    context "with no contributors" do
+      let(:contributors) { [] }
+
+      it { is_expected.to be_empty }
+    end
+  end
 end
