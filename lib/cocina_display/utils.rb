@@ -45,5 +45,28 @@ module CocinaDisplay
 
       nested_values.flat_map { |node| flatten_nested_values(node, output) }
     end
+
+    # Recursively remove empty values from a hash, including nested hashes and arrays.
+    # @param hash [Hash] The hash to process
+    # @param output [Hash] Used for recursion, should be empty on first call
+    # @return [Hash] The hash with empty values removed
+    # @example
+    #  hash = { "name" => "", "age" => nil, "address => { "city" => "Anytown", "state" => [] } }
+    #  #  Utils.remove_empty_values(hash)
+    #  #=> { "address" => { "city" => "Anytown" } }
+    def self.deep_compact_blank(hash, output = {})
+      hash.each do |key, value|
+        if value.is_a?(Hash)
+          nested = deep_compact_blank(value)
+          output[key] = nested unless nested.empty?
+        elsif value.is_a?(Array)
+          compacted_array = value.map { |v| deep_compact_blank(v) }.reject(&:blank?)
+          output[key] = compacted_array unless compacted_array.empty?
+        elsif value.present?
+          output[key] = value
+        end
+      end
+      output
+    end
   end
 end

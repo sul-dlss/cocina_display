@@ -14,7 +14,7 @@ RSpec.describe CocinaDisplay::CocinaRecord do
       }
     }.to_json
   end
-  let(:record) { described_class.new(cocina_json) }
+  let(:record) { described_class.from_json(cocina_json) }
   let(:ignore_qualified) { false }
 
   describe "#pub_year_display_str" do

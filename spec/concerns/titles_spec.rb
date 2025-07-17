@@ -7,7 +7,7 @@ RSpec.describe CocinaDisplay::CocinaRecord do
       let(:cocina_json) { File.read(file_fixture("#{druid}.json")) }
       let(:cocina_doc) { JSON.parse(cocina_json) }
 
-      subject { described_class.new(cocina_json).main_title }
+      subject { described_class.from_json(cocina_json).main_title }
 
       context "with nonsorting characters" do
         let(:druid) { "bt553vr2845" }
@@ -40,7 +40,7 @@ RSpec.describe CocinaDisplay::CocinaRecord do
       let(:cocina_json) { File.read(file_fixture("#{druid}.json")) }
       let(:cocina_doc) { JSON.parse(cocina_json) }
 
-      subject { described_class.new(cocina_json).full_title }
+      subject { described_class.from_json(cocina_json).full_title }
 
       context "with nonsorting characters" do
         let(:druid) { "bt553vr2845" }
@@ -65,7 +65,7 @@ RSpec.describe CocinaDisplay::CocinaRecord do
       let(:cocina_json) { File.read(file_fixture("#{druid}.json")) }
       let(:cocina_doc) { JSON.parse(cocina_json) }
 
-      subject { described_class.new(cocina_json).display_title }
+      subject { described_class.from_json(cocina_json).display_title }
 
       context "with nonsorting characters" do
         let(:druid) { "bt553vr2845" }
@@ -90,7 +90,7 @@ RSpec.describe CocinaDisplay::CocinaRecord do
       let(:cocina_json) { File.read(file_fixture("#{druid}.json")) }
       let(:cocina_doc) { JSON.parse(cocina_json) }
 
-      subject { described_class.new(cocina_json).sort_title }
+      subject { described_class.from_json(cocina_json).sort_title }
 
       context "with nonsorting characters" do
         let(:druid) { "bt553vr2845" }
@@ -115,7 +115,7 @@ RSpec.describe CocinaDisplay::CocinaRecord do
       let(:cocina_json) { File.read(file_fixture("#{druid}.json")) }
       let(:cocina_doc) { JSON.parse(cocina_json) }
 
-      subject { described_class.new(cocina_json).additional_titles }
+      subject { described_class.from_json(cocina_json).additional_titles }
 
       context "with an alternative title" do
         let(:druid) { "nz187ct8959" }

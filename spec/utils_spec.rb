@@ -88,4 +88,56 @@ RSpec.describe CocinaDisplay::Utils do
       end
     end
   end
+
+  describe "#deep_compact_blank" do
+    subject { described_class.deep_compact_blank(hash) }
+
+    context "with nested empty values" do
+      let(:hash) do
+        {
+          "name" => "John Doe",
+          "age" => nil,
+          "address" => {
+            "street" => "123 Main St",
+            "city" => "",
+            "state" => "CA"
+          },
+          "empty_array" => [],
+          "empty_hash" => {},
+          "nested_empty" => {
+            "key" => nil,
+            "another_empty" => []
+          }
+        }
+      end
+
+      it "removes keys with empty values" do
+        is_expected.to eq({
+          "name" => "John Doe",
+          "address" => {
+            "street" => "123 Main St",
+            "state" => "CA"
+          }
+        })
+      end
+    end
+
+    context "with no empty values" do
+      let(:hash) do
+        {
+          "name" => "John Doe",
+          "age" => 30,
+          "address" => {
+            "street" => "123 Main St",
+            "city" => "Anytown",
+            "state" => "CA"
+          }
+        }
+      end
+
+      it "returns the original hash" do
+        is_expected.to eq(hash)
+      end
+    end
+  end
 end
