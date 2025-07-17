@@ -5,6 +5,7 @@ require "active_support/core_ext/object/blank"
 require "active_support/core_ext/array/conversions"
 
 require_relative "utils"
+require_relative "marc_relator_codes"
 
 module CocinaDisplay
   # A contributor to a work, such as an author or publisher.
@@ -51,7 +52,7 @@ module CocinaDisplay
     # Does this contributor have a role that indicates they are an author?
     # @return [Boolean]
     def author?
-      roles.any? { |role| role["value"] =~ /(author|creator)/i }
+      roles.any?(&:author?)
     end
 
     # Does this contributor have any roles defined?
@@ -72,10 +73,8 @@ module CocinaDisplay
     # If there are multiple roles, they are joined with commas.
     # @return [String]
     def display_role
-      roles.map { |role| role["value"] }.to_sentence
+      roles.map(&:display_str).to_sentence
     end
-
-    private
 
     # All names in the Cocina as Name objects.
     # @return [Array<Name>]
@@ -86,7 +85,7 @@ module CocinaDisplay
     # All roles in the Cocina structured data.
     # @return [Array<Hash>]
     def roles
-      Array(cocina["role"])
+      @roles ||= Array(cocina["role"]).map { |role| Role.new(role) }
     end
 
     # A name associated with a contributor.
@@ -179,6 +178,44 @@ module CocinaDisplay
           hash[type] ||= []
           hash[type] << node["value"]
         end.compact_blank
+      end
+    end
+
+    # A role associated with a contributor.
+    class Role
+      attr_reader :cocina
+
+      # Initialize a Role object with Cocina structured data.
+      # @param cocina [Hash] The Cocina structured data for the role.
+      def initialize(cocina)
+        @cocina = cocina
+      end
+
+      # The name of the role.
+      # Translates the MARC relator code if no value was present.
+      # @return [String]
+      def display_str
+        cocina["value"] || (MARC_RELATOR[code] if marc_relator?)
+      end
+
+      # A code associated with the role, e.g. a MARC relator code.
+      # @return [String, nil]
+      def code
+        cocina["code"]
+      end
+
+      # Does this role indicate the contributor is an author?
+      # @return [Boolean]
+      def author?
+        display_str =~ /^(author|creator)/i
+      end
+
+      private
+
+      # Does this role have a MARC relator code?
+      # @return [Boolean]
+      def marc_relator?
+        cocina.dig("source", "code") == "marcrelator"
       end
     end
   end

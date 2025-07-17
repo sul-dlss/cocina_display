@@ -50,14 +50,24 @@ module CocinaDisplay
         authors.filter(&:conference?).map(&:display_name)
       end
 
+      # A hash mapping role names to the names of contributors with that role.
+      # @param with_date [Boolean] Include life dates, if present
+      # @return [Hash<String, Array<String>>]
+      def contributors_by_role(with_date: false)
+        contributors.each_with_object({}) do |contributor, hash|
+          contributor.roles.each do |role|
+            hash[role.display_str] ||= []
+            hash[role.display_str] << contributor.display_name(with_date: with_date)
+          end
+        end
+      end
+
       # A string value for sorting by author that sorts missing values last.
       # Ignores punctuation and leading/trailing spaces.
       # @return [String]
       def sort_author
         (main_author_contributor&.display_name || "\u{10FFFF}").gsub(/[[:punct:]]*/, "").strip
       end
-
-      private
 
       # All contributors for the object, including authors, editors, etc.
       # @return [Array<Contributor>]
