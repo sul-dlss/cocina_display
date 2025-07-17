@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 # These have to come before importing any other code for coverage to work!
+require "rspec"
 require "simplecov"
 require "simplecov-rspec"
 

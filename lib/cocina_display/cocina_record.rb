@@ -13,6 +13,7 @@ require_relative "concerns/identifiers"
 require_relative "concerns/titles"
 require_relative "concerns/access"
 require_relative "concerns/subjects"
+require_relative "concerns/forms"
 
 module CocinaDisplay
   # Public Cocina metadata for an SDR object, as fetched from PURL.
@@ -23,6 +24,7 @@ module CocinaDisplay
     include CocinaDisplay::Concerns::Titles
     include CocinaDisplay::Concerns::Access
     include CocinaDisplay::Concerns::Subjects
+    include CocinaDisplay::Concerns::Forms
 
     # Fetch a public Cocina document from PURL and create a CocinaRecord.
     # @note This is intended to be used in development or testing only.
