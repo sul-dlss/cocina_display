@@ -83,7 +83,7 @@ module CocinaDisplay
       def subjects
         @subjects ||= Enumerator::Chain.new(
           path("$.description.subject[*]"),
-          path("$.description.geographic[*].subject[*]")
+          path("$.description.geographic.*.subject[*]")
         ).map { |s| Subject.from_cocina(s) }
       end
     end

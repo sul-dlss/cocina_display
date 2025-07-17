@@ -88,7 +88,7 @@ module CocinaDisplay
         filter_expr = type.present? ? "?match(@.type, \"#{type}\")" : "*"
 
         Enumerator::Chain.new(
-          path("$.description.event[*].date[#{filter_expr}]"),
+          path("$.description.event.*.date[#{filter_expr}]"),
           path("$.description.event[#{filter_expr}].date[*]")
         ).uniq.map do |date|
           CocinaDisplay::Dates::Date.from_cocina(date)

@@ -72,7 +72,7 @@ module CocinaDisplay
       # All contributors for the object, including authors, editors, etc.
       # @return [Array<Contributor>]
       def contributors
-        @contributors ||= path("$.description.contributor[*]").map { |c| Contributor.new(c) }
+        @contributors ||= path("$.description.contributor.*").map { |c| Contributor.new(c) }
       end
 
       # All contributors with a "creator" or "author" role.
