@@ -38,6 +38,12 @@ GEM
     edtf (3.2.0)
       activesupport (>= 3.0, < 9.0)
     erb (5.0.1)
+    faraday (2.13.2)
+      faraday-net_http (>= 2.0, < 3.5)
+      json
+      logger
+    faraday-net_http (3.4.1)
+      net-http (>= 0.5.0)
     i18n (1.14.7)
       concurrent-ruby (~> 1.0)
     io-console (0.8.0)
@@ -51,6 +57,8 @@ GEM
     lint_roller (1.1.0)
     logger (1.7.0)
     minitest (5.25.5)
+    net-http (0.6.0)
+      uri
     parallel (1.27.0)
     parser (3.3.8.0)
       ast (~> 2.4.1)
@@ -62,6 +70,9 @@ GEM
     psych (5.2.6)
       date
       stringio
+    purl_fetcher-client (3.1.0)
+      activesupport
+      faraday (~> 2.1)
     racc (1.8.1)
     rainbow (3.1.1)
     rake (13.3.0)
@@ -143,6 +154,7 @@ DEPENDENCIES
   cocina_display!
   debug (~> 1.11)
   irb
+  purl_fetcher-client (~> 3.1)
   rake (~> 13.0)
   rspec (~> 3.0)
   simplecov (~> 0.22.0)
