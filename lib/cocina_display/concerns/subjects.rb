@@ -42,36 +42,36 @@ module CocinaDisplay
         subjects.filter { |s| s.is_a? NameSubject }.map(&:display_str).uniq
       end
 
-      # Combination of all subject values for faceting.
-      # @see #subject_facet
-      # @see #subject_temporal_genre_facet
+      # Combination of all subject values for searching.
+      # @see #subject_topics_other
+      # @see #subject_temporal_genre
       # @return [Array<String>]
-      def subject_all_facet
-        subject_facet + subject_temporal_genre_facet
+      def subject_all
+        subject_topics_other + subject_temporal_genre
       end
 
-      # Combination of topic, occupation, name, and title subject values for faceting.
+      # Combination of topic, occupation, name, and title subject values for searching.
       # @see #subject_topics
-      # @see #subject_other_facet
+      # @see #subject_other
       # @return [Array<String>]
-      def subject_facet
-        subject_topics + subject_other_facet
+      def subject_topics_other
+        subject_topics + subject_other
       end
 
-      # Combination of occupation, name, and title subject values for faceting.
+      # Combination of occupation, name, and title subject values for searching.
       # @see #subject_occupations
       # @see #subject_names
       # @see #subject_titles
       # @return [Array<String>]
-      def subject_other_facet
+      def subject_other
         subject_occupations + subject_names + subject_titles
       end
 
-      # Combination of temporal and genre subject values for faceting.
+      # Combination of temporal and genre subject values for searching.
       # @see #subject_temporal
       # @see #subject_genres
       # @return [Array<String>]
-      def subject_temporal_genre_facet
+      def subject_temporal_genre
         subject_temporal + subject_genres
       end
 
