@@ -301,32 +301,32 @@ RSpec.describe CocinaDisplay::CocinaRecord do
         {"type" => "name", "value" => "John Doe"}
       ]
     end
-    describe "#subject_all_facet" do
-      subject { record.subject_all_facet }
+    describe "#subject_all" do
+      subject { record.subject_all }
 
       it "combines all subject facets" do
         is_expected.to eq(["Climate change", "Software Engineer", "John Doe", "The Great Gatsby", "2020", "Fiction"])
       end
     end
 
-    describe "#subject_facet" do
-      subject { record.subject_facet }
+    describe "#subject_topics_other" do
+      subject { record.subject_topics_other }
 
       it "returns topic, occupation, name, and title facets" do
         is_expected.to eq(["Climate change", "Software Engineer", "John Doe", "The Great Gatsby"])
       end
     end
 
-    describe "#subject_other_facet" do
-      subject { record.subject_other_facet }
+    describe "#subject_other" do
+      subject { record.subject_other }
 
       it "returns occupation, name, and title facets" do
         is_expected.to eq(["Software Engineer", "John Doe", "The Great Gatsby"])
       end
     end
 
-    describe "#subject_temporal_genre_facet" do
-      subject { record.subject_temporal_genre_facet }
+    describe "#subject_temporal_genre" do
+      subject { record.subject_temporal_genre }
 
       it "returns temporal and genre facets" do
         is_expected.to eq(["2020", "Fiction"])
