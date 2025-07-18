@@ -19,7 +19,7 @@ module CocinaDisplay
       end.delete_suffix(delimiter)
     end
 
-    # Recursively flatten structured and parallel values in Cocina metadata.
+    # Recursively flatten structured, parallel, and grouped values in Cocina metadata.
     # Returns a list of hashes representing the "leaf" nodes with +value+ key.
     # @return [Array<Hash>] List of node hashes with "value" present
     # @param cocina [Hash] The Cocina structured data to flatten
@@ -40,7 +40,7 @@ module CocinaDisplay
       return [cocina] if cocina["value"].present?
       return cocina.flat_map { |node| flatten_nested_values(node, output) } if cocina.is_a?(Array)
 
-      nested_values = Array(cocina["structuredValue"]) + Array(cocina["parallelValue"])
+      nested_values = Array(cocina["structuredValue"]) + Array(cocina["parallelValue"]) + Array(cocina["groupedValue"])
       return output unless nested_values.any?
 
       nested_values.flat_map { |node| flatten_nested_values(node, output) }

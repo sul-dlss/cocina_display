@@ -87,6 +87,38 @@ RSpec.describe CocinaDisplay::Utils do
         ])
       end
     end
+
+    context "with grouped values" do
+      let(:cocina) do
+        # from druid:sw705fr7011
+        {"groupedValue" =>
+          [{"value" => "audiotape reel",
+            "type" => "form",
+            "uri" => "http://id.loc.gov/vocabulary/carriers/st",
+            "source" =>
+             {"code" => "rdacarrier", "uri" => "http://id.loc.gov/vocabulary/carriers"}},
+            {"value" => "access",
+             "type" => "reformatting quality",
+             "source" => {"value" => "MODS reformatting quality terms"}},
+            {"value" => "audio/mpeg",
+             "type" => "media type",
+             "source" => {"value" => "IANA media types"}},
+            {"value" => "1 audiotape", "type" => "extent"},
+            {"value" => "reformatted digital",
+             "type" => "digital origin",
+             "source" => {"value" => "MODS digital origin terms"}}]}
+      end
+
+      it "flattens grouped values into a single array" do
+        is_expected.to eq([
+          {"value" => "audiotape reel", "type" => "form", "uri" => "http://id.loc.gov/vocabulary/carriers/st", "source" => {"code" => "rdacarrier", "uri" => "http://id.loc.gov/vocabulary/carriers"}},
+          {"value" => "access", "type" => "reformatting quality", "source" => {"value" => "MODS reformatting quality terms"}},
+          {"value" => "audio/mpeg", "type" => "media type", "source" => {"value" => "IANA media types"}},
+          {"value" => "1 audiotape", "type" => "extent"},
+          {"value" => "reformatted digital", "type" => "digital origin", "source" => {"value" => "MODS digital origin terms"}}
+        ])
+      end
+    end
   end
 
   describe "#deep_compact_blank" do

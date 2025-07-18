@@ -17,7 +17,15 @@ module CocinaDisplay
       # @example GIS dataset (nz187ct8959)
       #   record.forms #=> ["map", "optical disc", "electronic resource"]
       def forms
-        path("$.description.form[?@.type == 'form'].value").uniq
+        path("$.description.form..[?@.type == 'form'].value").uniq
+      end
+
+      # Extent of the object, such as "1 audiotape" or "1 map".
+      # @return [Array<String>]
+      # @example Oral history interview (sw705fr7011)
+      #   record.extents #=> ["1 audiotape", "1 transcript"]
+      def extents
+        path("$.description.form..[?@.type == 'extent'].value").uniq
       end
 
       # Genres of the object, capitalized for display.
@@ -25,7 +33,7 @@ module CocinaDisplay
       # @example GIS dataset (nz187ct8959)
       #   record.genres #=> ["Cartographic dataset", "Geospatial data", "Geographic information systems data"]
       def genres
-        path("$.description.form[?@.type == 'genre'].value").map(&:upcase_first).uniq
+        path("$.description.form..[?@.type == 'genre'].value").map(&:upcase_first).uniq
       end
 
       # Genres of the object, with additional values added for search/faceting.
@@ -119,7 +127,7 @@ module CocinaDisplay
 
       # Values of the resource type form field prior to mapping.
       def resource_type_values
-        path("$.description.form[?@.type == 'resource type'].value").uniq
+        path("$.description.form..[?@.type == 'resource type'].value").uniq
       end
     end
   end
