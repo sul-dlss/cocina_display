@@ -72,15 +72,54 @@ RSpec.describe CocinaDisplay::CocinaRecord do
   describe "#forms" do
     subject { record.forms }
 
-    let(:forms) do
-      [
-        {"value" => "electronic resource", "type" => "form"},
-        {"value" => "optical disc", "type" => "form"},
-        {"value" => "map", "type" => "form"}
-      ]
+    context "with simple form values" do
+      let(:forms) do
+        [
+          {"value" => "electronic resource", "type" => "form"},
+          {"value" => "optical disc", "type" => "form"},
+          {"value" => "map", "type" => "form"}
+        ]
+      end
+
+      it "extracts the values" do
+        is_expected.to eq(["electronic resource", "optical disc", "map"])
+      end
     end
 
-    it { is_expected.to eq(["electronic resource", "optical disc", "map"]) }
+    context "with grouped values (fixture data)" do
+      let(:druid) { "sw705fr7011" }
+      let(:cocina_json) { File.read(file_fixture("#{druid}.json")) }
+
+      it "extracts the individual form values" do
+        is_expected.to eq(["audiotape reel"])
+      end
+    end
+  end
+
+  describe "#extents" do
+    subject { record.extents }
+
+    context "with simple extent values" do
+      let(:forms) do
+        [
+          {"value" => "1 audiotape", "type" => "extent"},
+          {"value" => "1 map", "type" => "extent"}
+        ]
+      end
+
+      it "returns the extents" do
+        is_expected.to eq(["1 audiotape", "1 map"])
+      end
+    end
+
+    context "with grouped values (fixture data)" do
+      let(:druid) { "sw705fr7011" }
+      let(:cocina_json) { File.read(file_fixture("#{druid}.json")) }
+
+      it "extracts the individual extent values" do
+        is_expected.to eq(["1 audiotape", "1 transcript"])
+      end
+    end
   end
 
   describe "#genres" do
