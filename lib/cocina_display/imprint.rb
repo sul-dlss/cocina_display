@@ -67,7 +67,7 @@ module CocinaDisplay
     # The publisher information, combining all name values for publishers.
     # @return [String]
     def publisher_str
-      Utils.compact_and_join(Janeway.enum_for("$.contributor[?@.role[?@.value == 'publisher']].name[*].value", cocina), delimiter: " : ")
+      Utils.compact_and_join(Janeway.enum_for("$.contributor[?@.role[?@.value == 'publisher']].name.*.value", cocina), delimiter: " : ")
     end
 
     # Get the place name for a location, decoding from MARC if necessary.

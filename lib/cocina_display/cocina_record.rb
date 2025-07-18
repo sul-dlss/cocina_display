@@ -62,9 +62,9 @@ module CocinaDisplay
     # @param path_expression [String] The JSONPath expression to evaluate.
     # @see https://www.rubydoc.info/gems/janeway-jsonpath/0.6.0/file/README.md
     # @example Name values for contributors
-    #  record.path("$.description.contributor[*].name[*].value").search #=> ["Smith, John", "ACME Corp."]
+    #  record.path("$.description.contributor.*.name.*.value").search #=> ["Smith, John", "ACME Corp."]
     # @example Filtering nodes using a condition
-    #  record.path("$.description.contributor[?(@.type == 'person')].name[*].value").search #=> ["Smith, John"]
+    #  record.path("$.description.contributor[?(@.type == 'person')].name.*.value").search #=> ["Smith, John"]
     def path(path_expression)
       Janeway.enum_for(path_expression, cocina_doc)
     end
@@ -114,7 +114,7 @@ module CocinaDisplay
     #   puts file["size"] #=> 123456
     #  end
     def files
-      path("$.structural.contains[*].structural.contains[*]")
+      path("$.structural.contains.*.structural.contains[*]")
     end
   end
 end
