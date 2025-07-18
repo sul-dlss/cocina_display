@@ -14,6 +14,7 @@ require_relative "concerns/titles"
 require_relative "concerns/access"
 require_relative "concerns/subjects"
 require_relative "concerns/forms"
+require_relative "utils"
 
 module CocinaDisplay
   # Public Cocina metadata for an SDR object, as fetched from PURL.
@@ -29,19 +30,31 @@ module CocinaDisplay
     # Fetch a public Cocina document from PURL and create a CocinaRecord.
     # @note This is intended to be used in development or testing only.
     # @param druid [String] The bare DRUID of the object to fetch.
+    # @param deep_compact [Boolean] If true, compact the JSON to remove blank values.
     # @return [CocinaDisplay::CocinaRecord]
     # :nocov:
-    def self.fetch(druid)
-      new(Net::HTTP.get(URI("https://purl.stanford.edu/#{druid}.json")))
+    def self.fetch(druid, deep_compact: false)
+      from_json(Net::HTTP.get(URI("https://purl.stanford.edu/#{druid}.json")), deep_compact: deep_compact)
     end
     # :nocov:
+
+    # Create a CocinaRecord from a JSON string.
+    # @param cocina_json [String]
+    # @param deep_compact [Boolean] If true, compact the JSON to remove blank values.
+    # @return [CocinaDisplay::CocinaRecord]
+    def self.from_json(cocina_json, deep_compact: false)
+      cocina_doc = JSON.parse(cocina_json)
+      deep_compact ? new(Utils.deep_compact_blank(cocina_doc)) : new(cocina_doc)
+    end
 
     # The parsed Cocina document.
     # @return [Hash]
     attr_reader :cocina_doc
 
-    def initialize(cocina_json)
-      @cocina_doc = JSON.parse(cocina_json)
+    # Initialize a CocinaRecord with a Cocina document hash.
+    # @param cocina_doc [Hash]
+    def initialize(cocina_doc)
+      @cocina_doc = cocina_doc
     end
 
     # Evaluate a JSONPath expression against the Cocina document.

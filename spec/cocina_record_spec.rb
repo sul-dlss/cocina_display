@@ -8,7 +8,7 @@ RSpec.describe CocinaDisplay::CocinaRecord do
   let(:cocina_json) { File.read(file_fixture("#{druid}.json")) }
   let(:cocina_doc) { JSON.parse(cocina_json) }
 
-  subject { described_class.new(cocina_json) }
+  subject { described_class.from_json(cocina_json) }
 
   describe "#content_type" do
     let(:druid) { "bx658jh7339" }

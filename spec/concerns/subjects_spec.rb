@@ -10,7 +10,7 @@ RSpec.describe CocinaDisplay::CocinaRecord do
       }
     }.to_json
   end
-  let(:record) { described_class.new(cocina_json) }
+  let(:record) { described_class.from_json(cocina_json) }
 
   describe "#subject_topics" do
     subject { record.subject_topics }
