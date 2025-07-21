@@ -82,9 +82,14 @@ module CocinaDisplay
 
       attr_reader :cocina, :date
 
+      # The type of this date, if any, such as "creation", "publication", etc.
+      # @return [String, nil]
+      attr_accessor :type
+
       def initialize(cocina)
         @cocina = cocina
         @date = self.class.parse_date(cocina["value"])
+        @type = cocina["type"] unless ["start", "end"].include?(cocina["type"])
       end
 
       # Compare this date to another {Date} or {DateRange} using its {sort_key}.
@@ -96,12 +101,6 @@ module CocinaDisplay
       # @return [String]
       def value
         cocina["value"]
-      end
-
-      # The type of this date, if any, such as "creation", "publication", etc.
-      # @return [String, nil]
-      def type
-        cocina["type"]
       end
 
       # The qualifier for this date, if any, such as "approximate", "inferred", etc.
@@ -132,14 +131,16 @@ module CocinaDisplay
 
       # Is this the start date in a range?
       # @return [Boolean]
+      # @note The Cocina will mark start dates with "type": "start".
       def start?
-        type == "start"
+        cocina["type"] == "start"
       end
 
       # Is this the end date in a range?
       # @return [Boolean]
+      # @note The Cocina will mark end dates with "type": "end".
       def end?
-        type == "end"
+        cocina["type"] == "end"
       end
 
       # Was the date marked as approximate?
