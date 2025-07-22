@@ -108,6 +108,17 @@ RSpec.describe CocinaDisplay::CocinaRecord do
         end
       end
     end
+
+    context "with no title" do
+      let(:cocina_doc) { {"description" => {"title" => []}} }
+      let(:cocina_json) { cocina_doc.to_json }
+
+      subject { described_class.from_json(cocina_json).sort_title }
+
+      it "returns the placeholder that sorts last" do
+        is_expected.to eq "\u{10FFFF}"
+      end
+    end
   end
 
   describe "#additional_titles" do

@@ -69,10 +69,13 @@ module CocinaDisplay
       end
 
       # A string value for sorting by contributor that sorts missing values last.
+      # Appends the sort title to break ties between contributor names.
       # Ignores punctuation and leading/trailing spaces.
       # @return [String]
       def sort_contributor_name
-        (main_contributor&.display_name || "\u{10FFFF}").gsub(/[[:punct:]]*/, "").strip
+        sort_name = main_contributor&.display_name || "\u{10FFFF}"
+        sort_name_title = [sort_name, sort_title].join(" ")
+        sort_name_title.gsub(/[[:punct:]]*/, "").strip
       end
 
       # All contributors for the object, including authors, editors, etc.

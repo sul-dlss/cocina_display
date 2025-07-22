@@ -116,6 +116,7 @@ module CocinaDisplay
     end
 
     def extract_title(cocina_title)
+      return if cocina_title.blank?
       title_values = if cocina_title["value"]
         cocina_title["value"]
       elsif cocina_title["structuredValue"].present?

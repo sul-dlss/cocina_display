@@ -280,22 +280,43 @@ RSpec.describe CocinaDisplay::CocinaRecord do
       let(:contributors) do
         [
           {
-            "name" => [{"value" => "Doe, John  "}],
+            "name" => [{"value" => "Doe, John"}],
             "role" => [{"value" => "author"}],
             "status" => "primary"
           }
         ]
       end
 
-      it "removes punctuation and whitespace" do
-        is_expected.to eq("Doe John")
+      it "removes punctuation and adds sort title" do
+        is_expected.to eq("Doe John \u{10FFFF}")
       end
     end
 
-    context "with no main author" do
+    context "with no main author and no title" do
       let(:contributors) { [] }
 
-      it { is_expected.to eq("\u{10FFFF}") } # Unicode replacement character for missing value
+      it { is_expected.to eq("\u{10FFFF} \u{10FFFF}") } # Unicode replacement character for missing value
+    end
+
+    context "with a main contributor and a title" do
+      let(:cocina_json) do
+        {
+          "description" => {
+            "contributor" => [
+              {
+                "name" => [{"value" => "Doe, John"}],
+                "role" => [{"value" => "author"}],
+                "status" => "primary"
+              }
+            ],
+            "title" => [{"value" => "Sample Title"}]
+          }
+        }.to_json
+      end
+
+      it "appends the title for disambiguation" do
+        is_expected.to eq("Doe John Sample Title")
+      end
     end
   end
 
