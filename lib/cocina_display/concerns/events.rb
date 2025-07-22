@@ -1,6 +1,7 @@
 require_relative "../dates/date"
 require_relative "../dates/date_range"
 require_relative "../events/event"
+require_relative "../events/imprint"
 
 module CocinaDisplay
   module Concerns
@@ -105,7 +106,12 @@ module CocinaDisplay
       # Prefers events where the date was not encoded, if any.
       # @return [Array<CocinaDisplay::Imprint>] The list of Imprint objects
       def imprint_events
-        imprints = events.filter { |event| event.has_any_type?("publication", "creation", "capture", "copyright") }.map(&:as_imprint)
+        imprints = events.filter do |event|
+          event.has_any_type?("publication", "creation", "capture", "copyright")
+        end.map do |event|
+          CocinaDisplay::Events::Imprint.new(event.cocina)
+        end
+
         imprints.reject(&:date_encoding?).presence || imprints
       end
 

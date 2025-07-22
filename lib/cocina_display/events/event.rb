@@ -14,13 +14,6 @@ module CocinaDisplay
         @cocina = cocina
       end
 
-      # Express the event as an Imprint object.
-      # This adds additional methods for display and formatting.
-      # @return [CocinaDisplay::Events::Imprint]
-      def as_imprint
-        CocinaDisplay::Events::Imprint.new(cocina)
-      end
-
       # The declared type of the event, like "publication" or "creation".
       # @see https://github.com/sul-dlss/cocina-models/blob/main/docs/description_types.md#event-types
       # @note This can differ from the contained date types.
