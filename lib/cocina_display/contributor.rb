@@ -55,6 +55,12 @@ module CocinaDisplay
       roles.any?(&:author?)
     end
 
+    # Does this contributor have a role that indicates they are a publisher?
+    # @return [Boolean]
+    def publisher?
+      roles.any?(&:publisher?)
+    end
+
     # Does this contributor have any roles defined?
     # @return [Boolean]
     def role?
@@ -193,7 +199,7 @@ module CocinaDisplay
 
       # The name of the role.
       # Translates the MARC relator code if no value was present.
-      # @return [String]
+      # @return [String, nil]
       def display_str
         cocina["value"] || (MARC_RELATOR[code] if marc_relator?)
       end
@@ -208,6 +214,12 @@ module CocinaDisplay
       # @return [Boolean]
       def author?
         display_str =~ /^(author|creator)/i
+      end
+
+      # Does this role indicate the contributor is a publisher?
+      # @return [Boolean]
+      def publisher?
+        display_str =~ /^publisher/i
       end
 
       private

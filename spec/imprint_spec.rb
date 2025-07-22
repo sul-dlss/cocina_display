@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 require "spec_helper"
-require_relative "../lib/cocina_display/imprint"
+require_relative "../lib/cocina_display/events/imprint"
 
-RSpec.describe CocinaDisplay::Imprint do
+RSpec.describe CocinaDisplay::Events::Imprint do
   subject { described_class.new(cocina).display_str }
 
   describe "date processing" do

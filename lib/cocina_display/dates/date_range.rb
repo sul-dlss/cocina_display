@@ -30,6 +30,7 @@ module CocinaDisplay
         @cocina = cocina
         @start = start
         @stop = stop
+        @type = cocina["type"]
       end
 
       # The values of the start and stop dates as an array.
@@ -81,6 +82,13 @@ module CocinaDisplay
       # @return [Boolean]
       def parsed_date?
         start&.parsed_date? || stop&.parsed_date? || false
+      end
+
+      # False if both dates in the range have a known unparsable value like "9999".
+      # @see CocinaDisplay::Date#parsable?
+      # @return [Boolean]
+      def parsable?
+        start&.parsable? || stop&.parsable? || false
       end
 
       # Decoded version of the range, if it was encoded. Strips leading zeroes.

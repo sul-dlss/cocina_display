@@ -13,10 +13,10 @@ RSpec.describe CocinaDisplay::CocinaRecord do
   let(:record) { described_class.from_json(cocina_json) }
   let(:with_date) { false }
 
-  describe "#main_author" do
-    subject { record.main_author(with_date: with_date) }
+  describe "#main_contributor_name" do
+    subject { record.main_contributor_name(with_date: with_date) }
 
-    context "with a primary author" do
+    context "with a primary contributor" do
       let(:contributors) do
         [
           {
@@ -41,7 +41,7 @@ RSpec.describe CocinaDisplay::CocinaRecord do
         ]
       end
 
-      it { is_expected.to be_nil }
+      it { is_expected.to eq("Smith, Jane") }
     end
 
     context "with contributors with no role" do
@@ -61,7 +61,7 @@ RSpec.describe CocinaDisplay::CocinaRecord do
       end
     end
 
-    context "with multiple authors, none primary" do
+    context "with multiple contributors, none primary" do
       let(:contributors) do
         [
           {
@@ -75,7 +75,7 @@ RSpec.describe CocinaDisplay::CocinaRecord do
         ]
       end
 
-      it "uses the first author" do
+      it "uses the first contributor" do
         is_expected.to eq("Doe, John")
       end
     end
@@ -100,10 +100,10 @@ RSpec.describe CocinaDisplay::CocinaRecord do
     end
   end
 
-  describe "#additional_authors" do
-    subject { record.additional_authors(with_date: with_date) }
+  describe "#additional_contributor_names" do
+    subject { record.additional_contributor_names(with_date: with_date) }
 
-    context "with a primary author and other authors" do
+    context "with a primary contributor and other contributors" do
       let(:contributors) do
         [
           {
@@ -124,8 +124,8 @@ RSpec.describe CocinaDisplay::CocinaRecord do
     end
   end
 
-  describe "#person_authors" do
-    subject { record.person_authors(with_date: with_date) }
+  describe "#person_contributor_names" do
+    subject { record.person_contributor_names(with_date: with_date) }
 
     context "with person authors" do
       let(:contributors) do
@@ -162,10 +162,10 @@ RSpec.describe CocinaDisplay::CocinaRecord do
     end
   end
 
-  describe "#impersonal_authors" do
-    subject { record.impersonal_authors }
+  describe "#impersonal_contributor_names" do
+    subject { record.impersonal_contributor_names }
 
-    context "with impersonal authors" do
+    context "with impersonal contributors" do
       let(:contributors) do
         [
           {
@@ -199,10 +199,10 @@ RSpec.describe CocinaDisplay::CocinaRecord do
     end
   end
 
-  describe "#organization_authors" do
-    subject { record.organization_authors }
+  describe "#organization_contributor_names" do
+    subject { record.organization_contributor_names }
 
-    context "with organization authors" do
+    context "with organization contributors" do
       let(:contributors) do
         [
           {
@@ -236,10 +236,10 @@ RSpec.describe CocinaDisplay::CocinaRecord do
     end
   end
 
-  describe "#conference_authors" do
-    subject { record.conference_authors }
+  describe "#conference_contributor_names" do
+    subject { record.conference_contributor_names }
 
-    context "with conference authors" do
+    context "with conference contributors" do
       let(:contributors) do
         [
           {
@@ -273,34 +273,55 @@ RSpec.describe CocinaDisplay::CocinaRecord do
     end
   end
 
-  describe "#sort_author" do
-    subject { record.sort_author }
+  describe "#sort_contributor_name" do
+    subject { record.sort_contributor_name }
 
-    context "with a main author" do
+    context "with a main contributor" do
       let(:contributors) do
         [
           {
-            "name" => [{"value" => "Doe, John  "}],
+            "name" => [{"value" => "Doe, John"}],
             "role" => [{"value" => "author"}],
             "status" => "primary"
           }
         ]
       end
 
-      it "removes punctuation and whitespace" do
-        is_expected.to eq("Doe John")
+      it "removes punctuation and adds sort title" do
+        is_expected.to eq("Doe John \u{10FFFF}")
       end
     end
 
-    context "with no main author" do
+    context "with no main author and no title" do
       let(:contributors) { [] }
 
-      it { is_expected.to eq("\u{10FFFF}") } # Unicode replacement character for missing value
+      it { is_expected.to eq("\u{10FFFF} \u{10FFFF}") } # Unicode replacement character for missing value
+    end
+
+    context "with a main contributor and a title" do
+      let(:cocina_json) do
+        {
+          "description" => {
+            "contributor" => [
+              {
+                "name" => [{"value" => "Doe, John"}],
+                "role" => [{"value" => "author"}],
+                "status" => "primary"
+              }
+            ],
+            "title" => [{"value" => "Sample Title"}]
+          }
+        }.to_json
+      end
+
+      it "appends the title for disambiguation" do
+        is_expected.to eq("Doe John Sample Title")
+      end
     end
   end
 
-  describe "#contributors_by_role" do
-    subject { record.contributors_by_role(with_date: with_date) }
+  describe "#contributor_names_by_role" do
+    subject { record.contributor_names_by_role(with_date: with_date) }
 
     context "with multiple contributors and roles and with date" do
       let(:with_date) { true }
@@ -352,6 +373,43 @@ RSpec.describe CocinaDisplay::CocinaRecord do
 
     context "with no contributors" do
       let(:contributors) { [] }
+
+      it { is_expected.to be_empty }
+    end
+  end
+
+  describe "#publisher_names" do
+    subject { record.publisher_names }
+
+    context "with publisher contributors" do
+      let(:contributors) do
+        [
+          {
+            "name" => [{"value" => "ACME Publishing"}],
+            "role" => [{"value" => "publisher"}],
+            "type" => "organization"
+          },
+          {
+            "name" => [{"value" => "Smith, Jane"}],
+            "role" => [{"value" => "author"}],
+            "type" => "person"
+          }
+        ]
+      end
+
+      it { is_expected.to eq(["ACME Publishing"]) }
+    end
+
+    context "with no publisher contributors" do
+      let(:contributors) do
+        [
+          {
+            "name" => [{"value" => "Doe, John"}],
+            "role" => [{"value" => "author"}],
+            "type" => "person"
+          }
+        ]
+      end
 
       it { is_expected.to be_empty }
     end

@@ -1,6 +1,7 @@
 require_relative "../dates/date"
 require_relative "../dates/date_range"
-require_relative "../imprint"
+require_relative "../events/event"
+require_relative "../events/imprint"
 
 module CocinaDisplay
   module Concerns
@@ -75,24 +76,28 @@ module CocinaDisplay
       # @example
       #   CocinaRecord.fetch('bt553vr2845').imprint_display_str #=> "New York : Meridian Book, 1993, c1967"
       def imprint_display_str
-        imprints.map(&:display_str).compact_blank.join("; ")
+        imprint_events.map(&:display_str).compact_blank.join("; ")
       end
 
-      private
+      # List of places of publication as strings.
+      # Considers locations for all publication, creation, and capture events.
+      # @return [Array<String>]
+      def publication_places
+        publication_events.flat_map { |event| event.locations.map(&:display_str) }
+      end
 
-      # Event dates as an array of CocinaDisplay::Dates::Date objects.
-      # If type is provided, keep dates with a matching event type OR date type.
-      # @param type [Symbol, nil] Filter by event type (e.g. :publication).
-      # @return [Array<CocinaDisplay::Dates::Date>] The list of event dates
-      def event_dates(type: nil)
-        filter_expr = type.present? ? "?match(@.type, \"#{type}\")" : "*"
+      # All events associated with the object.
+      # @return [Array<CocinaDisplay::Events::Event>]
+      def events
+        @events ||= path("$.description.event.*").map { |event| CocinaDisplay::Events::Event.new(event) }
+      end
 
-        Enumerator::Chain.new(
-          path("$.description.event.*.date[#{filter_expr}]"),
-          path("$.description.event[#{filter_expr}].date[*]")
-        ).uniq.map do |date|
-          CocinaDisplay::Dates::Date.from_cocina(date)
-        end
+      # All events that could be used to select a publication date.
+      # Includes publication, creation, and capture events.
+      # Considers event types as well as date types if the event is untyped.
+      # @return [Array<CocinaDisplay::Events::Event>]
+      def publication_events
+        events.filter { |event| event.has_any_type?("publication", "creation", "capture") }
       end
 
       # Array of CocinaDisplay::Imprint objects for all relevant Cocina events.
@@ -100,17 +105,20 @@ module CocinaDisplay
       # Considers event types as well as date types if the event is untyped.
       # Prefers events where the date was not encoded, if any.
       # @return [Array<CocinaDisplay::Imprint>] The list of Imprint objects
-      def imprints
-        filter_expr = "\"(publication|creation|capture|copyright)\""
-
-        imprints = Enumerator::Chain.new(
-          path("$.description.event[?match(@.type, #{filter_expr})]"),
-          path("$.description.event[?@.date[?match(@.type, #{filter_expr})]]")
-        ).uniq.map do |event|
-          CocinaDisplay::Imprint.new(event)
+      def imprint_events
+        imprints = events.filter do |event|
+          event.has_any_type?("publication", "creation", "capture", "copyright")
+        end.map do |event|
+          CocinaDisplay::Events::Imprint.new(event.cocina)
         end
 
         imprints.reject(&:date_encoding?).presence || imprints
+      end
+
+      # All dates associated with the object via an event.
+      # @return [Array<CocinaDisplay::Dates::Date>]
+      def event_dates
+        @event_dates ||= events.flat_map(&:dates)
       end
 
       # The earliest preferred publication date as a CocinaDisplay::Dates::Date object.
@@ -120,8 +128,12 @@ module CocinaDisplay
       # @return [CocinaDisplay::Dates::Date] The earliest preferred date
       # @return [nil] if no dates are left after filtering
       def pub_date(ignore_qualified: false)
-        [:publication, :creation, :capture].map do |type|
-          earliest_preferred_date(event_dates(type: type), ignore_qualified: ignore_qualified)
+        pub_event_dates = event_dates.filter { |date| date.type == "publication" }
+        creation_event_dates = event_dates.filter { |date| date.type == "creation" }
+        capture_event_dates = event_dates.filter { |date| date.type == "capture" }
+
+        [pub_event_dates, creation_event_dates, capture_event_dates].flat_map do |dates|
+          earliest_preferred_date(dates, ignore_qualified: ignore_qualified)
         end.compact.first
       end
 
