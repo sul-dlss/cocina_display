@@ -107,6 +107,14 @@ RSpec.describe CocinaDisplay::CocinaRecord do
           is_expected.to eq "M de Courville estampe"
         end
       end
+
+      context "with a title containing punctuation surrounded by spaces" do
+        let(:druid) { "vk217bh4910" }
+
+        it "returns the sort title without duplicate spaces" do
+          is_expected.to eq "2010 Machine Learning Data Set for NASAs Solar Dynamics Observatory Atmospheric Imaging Assembly"
+        end
+      end
     end
 
     context "with no title" do
