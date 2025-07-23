@@ -53,7 +53,7 @@ module CocinaDisplay
     def self.sort_title(titles, catalog_links: [])
       part_label = catalog_links.find { |link| link["catalog"] == "folio" }&.fetch("partLabel", nil)
       [new(strategy: :first, add_punctuation: false, only_one_parallel_value: false, part_label: part_label, sortable: true).build(titles)]
-        .flatten.compact.map { |title| title.gsub(/[[:punct:]]*/, "").strip }
+        .flatten.compact.map { |title| title.gsub(/[[:punct:]]*/, "").squeeze(" ").strip }
     end
 
     # @param strategy [Symbol] ":first" selects a single title value based on precedence of
