@@ -79,9 +79,13 @@ module CocinaDisplay
       end
 
       # All contributors for the object, including authors, editors, etc.
+      # Checks both description.contributor and description.event.contributor.
       # @return [Array<Contributor>]
       def contributors
-        @contributors ||= path("$.description.contributor.*").map { |c| Contributor.new(c) }
+        @contributors ||= Enumerator::Chain.new(
+          path("$.description.contributor.*"),
+          path("$.description.event.*.contributor.*")
+        ).map { |c| Contributor.new(c) }
       end
 
       # All contributors with a "publisher" role.
