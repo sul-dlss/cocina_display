@@ -413,5 +413,29 @@ RSpec.describe CocinaDisplay::CocinaRecord do
 
       it { is_expected.to be_empty }
     end
+
+    context "with publication event contributors" do
+      let(:cocina_json) do
+        {
+          "description" => {
+            "event" => [
+              {
+                "type" => "publication",
+                "contributor" => [
+                  {
+                    "name" => [{"value" => "Chronicle Books"}],
+                    "role" => [{"value" => "publisher"}]
+                  }
+                ]
+              }
+            ]
+          }
+        }.to_json
+      end
+
+      it "returns the publisher from the event" do
+        is_expected.to eq(["Chronicle Books"])
+      end
+    end
   end
 end
