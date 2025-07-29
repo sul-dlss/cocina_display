@@ -63,7 +63,18 @@ module CocinaDisplay
         start&.encoding || stop&.encoding || super
       end
 
-      # Is either date in the range qualified in any way?
+      # The qualifier for the entire range.
+      # If both qualifiers match, uses that qualifier. If both are empty, falls
+      # back to the top level qualifier, if any.
+      # @see CocinaDisplay::Date#qualifier
+      # @return [String, nil]
+      def qualifier
+        if start&.qualifier == stop&.qualifier
+          start&.qualifier || stop&.qualifier || super
+        end
+      end
+
+      # Is either date in the range, or the range itself, qualified?
       # @see CocinaDisplay::Date#qualified?
       # @return [Boolean]
       def qualified?
@@ -105,14 +116,15 @@ module CocinaDisplay
       # @see CocinaDisplay::Date#qualified_value
       # @return [String]
       def qualified_value
-        if start&.qualifier == stop&.qualifier
-          qualifier = start&.qualifier || stop&.qualifier
-          date = decoded_value
-          return "[ca. #{date}]" if qualifier == "approximate"
-          return "[#{date}?]" if qualifier == "questionable"
-          return "[#{date}]" if qualifier == "inferred"
-
-          date
+        if qualifier
+          case qualifier
+          when "approximate"
+            "[ca. #{decoded_value}]"
+          when "questionable"
+            "[#{decoded_value}?]"
+          when "inferred"
+            "[#{decoded_value}]"
+          end
         else
           "#{start&.qualified_value} - #{stop&.qualified_value}"
         end

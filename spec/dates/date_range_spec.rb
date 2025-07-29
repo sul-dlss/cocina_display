@@ -103,6 +103,54 @@ RSpec.describe CocinaDisplay::Dates::DateRange do
     end
   end
 
+  describe "#qualifier" do
+    context "when both dates have the same qualifier" do
+      let(:cocina) do
+        {
+          "structuredValue" => [
+            {"value" => "2023-01-01", "type" => "start", "qualifier" => "inferred"},
+            {"value" => "2023-12-31", "type" => "end", "qualifier" => "inferred"}
+          ]
+        }
+      end
+
+      it "returns the common qualifier" do
+        expect(date_range.qualifier).to eq("inferred")
+      end
+    end
+
+    context "when the start and end dates have different qualifiers" do
+      let(:cocina) do
+        {
+          "structuredValue" => [
+            {"value" => "2023-01-01", "type" => "start", "qualifier" => "approximate"},
+            {"value" => "2023-12-31", "type" => "end", "qualifier" => "inferred"}
+          ]
+        }
+      end
+
+      it "returns nil" do
+        expect(date_range.qualifier).to be_nil
+      end
+    end
+
+    context "when both dates have no qualifiers but the top level does" do
+      let(:cocina) do
+        {
+          "structuredValue" => [
+            {"value" => "2023-01-01", "type" => "start"},
+            {"value" => "2023-12-31", "type" => "end"}
+          ],
+          "qualifier" => "inferred"
+        }
+      end
+
+      it "returns the top-level qualifier" do
+        expect(date_range.qualifier).to eq("inferred")
+      end
+    end
+  end
+
   describe "#qualified?" do
     context "when the start date is qualified" do
       let(:cocina) do
@@ -156,7 +204,37 @@ RSpec.describe CocinaDisplay::Dates::DateRange do
             {"value" => "2023-01-01", "type" => "start"},
             {"value" => "2023-12-31", "type" => "end"}
           ],
-          "qualifier" => "approximate"
+          "qualifier" => "inferred"
+        }
+      end
+
+      it "returns true" do
+        expect(date_range.qualified?).to be true
+      end
+    end
+
+    context "when both dates have the same qualifier" do
+      let(:cocina) do
+        {
+          "structuredValue" => [
+            {"value" => "2023-01-01", "type" => "start", "qualifier" => "approximate"},
+            {"value" => "2023-12-31", "type" => "end", "qualifier" => "approximate"}
+          ]
+        }
+      end
+
+      it "returns true" do
+        expect(date_range.qualified?).to be true
+      end
+    end
+
+    context "when both dates have different qualifiers" do
+      let(:cocina) do
+        {
+          "structuredValue" => [
+            {"value" => "2023-01-01", "type" => "start", "qualifier" => "approximate"},
+            {"value" => "2023-12-31", "type" => "end", "qualifier" => "inferred"}
+          ]
         }
       end
 
@@ -291,7 +369,22 @@ RSpec.describe CocinaDisplay::Dates::DateRange do
   end
 
   describe "#qualified_value" do
-    context "when both dates have matching qualifiers" do
+    context "when both dates are inferred" do
+      let(:cocina) do
+        {
+          "structuredValue" => [
+            {"value" => "2023-01-01", "type" => "start", "qualifier" => "inferred", "encoding" => {"code" => "iso8601"}},
+            {"value" => "2023-12-31", "type" => "end", "qualifier" => "inferred", "encoding" => {"code" => "iso8601"}}
+          ]
+        }
+      end
+
+      it "returns the qualified value for the range" do
+        expect(date_range.qualified_value).to eq("[January  1, 2023 - December 31, 2023]")
+      end
+    end
+
+    context "when both dates are approximate" do
       let(:cocina) do
         {
           "structuredValue" => [
@@ -333,6 +426,24 @@ RSpec.describe CocinaDisplay::Dates::DateRange do
 
       it "returns the decoded value without qualifiers" do
         expect(date_range.qualified_value).to eq("January  1, 2023 - December 31, 2023")
+      end
+    end
+
+    context "when the range is qualified at the top level" do
+      # from druid:xf680rd3068
+      let(:cocina) do
+        {
+          "structuredValue" => [
+            {"value" => "1200", "type" => "start"},
+            {"value" => "1299", "type" => "end"}
+          ],
+          "encoding" => {"code" => "marc"},
+          "qualifier" => "questionable"
+        }
+      end
+
+      it "returns the qualified value for the range" do
+        expect(date_range.qualified_value).to eq("[1200 - 1299?]")
       end
     end
   end
