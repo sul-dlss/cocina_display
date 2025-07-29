@@ -1,45 +1,46 @@
-require_relative "../subject"
+require_relative "../subjects/subject"
+require_relative "../subjects/subject_value"
 
 module CocinaDisplay
   module Concerns
     # Methods for extracting and formatting subject information.
     module Subjects
-      # All unique subjects that are topics, formatted as strings for display.
+      # All unique subject values that are topics.
       # @return [Array<String>]
       def subject_topics
-        subjects.filter { |s| s.type == "topic" }.map(&:display_str).uniq
+        subject_values.filter { |s| s.type == "topic" }.map(&:display_str).uniq
       end
 
-      # All unique subjects that are genres, formatted as strings for display.
+      # All unique subject values that are genres.
       # @return [Array<String>]
       def subject_genres
-        subjects.filter { |s| s.type == "genre" }.map(&:display_str).uniq
+        subject_values.filter { |s| s.type == "genre" }.map(&:display_str).uniq
       end
 
-      # All unique subjects that are titles, formatted as strings for display.
+      # All unique subject values that are titles.
       # @return [Array<String>]
       def subject_titles
-        subjects.filter { |s| s.type == "title" }.map(&:display_str).uniq
+        subject_values.filter { |s| s.type == "title" }.map(&:display_str).uniq
       end
 
-      # All unique subjects that are date/time info, formatted as strings for display.
+      # All unique subject values that are date/time info.
       # @return [Array<String>]
       def subject_temporal
-        subjects.filter { |s| s.type == "time" }.map(&:display_str).uniq
+        subject_values.filter { |s| s.type == "time" }.map(&:display_str).uniq
       end
 
-      # All unique subjects that are occupations, formatted as strings for display.
+      # All unique subject values that are occupations.
       # @return [Array<String>]
       def subject_occupations
-        subjects.filter { |s| s.type == "occupation" }.map(&:display_str).uniq
+        subject_values.filter { |s| s.type == "occupation" }.map(&:display_str).uniq
       end
 
-      # All unique subjects that are names of entities, formatted as strings for display.
+      # All unique subject values that are names of entities.
       # @note Multiple types are handled: person, family, organization, conference, etc.
-      # @see CocinaDisplay::NameSubject
+      # @see CocinaDisplay::NameSubjectValue
       # @return [Array<String>]
       def subject_names
-        subjects.filter { |s| s.is_a? NameSubject }.map(&:display_str).uniq
+        subject_values.filter { |s| s.is_a? CocinaDisplay::Subjects::NameSubjectValue }.map(&:display_str).uniq
       end
 
       # Combination of all subject values for searching.
@@ -75,6 +76,13 @@ module CocinaDisplay
         subject_temporal + subject_genres
       end
 
+      # Combination of all subjects with nested values concatenated for display.
+      # @see Subject#display_str
+      # @return [Array<String>]
+      def subject_all_display
+        subjects.map(&:display_str).uniq
+      end
+
       private
 
       # All subjects, accessible as Subject objects.
@@ -84,7 +92,13 @@ module CocinaDisplay
         @subjects ||= Enumerator::Chain.new(
           path("$.description.subject[*]"),
           path("$.description.geographic.*.subject[*]")
-        ).map { |s| Subject.from_cocina(s) }
+        ).map { |s| CocinaDisplay::Subjects::Subject.new(s) }
+      end
+
+      # All subject values, flattened from all subjects.
+      # @return [Array<SubjectValue>]
+      def subject_values
+        @subject_values ||= subjects.flat_map(&:subject_values)
       end
     end
   end

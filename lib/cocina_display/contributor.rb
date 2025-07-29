@@ -129,10 +129,10 @@ module CocinaDisplay
 
       private
 
-      # The full name as a string, combining all name components.
+      # The full name as a string, combining all name components and terms of address.
       # @return [String]
       def full_name_str
-        Utils.compact_and_join(name_components, delimiter: ", ")
+        Utils.compact_and_join(name_components.push(terms_of_address_str), delimiter: ", ")
       end
 
       # Flattened form of any names explicitly marked as "display name".
@@ -146,7 +146,7 @@ module CocinaDisplay
       # Otherwise, fall back to any names explicitly marked as "name" or untyped.
       # @return [Array<String>]
       def name_components
-        [surname_str, forename_ordinal_str, terms_of_address_str].compact_blank.presence || Array(name_values["name"])
+        [surname_str, forename_ordinal_str].compact_blank.presence || Array(name_values["name"])
       end
 
       # Flatten all forenames and ordinals into a single string.
