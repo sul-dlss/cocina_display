@@ -40,51 +40,15 @@ RSpec.describe CocinaDisplay::CocinaRecord do
         ]
       end
 
-      it "joins the values with a delimiter" do
-        is_expected.to eq(["Painters, Italy"])
-      end
-    end
-
-    context "with structured topic subjects where type is only on structuredValue" do
-      let(:subjects) do
-        [
-          {
-            "structuredValue" => [
-              {"value" => "Painters", "type" => "topic"},
-              {"value" => "Italy", "type" => "topic"}
-            ]
-          }
-        ]
-      end
-
-      it "joins the values with a delimiter" do
-        is_expected.to eq(["Painters, Italy"])
-      end
-    end
-
-    context "with catalog heading structured subjects" do
-      let(:subjects) do
-        [
-          {
-            "type" => "topic",
-            "displayLabel" => "Catalog heading",
-            "structuredValue" => [
-              {"value" => "Painters"},
-              {"value" => "Italy"}
-            ]
-          }
-        ]
-      end
-
-      it "joins the values with >" do
-        is_expected.to eq(["Painters > Italy"])
+      it "returns the individual values" do
+        is_expected.to eq(["Painters", "Italy"])
       end
     end
 
     context "with structured and unstructured duplicate subjects" do
       let(:subjects) do
         [
-          {"type" => "topic", "value" => "Painters, Italy"},
+          {"type" => "topic", "value" => "Painters"},
           {
             "type" => "topic",
             "structuredValue" => [
@@ -96,7 +60,35 @@ RSpec.describe CocinaDisplay::CocinaRecord do
       end
 
       it "returns unique values" do
-        is_expected.to eq(["Painters, Italy"])
+        is_expected.to eq(["Painters", "Italy"])
+      end
+    end
+
+    context "with a topic subject nested inside another subject" do
+      # from druid:kj040zn0537
+      let(:subjects) do
+        [
+          {
+            "structuredValue" => [
+              {
+                "type" => "person",
+                "structuredValue" => [
+                  {"value" => "duchess d'", "type" => "term of address"},
+                  {"value" => "Angoulême, Marie-Thérèse Charlotte de France", "type" => "name"},
+                  {"value" => "1778-1851", "type" => "life dates"}
+                ]
+              },
+              {
+                "value" => "Emprisonnement",
+                "type" => "topic"
+              }
+            ]
+          }
+        ]
+      end
+
+      it "extracts the topic value" do
+        is_expected.to eq(["Emprisonnement"])
       end
     end
   end
@@ -284,8 +276,8 @@ RSpec.describe CocinaDisplay::CocinaRecord do
         ]
       end
 
-      it "joins the values with a delimiter" do
-        is_expected.to eq(["Artist, Painter"])
+      it "returns the values separately" do
+        is_expected.to eq(["Artist", "Painter"])
       end
     end
   end
@@ -330,6 +322,74 @@ RSpec.describe CocinaDisplay::CocinaRecord do
 
       it "returns temporal and genre facets" do
         is_expected.to eq(["2020", "Fiction"])
+      end
+    end
+  end
+
+  describe "#subject_all_display" do
+    subject { record.subject_all_display }
+
+    context "with structured topic subjects where type is only on structuredValue" do
+      let(:subjects) do
+        [
+          {
+            "structuredValue" => [
+              {"value" => "Painters", "type" => "topic"},
+              {"value" => "Italy", "type" => "topic"}
+            ]
+          }
+        ]
+      end
+
+      it "joins the values with a delimiter" do
+        is_expected.to eq(["Painters, Italy"])
+      end
+    end
+
+    context "with catalog heading structured subjects" do
+      let(:subjects) do
+        [
+          {
+            "type" => "topic",
+            "displayLabel" => "Catalog heading",
+            "structuredValue" => [
+              {"value" => "Painters"},
+              {"value" => "Italy"}
+            ]
+          }
+        ]
+      end
+
+      it "joins the values with >" do
+        is_expected.to eq(["Painters > Italy"])
+      end
+    end
+
+    context "with deeply nested structured subjects of different types" do
+      # from druid:kj040zn0537
+      let(:subjects) do
+        [
+          {
+            "structuredValue" => [
+              {
+                "type" => "person",
+                "structuredValue" => [
+                  {"value" => "duchess d'", "type" => "term of address"},
+                  {"value" => "Angoulême, Marie-Thérèse Charlotte de France", "type" => "name"},
+                  {"value" => "1778-1851", "type" => "life dates"}
+                ]
+              },
+              {
+                "value" => "Emprisonnement",
+                "type" => "topic"
+              }
+            ]
+          }
+        ]
+      end
+
+      it "formats according to type and joins with a delimiter" do
+        is_expected.to eq(["Angoulême, Marie-Thérèse Charlotte de France, duchess d', 1778-1851, Emprisonnement"])
       end
     end
   end

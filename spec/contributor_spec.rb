@@ -311,6 +311,27 @@ RSpec.describe CocinaDisplay::Contributor do
       it { is_expected.to eq("Doe, John, Dr.") }
     end
 
+    context "with term of address and name" do
+      # from druid:kj040zn0537
+      let(:cocina) do
+        {
+          "type" => "person",
+          "name" => [
+            {"structuredValue" => [
+              {"value" => "duchess d'", "type" => "term of address"},
+              {"value" => "Angoulême, Marie-Thérèse Charlotte de France", "type" => "name"},
+              {"value" => "1778-1851", "type" => "life dates"}
+            ]}
+          ]
+        }
+      end
+      let(:with_date) { true }
+
+      it do
+        is_expected.to eq("Angoulême, Marie-Thérèse Charlotte de France, duchess d', 1778-1851")
+      end
+    end
+
     context "with multiple forenames, surname, ordinal, dates" do
       let(:cocina) do
         {

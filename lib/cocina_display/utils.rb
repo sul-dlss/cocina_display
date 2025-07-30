@@ -24,6 +24,7 @@ module CocinaDisplay
     # @return [Array<Hash>] List of node hashes with "value" present
     # @param cocina [Hash] The Cocina structured data to flatten
     # @param output [Array] Used for recursion, should be empty on first call
+    # @param atomic_types [Array<String>] Types considered atomic; will not be flattened
     # @example simple value
     #  cocina = { "value" => "John Doe", "type" => "name" }
     #  Utils.flatten_nested_values(cocina)
@@ -36,14 +37,15 @@ module CocinaDisplay
     #  cocina = { "parallelValue" => [{"value" => "foo" }, { "structuredValue" => [{"value" => "bar"},  {"value" => "baz"}] }] }
     #  Utils.flatten_nested_values(cocina)
     #  #=> [{"value" => "foo"}, {"value" => "foo"}, {"value" => "baz"}]
-    def self.flatten_nested_values(cocina, output = [])
+    def self.flatten_nested_values(cocina, output = [], atomic_types: [])
       return [cocina] if cocina["value"].present?
-      return cocina.flat_map { |node| flatten_nested_values(node, output) } if cocina.is_a?(Array)
+      return [cocina] if atomic_types.include?(cocina["type"])
+      return cocina.flat_map { |node| flatten_nested_values(node, output, atomic_types: atomic_types) } if cocina.is_a?(Array)
 
       nested_values = Array(cocina["structuredValue"]) + Array(cocina["parallelValue"]) + Array(cocina["groupedValue"])
       return output unless nested_values.any?
 
-      nested_values.flat_map { |node| flatten_nested_values(node, output) }
+      nested_values.flat_map { |node| flatten_nested_values(node, output, atomic_types: atomic_types) }
     end
 
     # Recursively remove empty values from a hash, including nested hashes and arrays.
