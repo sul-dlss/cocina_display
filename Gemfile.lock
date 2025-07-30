@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    cocina_display (0.6.0)
+    cocina_display (0.7.0)
       activesupport (>= 7)
       edtf (~> 3.2)
       iso639 (~> 1.3)
