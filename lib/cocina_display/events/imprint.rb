@@ -7,7 +7,6 @@ require "active_support/core_ext/object/blank"
 
 require_relative "event"
 require_relative "../utils"
-require_relative "../marc_country_codes"
 require_relative "../dates/date"
 require_relative "../dates/date_range"
 

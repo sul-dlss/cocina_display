@@ -1,4 +1,4 @@
-require_relative "../marc_country_codes"
+require_relative "../vocabularies/marc_country_codes"
 
 module CocinaDisplay
   module Events
@@ -36,7 +36,7 @@ module CocinaDisplay
       # Decoded country name if the location is encoded with a MARC country code.
       # @return [String, nil]
       def decoded_country
-        MARC_COUNTRY[code] if marc_country? && valid_country_code?
+        Vocabularies::MARC_COUNTRY[code] if marc_country? && valid_country_code?
       end
 
       # Is this a decodable country code?

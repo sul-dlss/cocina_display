@@ -14,6 +14,7 @@ require_relative "concerns/titles"
 require_relative "concerns/access"
 require_relative "concerns/subjects"
 require_relative "concerns/forms"
+require_relative "concerns/languages"
 require_relative "utils"
 
 module CocinaDisplay
@@ -26,6 +27,7 @@ module CocinaDisplay
     include CocinaDisplay::Concerns::Access
     include CocinaDisplay::Concerns::Subjects
     include CocinaDisplay::Concerns::Forms
+    include CocinaDisplay::Concerns::Languages
 
     # Fetch a public Cocina document from PURL and create a CocinaRecord.
     # @note This is intended to be used in development or testing only.

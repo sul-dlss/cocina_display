@@ -32,6 +32,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "janeway-jsonpath", "~> 0.6" # for nested JSON queries
   spec.add_dependency "activesupport", ">= 7" # for helpers like present?
   spec.add_dependency "edtf", "~> 3.2" # for parsing dates
+  spec.add_dependency "iso639", "~> 1.3" # for parsing language codes
 
   spec.add_development_dependency "rake", "~> 13.0"
   spec.add_development_dependency "rspec", "~> 3.0"

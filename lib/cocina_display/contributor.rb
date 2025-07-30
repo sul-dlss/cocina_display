@@ -5,7 +5,7 @@ require "active_support/core_ext/object/blank"
 require "active_support/core_ext/array/conversions"
 
 require_relative "utils"
-require_relative "marc_relator_codes"
+require_relative "vocabularies/marc_relator_codes"
 
 module CocinaDisplay
   # A contributor to a work, such as an author or publisher.
@@ -201,7 +201,7 @@ module CocinaDisplay
       # Translates the MARC relator code if no value was present.
       # @return [String, nil]
       def display_str
-        cocina["value"] || (MARC_RELATOR[code] if marc_relator?)
+        cocina["value"] || (Vocabularies::MARC_RELATOR[code] if marc_relator?)
       end
 
       # A code associated with the role, e.g. a MARC relator code.
