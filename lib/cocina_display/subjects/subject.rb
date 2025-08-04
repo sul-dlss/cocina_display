@@ -27,11 +27,10 @@ module CocinaDisplay
         subject_values.map(&:display_str).compact_blank
       end
 
-      # A string representation of the entire subject, formatted for display.
-      # Concatenates the values with an appropriate delimiter.
+      # A string representation of the entire subject, concatenated for display.
       # @return [String]
       def display_str
-        Utils.compact_and_join(display_values, delimiter: delimiter)
+        Utils.compact_and_join(display_values, delimiter: " > ")
       end
 
       # Individual values composing this subject.
@@ -43,19 +42,6 @@ module CocinaDisplay
           subject_value = SubjectValue.from_cocina(value)
           subject_value.type ||= type
           subject_value
-        end
-      end
-
-      private
-
-      # Delimiter to use for joining structured subject values.
-      # LCSH uses a comma (the default); catalog headings use " > ".
-      # @return [String]
-      def delimiter
-        if cocina["displayLabel"]&.downcase == "catalog heading"
-          " > "
-        else
-          ", "
         end
       end
     end

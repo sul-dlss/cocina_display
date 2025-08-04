@@ -329,6 +329,24 @@ RSpec.describe CocinaDisplay::CocinaRecord do
   describe "#subject_all_display" do
     subject { record.subject_all_display }
 
+    context "with structured subjects" do
+      let(:subjects) do
+        [
+          {
+            "type" => "topic",
+            "structuredValue" => [
+              {"value" => "Painters"},
+              {"value" => "Italy"}
+            ]
+          }
+        ]
+      end
+
+      it "joins the values with >" do
+        is_expected.to eq(["Painters > Italy"])
+      end
+    end
+
     context "with structured topic subjects where type is only on structuredValue" do
       let(:subjects) do
         [
@@ -336,25 +354,6 @@ RSpec.describe CocinaDisplay::CocinaRecord do
             "structuredValue" => [
               {"value" => "Painters", "type" => "topic"},
               {"value" => "Italy", "type" => "topic"}
-            ]
-          }
-        ]
-      end
-
-      it "joins the values with a delimiter" do
-        is_expected.to eq(["Painters, Italy"])
-      end
-    end
-
-    context "with catalog heading structured subjects" do
-      let(:subjects) do
-        [
-          {
-            "type" => "topic",
-            "displayLabel" => "Catalog heading",
-            "structuredValue" => [
-              {"value" => "Painters"},
-              {"value" => "Italy"}
             ]
           }
         ]
@@ -388,8 +387,8 @@ RSpec.describe CocinaDisplay::CocinaRecord do
         ]
       end
 
-      it "formats according to type and joins with a delimiter" do
-        is_expected.to eq(["Angoulême, Marie-Thérèse Charlotte de France, duchess d', 1778-1851, Emprisonnement"])
+      it "formats according to type and joins the results with >" do
+        is_expected.to eq(["Angoulême, Marie-Thérèse Charlotte de France, duchess d', 1778-1851 > Emprisonnement"])
       end
     end
   end
