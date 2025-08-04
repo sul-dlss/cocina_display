@@ -39,6 +39,13 @@ module CocinaDisplay
       def display_str
         cocina["value"]
       end
+
+      # True if the subject value is a place.
+      # @see PLACE_SUBJECT_TYPES
+      # @return [Boolean]
+      def place?
+        PLACE_SUBJECT_TYPES.include?(type)
+      end
     end
 
     # A subject value representing a named entity.
@@ -102,3 +109,20 @@ SUBJECT_VALUE_TYPES = {
   # TODO: special handling for geospatial subjects
   # "map coordinates", "bounding box coordinates", "point coordinates"
 }.freeze
+
+# Subject types that are considered places.
+PLACE_SUBJECT_TYPES = [
+  "area",
+  "city",
+  "city section",
+  "continent",
+  "country",
+  "county",
+  "coverage",
+  "extraterrestrial area",
+  "island",
+  "place",
+  "region",
+  "state",
+  "territory"
+].freeze
