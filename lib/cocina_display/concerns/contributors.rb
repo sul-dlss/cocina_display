@@ -1,4 +1,4 @@
-require_relative "../contributor"
+require_relative "../contributors/contributor"
 
 module CocinaDisplay
   module Concerns
@@ -85,7 +85,7 @@ module CocinaDisplay
         @contributors ||= Enumerator::Chain.new(
           path("$.description.contributor.*"),
           path("$.description.event.*.contributor.*")
-        ).map { |c| Contributor.new(c) }
+        ).map { |c| CocinaDisplay::Contributors::Contributor.new(c) }
       end
 
       # All contributors with a "publisher" role.

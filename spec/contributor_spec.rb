@@ -1,8 +1,8 @@
 require "spec_helper"
 
-require_relative "../lib/cocina_display/contributor"
+require_relative "../lib/cocina_display/contributors/contributor"
 
-RSpec.describe CocinaDisplay::Contributor do
+RSpec.describe CocinaDisplay::Contributors::Contributor do
   subject { described_class.new(cocina) }
 
   describe "#author?" do
