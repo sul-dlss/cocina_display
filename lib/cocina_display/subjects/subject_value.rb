@@ -1,5 +1,5 @@
 require_relative "subject"
-require_relative "../contributor"
+require_relative "../contributors/name"
 require_relative "../title_builder"
 require_relative "../dates/date"
 
@@ -56,7 +56,7 @@ module CocinaDisplay
       # @param cocina [Hash] The Cocina structured data for the subject.
       def initialize(cocina)
         super
-        @name = Contributor::Name.new(cocina)
+        @name = Contributors::Name.new(cocina)
       end
 
       # Use the contributor name formatting rules for display.

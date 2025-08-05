@@ -1,6 +1,6 @@
 require_relative "location"
 require_relative "../dates/date"
-require_relative "../contributor"
+require_relative "../contributors/contributor"
 
 module CocinaDisplay
   module Events
@@ -62,7 +62,7 @@ module CocinaDisplay
       # @return [Array<CocinaDisplay::Contributor>]
       def contributors
         @contributors ||= Array(cocina["contributor"]).map do |contributor|
-          CocinaDisplay::Contributor.new(contributor)
+          CocinaDisplay::Contributors::Contributor.new(contributor)
         end
       end
 
