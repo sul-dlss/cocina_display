@@ -35,6 +35,12 @@ module CocinaDisplay
         subject_values.filter { |s| s.type == "occupation" }.map(&:display_str).uniq
       end
 
+      # All unique subject values that describe geographic places.
+      # @return [Array<String>]
+      def subject_places
+        subject_values.filter(&:place?).map(&:display_str).uniq
+      end
+
       # All unique subject values that are names of entities.
       # @note Multiple types are handled: person, family, organization, conference, etc.
       # @see CocinaDisplay::NameSubjectValue
@@ -46,9 +52,10 @@ module CocinaDisplay
       # Combination of all subject values for searching.
       # @see #subject_topics_other
       # @see #subject_temporal_genre
+      # @see #subject_places
       # @return [Array<String>]
       def subject_all
-        subject_topics_other + subject_temporal_genre
+        subject_topics_other + subject_temporal_genre + subject_places
       end
 
       # Combination of topic, occupation, name, and title subject values for searching.

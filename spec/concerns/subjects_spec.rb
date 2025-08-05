@@ -282,6 +282,65 @@ RSpec.describe CocinaDisplay::CocinaRecord do
     end
   end
 
+  describe "#subject_places" do
+    subject { record.subject_places }
+
+    context "with non-structured place subjects" do
+      let(:subjects) do
+        [
+          {"type" => "place", "value" => "California"}
+        ]
+      end
+
+      it "returns the value as a string" do
+        is_expected.to eq(["California"])
+      end
+    end
+
+    context "with structured place subjects" do
+      let(:subjects) do
+        [
+          {
+            "structuredValue" => [
+              {"value" => "Germany", "type" => "country"},
+              {"value" => "Leipzig", "type" => "city"}
+            ],
+            "type" => "place"
+          }
+        ]
+      end
+
+      it "returns the values separately" do
+        is_expected.to eq(["Germany", "Leipzig"])
+      end
+    end
+
+    context "with nested structured place subjects" do
+      let(:subjects) do
+        [
+          {
+            "structuredValue" => [
+              {
+                "type" => "place",
+                "structuredValue" => [
+                  {"value" => "Paris", "type" => "city"},
+                  {"value" => "France", "type" => "country"}
+                ]
+              },
+              {"value" => "Eiffel Tower"},
+              {"value" => "Construction"}
+            ],
+            "type" => "topic"
+          }
+        ]
+      end
+
+      it "returns the place values separately" do
+        is_expected.to eq(["Paris", "France"])
+      end
+    end
+  end
+
   describe "faceting methods" do
     let(:subjects) do
       [
@@ -290,14 +349,15 @@ RSpec.describe CocinaDisplay::CocinaRecord do
         {"type" => "title", "value" => "The Great Gatsby"},
         {"type" => "genre", "value" => "Fiction"},
         {"type" => "time", "value" => "2020"},
-        {"type" => "name", "value" => "John Doe"}
+        {"type" => "name", "value" => "John Doe"},
+        {"type" => "place", "value" => "California"}
       ]
     end
     describe "#subject_all" do
       subject { record.subject_all }
 
       it "combines all subject facets" do
-        is_expected.to eq(["Climate change", "Software Engineer", "John Doe", "The Great Gatsby", "2020", "Fiction"])
+        is_expected.to eq(["Climate change", "Software Engineer", "John Doe", "The Great Gatsby", "2020", "Fiction", "California"])
       end
     end
 
