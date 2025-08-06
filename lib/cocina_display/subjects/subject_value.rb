@@ -1,7 +1,10 @@
+require "geo/coord"
+
 require_relative "subject"
 require_relative "../contributors/name"
 require_relative "../title_builder"
 require_relative "../dates/date"
+require_relative "../geospatial"
 
 module CocinaDisplay
   module Subjects
@@ -23,7 +26,7 @@ module CocinaDisplay
       # All subject value types that should not be further destructured.
       # @return [Array<String>]
       def self.atomic_types
-        SUBJECT_VALUE_TYPES.keys
+        SUBJECT_VALUE_TYPES.keys - ["place"]
       end
 
       # Initialize a SubjectValue object with Cocina structured data.
@@ -38,13 +41,6 @@ module CocinaDisplay
       # @return [String]
       def display_str
         cocina["value"]
-      end
-
-      # True if the subject value is a place.
-      # @see PLACE_SUBJECT_TYPES
-      # @return [Boolean]
-      def place?
-        PLACE_SUBJECT_TYPES.include?(type)
       end
     end
 
@@ -89,7 +85,45 @@ module CocinaDisplay
 
       # @return [String] The formatted date/time string for display
       def display_str
-        @date.qualified_value
+        date.qualified_value
+      end
+    end
+
+    # A subject value representing a named place.
+    class PlaceSubjectValue < SubjectValue
+      # A URI identifying the place, if available.
+      # @return [String, nil]
+      def uri
+        cocina["uri"]
+      end
+
+      # True if the place has a geonames.org URI.
+      # @return [Boolean]
+      def geonames?
+        uri&.include?("sws.geonames.org")
+      end
+
+      # Unique identifier for the place in geonames.org.
+      # @return [String, nil]
+      def geonames_id
+        uri&.split("/")&.last if geonames?
+      end
+    end
+
+    # A subject value containing geographic coordinates, like a point or box.
+    class CoordinatesSubjectValue < SubjectValue
+      attr_reader :coordinates
+
+      def initialize(cocina)
+        super
+        @coordinates = Geospatial::Coordinates.from_cocina(cocina)
+      end
+
+      # The normalized DMS string for the coordinates.
+      # Falls back to the raw value if parsing fails.
+      # @return [String, nil]
+      def display_str
+        coordinates&.to_s || super
       end
     end
   end
@@ -105,24 +139,21 @@ SUBJECT_VALUE_TYPES = {
   "event" => CocinaDisplay::Subjects::NameSubjectValue,
   "name" => CocinaDisplay::Subjects::NameSubjectValue,
   "title" => CocinaDisplay::Subjects::TitleSubjectValue,
-  "time" => CocinaDisplay::Subjects::TemporalSubjectValue
-  # TODO: special handling for geospatial subjects
-  # "map coordinates", "bounding box coordinates", "point coordinates"
+  "time" => CocinaDisplay::Subjects::TemporalSubjectValue,
+  "area" => CocinaDisplay::Subjects::PlaceSubjectValue,
+  "city" => CocinaDisplay::Subjects::PlaceSubjectValue,
+  "city section" => CocinaDisplay::Subjects::PlaceSubjectValue,
+  "continent" => CocinaDisplay::Subjects::PlaceSubjectValue,
+  "country" => CocinaDisplay::Subjects::PlaceSubjectValue,
+  "county" => CocinaDisplay::Subjects::PlaceSubjectValue,
+  "coverage" => CocinaDisplay::Subjects::PlaceSubjectValue,
+  "extraterrestrial area" => CocinaDisplay::Subjects::PlaceSubjectValue,
+  "island" => CocinaDisplay::Subjects::PlaceSubjectValue,
+  "place" => CocinaDisplay::Subjects::PlaceSubjectValue,
+  "region" => CocinaDisplay::Subjects::PlaceSubjectValue,
+  "state" => CocinaDisplay::Subjects::PlaceSubjectValue,
+  "territory" => CocinaDisplay::Subjects::PlaceSubjectValue,
+  "point coordinates" => CocinaDisplay::Subjects::CoordinatesSubjectValue,
+  "map coordinates" => CocinaDisplay::Subjects::CoordinatesSubjectValue,
+  "bounding box coordinates" => CocinaDisplay::Subjects::CoordinatesSubjectValue
 }.freeze
-
-# Subject types that are considered places.
-PLACE_SUBJECT_TYPES = [
-  "area",
-  "city",
-  "city section",
-  "continent",
-  "country",
-  "county",
-  "coverage",
-  "extraterrestrial area",
-  "island",
-  "place",
-  "region",
-  "state",
-  "territory"
-].freeze

@@ -1,3 +1,5 @@
+require "active_support/core_ext/object/blank"
+
 module CocinaDisplay
   # Helper methods for string formatting, etc.
   module Utils

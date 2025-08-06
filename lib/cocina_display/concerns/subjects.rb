@@ -35,10 +35,10 @@ module CocinaDisplay
         subject_values.filter { |s| s.type == "occupation" }.map(&:display_str).uniq
       end
 
-      # All unique subject values that describe geographic places.
+      # All unique subject values that are named geographic places.
       # @return [Array<String>]
       def subject_places
-        subject_values.filter(&:place?).map(&:display_str).uniq
+        place_subject_values.map(&:display_str).uniq
       end
 
       # All unique subject values that are names of entities.
@@ -106,6 +106,12 @@ module CocinaDisplay
       # @return [Array<SubjectValue>]
       def subject_values
         @subject_values ||= subjects.flat_map(&:subject_values)
+      end
+
+      # All subject values that are named places.
+      # @return [Array<PlaceSubjectValue>]
+      def place_subject_values
+        @place_subject_values ||= subject_values.filter { |s| s.is_a? CocinaDisplay::Subjects::PlaceSubjectValue }
       end
     end
   end
