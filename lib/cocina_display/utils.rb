@@ -56,8 +56,10 @@ module CocinaDisplay
     #  hash = { "name" => "", "age" => nil, "address => { "city" => "Anytown", "state" => [] } }
     #  #  Utils.remove_empty_values(hash)
     #  #=> { "address" => { "city" => "Anytown" } }
-    def self.deep_compact_blank(hash, output = {})
-      hash.each do |key, value|
+    def self.deep_compact_blank(node, output = {})
+      return node unless node.is_a?(Hash)
+
+      node.each do |key, value|
         if value.is_a?(Hash)
           nested = deep_compact_blank(value)
           output[key] = nested unless nested.empty?
@@ -68,6 +70,7 @@ module CocinaDisplay
           output[key] = value
         end
       end
+
       output
     end
   end

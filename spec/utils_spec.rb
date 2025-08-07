@@ -154,6 +154,29 @@ RSpec.describe CocinaDisplay::Utils do
       end
     end
 
+    context "with arrays containing empty values" do
+      let(:hash) do
+        {
+          "tags" => ["tag1", "", nil, "tag2"],
+          "comments" => [
+            {"author" => "Alice", "text" => "Great post!"},
+            {"author" => "", "text" => ""},
+            {"author" => "Bob", "text" => nil}
+          ]
+        }
+      end
+
+      it "removes empty values from arrays" do
+        is_expected.to eq({
+          "tags" => ["tag1", "tag2"],
+          "comments" => [
+            {"author" => "Alice", "text" => "Great post!"},
+            {"author" => "Bob"}
+          ]
+        })
+      end
+    end
+
     context "with no empty values" do
       let(:hash) do
         {
