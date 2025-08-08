@@ -74,14 +74,14 @@ module CocinaDisplay
       # @param with_date [Boolean] Include life dates, if present
       # @return [String]
       def display_name(with_date: false)
-        names.map { |name| name.display_str(with_date: with_date) }.first
+        names.map { |name| name.to_s(with_date: with_date) }.first
       end
 
       # A string representation of the contributor's roles, formatted for display.
       # If there are multiple roles, they are joined with commas.
       # @return [String]
       def display_role
-        roles.map(&:display_str).to_sentence
+        roles.map(&:to_s).to_sentence
       end
 
       # All names in the Cocina as Name objects.

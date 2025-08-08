@@ -24,12 +24,12 @@ module CocinaDisplay
       # Used for search, where each value should be indexed separately.
       # @return [Array<String>]
       def display_values
-        subject_values.map(&:display_str).compact_blank
+        subject_values.map(&:to_s).compact_blank
       end
 
       # A string representation of the entire subject, concatenated for display.
       # @return [String]
-      def display_str
+      def to_s
         Utils.compact_and_join(display_values, delimiter: " > ")
       end
 

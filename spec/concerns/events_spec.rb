@@ -17,8 +17,8 @@ RSpec.describe CocinaDisplay::CocinaRecord do
   let(:record) { described_class.from_json(cocina_json) }
   let(:ignore_qualified) { false }
 
-  describe "#pub_year_display_str" do
-    subject { record.pub_year_display_str(ignore_qualified: ignore_qualified) }
+  describe "#pub_year_str" do
+    subject { record.pub_year_str(ignore_qualified: ignore_qualified) }
 
     context "when there are no dates" do
       it { is_expected.to be_nil }
@@ -305,8 +305,8 @@ RSpec.describe CocinaDisplay::CocinaRecord do
     end
   end
 
-  describe "#imprint_display_str" do
-    subject { record.imprint_display_str }
+  describe "#imprint_str" do
+    subject { record.imprint_str }
 
     let(:cocina_json) do
       {

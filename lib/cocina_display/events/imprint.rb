@@ -16,7 +16,7 @@ module CocinaDisplay
     class Imprint < Event
       # The entire imprint statement formatted as a string for display.
       # @return [String]
-      def display_str
+      def to_s
         place_pub = Utils.compact_and_join([place_str, publisher_str], delimiter: " : ")
         edition_place_pub = Utils.compact_and_join([edition_str, place_pub], delimiter: " - ")
         Utils.compact_and_join([edition_place_pub, date_str], delimiter: ", ")
@@ -93,7 +93,7 @@ module CocinaDisplay
       def locations_for_display
         unencoded_locs, encoded_locs = locations.partition { |loc| loc.unencoded_value? }
         locs_for_display = unencoded_locs.presence || encoded_locs
-        locs_for_display.map(&:display_str).compact_blank.uniq
+        locs_for_display.map(&:to_s).compact_blank.uniq
       end
     end
   end

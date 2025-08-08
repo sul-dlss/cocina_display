@@ -10,7 +10,7 @@ module CocinaDisplay
       # @return [Array<String>]
       # @example ["34°03′08″N 118°14′37″W"]
       def coordinates
-        coordinate_subjects.map(&:display_str).compact.uniq
+        coordinate_subjects.map(&:to_s).compact.uniq
       end
 
       # All valid coordinate data formatted for indexing into a Solr RPT field.

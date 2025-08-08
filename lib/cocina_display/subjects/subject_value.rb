@@ -39,7 +39,7 @@ module CocinaDisplay
       # The display string for the subject value.
       # Subclasses should override this method to provide specific formatting.
       # @return [String]
-      def display_str
+      def to_s
         cocina["value"]
       end
     end
@@ -57,9 +57,9 @@ module CocinaDisplay
 
       # Use the contributor name formatting rules for display.
       # @return [String] The formatted name string, including life dates
-      # @see CocinaDisplay::Contributor::Name#display_str
-      def display_str
-        @name.display_str(with_date: true)
+      # @see CocinaDisplay::Contributor::Name#to_s
+      def to_s
+        name.to_s(with_date: true)
       end
     end
 
@@ -69,7 +69,7 @@ module CocinaDisplay
       # @see CocinaDisplay::TitleBuilder.build
       # @note Unclear how often structured title subjects occur "in the wild".
       # @return [String]
-      def display_str
+      def to_s
         TitleBuilder.build([cocina])
       end
     end
@@ -84,7 +84,7 @@ module CocinaDisplay
       end
 
       # @return [String] The formatted date/time string for display
-      def display_str
+      def to_s
         date.qualified_value
       end
     end
@@ -122,7 +122,7 @@ module CocinaDisplay
       # The normalized DMS string for the coordinates.
       # Falls back to the raw value if parsing fails.
       # @return [String, nil]
-      def display_str
+      def to_s
         coordinates&.to_s || super
       end
     end

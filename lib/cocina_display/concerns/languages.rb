@@ -13,7 +13,7 @@ module CocinaDisplay
       # Names of languages associated with the object, if recognized by Searchworks.
       # @return [Array<String>]
       def searchworks_language_names
-        languages.filter_map { |lang| lang.display_str if lang.searchworks_language? }.compact_blank.uniq
+        languages.filter_map { |lang| lang.to_s if lang.searchworks_language? }.compact_blank.uniq
       end
     end
   end

@@ -62,8 +62,8 @@ module CocinaDisplay
       # @param ignore_qualified [Boolean] Reject qualified dates (e.g. approximate)
       # @return [String, nil]
       # @example Year range
-      #  CocinaRecord.fetch('bb099mt5053').pub_year_display_str #=> "1932 - 2012"
-      def pub_year_display_str(ignore_qualified: false)
+      #  CocinaRecord.fetch('bb099mt5053').pub_year_str #=> "1932 - 2012"
+      def pub_year_str(ignore_qualified: false)
         date = pub_date(ignore_qualified: ignore_qualified)
         return unless date
 
@@ -72,18 +72,18 @@ module CocinaDisplay
 
       # String for displaying the imprint statement(s).
       # @return [String, nil]
-      # @see CocinaDisplay::Imprint#display_str
+      # @see CocinaDisplay::Imprint#to_s
       # @example
-      #   CocinaRecord.fetch('bt553vr2845').imprint_display_str #=> "New York : Meridian Book, 1993, c1967"
-      def imprint_display_str
-        imprint_events.map(&:display_str).compact_blank.join("; ")
+      #   CocinaRecord.fetch('bt553vr2845').imprint_str #=> "New York : Meridian Book, 1993, c1967"
+      def imprint_str
+        imprint_events.map(&:to_s).compact_blank.join("; ")
       end
 
       # List of places of publication as strings.
       # Considers locations for all publication, creation, and capture events.
       # @return [Array<String>]
       def publication_places
-        publication_events.flat_map { |event| event.locations.map(&:display_str) }
+        publication_events.flat_map { |event| event.locations.map(&:to_s) }
       end
 
       # All events associated with the object.
