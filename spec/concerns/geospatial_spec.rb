@@ -331,6 +331,29 @@ RSpec.describe CocinaDisplay::CocinaRecord do
         end
       end
 
+      # Arguably bad data, but it is possible to parse correctly as-is.
+      context "with DMS coordinates and scale from MARC 034" do
+        # druid:vd002bm9939
+        let(:coordinates) { "$b3100000W 120°00′00″--W 114°00′00″/N 042°00′00″--N 036°00′00″" }
+
+        it "parses and formats correctly" do
+          is_expected.to eq("120°00′00″W -- 114°00′00″W / 42°00′00″N -- 36°00′00″N")
+        end
+      end
+
+      # NOTE: this is a pathological case where the $b scale info got turned into
+      # a fake DMS coordinate and the real coordinate is left at the end.
+      # There are potentially hundreds of these, but we're going to remediate them
+      # instead of attempting to be smart about the parsing.
+      context "with a poorly parsed MARC 034" do
+        # druid:sw279br4627
+        let(:coordinates) { "b 164°18′36″--W 047°40′00″/W 031°40′00″--N 066°00′00″$gN0590800" }
+
+        it "returns the original string" do
+          is_expected.to eq("b 164°18′36″--W 047°40′00″/W 031°40′00″--N 066°00′00″$gN0590800")
+        end
+      end
+
       context "with a single point in decimal degrees" do
         # druid:sb789ym1480
         let(:coordinates) { "41.891797, 12.486419" }
