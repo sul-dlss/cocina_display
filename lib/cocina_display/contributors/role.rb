@@ -17,7 +17,7 @@ module CocinaDisplay
       # The name of the role.
       # Translates the MARC relator code if no value was present.
       # @return [String, nil]
-      def display_str
+      def to_s
         cocina["value"] || (Vocabularies::MARC_RELATOR[code] if marc_relator?)
       end
 
@@ -30,13 +30,13 @@ module CocinaDisplay
       # Does this role indicate the contributor is an author?
       # @return [Boolean]
       def author?
-        display_str =~ /^(author|creator)/i
+        to_s =~ /^(author|creator)/i
       end
 
       # Does this role indicate the contributor is a publisher?
       # @return [Boolean]
       def publisher?
-        display_str =~ /^publisher/i
+        to_s =~ /^publisher/i
       end
 
       private

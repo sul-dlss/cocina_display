@@ -62,8 +62,8 @@ module CocinaDisplay
       def contributor_names_by_role(with_date: false)
         contributors.each_with_object({}) do |contributor, hash|
           contributor.roles.each do |role|
-            hash[role.display_str] ||= []
-            hash[role.display_str] << contributor.display_name(with_date: with_date)
+            hash[role.to_s] ||= []
+            hash[role.to_s] << contributor.display_name(with_date: with_date)
           end
         end
       end

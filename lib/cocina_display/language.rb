@@ -14,7 +14,7 @@ module CocinaDisplay
 
     # The language name for display.
     # @return [String, nil]
-    def display_str
+    def to_s
       cocina["value"] || decoded_value
     end
 
@@ -34,7 +34,7 @@ module CocinaDisplay
     # @see CocinaDisplay::Vocabularies::SEARCHWORKS_LANGUAGES
     # @return [Boolean]
     def searchworks_language?
-      Vocabularies::SEARCHWORKS_LANGUAGES.value?(display_str)
+      Vocabularies::SEARCHWORKS_LANGUAGES.value?(to_s)
     end
 
     # True if the language has a code sourced from the ISO 639 vocabulary.

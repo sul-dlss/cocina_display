@@ -15,7 +15,7 @@ module CocinaDisplay
       # The name of the location.
       # Decodes a MARC country code if present and no value was present.
       # @return [String, nil]
-      def display_str
+      def to_s
         cocina["value"] || decoded_country
       end
 

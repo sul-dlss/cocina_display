@@ -8,37 +8,37 @@ module CocinaDisplay
       # All unique subject values that are topics.
       # @return [Array<String>]
       def subject_topics
-        subject_values.filter { |s| s.type == "topic" }.map(&:display_str).uniq
+        subject_values.filter { |s| s.type == "topic" }.map(&:to_s).uniq
       end
 
       # All unique subject values that are genres.
       # @return [Array<String>]
       def subject_genres
-        subject_values.filter { |s| s.type == "genre" }.map(&:display_str).uniq
+        subject_values.filter { |s| s.type == "genre" }.map(&:to_s).uniq
       end
 
       # All unique subject values that are titles.
       # @return [Array<String>]
       def subject_titles
-        subject_values.filter { |s| s.type == "title" }.map(&:display_str).uniq
+        subject_values.filter { |s| s.type == "title" }.map(&:to_s).uniq
       end
 
       # All unique subject values that are date/time info.
       # @return [Array<String>]
       def subject_temporal
-        subject_values.filter { |s| s.type == "time" }.map(&:display_str).uniq
+        subject_values.filter { |s| s.type == "time" }.map(&:to_s).uniq
       end
 
       # All unique subject values that are occupations.
       # @return [Array<String>]
       def subject_occupations
-        subject_values.filter { |s| s.type == "occupation" }.map(&:display_str).uniq
+        subject_values.filter { |s| s.type == "occupation" }.map(&:to_s).uniq
       end
 
       # All unique subject values that are named geographic places.
       # @return [Array<String>]
       def subject_places
-        place_subject_values.map(&:display_str).uniq
+        place_subject_values.map(&:to_s).uniq
       end
 
       # All unique subject values that are names of entities.
@@ -46,7 +46,7 @@ module CocinaDisplay
       # @see CocinaDisplay::NameSubjectValue
       # @return [Array<String>]
       def subject_names
-        subject_values.filter { |s| s.is_a? CocinaDisplay::Subjects::NameSubjectValue }.map(&:display_str).uniq
+        subject_values.filter { |s| s.is_a? CocinaDisplay::Subjects::NameSubjectValue }.map(&:to_s).uniq
       end
 
       # Combination of all subject values for searching.
@@ -84,10 +84,10 @@ module CocinaDisplay
       end
 
       # Combination of all subjects with nested values concatenated for display.
-      # @see Subject#display_str
+      # @see Subject#to_s
       # @return [Array<String>]
       def subject_all_display
-        subjects.map(&:display_str).uniq
+        subjects.map(&:to_s).uniq
       end
 
       private

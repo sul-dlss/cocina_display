@@ -22,10 +22,10 @@ module CocinaDisplay
       # @param with_date [Boolean] Include life dates, if present
       # @return [String]
       # @example no dates
-      #   name.display_name # => "King, Martin Luther, Jr."
+      #   name.to_s # => "King, Martin Luther, Jr."
       # @example with dates
-      #   name.display_name(with_date: true) # => "King, Martin Luther, Jr., 1929-1968"
-      def display_str(with_date: false)
+      #   name.to_s(with_date: true) # => "King, Martin Luther, Jr., 1929-1968"
+      def to_s(with_date: false)
         if cocina["value"].present?
           cocina["value"]
         elsif display_name_str.present?

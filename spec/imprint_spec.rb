@@ -4,7 +4,7 @@ require "spec_helper"
 require_relative "../lib/cocina_display/events/imprint"
 
 RSpec.describe CocinaDisplay::Events::Imprint do
-  subject { described_class.new(cocina).display_str }
+  subject { described_class.new(cocina).to_s }
 
   describe "date processing" do
     context "with values marked as unparsable" do
