@@ -258,7 +258,7 @@ module CocinaDisplay
         # @return [String]
         def normalize_coord(coord_str)
           matches = coord_str.match(self::POINT_PATTERN)
-          return if matches.size == 0
+          return unless matches
 
           hem = matches[:hem]
           deg = matches[:deg].to_i
@@ -277,7 +277,7 @@ module CocinaDisplay
       # @return [Point, nil]
       def self.parse(input_str)
         matches = input_str.match(self::PATTERN)
-        return if matches.size == 0
+        return unless matches
 
         lat = normalize_coord(matches[:lat])
         lng = normalize_coord(matches[:lng])
@@ -293,7 +293,7 @@ module CocinaDisplay
       # @return [BoundingBox, nil]
       def self.parse(input_str)
         matches = input_str.match(self::PATTERN)
-        return if matches.size == 0
+        return unless matches
 
         min_lng = normalize_coord(matches[:min_lng])
         max_lng = normalize_coord(matches[:max_lng])
