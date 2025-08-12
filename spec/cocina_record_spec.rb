@@ -60,15 +60,19 @@ RSpec.describe CocinaDisplay::CocinaRecord do
     end
   end
 
-  describe "#files" do
-    let(:druid) { "bx658jh7339" }
+  describe "#related_resources" do
+    let(:druid) { "vk217bh4910" }
 
-    it "returns the files" do
-      expect(subject.files.to_a.first).to include(
-        "filename" => "T0000001.jp2",
-        "size" => 824964,
-        "version" => 1
-      )
+    it "returns all related resources" do
+      expect(subject.related_resources.size).to eq(10)
+    end
+
+    it "knows the type of the relationship" do
+      expect(subject.related_resources.first.type).to eq "succeeded by"
+    end
+
+    it "supports calling CocinaRecord methods on the related resources" do
+      expect(subject.related_resources.first.doi).to eq "10.25740/sb4q-wj06"
     end
   end
 end
