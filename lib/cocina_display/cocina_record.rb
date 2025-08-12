@@ -16,6 +16,7 @@ require_relative "concerns/subjects"
 require_relative "concerns/forms"
 require_relative "concerns/languages"
 require_relative "concerns/geospatial"
+require_relative "concerns/structural"
 require_relative "utils"
 
 module CocinaDisplay
@@ -30,6 +31,7 @@ module CocinaDisplay
     include CocinaDisplay::Concerns::Forms
     include CocinaDisplay::Concerns::Languages
     include CocinaDisplay::Concerns::Geospatial
+    include CocinaDisplay::Concerns::Structural
 
     # Fetch a public Cocina document from PURL and create a CocinaRecord.
     # @note This is intended to be used in development or testing only.
@@ -107,18 +109,6 @@ module CocinaDisplay
     # @return [Boolean]
     def collection?
       content_type == "collection"
-    end
-
-    # Traverse nested FileSets and return an enumerator over their files.
-    # Each file is a +Hash+.
-    # @return [Enumerator] Enumerator over file hashes
-    # @example
-    #  record.files.each do |file|
-    #   puts file["filename"] #=> "image1.jpg"
-    #   puts file["size"] #=> 123456
-    #  end
-    def files
-      path("$.structural.contains.*.structural.contains[*]")
     end
   end
 end
