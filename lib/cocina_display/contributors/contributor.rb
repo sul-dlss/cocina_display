@@ -63,6 +63,12 @@ module CocinaDisplay
         roles.any?(&:publisher?)
       end
 
+      # Does this contributor have a role that indicates they are a funder?
+      # @return [Boolean]
+      def funder?
+        roles.any?(&:funder?)
+      end
+
       # Does this contributor have any roles defined?
       # @return [Boolean]
       def role?
@@ -75,6 +81,20 @@ module CocinaDisplay
       # @return [String]
       def display_name(with_date: false)
         names.map { |name| name.to_s(with_date: with_date) }.first
+      end
+
+      # The full forename for the contributor from the first available name.
+      # @see Contributor::Name::forename_str
+      # @return [String, nil]
+      def forename
+        names.map(&:forename_str).first.presence
+      end
+
+      # The full surname for the contributor from the first available name.
+      # @see Contributor::Name::surname_str
+      # @return [String, nil]
+      def surname
+        names.map(&:surname_str).first.presence
       end
 
       # A string representation of the contributor's roles, formatted for display.

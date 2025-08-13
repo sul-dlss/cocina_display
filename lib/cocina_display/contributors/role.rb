@@ -30,13 +30,19 @@ module CocinaDisplay
       # Does this role indicate the contributor is an author?
       # @return [Boolean]
       def author?
-        to_s =~ /^(author|creator)/i
+        to_s =~ /^(author|creator|primary investigator)/i
       end
 
       # Does this role indicate the contributor is a publisher?
       # @return [Boolean]
       def publisher?
         to_s =~ /^publisher/i
+      end
+
+      # Does this role indicate the contributor is a funder?
+      # @return [Boolean]
+      def funder?
+        to_s =~ /^funder/i
       end
 
       private

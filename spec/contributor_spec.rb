@@ -42,6 +42,18 @@ RSpec.describe CocinaDisplay::Contributors::Contributor do
       end
     end
 
+    context "with the primary investigator role" do
+      let(:cocina) do
+        {
+          "role" => [{"value" => "primary investigator"}]
+        }
+      end
+
+      it "returns true" do
+        expect(subject.author?).to be true
+      end
+    end
+
     context "without the author or creator role" do
       let(:cocina) do
         {
@@ -51,6 +63,56 @@ RSpec.describe CocinaDisplay::Contributors::Contributor do
 
       it "returns false" do
         expect(subject.author?).to be false
+      end
+    end
+  end
+
+  describe "#funder?" do
+    context "with the funder role" do
+      let(:cocina) do
+        {
+          "role" => [{"value" => "funder"}]
+        }
+      end
+
+      it "returns true" do
+        expect(subject.funder?).to be true
+      end
+    end
+
+    context "with multiple roles including funder" do
+      let(:cocina) do
+        {
+          "role" => [{"value" => "funder"}, {"value" => "editor"}]
+        }
+      end
+
+      it "returns true" do
+        expect(subject.funder?).to be true
+      end
+    end
+
+    context "with the author role" do
+      let(:cocina) do
+        {
+          "role" => [{"value" => "author"}]
+        }
+      end
+
+      it "returns false" do
+        expect(subject.funder?).to be false
+      end
+    end
+
+    context "without the funder role" do
+      let(:cocina) do
+        {
+          "role" => [{"value" => "editor"}]
+        }
+      end
+
+      it "returns false" do
+        expect(subject.funder?).to be false
       end
     end
   end
@@ -389,6 +451,78 @@ RSpec.describe CocinaDisplay::Contributors::Contributor do
       it "uses the display version" do
         is_expected.to eq("Love, Brian J. (Law teacher), Stanford Law School graduate, J.D. (2007)")
       end
+    end
+  end
+
+  describe "#forename" do
+    subject { described_class.new(cocina).forename }
+
+    context "with no explicitly marked forenames" do
+      let(:cocina) do
+        {
+          "type" => "person",
+          "name" => [
+            {"value" => "John Doe"}
+          ]
+        }
+      end
+
+      it { is_expected.to be_nil }
+    end
+
+    context "with explicitly marked forenames" do
+      let(:cocina) do
+        {
+          "type" => "person",
+          "name" => [
+            {"structuredValue" => [
+              {"value" => "Rawnald", "type" => "forename"},
+              {"value" => "Gregory", "type" => "forename"},
+              {"value" => "Erickson", "type" => "surname"},
+              {"value" => "II", "type" => "ordinal"},
+              {"value" => "2008", "type" => "life dates"}
+            ]}
+          ]
+        }
+      end
+
+      it { is_expected.to eq("Rawnald Gregory II") }
+    end
+  end
+
+  describe "#surname" do
+    subject { described_class.new(cocina).surname }
+
+    context "with no explicitly marked surnames" do
+      let(:cocina) do
+        {
+          "type" => "person",
+          "name" => [
+            {"value" => "John Doe"}
+          ]
+        }
+      end
+
+      it { is_expected.to be_nil }
+    end
+
+    context "with explicitly marked surnames" do
+      let(:cocina) do
+        {
+          "type" => "person",
+          "name" => [
+            {"structuredValue" => [
+              {"value" => "Rawnald", "type" => "forename"},
+              {"value" => "Gregory", "type" => "forename"},
+              {"value" => "Erickson", "type" => "surname"},
+              {"value" => "II", "type" => "ordinal"},
+              {"value" => "2008", "type" => "life dates"}
+            ]}
+          ]
+        }
+      end
+
+      it { is_expected.to eq("Erickson") }
     end
   end
 end
