@@ -110,5 +110,28 @@ module CocinaDisplay
     def collection?
       content_type == "collection"
     end
+
+    # Resources related to the object.
+    # @return [Array<CocinaDisplay::RelatedResource>]
+    def related_resources
+      @related_resources ||= path("$.description.relatedResource[*]").map { |res| RelatedResource.new(res) }
+    end
+  end
+
+  # A resource related to the record; behaves like a CocinaRecord.
+  # @note Related resources have no structural metadata.
+  class RelatedResource < CocinaRecord
+    # Description of the relation to the source record.
+    # @return [String]
+    # @example "is part of"
+    # @see https://github.com/sul-dlss/cocina-models/blob/main/docs/description_types.md#relatedresource-types
+    attr_reader :type
+
+    # Restructure the hash so that everything is under "description" key, since
+    # it's all descriptive metadata. This makes CocinaRecord methods work.
+    def initialize(cocina_doc)
+      @type = cocina_doc["type"]
+      @cocina_doc = {"description" => cocina_doc.except("type")}
+    end
   end
 end
