@@ -83,6 +83,20 @@ module CocinaDisplay
         names.map { |name| name.to_s(with_date: with_date) }.first
       end
 
+      # The full forename for the contributor from the first available name.
+      # @see Contributor::Name::forename_str
+      # @return [String, nil]
+      def forename
+        names.map(&:forename_str).first.presence
+      end
+
+      # The full surname for the contributor from the first available name.
+      # @see Contributor::Name::surname_str
+      # @return [String, nil]
+      def surname
+        names.map(&:surname_str).first.presence
+      end
+
       # A string representation of the contributor's roles, formatted for display.
       # If there are multiple roles, they are joined with commas.
       # @return [String]

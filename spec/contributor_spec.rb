@@ -453,4 +453,76 @@ RSpec.describe CocinaDisplay::Contributors::Contributor do
       end
     end
   end
+
+  describe "#forename" do
+    subject { described_class.new(cocina).forename }
+
+    context "with no explicitly marked forenames" do
+      let(:cocina) do
+        {
+          "type" => "person",
+          "name" => [
+            {"value" => "John Doe"}
+          ]
+        }
+      end
+
+      it { is_expected.to be_nil }
+    end
+
+    context "with explicitly marked forenames" do
+      let(:cocina) do
+        {
+          "type" => "person",
+          "name" => [
+            {"structuredValue" => [
+              {"value" => "Rawnald", "type" => "forename"},
+              {"value" => "Gregory", "type" => "forename"},
+              {"value" => "Erickson", "type" => "surname"},
+              {"value" => "II", "type" => "ordinal"},
+              {"value" => "2008", "type" => "life dates"}
+            ]}
+          ]
+        }
+      end
+
+      it { is_expected.to eq("Rawnald Gregory II") }
+    end
+  end
+
+  describe "#surname" do
+    subject { described_class.new(cocina).surname }
+
+    context "with no explicitly marked surnames" do
+      let(:cocina) do
+        {
+          "type" => "person",
+          "name" => [
+            {"value" => "John Doe"}
+          ]
+        }
+      end
+
+      it { is_expected.to be_nil }
+    end
+
+    context "with explicitly marked surnames" do
+      let(:cocina) do
+        {
+          "type" => "person",
+          "name" => [
+            {"structuredValue" => [
+              {"value" => "Rawnald", "type" => "forename"},
+              {"value" => "Gregory", "type" => "forename"},
+              {"value" => "Erickson", "type" => "surname"},
+              {"value" => "II", "type" => "ordinal"},
+              {"value" => "2008", "type" => "life dates"}
+            ]}
+          ]
+        }
+      end
+
+      it { is_expected.to eq("Erickson") }
+    end
+  end
 end

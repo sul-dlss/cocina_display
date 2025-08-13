@@ -37,8 +37,6 @@ module CocinaDisplay
         end
       end
 
-      private
-
       # The full name as a string, combining all name components and terms of address.
       # @return [String]
       def full_name_str
@@ -56,32 +54,34 @@ module CocinaDisplay
       # Otherwise, fall back to any names explicitly marked as "name" or untyped.
       # @return [Array<String>]
       def name_components
-        [surname_str, forename_ordinal_str].compact_blank.presence || Array(name_values["name"])
+        [surname_str, forename_str].compact_blank.presence || Array(name_values["name"])
       end
 
-      # Flatten all forenames and ordinals into a single string.
-      # @return [String]
-      def forename_ordinal_str
-        Utils.compact_and_join(Array(name_values["forename"]) + Array(name_values["ordinal"]), delimiter: " ")
-      end
-
-      # Flatten all terms of address into a single string.
+      # Flatten all terms of address into a comma-delimited string.
       # @return [String]
       def terms_of_address_str
         Utils.compact_and_join(Array(name_values["term of address"]), delimiter: ", ")
       end
 
-      # Flatten all surnames into a single string.
+      # Flatten all forename values and ordinals into a whitespace-delimited string.
+      # @return [String]
+      def forename_str
+        Utils.compact_and_join(Array(name_values["forename"]) + Array(name_values["ordinal"]), delimiter: " ")
+      end
+
+      # Flatten all surname values into a whitespace-delimited string.
       # @return [String]
       def surname_str
         Utils.compact_and_join(Array(name_values["surname"]), delimiter: " ")
       end
 
-      # Flatten all life and activity dates into a single string.
+      # Flatten all life and activity dates into a comma-delimited string.
       # @return [String]
       def dates_str
         Utils.compact_and_join(Array(name_values["life dates"]) + Array(name_values["activity dates"]), delimiter: ", ")
       end
+
+      private
 
       # A hash mapping destructured name types to their values.
       # Name values with no type are grouped under "name".
