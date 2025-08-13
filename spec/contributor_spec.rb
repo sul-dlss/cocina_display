@@ -42,6 +42,18 @@ RSpec.describe CocinaDisplay::Contributors::Contributor do
       end
     end
 
+    context "with the primary investigator role" do
+      let(:cocina) do
+        {
+          "role" => [{"value" => "primary investigator"}]
+        }
+      end
+
+      it "returns true" do
+        expect(subject.author?).to be true
+      end
+    end
+
     context "without the author or creator role" do
       let(:cocina) do
         {
