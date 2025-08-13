@@ -39,6 +39,12 @@ module CocinaDisplay
         to_s =~ /^publisher/i
       end
 
+      # Does this role indicate the contributor is a funder?
+      # @return [Boolean]
+      def funder?
+        to_s =~ /^funder/i
+      end
+
       private
 
       # Does this role have a MARC relator code?

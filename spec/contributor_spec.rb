@@ -67,6 +67,56 @@ RSpec.describe CocinaDisplay::Contributors::Contributor do
     end
   end
 
+  describe "#funder?" do
+    context "with the funder role" do
+      let(:cocina) do
+        {
+          "role" => [{"value" => "funder"}]
+        }
+      end
+
+      it "returns true" do
+        expect(subject.funder?).to be true
+      end
+    end
+
+    context "with multiple roles including funder" do
+      let(:cocina) do
+        {
+          "role" => [{"value" => "funder"}, {"value" => "editor"}]
+        }
+      end
+
+      it "returns true" do
+        expect(subject.funder?).to be true
+      end
+    end
+
+    context "with the author role" do
+      let(:cocina) do
+        {
+          "role" => [{"value" => "author"}]
+        }
+      end
+
+      it "returns false" do
+        expect(subject.funder?).to be false
+      end
+    end
+
+    context "without the funder role" do
+      let(:cocina) do
+        {
+          "role" => [{"value" => "editor"}]
+        }
+      end
+
+      it "returns false" do
+        expect(subject.funder?).to be false
+      end
+    end
+  end
+
   describe "#person?" do
     context "with a person" do
       let(:cocina) do

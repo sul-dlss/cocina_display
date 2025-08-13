@@ -63,6 +63,12 @@ module CocinaDisplay
         roles.any?(&:publisher?)
       end
 
+      # Does this contributor have a role that indicates they are a funder?
+      # @return [Boolean]
+      def funder?
+        roles.any?(&:funder?)
+      end
+
       # Does this contributor have any roles defined?
       # @return [Boolean]
       def role?
