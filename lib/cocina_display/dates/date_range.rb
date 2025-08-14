@@ -13,7 +13,16 @@ module CocinaDisplay
       def self.from_cocina(cocina)
         return unless cocina["structuredValue"].present?
 
-        dates = cocina["structuredValue"].map { |sv| Date.from_cocina(sv) }
+        # Create the individual dates; if no encoding/type declared give them
+        # top-level encoding/type
+        dates = cocina["structuredValue"].map do |sv|
+          date = Date.from_cocina(sv)
+          date.encoding ||= cocina.dig("encoding", "code")
+          date.type ||= cocina["type"]
+          date
+        end
+
+        # Ensure we have at least a start or a stop
         start = dates.find(&:start?)
         stop = dates.find(&:end?)
         return unless start || stop

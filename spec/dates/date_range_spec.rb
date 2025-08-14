@@ -20,6 +20,23 @@ RSpec.describe CocinaDisplay::Dates::DateRange do
     it "is also possible using the Date.from_cocina method" do
       expect(CocinaDisplay::Dates::Date.from_cocina(cocina).value).to eq(date_range.value)
     end
+
+    context "with a top-level type and no start/end types" do
+      let(:cocina) do
+        {
+          "structuredValue" => [
+            {"value" => "2023-01-01", "type" => "start"},
+            {"value" => "2023-12-31", "type" => "end"}
+          ],
+          "type" => "publication"
+        }
+      end
+
+      it "sets the type on the start and end" do
+        expect(date_range.start.type).to eq("publication")
+        expect(date_range.stop.type).to eq("publication")
+      end
+    end
   end
 
   describe "#sort_key" do
@@ -99,6 +116,11 @@ RSpec.describe CocinaDisplay::Dates::DateRange do
 
       it "returns the top-level encoding" do
         expect(date_range.encoding).to eq("edtf")
+      end
+
+      it "start and end dates also receive the encoding" do
+        expect(date_range.start.encoding).to eq("edtf")
+        expect(date_range.stop.encoding).to eq("edtf")
       end
     end
   end

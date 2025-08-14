@@ -37,6 +37,7 @@ module CocinaDisplay
           # Try to match against known date formats using their regexes
           # Order matters here; more specific formats should be checked first
           date_class ||= [
+            UndeclaredEdtfFormat,
             MMDDYYYYFormat,
             MMDDYYFormat,
             YearRangeFormat,
@@ -86,10 +87,16 @@ module CocinaDisplay
       # @return [String, nil]
       attr_accessor :type
 
+      # The encoding name of this date, if specified.
+      # @example "iso8601"
+      # @return [String, nil]
+      attr_accessor :encoding
+
       def initialize(cocina)
         @cocina = cocina
         @date = self.class.parse_date(cocina["value"])
         @type = cocina["type"] unless ["start", "end"].include?(cocina["type"])
+        @encoding = cocina.dig("encoding", "code")
       end
 
       # Compare this date to another {Date} or {DateRange} using its {sort_key}.
@@ -113,14 +120,6 @@ module CocinaDisplay
       # @return [Boolean]
       def qualified?
         qualifier.present?
-      end
-
-      # The encoding of this date, if specified.
-      # @example
-      #   date.encoding #=> "iso8601"
-      # @return [String, nil]
-      def encoding
-        cocina.dig("encoding", "code")
       end
 
       # Was an encoding declared for this date?
@@ -513,6 +512,12 @@ module CocinaDisplay
       def self.parse_date(value)
         nil
       end
+    end
+
+    # Extractor for dates that already match EDTF, they just didn't declare it
+    # Matches YYYY-MM-DD, YYYY-MM and YYYY; no further normalization needed
+    class UndeclaredEdtfFormat < ExtractorDateFormat
+      REGEX = /^(?<year>\d{4})(?:-(?<month>\d{2}))?(?:-(?<day>\d{2}))?$/
     end
 
     # Extractor for MM/DD/YYYY and MM/DD/YYY-formatted dates
