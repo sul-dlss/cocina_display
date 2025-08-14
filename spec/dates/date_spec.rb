@@ -500,6 +500,22 @@ RSpec.describe CocinaDisplay::Dates::Date do
     end
   end
 
+  describe "Well-formed dates with no declared encoding" do
+    {
+      "2019-08-10" => Date.parse("2019-08-10")..Date.parse("2019-08-10"),
+      "2019-08" => Date.parse("2019-08-01")..Date.parse("2019-08-31"),
+      "2019" => Date.parse("2019-01-01")..Date.parse("2019-12-31")
+    }.each do |data, expected|
+      describe "with #{data}" do
+        let(:cocina) { {"value" => data} }
+
+        it "has the range value #{expected}" do
+          expect(date.as_range.to_s).to eq expected.to_s
+        end
+      end
+    end
+  end
+
   describe "Pulling out 4-digit years from unspecified dates" do
     {
       "Minguo 19 [1930]" => Date.parse("1930-01-01")..Date.parse("1930-12-31"),
