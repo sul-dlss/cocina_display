@@ -3,19 +3,22 @@ module CocinaDisplay
     # Methods for extracting and formatting identifiers from Cocina records.
     module Identifiers
       # The DRUID for the object, with the +druid:+ prefix.
-      # @return [String]
+      # @note A {RelatedResource} may not have a DRUID.
+      # @return [String, nil]
       # @example
       #   record.druid #=> "druid:bb099mt5053"
       def druid
-        cocina_doc["externalIdentifier"]
+        cocina_doc["externalIdentifier"] ||
+          cocina_doc.dig("description", "purl")&.split("/")&.last
       end
 
       # The DRUID for the object, without the +druid:+ prefix.
-      # @return [String]
+      # @note A {RelatedResource} may not have a DRUID.
+      # @return [String, nil]
       # @example
       #   record.bare_druid #=> "bb099mt5053"
       def bare_druid
-        druid.delete_prefix("druid:")
+        druid&.delete_prefix("druid:")
       end
 
       # The DOI for the object, if there is one – just the identifier part.
@@ -59,7 +62,7 @@ module CocinaDisplay
       # @note This doesn't imply the object is available in Searchworks at this ID.
       # @see folio_hrid
       # @see bare_druid
-      # @return [String]
+      # @return [String, nil]
       def searchworks_id
         folio_hrid || bare_druid
       end

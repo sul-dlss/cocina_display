@@ -90,12 +90,13 @@ module CocinaDisplay
     end
 
     # SDR content type of the object.
-    # @return [String]
+    # @note {RelatedResource}s may not have a content type.
+    # @return [String, nil]
     # @see https://github.com/sul-dlss/cocina-models/blob/main/openapi.yml#L532-L546
     # @example
     #  record.content_type #=> "image"
     def content_type
-      cocina_doc["type"].split("/").last
+      cocina_doc["type"]&.split("/")&.last
     end
 
     # Primary processing label for the object.
@@ -128,7 +129,7 @@ module CocinaDisplay
     attr_reader :type
 
     # Restructure the hash so that everything is under "description" key, since
-    # it's all descriptive metadata. This makes CocinaRecord methods work.
+    # it's all descriptive metadata. This makes most CocinaRecord methods work.
     def initialize(cocina_doc)
       @type = cocina_doc["type"]
       @cocina_doc = {"description" => cocina_doc.except("type")}
