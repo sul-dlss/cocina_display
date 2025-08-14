@@ -99,6 +99,8 @@ module CocinaDisplay
     # this may be useful for boosting and exact matching for search results
     # @return [Array<String>] the main title value(s) for Solr - can be array due to parallel titles
     def main_title(titles)
+      return [] if titles.empty?
+
       cocina_title = primary_title(titles) || untyped_title(titles)
       cocina_title = other_title(titles) if cocina_title.blank?
 
