@@ -200,6 +200,24 @@ RSpec.describe CocinaDisplay::CocinaRecord do
         it { is_expected.to be_empty }
       end
 
+      context "with data where points are reversed" do
+        let(:subjects) do
+          [
+            {
+              "type" => "bounding box coordinates",
+              "structuredValue" => [
+                {"value" => "36.740468", "type" => "north"},
+                {"value" => "-121.24658", "type" => "east"},
+                {"value" => "37.633575", "type" => "south"},
+                {"value" => "-120.051476", "type" => "west"}
+              ]
+            }
+          ]
+        end
+
+        it { is_expected.to be_empty }
+      end
+
       context "with complete and valid data" do
         subject { cocina_record.coordinates.first }
 
@@ -425,7 +443,7 @@ RSpec.describe CocinaDisplay::CocinaRecord do
       end
 
       it "returns the box in WKT format" do
-        expect(subject[1]).to eq("POLYGON((-121.246580 37.633575, -120.051476 37.633575, -120.051476 36.740468, -121.246580 36.740468, -121.246580 37.633575))")
+        expect(subject[1]).to eq("POLYGON((-121.246580 36.740468, -120.051476 36.740468, -120.051476 37.633575, -121.246580 37.633575, -121.246580 36.740468))")
       end
     end
   end
@@ -456,7 +474,7 @@ RSpec.describe CocinaDisplay::CocinaRecord do
       subject { cocina_record.coordinates_as_envelope.first }
 
       it "returns only the box in Solr envelope format (not the point)" do
-        is_expected.to eq("ENVELOPE(-121.246580, -120.051476, 36.740468, 37.633575)")
+        is_expected.to eq("ENVELOPE(-121.246580, -120.051476, 37.633575, 36.740468)")
       end
     end
   end
@@ -491,7 +509,7 @@ RSpec.describe CocinaDisplay::CocinaRecord do
       end
 
       it "returns the box center in Solr LatLon format" do
-        expect(subject[1]).to eq("37.188545,-120.645510")
+        expect(subject[1]).to eq("37.188545,-120.652546")
       end
     end
   end
