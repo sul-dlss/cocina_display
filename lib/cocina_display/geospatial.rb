@@ -150,11 +150,14 @@ module CocinaDisplay
       # @param [String] south southern latitude
       # @return [BoundingBox, nil] nil if parsing fails
       def self.from_coords(west:, east:, north:, south:)
-        min_point = Geo::Coord.parse("#{north}, #{west}")
-        max_point = Geo::Coord.parse("#{south}, #{east}")
+        min_point = Geo::Coord.parse("#{south}, #{west}")
+        max_point = Geo::Coord.parse("#{north}, #{east}")
 
         # Must be parsable
         return unless min_point && max_point
+
+        # Ensure min_point is southwest and max_point is northeast
+        return if min_point.lat > max_point.lat || min_point.lng > max_point.lng
 
         new(min_point: min_point, max_point: max_point)
       end
@@ -175,7 +178,7 @@ module CocinaDisplay
       def to_s
         min_lat, min_lng = format_point(min_point)
         max_lat, max_lng = format_point(max_point)
-        "#{min_lng} -- #{max_lng} / #{min_lat} -- #{max_lat}"
+        "#{min_lng} -- #{max_lng} / #{max_lat} -- #{min_lat}"
       end
 
       # Format using the Well-Known Text (WKT) representation.
@@ -300,7 +303,7 @@ module CocinaDisplay
         min_lat = normalize_coord(matches[:min_lat])
         max_lat = normalize_coord(matches[:max_lat])
 
-        BoundingBox.from_coords(west: min_lng, east: max_lng, north: min_lat, south: max_lat)
+        BoundingBox.from_coords(west: min_lng, east: max_lng, north: max_lat, south: min_lat)
       end
     end
 
@@ -321,28 +324,28 @@ module CocinaDisplay
     # @see https://www.oclc.org/bibformats/en/2xx/255.html#subfieldc
     class DMSBoundingBoxParser < BoundingBoxParser
       include DMSParser
-      PATTERN = /(?<min_lng>.+?)-+(?<max_lng>.+)\/(?<min_lat>.+?)-+(?<max_lat>.+)/
+      PATTERN = /(?<min_lng>.+?)-+(?<max_lng>.+)\/(?<max_lat>.+?)-+(?<min_lat>.+)/
     end
 
     # Format that pairs hemispheres with decimal degrees.
     # @example W 126.04--W 052.03/N 050.37--N 006.8
     class DecimalBoundingBoxParser < BoundingBoxParser
       include DecimalParser
-      PATTERN = /(?<min_lng>[0-9.EW]+?)-+(?<max_lng>[0-9.EW]+)\/(?<min_lat>[0-9.NS]+?)-+(?<max_lat>[0-9.NS]+)/
+      PATTERN = /(?<min_lng>[0-9.EW]+?)-+(?<max_lng>[0-9.EW]+)\/(?<max_lat>[0-9.NS]+?)-+(?<min_lat>[0-9.NS]+)/
     end
 
     # DMS-format data that appears to come from MARC 034 subfields.
     # @see https://www.oclc.org/bibformats/en/0xx/034.html
     # @example $dW0963700$eW0900700$fN0433000$gN040220
     class MarcDMSBoundingBoxParser < DMSBoundingBoxParser
-      PATTERN = /\$d(?<min_lng>[WENS].+)\$e(?<max_lng>[WENS].+)\$f(?<min_lat>[WENS].+)\$g(?<max_lat>[WENS].+)/
+      PATTERN = /\$d(?<min_lng>[WENS].+)\$e(?<max_lng>[WENS].+)\$f(?<max_lat>[WENS].+)\$g(?<min_lat>[WENS].+)/
     end
 
     # Decimal degree format data that appears to come from MARC 034 subfields.
     # @see https://www.oclc.org/bibformats/en/0xx/034.html
     # @example $d-112.0785250$e-111.6012719$f037.6516503$g036.8583209
     class MarcDecimalBoundingBoxParser < DecimalBoundingBoxParser
-      PATTERN = /\$d(?<min_lng>[0-9.-]+)\$e(?<max_lng>[0-9.-]+)\$f(?<min_lat>[0-9.-]+)\$g(?<max_lat>[0-9.-]+)/
+      PATTERN = /\$d(?<min_lng>[0-9.-]+)\$e(?<max_lng>[0-9.-]+)\$f(?<max_lat>[0-9.-]+)\$g(?<min_lat>[0-9.-]+)/
     end
   end
 end
