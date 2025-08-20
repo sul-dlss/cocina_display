@@ -376,6 +376,29 @@ RSpec.describe CocinaDisplay::CocinaRecord do
 
       it { is_expected.to be_empty }
     end
+
+    context "with contributors that have empty names" do
+      let(:contributors) do
+        [
+          {
+            "name" => [{}],
+            "role" => [{"value" => "author"}],
+            "type" => "person"
+          },
+          {
+            "name" => [{"value" => "John Smith"}],
+            "role" => [{"value" => "editor"}],
+            "type" => "person"
+          }
+        ]
+      end
+
+      it "returns only names with values" do
+        is_expected.to eq({
+          "editor" => ["John Smith"]
+        })
+      end
+    end
   end
 
   describe "#publisher_names" do

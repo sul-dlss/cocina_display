@@ -80,7 +80,7 @@ module CocinaDisplay
       # @param with_date [Boolean] Include life dates, if present
       # @return [String]
       def display_name(with_date: false)
-        names.map { |name| name.to_s(with_date: with_date) }.first
+        names.map { |name| name.to_s(with_date: with_date) }.compact_blank.first
       end
 
       # The full forename for the contributor from the first available name.

@@ -20,20 +20,20 @@ module CocinaDisplay
       # @param with_date [Boolean] Include life dates, if present
       # @return [Array<String>]
       def additional_contributor_names(with_date: false)
-        additional_contributors.map { |c| c.display_name(with_date: with_date) }
+        additional_contributors.map { |c| c.display_name(with_date: with_date) }.compact
       end
 
       # All names of publishers, formatted for display.
       # @return [Array<String>]
       def publisher_names
-        publisher_contributors.map(&:display_name)
+        publisher_contributors.map(&:display_name).compact
       end
 
-      # All names of authors who are people, formatted for display.
+      # All names of contributors who are people, formatted for display.
       # @param with_date [Boolean] Include life dates, if present
       # @return [Array<String>]
       def person_contributor_names(with_date: false)
-        contributors.filter(&:person?).map { |c| c.display_name(with_date: with_date) }
+        contributors.filter(&:person?).map { |c| c.display_name(with_date: with_date) }.compact
       end
 
       # All names of non-person contributors, formatted for display.
@@ -41,19 +41,19 @@ module CocinaDisplay
       # @return [Array<String>]
       # @see https://github.com/sul-dlss/cocina-models/blob/main/docs/description_types.md#contributor-types
       def impersonal_contributor_names
-        contributors.reject(&:person?).map(&:display_name)
+        contributors.reject(&:person?).map(&:display_name).compact
       end
 
       # All names of contributors that are organizations, formatted for display.
       # @return [Array<String>]
       def organization_contributor_names
-        contributors.filter(&:organization?).map(&:display_name)
+        contributors.filter(&:organization?).map(&:display_name).compact
       end
 
       # All names of contributors that are conferences, formatted for display.
       # @return [Array<String>]
       def conference_contributor_names
-        contributors.filter(&:conference?).map(&:display_name)
+        contributors.filter(&:conference?).map(&:display_name).compact
       end
 
       # A hash mapping role names to the names of contributors with that role.
@@ -61,9 +61,11 @@ module CocinaDisplay
       # @return [Hash<String, Array<String>>]
       def contributor_names_by_role(with_date: false)
         contributors.each_with_object({}) do |contributor, hash|
-          contributor.roles.each do |role|
-            hash[role.to_s] ||= []
-            hash[role.to_s] << contributor.display_name(with_date: with_date)
+          if (name = contributor.display_name(with_date: with_date)).present?
+            contributor.roles.each do |role|
+              hash[role.to_s] ||= []
+              hash[role.to_s] << name
+            end
           end
         end
       end

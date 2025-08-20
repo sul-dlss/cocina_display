@@ -298,6 +298,17 @@ RSpec.describe CocinaDisplay::Contributors::Contributor do
       it { is_expected.to eq("John Doe") }
     end
 
+    context "with no name values" do
+      let(:cocina) do
+        {
+          "type" => "person",
+          "name" => [{}]
+        }
+      end
+
+      it { is_expected.to be_nil }
+    end
+
     context "with a person with life dates" do
       let(:cocina) do
         {
