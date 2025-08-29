@@ -86,10 +86,16 @@ module CocinaDisplay
         publication_events.flat_map { |event| event.locations.map(&:to_s) }
       end
 
-      # All events associated with the object.
+      # All root level events associated with the object.
       # @return [Array<CocinaDisplay::Events::Event>]
       def events
         @events ||= path("$.description.event.*").map { |event| CocinaDisplay::Events::Event.new(event) }
+      end
+
+      # The adminMetadata creation event (When was it was deposited?)
+      # @return <CocinaDisplay::Events::Event>
+      def admin_creation_event
+        @admin_events ||= path("$.description.adminMetadata.event[?(@.type==\"creation\")]").map { |event| CocinaDisplay::Events::Event.new(event) }.first
       end
 
       # All events that could be used to select a publication date.
