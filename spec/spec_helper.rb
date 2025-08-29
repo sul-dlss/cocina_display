@@ -10,6 +10,7 @@ require "debug"
 if RSpec.configuration.files_to_run.count > 1
   SimpleCov.start do
     add_filter "/spec/"
+    add_filter "lib/cocina_display.rb"
   end
   SimpleCov::RSpec.start(list_uncovered_lines: true)
 end
