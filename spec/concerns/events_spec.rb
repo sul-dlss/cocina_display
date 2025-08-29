@@ -439,4 +439,40 @@ RSpec.describe CocinaDisplay::CocinaRecord do
       it { is_expected.to be_empty }
     end
   end
+
+  describe "#admin_creation_event" do
+    subject { record.admin_creation_event }
+
+    let(:cocina_json) do
+      <<~JSON
+        {
+          "description": {
+            "adminMetadata": {
+              "event": [
+                {
+                  "type": "creation",
+                  "date": [
+                    {
+                      "value": "2023-09-14",
+                      "encoding": {
+                        "code": "edtf"
+                      }
+                    }
+                  ]
+                }
+              ],
+              "note": [
+                {
+                  "value": "Metadata created by user via Stanford self-deposit application",
+                  "type": "record origin"
+                }
+              ]
+            }
+          }
+        }
+      JSON
+    end
+
+    it { is_expected.to be_a(CocinaDisplay::Events::Event) }
+  end
 end
