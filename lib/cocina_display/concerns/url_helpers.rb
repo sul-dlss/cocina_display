@@ -1,7 +1,7 @@
 module CocinaDisplay
   module Concerns
     # Methods that generate URLs to access an object.
-    module Access
+    module UrlHelpers
       # The PURL URL for this object.
       # @return [String]
       # @example
