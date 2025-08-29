@@ -34,6 +34,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "edtf", "~> 3.2" # for parsing dates
   spec.add_dependency "iso639", "~> 1.3" # for parsing language codes
   spec.add_dependency "geo_coord", "~> 0.2" # for parsing coordinates
+  spec.add_dependency "zeitwerk", "~> 2.7" # autoloading
 
   spec.add_development_dependency "rake", "~> 13.0"
   spec.add_development_dependency "rspec", "~> 3.0"

@@ -1,5 +1,3 @@
-require_relative "../title_builder"
-
 module CocinaDisplay
   module Concerns
     # Methods for finding and formatting titles.

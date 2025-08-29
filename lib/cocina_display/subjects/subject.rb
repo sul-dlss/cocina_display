@@ -1,6 +1,3 @@
-require_relative "../utils"
-require_relative "subject_value"
-
 module CocinaDisplay
   module Subjects
     # Base class for subjects in Cocina structured data.

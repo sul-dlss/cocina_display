@@ -1,8 +1,3 @@
-require_relative "../dates/date"
-require_relative "../dates/date_range"
-require_relative "../events/event"
-require_relative "../events/imprint"
-
 module CocinaDisplay
   module Concerns
     module Events

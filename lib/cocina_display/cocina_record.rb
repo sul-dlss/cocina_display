@@ -1,26 +1,5 @@
 # frozen_string_literal: true
 
-require "janeway"
-require "json"
-require "net/http"
-require "active_support"
-require "active_support/core_ext/object/blank"
-require "active_support/core_ext/hash/conversions"
-
-require_relative "concerns/events"
-require_relative "concerns/contributors"
-require_relative "concerns/identifiers"
-require_relative "concerns/titles"
-require_relative "concerns/url_helpers"
-require_relative "concerns/subjects"
-require_relative "concerns/forms"
-require_relative "concerns/languages"
-require_relative "concerns/geospatial"
-require_relative "concerns/structural"
-require_relative "utils"
-require_relative "json_backed_record"
-require_relative "related_resource"
-
 module CocinaDisplay
   # Public Cocina metadata for an SDR object, as fetched from PURL.
   class CocinaRecord < JsonBackedRecord

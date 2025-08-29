@@ -1,5 +1,3 @@
-require_relative "date"
-
 module CocinaDisplay
   module Dates
     # A date range parsed from Cocina structuredValues.

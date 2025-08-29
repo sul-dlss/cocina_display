@@ -1,7 +1,5 @@
 require "spec_helper"
 
-require_relative "../lib/cocina_display/utils"
-
 RSpec.describe CocinaDisplay::Utils do
   describe "#flatten_nested_values" do
     subject { described_class.flatten_nested_values(cocina) }

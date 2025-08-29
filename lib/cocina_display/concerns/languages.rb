@@ -1,5 +1,3 @@
-require_relative "../language"
-
 module CocinaDisplay
   module Concerns
     # Methods for extracting language information from a Cocina object.

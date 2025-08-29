@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require_relative "../utils"
-
 module CocinaDisplay
   module Contributors
     # A name associated with a contributor.

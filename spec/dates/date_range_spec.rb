@@ -2,8 +2,6 @@
 
 require "spec_helper"
 
-require_relative "../../lib/cocina_display/dates/date_range"
-
 RSpec.describe CocinaDisplay::Dates::DateRange do
   subject(:date_range) { described_class.from_cocina(cocina) }
 
