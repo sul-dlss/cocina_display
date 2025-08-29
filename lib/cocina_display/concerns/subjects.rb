@@ -1,6 +1,3 @@
-require_relative "../subjects/subject"
-require_relative "../subjects/subject_value"
-
 module CocinaDisplay
   module Concerns
     # Methods for extracting and formatting subject information.

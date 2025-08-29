@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require "spec_helper"
-require_relative "../../lib/cocina_display/cocina_record"
 
 RSpec.describe CocinaDisplay::CocinaRecord do
   let(:cocina_json) do

@@ -1,15 +1,5 @@
 # frozen_string_literal: true
 
-require "edtf"
-require "active_support"
-require "active_support/core_ext/enumerable"
-require "active_support/core_ext/object/blank"
-
-require_relative "event"
-require_relative "../utils"
-require_relative "../dates/date"
-require_relative "../dates/date_range"
-
 module CocinaDisplay
   module Events
     # Wrapper for Cocina events used to generate an imprint statement for display.

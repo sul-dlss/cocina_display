@@ -1,5 +1,4 @@
-require "iso639"
-require_relative "vocabularies/searchworks_languages"
+# frozen_string_literal: true
 
 module CocinaDisplay
   # A language associated with part or all of a Cocina object.

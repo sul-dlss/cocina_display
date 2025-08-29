@@ -1,5 +1,3 @@
-require_relative "../contributors/contributor"
-
 module CocinaDisplay
   module Concerns
     # Methods for finding and formatting names for contributors

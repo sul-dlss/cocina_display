@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require_relative "../subjects/subject_value"
-
 module CocinaDisplay
   module Concerns
     # Methods for extracting geospatial metadata, such as coordinates.

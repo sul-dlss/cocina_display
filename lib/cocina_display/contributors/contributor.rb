@@ -1,13 +1,5 @@
 # frozen_string_literal: true
 
-require "active_support"
-require "active_support/core_ext/object/blank"
-require "active_support/core_ext/array/conversions"
-
-require_relative "../utils"
-require_relative "name"
-require_relative "role"
-
 module CocinaDisplay
   module Contributors
     # A contributor to a work, such as an author or publisher.

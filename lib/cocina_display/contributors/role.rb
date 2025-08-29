@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require_relative "../vocabularies/marc_relator_codes"
-
 module CocinaDisplay
   module Contributors
     # A role associated with a contributor.

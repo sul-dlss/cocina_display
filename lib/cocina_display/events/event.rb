@@ -1,7 +1,3 @@
-require_relative "location"
-require_relative "../dates/date"
-require_relative "../contributors/contributor"
-
 module CocinaDisplay
   module Events
     # An event associated with an object, like publication.

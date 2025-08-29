@@ -1,5 +1,3 @@
-require_relative "../vocabularies/marc_country_codes"
-
 module CocinaDisplay
   module Events
     # A single location represented in a Cocina event, like a publication place.

@@ -2,8 +2,6 @@
 
 require "spec_helper"
 
-require_relative "../lib/cocina_display/title_builder"
-
 RSpec.describe CocinaDisplay::TitleBuilder do
   subject(:builder_build) { described_class.build(titles, strategy: strategy, add_punctuation: add_punctuation) }
 

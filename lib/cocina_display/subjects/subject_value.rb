@@ -1,11 +1,3 @@
-require "geo/coord"
-
-require_relative "subject"
-require_relative "../contributors/name"
-require_relative "../title_builder"
-require_relative "../dates/date"
-require_relative "../geospatial"
-
 module CocinaDisplay
   module Subjects
     # A descriptive value that can be part of a Subject.

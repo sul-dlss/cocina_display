@@ -1,4 +1,4 @@
-require "geo/coord"
+# frozen_string_literal: true
 
 module CocinaDisplay
   module Geospatial

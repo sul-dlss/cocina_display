@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require "spec_helper"
-require_relative "../lib/cocina_display/events/imprint"
 
 RSpec.describe CocinaDisplay::Events::Imprint do
   subject { described_class.new(cocina).to_s }
