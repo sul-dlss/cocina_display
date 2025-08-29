@@ -18,10 +18,12 @@ require_relative "concerns/languages"
 require_relative "concerns/geospatial"
 require_relative "concerns/structural"
 require_relative "utils"
+require_relative "json_backed_record"
+require_relative "related_resource"
 
 module CocinaDisplay
   # Public Cocina metadata for an SDR object, as fetched from PURL.
-  class CocinaRecord
+  class CocinaRecord < JsonBackedRecord
     include CocinaDisplay::Concerns::Events
     include CocinaDisplay::Concerns::Contributors
     include CocinaDisplay::Concerns::Identifiers
@@ -51,28 +53,6 @@ module CocinaDisplay
     def self.from_json(cocina_json, deep_compact: false)
       cocina_doc = JSON.parse(cocina_json)
       deep_compact ? new(Utils.deep_compact_blank(cocina_doc)) : new(cocina_doc)
-    end
-
-    # The parsed Cocina document.
-    # @return [Hash]
-    attr_reader :cocina_doc
-
-    # Initialize a CocinaRecord with a Cocina document hash.
-    # @param cocina_doc [Hash]
-    def initialize(cocina_doc)
-      @cocina_doc = cocina_doc
-    end
-
-    # Evaluate a JSONPath expression against the Cocina document.
-    # @return [Enumerator] An enumerator that yields results matching the expression.
-    # @param path_expression [String] The JSONPath expression to evaluate.
-    # @see https://www.rubydoc.info/gems/janeway-jsonpath/0.6.0/file/README.md
-    # @example Name values for contributors
-    #  record.path("$.description.contributor.*.name.*.value").search #=> ["Smith, John", "ACME Corp."]
-    # @example Filtering nodes using a condition
-    #  record.path("$.description.contributor[?(@.type == 'person')].name.*.value").search #=> ["Smith, John"]
-    def path(path_expression)
-      Janeway.enum_for(path_expression, cocina_doc)
     end
 
     # Timestamp when the Cocina was created.
@@ -116,23 +96,6 @@ module CocinaDisplay
     # @return [Array<CocinaDisplay::RelatedResource>]
     def related_resources
       @related_resources ||= path("$.description.relatedResource[*]").map { |res| RelatedResource.new(res) }
-    end
-  end
-
-  # A resource related to the record; behaves like a CocinaRecord.
-  # @note Related resources have no structural metadata.
-  class RelatedResource < CocinaRecord
-    # Description of the relation to the source record.
-    # @return [String]
-    # @example "is part of"
-    # @see https://github.com/sul-dlss/cocina-models/blob/main/docs/description_types.md#relatedresource-types
-    attr_reader :type
-
-    # Restructure the hash so that everything is under "description" key, since
-    # it's all descriptive metadata. This makes most CocinaRecord methods work.
-    def initialize(cocina_doc)
-      @type = cocina_doc["type"]
-      @cocina_doc = {"description" => cocina_doc.except("type")}
     end
   end
 end
