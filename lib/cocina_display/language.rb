@@ -29,6 +29,10 @@ module CocinaDisplay
       Vocabularies::SEARCHWORKS_LANGUAGES[code] || (Iso639[code] if iso_639?)
     end
 
+    def label
+      I18n.t("cocina_display.field_label.language")
+    end
+
     # True if the language is recognized by Searchworks.
     # @see CocinaDisplay::Vocabularies::SEARCHWORKS_LANGUAGES
     # @return [Boolean]
