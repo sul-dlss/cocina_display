@@ -18,7 +18,7 @@ module CocinaDisplay
       # @example Generate an oEmbed URL for the viewer and hide the title
       #   record.oembed_url(hide_title: true) #=> "https://purl.stanford.edu/bx658jh7339/embed.json?hide_title=true"
       def oembed_url(params: {})
-        return if collection? || purl_url.blank?
+        return if (!is_a?(CocinaDisplay::RelatedResource) && collection?) || purl_url.blank?
 
         params[:url] ||= purl_url
         "#{purl_base_url}/embed.json?#{params.to_query}"
