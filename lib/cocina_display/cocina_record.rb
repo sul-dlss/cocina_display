@@ -11,7 +11,7 @@ require_relative "concerns/events"
 require_relative "concerns/contributors"
 require_relative "concerns/identifiers"
 require_relative "concerns/titles"
-require_relative "concerns/access"
+require_relative "concerns/url_helpers"
 require_relative "concerns/subjects"
 require_relative "concerns/forms"
 require_relative "concerns/languages"
@@ -26,7 +26,7 @@ module CocinaDisplay
     include CocinaDisplay::Concerns::Contributors
     include CocinaDisplay::Concerns::Identifiers
     include CocinaDisplay::Concerns::Titles
-    include CocinaDisplay::Concerns::Access
+    include CocinaDisplay::Concerns::UrlHelpers
     include CocinaDisplay::Concerns::Subjects
     include CocinaDisplay::Concerns::Forms
     include CocinaDisplay::Concerns::Languages
