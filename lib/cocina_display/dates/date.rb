@@ -192,14 +192,18 @@ module CocinaDisplay
       # @return [Symbol] :year, :month, :day, :decade, :century, or :unknown
       def precision
         return :unknown unless date_range || date
-
         if date_range.is_a? EDTF::Century
-          :century
+          return :century
         elsif date_range.is_a? EDTF::Decade
-          :decade
-        elsif date.is_a? EDTF::Season
+          return :decade
+        end
+
+        case date
+        when EDTF::Season
           :month
-        elsif date.is_a? EDTF::Interval
+        when EDTF::Unknown
+          :unknown
+        when EDTF::Interval
           date.precision
         else
           case date.precision
@@ -274,11 +278,11 @@ module CocinaDisplay
 
       # Decoded version of the date with "BCE" or "CE". Strips leading zeroes.
       # @param allowed_precisions [Array<Symbol>] List of allowed precisions for the output.
-      #   Defaults to [:day, :month, :year, :decade, :century].
+      #   Defaults to [:day, :month, :year, :decade, :century, :unknown].
       # @param ignore_unparseable [Boolean] Return nil instead of the original value if it couldn't be parsed
       # @param display_original_value [Boolean] Return the original value if it was not encoded
       # @return [String]
-      def decoded_value(allowed_precisions: [:day, :month, :year, :decade, :century], ignore_unparseable: false, display_original_value: true)
+      def decoded_value(allowed_precisions: [:day, :month, :year, :decade, :century, :unknown], ignore_unparseable: false, display_original_value: true)
         return if ignore_unparseable && !parsed_date?
         return value.strip unless parsed_date?
 
@@ -349,12 +353,13 @@ module CocinaDisplay
         # @param date [Date] The date to format.
         # @param precision [Symbol] The precision to format the date at, e.g. :month
         # @param allowed_precisions [Array<Symbol>] List of allowed precisions for the output.
-        #   Options are [:day, :month, :year, :decade, :century].
+        #   Options are [:day, :month, :year, :decade, :century, :unknown].
         # @note allowed_precisions should be ordered by granularity, with most specific first.
         def format_date(date, precision, allowed_precisions)
           precision = allowed_precisions.first unless allowed_precisions.include?(precision)
-
           case precision
+          when :unknown
+            "Unknown"
           when :day
             date.strftime("%B %e, %Y")
           when :month
