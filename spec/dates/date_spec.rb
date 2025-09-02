@@ -5,6 +5,23 @@ require "spec_helper"
 RSpec.describe CocinaDisplay::Dates::Date do
   subject(:date) { described_class.from_cocina(cocina) }
 
+  describe "initialize" do
+    # See also https://github.com/sul-dlss/cocina-models/issues/830
+    context "with missing data (as seen in wf027xk3554)" do
+      let(:cocina) do
+        {
+          "encoding" => {
+            "code" => "marc"
+          }
+        }
+      end
+
+      it "does not raise an error" do
+        expect { date }.not_to raise_error
+      end
+    end
+  end
+
   describe "#value" do
     let(:cocina) { {"value" => "2023"} }
 

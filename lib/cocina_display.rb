@@ -22,4 +22,7 @@ loader.inflector.inflect("searchworks_languages" => "SEARCHWORKS_LANGUAGES",
 loader.push_dir(File.dirname(__FILE__))
 loader.setup
 
-module CocinaDisplay; end
+module CocinaDisplay
+  # set to an object with a #notify method. This is called if an error is encountered.
+  mattr_accessor :notifier
+end

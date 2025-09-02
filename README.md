@@ -44,10 +44,10 @@ The `CocinaRecord` class provides some methods to access common fields, as well 
 => "Bugatti Type 51A. Road & Track Salon January 1957"
 > record.content_type
 => "image"
-> record.iiif_manifest_url 
+> record.iiif_manifest_url
 => "https://purl.stanford.edu/bb112zx3193/iiif3/manifest"
 # access the hash representation
-> record.cocina_doc.dig("description", "contributor", 0, "name", 0, "value")  
+> record.cocina_doc.dig("description", "contributor", 0, "name", 0, "value")
 => "Hearst Magazines, Inc."
 ```
 
@@ -91,6 +91,18 @@ cat spec/fixtures/bb112zx3193.json | janeway "$.description.contributor[?@.role[
 ### Searching for records
 
 Sometimes you need to determine if records exist "in the wild" that exhibit particular characteristics in the Cocina metadata, like the presence or absence of a field, or a specific value in a field. There is a template script in the `scripts/` directory that can be used to crawl all DRUIDs released to a particular target, like Searchworks, and examine each record.
+
+### Logging of errors
+
+You may create a custom error handler by implementing the `Honeybadger` interface (or just using Honeybadger) and assigning it to the `CocinaRecord.notifier`.
+
+For example:
+```ruby
+Rails.application.config.to_prepare do
+  CocinaDisplay.notifier = Honeybadger
+end
+```
+
 
 ## Development
 
