@@ -21,3 +21,5 @@ loader.inflector.inflect("searchworks_languages" => "SEARCHWORKS_LANGUAGES",
   "marc_country" => "MARC_COUNTRY")
 loader.push_dir(File.dirname(__FILE__))
 loader.setup
+
+module CocinaDisplay; end
