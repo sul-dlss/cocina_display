@@ -95,6 +95,15 @@ module CocinaDisplay
       end
     end
 
+    # Wrap Cocina nodes into {DescriptiveValue} so they are labelled.
+    # Uses +displayLabel+ from the node if present, otherwise uses the provided label.
+    # @param cocina [Array<Hash>]
+    # @param label [String]
+    # @return [Array<DescriptiveValue>]
+    def self.descriptive_values_from_cocina(cocina, label: nil)
+      cocina.map { |node| DescriptiveValue.new(label: node["displayLabel"] || label, value: node["value"]) }
+    end
+
     # Given an array of Cocina hashes, group them into {DisplayData}.
     # Uses +label+ as the label if provided, but honors +displayLabel+ if set.
     # Keeps the unique, non-blank values under each label.
@@ -102,8 +111,7 @@ module CocinaDisplay
     # @param label [String]
     # @return [Array<DisplayData>]
     def self.display_data_from_cocina(cocina, label: nil)
-      objects = cocina.map { |node| DescriptiveValue.new(label: node["displayLabel"] || label, value: node["value"]) }
-      display_data_from_objects(objects)
+      display_data_from_objects(descriptive_values_from_cocina(cocina, label: label))
     end
   end
 end
