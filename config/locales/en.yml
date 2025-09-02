@@ -23,3 +23,13 @@ en:
         stock_number: "Stock number"
         upc: "UPC"
         videorecording_identifier: "Videorecording identifier"    
+      form:
+        map_scale: "Map data"
+        map_projection: "Map data"
+      subject:
+        subject: "Subject"
+        topic: "Subject"
+        coverage: "Map data"
+        point_coordinates: "Map data"
+        bounding_box_coordinates: "Map data"
+        map_coordinates: "Map data"

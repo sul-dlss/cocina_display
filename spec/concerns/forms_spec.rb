@@ -3,11 +3,13 @@ require "spec_helper"
 RSpec.describe CocinaDisplay::CocinaRecord do
   let(:forms) { [] }
   let(:events) { [] }
+  let(:subjects) { [] }
   let(:cocina_json) do
     {
       "description" => {
         "form" => forms,
-        "event" => events
+        "event" => events,
+        "subject" => subjects
       }
     }.to_json
   end
@@ -154,6 +156,36 @@ RSpec.describe CocinaDisplay::CocinaRecord do
       it "maps genres to additional SearchWorks values" do
         is_expected.to eq(["Thesis", "Conference publication", "Government publication", "Thesis/Dissertation", "Conference proceedings", "Government document"])
       end
+    end
+  end
+
+  describe "#map_display_data" do
+    subject { record.map_display_data }
+
+    let(:forms) do
+      [
+        {"value" => "[ca.1:60,000,000]", "type" => "map scale"},
+        {"value" => "EPSG:4326", "type" => "map projection"}
+      ]
+    end
+    let(:subjects) do
+      [
+        {"value" => "W 18°--E 51°/N 37°--S 35°", "type" => "map coordinates"},
+        {"value" => "maps", "type" => "topic"}  # ignored
+      ]
+    end
+
+    it "groups map-related data into separate labelled map data section" do
+      is_expected.to contain_exactly(
+        be_a(CocinaDisplay::DisplayData).and(have_attributes(
+          label: "Map data",
+          values: [
+            "[ca.1:60,000,000]",
+            "EPSG:4326",
+            "18°00′00″W -- 51°00′00″E / 37°00′00″N -- 35°00′00″S"
+          ]
+        ))
+      )
     end
   end
 end

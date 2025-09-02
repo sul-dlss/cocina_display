@@ -47,6 +47,23 @@ module CocinaDisplay
         end.uniq
       end
 
+      # All map-related data to be rendered for display as a single value.
+      # Includes map scale, projection info, and geographic coordinate subjects.
+      # @return [Array<DisplayData>]
+      def map_display_data
+        Utils.display_data_from_objects(
+          Utils.descriptive_values_from_cocina(
+            path("$.description.form..[?@.type == 'map scale']"),
+            label: I18n.t("cocina_display.field_label.form.map_scale")
+          ) +
+          Utils.descriptive_values_from_cocina(
+            path("$.description.form..[?@.type == 'map projection']"),
+            label: I18n.t("cocina_display.field_label.form.map_projection")
+          ) +
+          coordinate_subjects
+        )
+      end
+
       # Is the object a periodical or serial?
       # @return [Boolean]
       def periodical?
@@ -126,6 +143,7 @@ module CocinaDisplay
       end
 
       # Values of the resource type form field prior to mapping.
+      # @return [Array<String>]
       def resource_type_values
         path("$.description.form..[?@.type == 'resource type'].value").uniq
       end
