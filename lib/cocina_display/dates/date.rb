@@ -11,6 +11,10 @@ module CocinaDisplay
       # List of values that we shouldn't even attempt to parse.
       UNPARSABLE_VALUES = ["0000-00-00", "9999", "uuuu", "[uuuu]"].freeze
 
+      def self.notifier
+        CocinaDisplay.notifier
+      end
+
       # Construct a Date from parsed Cocina data.
       # @param cocina [Hash] Cocina date data
       # @return [CocinaDisplay::Date]
@@ -75,6 +79,11 @@ module CocinaDisplay
       # @param value [String] the date value to modify
       # @return [String]
       def self.normalize_to_edtf(value)
+        unless value
+          notifier&.notify("Invalid date value: #{value}")
+          return
+        end
+
         sanitized = value.gsub(/^[\[]+/, "").gsub(/[\.\]]+$/, "")
         sanitized = value.rjust(4, "0") if /^\d{3}$/.match?(value)
 
