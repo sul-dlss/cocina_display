@@ -96,4 +96,50 @@ RSpec.describe CocinaDisplay::CocinaRecord do
       end
     end
   end
+
+  describe "#language_display_data" do
+    subject { record.language_display_data }
+
+    context "with no languages" do
+      let(:languages) { [] }
+
+      it "returns an empty array" do
+        expect(subject).to eq []
+      end
+    end
+
+    context "with one language lacking a value" do
+      let(:languages) do
+        [
+          {"value" => ""}
+        ]
+      end
+
+      it "returns an empty array" do
+        expect(subject).to eq []
+      end
+    end
+
+    context "with languages" do
+      let(:languages) do
+        [
+          {"value" => "English"},
+          {"value" => "Spanish"},
+          {"value" => ""},
+          {"code" => "eng", "source" => {"code" => "iso639-2"}},
+          {"value" => "English"},
+          {"code" => "zxx"},
+          {"code" => "egy-Egyd"},
+          {"value" => "Sumerian", "displayLabel" => "Primary language"}
+        ]
+      end
+
+      it "returns display data for each language with duplicates removed" do
+        expect(subject).to contain_exactly(
+          be_a(CocinaDisplay::DisplayData).and(have_attributes(label: "Language", values: ["English", "Spanish", "Egyptian, Demotic"])),
+          be_a(CocinaDisplay::DisplayData).and(have_attributes(label: "Primary language", values: ["Sumerian"]))
+        )
+      end
+    end
+  end
 end
