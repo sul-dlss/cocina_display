@@ -198,4 +198,63 @@ RSpec.describe CocinaDisplay::CocinaRecord do
       end
     end
   end
+
+  describe "#identifier_display_data" do
+    subject { described_class.new(cocina_doc) }
+
+    let(:cocina_doc) do
+      {
+        "description" => {
+          "identifier" => [
+            {
+              "type" => "doi",
+              "value" => "10.25740/ppax-bf07"
+            },
+            {
+              "type" => "doi",
+              "value" => "https://doi.org/10.25740/sb4q-wj06"
+            },
+            {
+              "type" => "isbn",
+              "value" => "978-0-061-96436-7"
+            },
+            {
+              "type" => "other",
+              "value" => "other-id-123"
+            },
+            {
+              "type" => "other",
+              "value" => "other-id-123"
+            },
+            {
+              "type" => "other",
+              "value" => ""
+            },
+            {
+              "type" => "lccn",
+              "value" => ""
+            },
+            {
+              "type" => "other",
+              "value" => "other-id-456"
+            },
+            {
+              "type" => "custom",
+              "value" => "custom-id-123",
+              "displayLabel" => "Custom label"
+            }
+          ]
+        }
+      }
+    end
+
+    it "returns an array of DisplayValue objects" do
+      expect(subject.identifier_display_data).to contain_exactly(
+        be_a(CocinaDisplay::DisplayData).and(have_attributes(label: "DOI", values: ["https://doi.org/10.25740/ppax-bf07", "https://doi.org/10.25740/sb4q-wj06"])),
+        be_a(CocinaDisplay::DisplayData).and(have_attributes(label: "ISBN", values: ["978-0-061-96436-7"])),
+        be_a(CocinaDisplay::DisplayData).and(have_attributes(label: "Identifier", values: ["other-id-123", "other-id-456"])),
+        be_a(CocinaDisplay::DisplayData).and(have_attributes(label: "Custom label", values: ["custom-id-123"]))
+      )
+    end
+  end
 end
