@@ -7,6 +7,60 @@ RSpec.describe CocinaDisplay::CocinaRecord do
 
   subject { described_class.from_json(cocina_json) }
 
+  describe "#identifier_display_data" do
+    let(:cocina_json) do
+      {
+        "description" => {
+          "identifier" => [
+            {
+              "type" => "doi",
+              "value" => "10.25740/ppax-bf07"
+            },
+            {
+              "type" => "isbn",
+              "value" => "978-0-061-96436-7"
+            },
+            {
+              "type" => "other",
+              "value" => "other-id-123"
+            },
+            {
+              "type" => "other",
+              "value" => "other-id-123"
+            },
+            {
+              "type" => "other",
+              "value" => ""
+            },
+            {
+              "type" => "lccn",
+              "value" => ""
+            },
+            {
+              "type" => "other",
+              "value" => "other-id-456"
+            },
+            {
+              "type" => "custom",
+              "value" => "custom-id-123",
+              "displayLabel" => "Custom label"
+            }
+          ]
+        }
+      }.to_json
+    end
+
+    it "returns an array of DisplayValue objects" do
+      debugger
+      expect(subject.identifier_display_data).to contain_exactly(
+        be_a(CocinaDisplay::DisplayData).and(have_attributes(label: "DOI", values: ["https://doi.org/10.25740/ppax-bf07"])),
+        be_a(CocinaDisplay::DisplayData).and(have_attributes(label: "ISBN", values: ["978-0-061-96436-7"])),
+        be_a(CocinaDisplay::DisplayData).and(have_attributes(label: "Identifier", values: ["other-id-123", "other-id-456"])),
+        be_a(CocinaDisplay::DisplayData).and(have_attributes(label: "Custom label", values: ["custom-id-123"]))
+      )
+    end
+  end
+
   describe "#druid" do
     let(:druid) { "bx658jh7339" }
 

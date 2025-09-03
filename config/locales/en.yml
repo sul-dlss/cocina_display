@@ -1,4 +1,21 @@
 en:
   cocina_display:
     field_label:
+      doi: "DOI"
+      handle: "Handle"
+      identifier: "Identifier"
+      isbn: "ISBN"
+      ismn: "ISMN"
+      isrc: "ISRC"
+      issn: "ISSN"
+      issue_number: "Issue number"
       language: "Language"
+      lccn: "LCCN"
+      matrix_number: "Matrix number"
+      music_plate: "Music plate"
+      music_publisher: "Music publisher"
+      oclc: "OCLC"
+      sici: "SICI"
+      stock_number: "Stock number"
+      upc: "UPC"
+      videorecording_identifier: "Videorecording identifier"

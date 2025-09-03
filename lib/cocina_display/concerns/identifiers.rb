@@ -66,6 +66,43 @@ module CocinaDisplay
       def searchworks_id
         folio_hrid || bare_druid
       end
+
+      def identifier_display_data
+        ids = []
+        ids << CocinaDisplay::DisplayData.new(label: I18n.t("cocina_display.field_label.doi"), values: [doi_url]) if doi.present?
+        identifiers_excluding_dois.each { |label, identifiers| ids << CocinaDisplay::DisplayData.new(label: label, values: identifiers.map { |id| id['value'] }.compact_blank.uniq ) }
+        ids.compact_blank.reject { |d| d.values.empty? }
+      end
+
+      def identifiers_excluding_dois
+        path("$.description.identifier[?(@.type != 'doi' && @.type != 'DOI' && !search(@.uri, 'doi.org'))]").group_by { |id| identifier_label(id) }
+      end
+
+      def identifier_label(identifier)
+        identifier["displayLabel"].presence ||
+          identifier_labels[identifier["type"].downcase] ||
+          I18n.t("cocina_display.field_label.identifier")
+      end
+
+      def identifier_labels
+        { "isbn" => I18n.t("cocina_display.field_label.isbn"),
+          "issn" => I18n.t("cocina_display.field_label.issn"),
+          "issn-l" => I18n.t("cocina_display.field_label.issn"),
+          "doi" => I18n.t("cocina_display.field_label.doi"),
+          "hdl" => I18n.t("cocina_display.field_label.handle"),
+          "isrc" => I18n.t("cocina_display.field_label.isrc"),
+          "ismn" => I18n.t("cocina_display.field_label.ismn"),
+          "issue number" => I18n.t("cocina_display.field_label.issue_number"),
+          "lccn" => I18n.t("cocina_display.field_label.lccn"),
+          "oclc" => I18n.t("cocina_display.field_label.oclc"),
+          "matrix number" => I18n.t("cocina_display.field_label.matrix_number"),
+          "music publisher" => I18n.t("cocina_display.field_label.music_publisher"),
+          "music plate" => I18n.t("cocina_display.field_label.music_plate"),
+          "sici" => I18n.t("cocina_display.field_label.sici"),
+          "upc" => I18n.t("cocina_display.field_label.upc"),
+          "videorecording identifier" => I18n.t("cocina_display.field_label.videorecording_identifier"),
+          "stock number" => I18n.t("cocina_display.field_label.stock_number") }
+      end
     end
   end
 end
