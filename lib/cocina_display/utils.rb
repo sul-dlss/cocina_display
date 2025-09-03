@@ -75,5 +75,33 @@ module CocinaDisplay
 
       output
     end
+
+    # Given objects that support #to_s and #label, group them into {DisplayData}.
+    # Groups by each object's +label+ and keeps unique, non-blank values.
+    # @param objects [Array<Object>]
+    # @return [Array<DisplayData>]
+    def self.display_data_from_objects(objects)
+      objects.group_by(&:label)
+        .map { |label, values| DisplayData.new(label: label, values: values.map(&:to_s).compact_blank.uniq) }
+        .reject { |data| data.values.empty? }
+    end
+
+    # Wrapper to make Cocina descriptive values respond to #to_s and #label.
+    DescriptiveValue = Data.define(:label, :value) do
+      def to_s
+        value
+      end
+    end
+
+    # Given an array of Cocina hashes, group them into {DisplayData}.
+    # Uses +label+ as the label if provided, but honors +displayLabel+ if set.
+    # Keeps the unique, non-blank values under each label.
+    # @param cocina [Array<Hash>]
+    # @param label [String]
+    # @return [Array<DisplayData>]
+    def self.display_data_from_cocina(cocina, label: nil)
+      objects = cocina.map { |node| DescriptiveValue.new(label: node["displayLabel"] || label, value: node["value"]) }
+      display_data_from_objects(objects)
+    end
   end
 end
