@@ -13,6 +13,14 @@ module CocinaDisplay
       def searchworks_language_names
         languages.filter_map { |lang| lang.to_s if lang.searchworks_language? }.compact_blank.uniq
       end
+
+      # Language information for display.
+      # @return [Array<CocinaDisplay::DisplayData>]
+      def language_display_data
+        languages.group_by(&:label).map do |label, langs|
+          CocinaDisplay::DisplayData.new(label: label, values: langs.map(&:to_s).compact_blank.uniq)
+        end.reject { |data| data.values.empty? }
+      end
     end
   end
 end
