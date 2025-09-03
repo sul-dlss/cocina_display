@@ -193,4 +193,49 @@ RSpec.describe CocinaDisplay::Utils do
       end
     end
   end
+
+  describe "#display_data_from_objects" do
+    subject { described_class.display_data_from_objects(objects) }
+
+    let(:objects) do
+      [
+        {"value" => "English"},
+        {"value" => "Spanish"},
+        {"value" => ""},
+        {"code" => "eng", "source" => {"code" => "iso639-2"}},
+        {"value" => "English"},
+        {"code" => "zxx"},
+        {"code" => "egy-Egyd"},
+        {"value" => "Sumerian", "displayLabel" => "Primary language"}
+      ].map { |lang| CocinaDisplay::Language.new(lang) }
+    end
+
+    it "groups objects by label and keeps unique, non-blank values" do
+      is_expected.to contain_exactly(
+        be_a(CocinaDisplay::DisplayData).and(have_attributes(label: "Language", values: ["English", "Spanish", "Egyptian, Demotic"])),
+        be_a(CocinaDisplay::DisplayData).and(have_attributes(label: "Primary language", values: ["Sumerian"]))
+      )
+    end
+  end
+
+  describe "#display_data_from_cocina" do
+    subject { described_class.display_data_from_cocina(cocina, label: "Language") }
+
+    let(:cocina) do
+      [
+        {"value" => "English"},
+        {"value" => "Spanish"},
+        {"value" => ""},
+        {"value" => "English"},
+        {"value" => "Sumerian", "displayLabel" => "Primary language"}
+      ]
+    end
+
+    it "groups objects by label and keeps unique, non-blank values" do
+      is_expected.to contain_exactly(
+        be_a(CocinaDisplay::DisplayData).and(have_attributes(label: "Language", values: ["English", "Spanish"])),
+        be_a(CocinaDisplay::DisplayData).and(have_attributes(label: "Primary language", values: ["Sumerian"]))
+      )
+    end
+  end
 end

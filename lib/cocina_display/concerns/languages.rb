@@ -17,9 +17,7 @@ module CocinaDisplay
       # Language information for display.
       # @return [Array<CocinaDisplay::DisplayData>]
       def language_display_data
-        languages.group_by(&:label).map do |label, langs|
-          CocinaDisplay::DisplayData.new(label: label, values: langs.map(&:to_s).compact_blank.uniq)
-        end.reject { |data| data.values.empty? }
+        Utils.display_data_from_objects(languages)
       end
     end
   end
