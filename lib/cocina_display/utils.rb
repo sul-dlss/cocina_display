@@ -76,13 +76,21 @@ module CocinaDisplay
       output
     end
 
+    # Given an array of strings, split each string on newlines, and return
+    # a flattened array of the resulting values.
+    # @param values [Array<String>] The array of strings to split
+    # @return [Array<String>] The flattened array of split strings
+    def self.split_values_on_newlines(values)
+      values.flat_map { |value| value&.gsub("&#10;", "\n")&.split("\n")&.map(&:strip) }
+    end
+
     # Given objects that support #to_s and #label, group them into {DisplayData}.
     # Groups by each object's +label+ and keeps unique, non-blank values.
     # @param objects [Array<Object>]
     # @return [Array<DisplayData>]
     def self.display_data_from_objects(objects)
       objects.group_by(&:label)
-        .map { |label, values| DisplayData.new(label: label, values: values.map(&:to_s).compact_blank.uniq) }
+        .map { |label, values| DisplayData.new(label: label, values: split_values_on_newlines(values.map(&:to_s)).compact_blank.uniq) }
         .reject { |data| data.values.empty? }
     end
 

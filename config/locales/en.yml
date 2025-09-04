@@ -27,6 +27,21 @@ en:
         upc: UPC
         videorecording_identifier: Videorecording identifier
       language: Language
+      note:
+        abstract: Abstract
+        bibliography: Bibliography
+        biographical_historical: Biographical/Historical
+        citation_reference: Citation/Reference
+        creation_production_credits: Creation/Production credits
+        date_sequential_designation: Date/Sequential designation
+        note: Note
+        preferred_citation: Preferred citation
+        publications: Publications
+        references: References
+        scope_and_content: Scope and content
+        statement_of_responsibility: Statement of responsibility
+        summary: Summary
+        table_of_contents: Table of contents
       subject:
         bounding_box_coordinates: Map data
         coverage: Map data
