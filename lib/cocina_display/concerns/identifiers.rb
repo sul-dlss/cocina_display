@@ -26,11 +26,10 @@ module CocinaDisplay
       # @example
       #   record.doi #=> "10.25740/ppax-bf07"
       def doi
-        doi_id = path("$.identification.doi").first ||
-          path("$.description.identifier[?match(@.type, 'doi|DOI')].value").first ||
-          path("$.description.identifier[?search(@.uri, 'doi.org')].uri").first
+        doi_id = path("$.identification.doi").first
+        return URI(doi_id).path.delete_prefix("/") if doi_id.present?
 
-        URI(doi_id).path.delete_prefix("/") if doi_id.present?
+        identifiers.find(&:doi?)&.identifier
       end
 
       # The DOI as a URL, if there is one. Any valid DOI should resolve via doi.org.
@@ -65,6 +64,18 @@ module CocinaDisplay
       # @return [String, nil]
       def searchworks_id
         folio_hrid || bare_druid
+      end
+
+      # Identifier objects extracted from the Cocina descriptive metadata.
+      # @return [Array<Identifier>]
+      def identifiers
+        @identifiers ||= path("$.description.identifier[*]").map { |id| Identifier.new(id) }
+      end
+
+      # Labelled display data for identifiers.
+      # @return [Array<DisplayData>]
+      def identifier_display_data
+        Utils.display_data_from_objects(identifiers)
       end
     end
   end
