@@ -3,8 +3,10 @@ en:
   cocina_display:
     field_label:
       form:
-        map_projection: Map data
-        map_scale: Map data
+        form: "Form"
+        genre: "Genre"
+        map_projection: "Map data"
+        map_scale: "Map data"
       identifier:
         doi: DOI
         handle: Handle

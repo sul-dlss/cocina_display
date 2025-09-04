@@ -17,7 +17,7 @@ module CocinaDisplay
       # @example GIS dataset (nz187ct8959)
       #   record.forms #=> ["map", "optical disc", "electronic resource"]
       def forms
-        path("$.description.form..[?@.type == 'form'].value").uniq
+        form_objects.filter { |form| form.type == "form" }.map(&:to_s).compact_blank.uniq
       end
 
       # Extent of the object, such as "1 audiotape" or "1 map".
@@ -25,7 +25,7 @@ module CocinaDisplay
       # @example Oral history interview (sw705fr7011)
       #   record.extents #=> ["1 audiotape", "1 transcript"]
       def extents
-        path("$.description.form..[?@.type == 'extent'].value").uniq
+        form_objects.filter { |form| form.type == "extent" }.map(&:to_s).compact_blank.uniq
       end
 
       # Genres of the object, capitalized for display.
@@ -33,7 +33,7 @@ module CocinaDisplay
       # @example GIS dataset (nz187ct8959)
       #   record.genres #=> ["Cartographic dataset", "Geospatial data", "Geographic information systems data"]
       def genres
-        path("$.description.form..[?@.type == 'genre'].value").map(&:upcase_first).uniq
+        form_objects.filter { |form| form.type == "genre" }.map(&:to_s).compact_blank.uniq
       end
 
       # Genres of the object, with additional values added for search/faceting.
@@ -52,14 +52,7 @@ module CocinaDisplay
       # @return [Array<DisplayData>]
       def map_display_data
         Utils.display_data_from_objects(
-          Utils.descriptive_values_from_cocina(
-            path("$.description.form..[?@.type == 'map scale']"),
-            label: I18n.t("cocina_display.field_label.form.map_scale")
-          ) +
-          Utils.descriptive_values_from_cocina(
-            path("$.description.form..[?@.type == 'map projection']"),
-            label: I18n.t("cocina_display.field_label.form.map_projection")
-          ) +
+          form_objects.filter { |form| ["map scale", "map projection"].include?(form.type) } +
           coordinate_subjects
         )
       end
@@ -89,6 +82,14 @@ module CocinaDisplay
       end
 
       private
+
+      # Collapses all nested form values into an array of {Form} objects.
+      # @return [Array<Form>]
+      def form_objects
+        @form_objects ||= path("$.description.form.*")
+          .flat_map { |form| Utils.flatten_nested_values(form) }
+          .map { |form| CocinaDisplay::Forms::Form.new(form) }
+      end
 
       # Map a resource type to SearchWorks format value(s).
       # @param resource_type [String] The resource type to map.
