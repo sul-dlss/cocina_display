@@ -194,6 +194,26 @@ RSpec.describe CocinaDisplay::Utils do
     end
   end
 
+  describe "#split_values_on_newlines" do
+    subject { described_class.split_values_on_newlines(input) }
+
+    context "with strings, some containing newlines" do
+      let(:input) { ["Line 1\nLine 2\nLine 3", "Another value"] }
+
+      it "returns an array of lines" do
+        is_expected.to eq(["Line 1", "Line 2", "Line 3", "Another value"])
+      end
+    end
+
+    context "with strings containing no newlines" do
+      let(:input) { ["One value", "Another value"] }
+
+      it "returns the array of values unmodified" do
+        is_expected.to eq(["One value", "Another value"])
+      end
+    end
+  end
+
   describe "#display_data_from_objects" do
     subject { described_class.display_data_from_objects(objects) }
 
