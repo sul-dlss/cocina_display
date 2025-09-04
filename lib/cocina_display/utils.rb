@@ -87,6 +87,8 @@ module CocinaDisplay
     end
 
     # Wrapper to make Cocina descriptive values respond to #to_s and #label.
+    # @attr [String] label
+    # @attr [String] value
     DescriptiveValue = Data.define(:label, :value) do
       def to_s
         value
