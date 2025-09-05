@@ -113,5 +113,13 @@ module CocinaDisplay
     def self.display_data_from_cocina(cocina, label: nil)
       display_data_from_objects(descriptive_values_from_cocina(cocina, label: label))
     end
+
+    # Create display data from a string value.
+    # @param value [String] The string value to display
+    # @param label [String] The label for the display data
+    # @return [Array<DisplayData>] The display data
+    def self.display_data_from_string(value, label: nil)
+      display_data_from_objects([DescriptiveValue.new(label: label, value: value)])
+    end
   end
 end
