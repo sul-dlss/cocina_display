@@ -1,35 +1,36 @@
+---
 en:
   cocina_display:
     field_label:
-      language: "Language"
-      identifier:
-        doi: "DOI"
-        handle: "Handle"
-        identifier: "Identifier"
-        isbn: "ISBN"
-        ismn: "ISMN"
-        isrc: "ISRC"
-        issn: "ISSN"
-        issn_l: "ISSN"
-        issue_number: "Issue number"
-        language: "Language"
-        lccn: "LCCN"
-        matrix_number: "Matrix number"
-        music_plate: "Music plate"
-        music_publisher: "Music publisher"
-        oclc: "OCLC"
-        orcid: "ORCID"
-        sici: "SICI"
-        stock_number: "Stock number"
-        upc: "UPC"
-        videorecording_identifier: "Videorecording identifier"    
       form:
-        map_scale: "Map data"
-        map_projection: "Map data"
+        map_projection: Map data
+        map_scale: Map data
+      identifier:
+        doi: DOI
+        handle: Handle
+        identifier: Identifier
+        isbn: ISBN
+        ismn: ISMN
+        isrc: ISRC
+        issn: ISSN
+        issn_l: ISSN
+        issue_number: Issue number
+        language: Language
+        lccn: LCCN
+        matrix_number: Matrix number
+        music_plate: Music plate
+        music_publisher: Music publisher
+        oclc: OCLC
+        orcid: ORCID
+        sici: SICI
+        stock_number: Stock number
+        upc: UPC
+        videorecording_identifier: Videorecording identifier
+      language: Language
       subject:
-        subject: "Subject"
-        topic: "Subject"
-        coverage: "Map data"
-        point_coordinates: "Map data"
-        bounding_box_coordinates: "Map data"
-        map_coordinates: "Map data"
+        bounding_box_coordinates: Map data
+        coverage: Map data
+        map_coordinates: Map data
+        point_coordinates: Map data
+        subject: Subject
+        topic: Subject
