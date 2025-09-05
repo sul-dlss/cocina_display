@@ -2,6 +2,7 @@
 en:
   cocina_display:
     field_label:
+      copyright: Copyright
       form:
         map_projection: Map data
         map_scale: Map data
@@ -49,3 +50,5 @@ en:
         point_coordinates: Map data
         subject: Subject
         topic: Subject
+      use_and_reproduction: Use and reproduction statement
+
