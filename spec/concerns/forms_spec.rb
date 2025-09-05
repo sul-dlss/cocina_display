@@ -188,4 +188,61 @@ RSpec.describe CocinaDisplay::CocinaRecord do
       )
     end
   end
+
+  describe "#genre_display_data" do
+    subject { record.genre_display_data }
+
+    let(:forms) do
+      [
+        {"value" => "picture", "type" => "genre"},
+        {"value" => "portrait", "type" => "genre"}
+      ]
+    end
+    let(:subjects) do
+      [
+        {"value" => "Portrait", "type" => "genre"}, # duplicate
+        {"value" => "biography", "type" => "genre"},
+        {"value" => "painting", "type" => "topic"} # ignored
+      ]
+    end
+
+    it "combines, capitalizes and deduplicates genre forms and subject forms" do
+      is_expected.to contain_exactly(
+        be_a(CocinaDisplay::DisplayData).and(have_attributes(
+          label: "Genre",
+          values: ["Picture", "Portrait", "Biography"]
+        ))
+      )
+    end
+  end
+
+  describe "#form_display_data" do
+    subject { record.form_display_data }
+
+    # Contrived example with some ignored values
+    let(:forms) do
+      [
+        {"value" => "electronic resource", "type" => "form"},
+        {"value" => "optical disc", "type" => "form", "displayLabel" => "Physical format"}, # custom label
+        {"value" => "map", "type" => "form"},
+        {"value" => "picture", "type" => "genre"},  # ignored
+        {"value" => "[ca.1:60,000,000]", "type" => "map scale"}, # ignored
+        {"value" => "EPSG:4326", "type" => "map projection"}, # ignored
+        {"value" => "text", "type" => "media type"} # ignored
+      ]
+    end
+
+    it "aggregates all form data that doesn't go into the other sections" do
+      is_expected.to contain_exactly(
+        be_a(CocinaDisplay::DisplayData).and(have_attributes(
+          label: "Physical format",
+          values: ["optical disc"]
+        )),
+        be_a(CocinaDisplay::DisplayData).and(have_attributes(
+          label: "Form",
+          values: ["electronic resource", "map"]
+        ))
+      )
+    end
+  end
 end

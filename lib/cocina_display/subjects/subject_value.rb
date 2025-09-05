@@ -34,21 +34,6 @@ module CocinaDisplay
       def to_s
         cocina["value"]
       end
-
-      # Label used to render the identifier for display.
-      # Uses a displayLabel if available, otherwise looks up via type.
-      # @return [String]
-      def label
-        cocina["displayLabel"].presence || type_label
-      end
-
-      private
-
-      # Type-specific label for this subject value.
-      # @return [String]
-      def type_label
-        I18n.t(type&.parameterize&.underscore, default: :subject, scope: "cocina_display.field_label.subject")
-      end
     end
 
     # A subject value representing a named entity.
