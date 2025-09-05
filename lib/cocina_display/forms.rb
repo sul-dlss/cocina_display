@@ -17,13 +17,19 @@ module CocinaDisplay
       # Genre values are capitalized; other form values are not.
       # @return [String]
       def to_s
-        (type == "genre") ? value&.upcase_first : value
+        (type == "genre") ? flat_value&.upcase_first : flat_value
       end
 
-      # The raw value from the Cocina data.
+      # Single concatenated string value for the form.
       # @return [String]
-      def value
-        cocina["value"]
+      def flat_value
+        Utils.compact_and_join(values, delimiter: " > ")
+      end
+
+      # The raw values from the Cocina data, flattened if nested.
+      # @return [String]
+      def values
+        Utils.flatten_nested_values(cocina).pluck("value").compact_blank
       end
 
       # The label to use for display.

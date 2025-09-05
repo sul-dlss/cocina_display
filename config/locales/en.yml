@@ -47,6 +47,7 @@ en:
       subject:
         bounding_box_coordinates: Map data
         coverage: Map data
+        genre: Genre
         map_coordinates: Map data
         point_coordinates: Map data
         subject: Subject

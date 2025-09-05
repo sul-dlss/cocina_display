@@ -8,7 +8,7 @@ module CocinaDisplay
       # @return [Array<String>]
       # @example ["34°03′08″N 118°14′37″W"]
       def coordinates
-        coordinate_subjects.map(&:to_s).compact.uniq
+        coordinate_subject_values.map(&:to_s).compact.uniq
       end
 
       # All valid coordinate data formatted for indexing into a Solr RPT field.
@@ -47,15 +47,21 @@ module CocinaDisplay
 
       private
 
+      # {Subject} objects with types that could contain coordinate information.
+      # @return [Array<Subject>]
+      def coordinate_subjects
+        all_subjects.filter { |subject| subject.type&.include? "coordinates" }
+      end
+
       # Parsed coordinate values from the coordinate subject values.
       # @return [Array<Geospatial::Coordinates>]
       def coordinate_objects
-        coordinate_subjects.filter_map(&:coordinates)
+        coordinate_subject_values.filter_map(&:coordinates)
       end
 
       # All subject values that could contain parsed coordinates.
       # @return [Array<Subjects::CoordinatesSubjectValue>]
-      def coordinate_subjects
+      def coordinate_subject_values
         subject_values.filter { |s| s.is_a? CocinaDisplay::Subjects::CoordinatesSubjectValue }
       end
     end
