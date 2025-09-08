@@ -22,7 +22,7 @@ module CocinaDisplay
     # Prefers the URI representation where present.
     # @return [String]
     def to_s
-      uri || value
+      uri || structured_identifier
     end
 
     # The raw value from the Cocina structured data.
@@ -39,6 +39,12 @@ module CocinaDisplay
     # @return [String, nil]
     def identifier
       URI(value).path.delete_prefix("/") if value
+    end
+
+    def structured_identifier
+      return value unless code && code != "local"
+
+      "#{code}: #{value}"
     end
 
     # The identifier as a URI, if available.

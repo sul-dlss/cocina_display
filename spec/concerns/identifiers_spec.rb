@@ -23,6 +23,16 @@ RSpec.describe CocinaDisplay::CocinaRecord do
     end
   end
 
+  describe "#identifiers" do
+    context "there is a source code" do
+      let(:druid) { "bt553vr2845" }
+
+      it "returns identifiers with prefix" do
+        expect(subject.identifiers.map(&:to_s)).to eq ["isbn: 0452008999", "isbn: 9780452008991", "lccn: 84062811"]
+      end
+    end
+  end
+
   describe "#doi" do
     context "when there is no DOI" do
       let(:druid) { "bx658jh7339" }
