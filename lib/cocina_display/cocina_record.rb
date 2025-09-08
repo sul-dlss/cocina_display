@@ -3,6 +3,7 @@
 module CocinaDisplay
   # Public Cocina metadata for an SDR object, as fetched from PURL.
   class CocinaRecord < JsonBackedRecord
+    include CocinaDisplay::Concerns::Accesses
     include CocinaDisplay::Concerns::Events
     include CocinaDisplay::Concerns::Contributors
     include CocinaDisplay::Concerns::Identifiers
@@ -76,11 +77,6 @@ module CocinaDisplay
     # @return [Array<CocinaDisplay::RelatedResource>]
     def related_resources
       @related_resources ||= path("$.description.relatedResource[*]").map { |res| RelatedResource.new(res) }
-    end
-
-    def contact_information
-      CocinaDisplay::DisplayData.from_cocina(path("$.description.access.accessContact[?(@.type==\"email\")]"),
-        label: I18n.t("cocina_display.field_label.contact_information"))
     end
 
     # Display data for the use and reproduction statement.
