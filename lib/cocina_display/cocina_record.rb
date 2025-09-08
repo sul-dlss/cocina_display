@@ -78,6 +78,11 @@ module CocinaDisplay
       @related_resources ||= path("$.description.relatedResource[*]").map { |res| RelatedResource.new(res) }
     end
 
+    def contact_information
+      CocinaDisplay::DisplayData.from_cocina(path("$.description.access.accessContact[?(@.type==\"email\")]"),
+        label: I18n.t("cocina_display.field_label.contact_information"))
+    end
+
     # Display data for the use and reproduction statement.
     # @return [Array<CocinaDisplay::DisplayData>]
     def use_and_reproduction_display_data
