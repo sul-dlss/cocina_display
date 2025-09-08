@@ -3,13 +3,17 @@ en:
   cocina_display:
     field_label:
       copyright: Copyright
-      contact_information: "Contact information"
+      access:
+        access: Location
+        email: Contact information
+        repository: Repository
+        url: Location
       form:
-        form: "Form"
-        genre: "Genre"
-        map_projection: "Map data"
-        map_scale: "Map data"
-        resource_type: "Type of resource"
+        form: Form
+        genre: Genre
+        map_projection: Map data
+        map_scale: Map data
+        resource_type: Type of resource
       identifier:
         doi: DOI
         handle: Handle
@@ -47,6 +51,7 @@ en:
         statement_of_responsibility: Statement of responsibility
         summary: Summary
         table_of_contents: Table of contents
+      purl: Location
       subject:
         bounding_box_coordinates: Map data
         coverage: Map data

@@ -58,6 +58,18 @@ RSpec.describe CocinaDisplay::DisplayData do
     end
   end
 
+  describe ".descriptive_values_from_string" do
+    subject { described_class.descriptive_values_from_string(string, label: label) }
+    let(:string) { "Some text" }
+    let(:label) { "Some label" }
+
+    it "returns an array containing an object with label and value attributes" do
+      is_expected.to contain_exactly(
+       have_attributes(label: "Some label", value: "Some text")
+     )
+    end
+  end
+
   describe "#label" do
     subject { described_class.new(label: label, objects: objects).label }
     let(:label) { "Some label" }

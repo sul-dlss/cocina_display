@@ -75,24 +75,6 @@ RSpec.describe CocinaDisplay::CocinaRecord do
     end
   end
 
-  describe "#contact_information" do
-    context "when there are email addresses" do
-      let(:druid) { "vk217bh4910" }
-
-      it "returns the correct email addresses" do
-        expect(subject.contact_information.flat_map(&:values)).to eq ["jth@stanford.edu", "jinmeng@lmsal.com"]
-      end
-    end
-
-    context "when there is accessContact and no email addresses" do
-      let(:druid) { "bb099mt5053" }
-
-      it "returns the empty array" do
-        expect(subject.contact_information).to eq []
-      end
-    end
-  end
-
   describe "#use_and_reproduction_display_data" do
     let(:cocina_json) do
       {
