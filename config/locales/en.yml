@@ -3,6 +3,7 @@ en:
   cocina_display:
     field_label:
       copyright: Copyright
+      contact_information: "Contact information"
       form:
         form: "Form"
         genre: "Genre"
