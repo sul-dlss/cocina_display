@@ -92,7 +92,7 @@ module CocinaDisplay
       # @see Subject#to_s
       # @return [Array<DisplayData>]
       def subject_display_data
-        Utils.display_data_from_objects(all_subjects - classification_subjects - genre_subjects - coordinate_subjects)
+        CocinaDisplay::DisplayData.from_objects(all_subjects - classification_subjects - genre_subjects - coordinate_subjects)
       end
 
       private

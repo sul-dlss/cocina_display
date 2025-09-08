@@ -51,21 +51,21 @@ module CocinaDisplay
       # Includes form, extent, resource type, etc.
       # @return [Array<DisplayData>]
       def form_display_data
-        Utils.display_data_from_objects(all_forms - genre_forms - map_forms - media_forms)
+        CocinaDisplay::DisplayData.from_objects(all_forms - genre_forms - map_forms - media_forms)
       end
 
       # All genre-related data to be rendered for display.
       # Includes both form genres and subject genres.
       # @return [Array<DisplayData>]
       def genre_display_data
-        Utils.display_data_from_objects(genre_forms + genre_subjects)
+        CocinaDisplay::DisplayData.from_objects(genre_forms + genre_subjects)
       end
 
       # All map-related data to be rendered for display.
       # Includes map scale, projection info, and geographic coordinate subjects.
       # @return [Array<DisplayData>]
       def map_display_data
-        Utils.display_data_from_objects(map_forms + coordinate_subjects)
+        CocinaDisplay::DisplayData.from_objects(map_forms + coordinate_subjects)
       end
 
       # Is the object a periodical or serial?

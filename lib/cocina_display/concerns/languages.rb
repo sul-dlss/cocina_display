@@ -17,7 +17,7 @@ module CocinaDisplay
       # Language information for display.
       # @return [Array<CocinaDisplay::DisplayData>]
       def language_display_data
-        Utils.display_data_from_objects(languages)
+        CocinaDisplay::DisplayData.from_objects(languages)
       end
     end
   end
