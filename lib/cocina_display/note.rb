@@ -19,7 +19,13 @@ module CocinaDisplay
     # String representation of the note.
     # @return [String, nil]
     def to_s
-      cocina["value"].presence
+      Utils.compact_and_join(values, delimiter: " -- ").presence
+    end
+
+    # The raw values from the Cocina data, flattened if nested.
+    # @return [String]
+    def values
+      Utils.flatten_nested_values(cocina).pluck("value").compact_blank
     end
 
     # The type of the note, e.g. "abstract".
