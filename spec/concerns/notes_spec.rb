@@ -16,7 +16,9 @@ RSpec.describe CocinaDisplay::CocinaRecord do
       {value: "This is a note"},
       {value: "This is an abstract", type: "abstract"},
       {value: "This is a citation", type: "preferred citation"},
-      {value: "This is a table of contents", type: "table of contents"}
+      {structuredValue: [{value: "This is a table of contents"},
+        {value: "With structured values"}],
+       type: "table of contents"}
     ]
   end
 
@@ -83,7 +85,9 @@ RSpec.describe CocinaDisplay::CocinaRecord do
 
     it "returns an array of note display data" do
       expect(subject).to contain_exactly(
-        be_a(CocinaDisplay::DisplayData).and(have_attributes(values: ["This is a table of contents"], label: "Table of contents"))
+        be_a(CocinaDisplay::DisplayData).and(
+          have_attributes(values: ["This is a table of contents -- With structured values"], label: "Table of contents")
+        )
       )
     end
   end

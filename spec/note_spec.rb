@@ -23,6 +23,16 @@ RSpec.describe CocinaDisplay::Note do
         expect(subject.to_s).to be_nil
       end
     end
+
+    context "with a structuredValue" do
+      let(:note) do
+        {"structuredValue" => [{"value" => "A note about a thing."}, {"value" => "Another note about a thing."}]}
+      end
+
+      it "returns the concatenated values" do
+        expect(subject.to_s).to eq "A note about a thing. -- Another note about a thing."
+      end
+    end
   end
 
   describe "#type" do
