@@ -451,4 +451,35 @@ RSpec.describe CocinaDisplay::CocinaRecord do
       end
     end
   end
+
+  describe "#subject_display_data" do
+    subject { record.subject_display_data }
+
+    let(:subjects) do
+      [
+        {
+          "structuredValue" => [ # structured; no type
+            {"value" => "Painters", "type" => "topic"},
+            {"value" => "Italy", "type" => "topic"}
+          ]
+        },
+        {"type" => "genre", "value" => "Science Fiction"},  # ignored; goes in genre
+        {"type" => "topic", "value" => "History"},
+        {"type" => "map coordinates", "value" => "W 18°--E 51°/N 37°--S 35°"}, # ignored; goes in map data
+        {"type" => "classification", "value" => "QA76.73.J38"} # ignored; internal only
+      ]
+    end
+
+    it "aggregates display data for subjects" do
+      is_expected.to contain_exactly(
+        be_a(CocinaDisplay::DisplayData).and(have_attributes(
+          label: "Subject",
+          values: [
+            "Painters > Italy",
+            "History"
+          ]
+        ))
+      )
+    end
+  end
 end

@@ -4,8 +4,10 @@ en:
     field_label:
       copyright: Copyright
       form:
-        map_projection: Map data
-        map_scale: Map data
+        form: "Form"
+        genre: "Genre"
+        map_projection: "Map data"
+        map_scale: "Map data"
       identifier:
         doi: DOI
         handle: Handle
@@ -46,6 +48,7 @@ en:
       subject:
         bounding_box_coordinates: Map data
         coverage: Map data
+        genre: Genre
         map_coordinates: Map data
         point_coordinates: Map data
         subject: Subject

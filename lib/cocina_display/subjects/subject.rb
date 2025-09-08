@@ -24,10 +24,24 @@ module CocinaDisplay
         subject_values.map(&:to_s).compact_blank
       end
 
-      # A string representation of the entire subject, concatenated for display.
+      # The value to use for display.
+      # Genre values are capitalized; other subject values are not.
       # @return [String]
       def to_s
+        (type == "genre") ? display_value&.upcase_first : display_value
+      end
+
+      # A string representation of the entire subject, concatenated for display.
+      # @return [String]
+      def display_value
         Utils.compact_and_join(display_values, delimiter: " > ")
+      end
+
+      # Label used to render the subject for display.
+      # Uses a displayLabel if available, otherwise looks up via type.
+      # @return [String]
+      def label
+        cocina["displayLabel"].presence || type_label
       end
 
       # Individual values composing this subject.
@@ -40,6 +54,14 @@ module CocinaDisplay
           subject_value.type ||= type
           subject_value
         end
+      end
+
+      private
+
+      # Type-specific label for this subject.
+      # @return [String]
+      def type_label
+        I18n.t(type&.parameterize&.underscore, default: :subject, scope: "cocina_display.field_label.subject")
       end
     end
   end
