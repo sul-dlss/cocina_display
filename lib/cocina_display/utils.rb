@@ -75,59 +75,5 @@ module CocinaDisplay
 
       output
     end
-
-    # Given an array of strings, split each string on newlines, and return
-    # a flattened array of the resulting values.
-    # @param values [Array<String>] The array of strings to split
-    # @return [Array<String>] The flattened array of split strings
-    def self.split_values_on_newlines(values)
-      values.flat_map { |value| value&.gsub("&#10;", "\n")&.split("\n")&.map(&:strip) }
-    end
-
-    # Given objects that support #to_s and #label, group them into {DisplayData}.
-    # Groups by each object's +label+ and keeps unique, non-blank values.
-    # @param objects [Array<Object>]
-    # @return [Array<DisplayData>]
-    def self.display_data_from_objects(objects)
-      objects.group_by(&:label)
-        .map { |label, values| DisplayData.new(label: label, values: split_values_on_newlines(values.map(&:to_s)).compact_blank.uniq) }
-        .reject { |data| data.values.empty? }
-    end
-
-    # Wrapper to make Cocina descriptive values respond to #to_s and #label.
-    # @attr [String] label
-    # @attr [String] value
-    DescriptiveValue = Data.define(:label, :value) do
-      def to_s
-        value
-      end
-    end
-
-    # Wrap Cocina nodes into {DescriptiveValue} so they are labelled.
-    # Uses +displayLabel+ from the node if present, otherwise uses the provided label.
-    # @param cocina [Array<Hash>]
-    # @param label [String]
-    # @return [Array<DescriptiveValue>]
-    def self.descriptive_values_from_cocina(cocina, label: nil)
-      cocina.map { |node| DescriptiveValue.new(label: node["displayLabel"] || label, value: node["value"]) }
-    end
-
-    # Given an array of Cocina hashes, group them into {DisplayData}.
-    # Uses +label+ as the label if provided, but honors +displayLabel+ if set.
-    # Keeps the unique, non-blank values under each label.
-    # @param cocina [Array<Hash>]
-    # @param label [String]
-    # @return [Array<DisplayData>]
-    def self.display_data_from_cocina(cocina, label: nil)
-      display_data_from_objects(descriptive_values_from_cocina(cocina, label: label))
-    end
-
-    # Create display data from a string value.
-    # @param value [String] The string value to display
-    # @param label [String] The label for the display data
-    # @return [Array<DisplayData>] The display data
-    def self.display_data_from_string(value, label: nil)
-      display_data_from_objects([DescriptiveValue.new(label: label, value: value)])
-    end
   end
 end

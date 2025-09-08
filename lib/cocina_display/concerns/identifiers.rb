@@ -75,7 +75,7 @@ module CocinaDisplay
       # Labelled display data for identifiers.
       # @return [Array<DisplayData>]
       def identifier_display_data
-        Utils.display_data_from_objects(identifiers)
+        CocinaDisplay::DisplayData.from_objects(identifiers)
       end
     end
   end
