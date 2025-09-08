@@ -8,6 +8,7 @@ en:
         genre: "Genre"
         map_projection: "Map data"
         map_scale: "Map data"
+        resource_type: "Type of resource"
       identifier:
         doi: DOI
         handle: Handle
@@ -54,4 +55,3 @@ en:
         subject: Subject
         topic: Subject
       use_and_reproduction: Use and reproduction statement
-

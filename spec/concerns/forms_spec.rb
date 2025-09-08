@@ -244,5 +244,49 @@ RSpec.describe CocinaDisplay::CocinaRecord do
         ))
       )
     end
+
+    context "with multiple kinds of resource type" do
+      let(:forms) do
+        [
+          {
+            "structuredValue" => [
+              {"value" => "Text", "type" => "type"},
+              {"value" => "Policy brief", "type" => "subtype"}
+            ],
+            "type" => "resource type",
+            "source" => {
+              "value" => "Stanford self-deposit resource types"
+            }
+          },
+          {
+            "value" => "text",
+            "type" => "resource type",
+            "source" => {"value" => "MODS resource types"}
+          },
+          {
+            "value" => "Text",
+            "type" => "resource type",
+            "source" => {"value" => "DataCite resource types"}
+          },
+          {
+            "value" => "Something else",
+            "type" => "form"
+          }
+        ]
+      end
+
+      it "deduplicates and formats the resource types separately, excluding self-deposit" do
+        is_expected.to contain_exactly(
+          be_a(CocinaDisplay::DisplayData).and(have_attributes(
+            label: "Type of resource",
+            values: ["text"]
+          )),
+          be_a(CocinaDisplay::DisplayData).and(have_attributes(
+            label: "Form",
+            values: ["Something else"]
+          ))
+        )
+      end
+    end
   end
 end
