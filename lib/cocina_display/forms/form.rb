@@ -8,16 +8,30 @@ module CocinaDisplay
       attr_reader :cocina
 
       # Create a Form object from Cocina structured data.
+      # Delegates to subclasses for specific types.
+      # @param cocina [Hash]
+      # @return [Form]
+      def self.from_cocina(cocina)
+        case cocina["type"]
+        when "genre"
+          Genre.new(cocina)
+        when "resource type"
+          ResourceType.new(cocina)
+        else
+          new(cocina)
+        end
+      end
+
+      # Create a Form object from Cocina structured data.
       # @param cocina [Hash]
       def initialize(cocina)
         @cocina = cocina
       end
 
       # The value to use for display.
-      # Genre values are capitalized; other form values are not.
       # @return [String]
       def to_s
-        (type == "genre") ? flat_value&.upcase_first : flat_value
+        flat_value
       end
 
       # Single concatenated string value for the form.

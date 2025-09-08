@@ -48,17 +48,17 @@ module CocinaDisplay
       end
 
       # All form-related data to be rendered for display.
-      # Includes form, extent, resource type, etc.
+      # Includes form, extent, resource type, etc. (but not self-deposit resource types).
       # @return [Array<DisplayData>]
       def form_display_data
-        CocinaDisplay::DisplayData.from_objects(all_forms - genre_forms - map_forms - media_forms)
+        CocinaDisplay::DisplayData.from_objects(all_forms - genre_forms - map_forms - media_forms - self_deposit_resource_types)
       end
 
       # All genre-related data to be rendered for display.
-      # Includes both form genres and subject genres.
+      # Includes both form genres, subject genres, and self-deposit resource types.
       # @return [Array<DisplayData>]
       def genre_display_data
-        CocinaDisplay::DisplayData.from_objects(genre_forms + genre_subjects)
+        CocinaDisplay::DisplayData.from_objects(genre_forms + genre_subjects + self_deposit_resource_types)
       end
 
       # All map-related data to be rendered for display.
@@ -100,7 +100,7 @@ module CocinaDisplay
       def all_forms
         @all_forms ||= path("$.description.form.*")
           .flat_map { |form| Utils.flatten_nested_values(form, atomic_types: ["resource type"]) }
-          .map { |form| CocinaDisplay::Forms::Form.new(form) }
+          .map { |form| CocinaDisplay::Forms::Form.from_cocina(form) }
       end
 
       # {Form} objects with type "form".
@@ -174,6 +174,24 @@ module CocinaDisplay
         values.compact_blank
       end
 
+      # All resource types forms, as {ResourceType}s.
+      # @return [Array<ResourceType>]
+      def all_resource_types
+        all_forms.filter { |form| form.is_a?(CocinaDisplay::Forms::ResourceType) }
+      end
+
+      # {ResourceType} objects that are Stanford self-deposit resource types.
+      # @return [Array<ResourceType>]
+      def self_deposit_resource_types
+        all_resource_types.filter { |resource_type| resource_type.stanford_self_deposit? }
+      end
+
+      # Display values of all resource types.
+      # @return [Array<String>]
+      def resource_type_values
+        all_resource_types.map(&:to_s).uniq
+      end
+
       # Issuance terms for a work, drawn from the event notes.
       # @return [Array<String>]
       def issuance_terms
@@ -184,12 +202,6 @@ module CocinaDisplay
       # @return [Array<String>]
       def frequency
         path("$.description.event.*.note[?@.type == 'frequency'].value").map(&:downcase).uniq
-      end
-
-      # Values of the resource type form field prior to mapping.
-      # @return [Array<String>]
-      def resource_type_values
-        path("$.description.form..[?@.type == 'resource type'].value").uniq
       end
     end
   end
