@@ -78,7 +78,7 @@ module CocinaDisplay
     LinkData = Data.define(:link_text, :url)
 
     # The unique, non-blank values for display
-    # @return [Array<String>]
+    # @return [Array<String, LinkData>]
     def values
       values_for_display.compact_blank.uniq
     end
@@ -86,7 +86,7 @@ module CocinaDisplay
     private
 
     # Extract the values for display from the objects.
-    # @return [Array<String|LinkData>]
+    # @return [Array<String, LinkData>]
     def values_for_display
       @objects.flat_map do |object|
         if object.respond_to?(:link_text) || url?(object.to_s)
