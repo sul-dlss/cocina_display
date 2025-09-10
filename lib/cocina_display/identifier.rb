@@ -47,7 +47,7 @@ module CocinaDisplay
     #   https://doi.org/10.1234/doi
     # @return [String, nil]
     def uri
-      cocina["uri"].presence || ([scheme_uri, identifier].join if scheme_uri && identifier)
+      cocina["uri"].presence || ([scheme_uri.delete_suffix("/"), identifier].join("/") if scheme_uri && identifier)
     end
 
     # The type of the identifier, e.g. "DOI".

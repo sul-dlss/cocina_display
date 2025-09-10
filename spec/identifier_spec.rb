@@ -83,6 +83,22 @@ RSpec.describe CocinaDisplay::Identifier do
     it { is_expected.not_to be_doi }
   end
 
+  context "with an ORCID (without URI)" do
+    let(:cocina) do
+      {
+        "value" => "0000-0003-1916-3929",
+        "type" => "ORCID",
+        "source" => {
+          "uri" => "https://orcid.org"
+        }
+      }
+    end
+
+    it "has a uri" do
+      expect(subject.uri).to eq("https://orcid.org/0000-0003-1916-3929")
+    end
+  end
+
   context "with a DOI (no URI)" do
     let(:cocina) do
       {
