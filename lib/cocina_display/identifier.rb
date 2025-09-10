@@ -25,6 +25,10 @@ module CocinaDisplay
       uri || value
     end
 
+    def ==(other)
+      other.is_a?(Identifier) && other.cocina == cocina
+    end
+
     # The raw value from the Cocina structured data.
     # Prefers the URI representation where present.
     # @return [String, nil]

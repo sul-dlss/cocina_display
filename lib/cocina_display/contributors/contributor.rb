@@ -23,6 +23,10 @@ module CocinaDisplay
         other.is_a?(Contributor) && other.cocina == cocina
       end
 
+      def identifiers
+        Array(cocina["identifier"]).map { |id| Identifier.new(id) }
+      end
+
       # Is this contributor a human?
       # @return [Boolean]
       def person?

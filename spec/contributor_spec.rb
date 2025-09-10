@@ -1,9 +1,11 @@
 require "spec_helper"
 
 RSpec.describe CocinaDisplay::Contributors::Contributor do
-  subject { described_class.new(cocina) }
+  let(:instance) { described_class.new(cocina) }
 
   describe "#author?" do
+    subject { instance.author? }
+
     context "with the author role" do
       let(:cocina) do
         {
@@ -11,9 +13,7 @@ RSpec.describe CocinaDisplay::Contributors::Contributor do
         }
       end
 
-      it "returns true" do
-        expect(subject.author?).to be true
-      end
+      it { is_expected.to be true }
     end
 
     context "with multiple roles including author" do
@@ -23,9 +23,7 @@ RSpec.describe CocinaDisplay::Contributors::Contributor do
         }
       end
 
-      it "returns true" do
-        expect(subject.author?).to be true
-      end
+      it { is_expected.to be true }
     end
 
     context "with the creator role" do
@@ -35,9 +33,7 @@ RSpec.describe CocinaDisplay::Contributors::Contributor do
         }
       end
 
-      it "returns false" do
-        expect(subject.author?).to be true
-      end
+      it { is_expected.to be true }
     end
 
     context "with the primary investigator role" do
@@ -47,9 +43,7 @@ RSpec.describe CocinaDisplay::Contributors::Contributor do
         }
       end
 
-      it "returns true" do
-        expect(subject.author?).to be true
-      end
+      it { is_expected.to be true }
     end
 
     context "without the author or creator role" do
@@ -59,13 +53,13 @@ RSpec.describe CocinaDisplay::Contributors::Contributor do
         }
       end
 
-      it "returns false" do
-        expect(subject.author?).to be false
-      end
+      it { is_expected.to be false }
     end
   end
 
   describe "#funder?" do
+    subject { instance.funder? }
+
     context "with the funder role" do
       let(:cocina) do
         {
@@ -73,9 +67,7 @@ RSpec.describe CocinaDisplay::Contributors::Contributor do
         }
       end
 
-      it "returns true" do
-        expect(subject.funder?).to be true
-      end
+      it { is_expected.to be true }
     end
 
     context "with multiple roles including funder" do
@@ -85,9 +77,7 @@ RSpec.describe CocinaDisplay::Contributors::Contributor do
         }
       end
 
-      it "returns true" do
-        expect(subject.funder?).to be true
-      end
+      it { is_expected.to be true }
     end
 
     context "with the author role" do
@@ -97,9 +87,7 @@ RSpec.describe CocinaDisplay::Contributors::Contributor do
         }
       end
 
-      it "returns false" do
-        expect(subject.funder?).to be false
-      end
+      it { is_expected.to be false }
     end
 
     context "without the funder role" do
@@ -109,13 +97,13 @@ RSpec.describe CocinaDisplay::Contributors::Contributor do
         }
       end
 
-      it "returns false" do
-        expect(subject.funder?).to be false
-      end
+      it { is_expected.to be false }
     end
   end
 
   describe "#person?" do
+    subject { instance.person? }
+
     context "with a person" do
       let(:cocina) do
         {
@@ -123,9 +111,7 @@ RSpec.describe CocinaDisplay::Contributors::Contributor do
         }
       end
 
-      it "returns true" do
-        expect(subject.person?).to be true
-      end
+      it { is_expected.to be true }
     end
 
     context "with an organization" do
@@ -135,13 +121,13 @@ RSpec.describe CocinaDisplay::Contributors::Contributor do
         }
       end
 
-      it "returns false" do
-        expect(subject.person?).to be false
-      end
+      it { is_expected.to be false }
     end
   end
 
   describe "#organization?" do
+    subject { instance.organization? }
+
     context "with an organization" do
       let(:cocina) do
         {
@@ -149,9 +135,7 @@ RSpec.describe CocinaDisplay::Contributors::Contributor do
         }
       end
 
-      it "returns true" do
-        expect(subject.organization?).to be true
-      end
+      it { is_expected.to be true }
     end
 
     context "with a person" do
@@ -161,13 +145,13 @@ RSpec.describe CocinaDisplay::Contributors::Contributor do
         }
       end
 
-      it "returns false" do
-        expect(subject.organization?).to be false
-      end
+      it { is_expected.to be false }
     end
   end
 
   describe "#role?" do
+    subject { instance.role? }
+
     context "with roles defined" do
       let(:cocina) do
         {
@@ -175,21 +159,19 @@ RSpec.describe CocinaDisplay::Contributors::Contributor do
         }
       end
 
-      it "returns true" do
-        expect(subject.role?).to be true
-      end
+      it { is_expected.to be true }
     end
 
     context "without roles defined" do
       let(:cocina) { {} }
 
-      it "returns false" do
-        expect(subject.role?).to be false
-      end
+      it { is_expected.to be false }
     end
   end
 
   describe "#conference?" do
+    subject { instance.conference? }
+
     context "with a conference" do
       let(:cocina) do
         {
@@ -197,9 +179,7 @@ RSpec.describe CocinaDisplay::Contributors::Contributor do
         }
       end
 
-      it "returns true" do
-        expect(subject.conference?).to be true
-      end
+      it { is_expected.to be true }
     end
 
     context "with a person" do
@@ -209,13 +189,13 @@ RSpec.describe CocinaDisplay::Contributors::Contributor do
         }
       end
 
-      it "returns false" do
-        expect(subject.conference?).to be false
-      end
+      it { is_expected.to be false }
     end
   end
 
   describe "#primary?" do
+    subject { instance.primary? }
+
     context "with primary status" do
       let(:cocina) do
         {
@@ -223,23 +203,19 @@ RSpec.describe CocinaDisplay::Contributors::Contributor do
         }
       end
 
-      it "returns true" do
-        expect(subject.primary?).to be true
-      end
+      it { is_expected.to be true }
     end
 
     context "with no status" do
       let(:cocina) { {} }
 
-      it "returns false" do
-        expect(subject.primary?).to be false
-      end
+      it { is_expected.to be false }
     end
   end
 
   # used for debugging, but tested for completeness
   describe "#to_s" do
-    subject { described_class.new(cocina).to_s }
+    subject { instance.to_s }
 
     context "with a person with a name" do
       let(:cocina) do
@@ -282,7 +258,7 @@ RSpec.describe CocinaDisplay::Contributors::Contributor do
   end
 
   describe "#display_name" do
-    subject { described_class.new(cocina).display_name(with_date: with_date) }
+    subject { instance.display_name(with_date: with_date) }
     let(:with_date) { false }
 
     context "with a person with no dates" do
@@ -464,7 +440,7 @@ RSpec.describe CocinaDisplay::Contributors::Contributor do
   end
 
   describe "#forename" do
-    subject { described_class.new(cocina).forename }
+    subject { instance.forename }
 
     context "with no explicitly marked forenames" do
       let(:cocina) do
@@ -500,7 +476,7 @@ RSpec.describe CocinaDisplay::Contributors::Contributor do
   end
 
   describe "#surname" do
-    subject { described_class.new(cocina).surname }
+    subject { instance.surname }
 
     context "with no explicitly marked surnames" do
       let(:cocina) do
@@ -532,6 +508,39 @@ RSpec.describe CocinaDisplay::Contributors::Contributor do
       end
 
       it { is_expected.to eq("Erickson") }
+    end
+  end
+
+  describe "#identifiers" do
+    subject { instance.identifiers }
+
+    context "with no ORCID identifier" do
+      let(:cocina) do
+        {
+          "type" => "person",
+          "name" => [
+            {"value" => "John Doe"}
+          ]
+        }
+      end
+
+      it { is_expected.to be_empty }
+    end
+
+    context "with an ORCID identifier" do
+      let(:cocina) do
+        {
+          "type" => "person",
+          "name" => [
+            {"value" => "John Doe"}
+          ],
+          "identifier" => [
+            {"type" => "ORCID", "id" => "0000-0002-1825-0097"}
+          ]
+        }
+      end
+
+      it { is_expected.to eq([CocinaDisplay::Identifier.new({"type" => "ORCID", "id" => "0000-0002-1825-0097"})]) }
     end
   end
 end
