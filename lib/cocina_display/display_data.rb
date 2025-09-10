@@ -115,7 +115,10 @@ module CocinaDisplay
     # @param string [String] The string to check
     # @return [Boolean]
     def url?(string)
-      string&.match?(URI::DEFAULT_PARSER.make_regexp(["http", "https"]))
+      uri = URI.parse(string)
+      uri.is_a?(URI::HTTP) || uri.is_a?(URI::HTTPS)
+    rescue URI::InvalidURIError
+      false
     end
   end
 end
