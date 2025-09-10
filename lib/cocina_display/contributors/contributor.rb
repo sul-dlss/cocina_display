@@ -68,7 +68,7 @@ module CocinaDisplay
       # Does this contributor have any roles defined?
       # @return [Boolean]
       def role?
-        roles.any?
+        roles.reject(&:blank?).any?
       end
 
       # The display name for the contributor as a string.
@@ -109,7 +109,7 @@ module CocinaDisplay
       # All roles in the Cocina structured data.
       # @return [Array<Hash>]
       def roles
-        @roles ||= Array(cocina["role"]).map { |role| Role.new(role) }
+        @roles ||= Role.create_roles(cocina["role"])
       end
     end
   end

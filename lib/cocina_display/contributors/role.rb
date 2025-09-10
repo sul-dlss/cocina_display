@@ -5,6 +5,7 @@ module CocinaDisplay
     # A role associated with a contributor.
     class Role
       attr_reader :cocina
+      DEFAULT_ROLE = I18n.t("cocina_display.contributors.role.default_value")
 
       # Initialize a Role object with Cocina structured data.
       # @param cocina [Hash] The Cocina structured data for the role.
@@ -12,11 +13,20 @@ module CocinaDisplay
         @cocina = cocina
       end
 
+      def self.create_roles(roles)
+        Array(roles.presence || [{"value" => DEFAULT_ROLE}]).map { |role| new(role) }
+      end
+
       # The name of the role.
       # Translates the MARC relator code if no value was present.
-      # @return [String, nil]
+      # Otherwise returns the default role.
+      # @return [String]
       def to_s
-        cocina["value"] || (Vocabularies::MARC_RELATOR[code] if marc_relator?)
+        @to_s ||= cocina["value"] || (Vocabularies::MARC_RELATOR[code] if marc_relator?) || DEFAULT_ROLE
+      end
+
+      def blank?
+        to_s == DEFAULT_ROLE
       end
 
       # A code associated with the role, e.g. a MARC relator code.
