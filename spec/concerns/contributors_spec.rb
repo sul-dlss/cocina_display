@@ -454,6 +454,31 @@ RSpec.describe CocinaDisplay::CocinaRecord do
 
       it { is_expected.to be_empty }
     end
+
+    context "when contributor has no declared role" do
+      let(:contributors) do
+        [
+          # from druid:bb737zp0787
+          {
+            "type" => "person",
+            "name" => [
+              {
+                "structuredValue" => [
+                  {"value" => "Paget, Francis Edward", "type" => "name"},
+                  {"value" => "1759-1838", "type" => "life dates"}
+                ]
+              }
+            ],
+            "status" => "primary",
+            "role" => []
+          }
+        ]
+      end
+
+      it 'gives a role of "associated with"' do
+        expect(result[nil]).to eq [CocinaDisplay::Contributors::Contributor.new(contributors[0])]
+      end
+    end
   end
 
   describe "#publisher_names" do

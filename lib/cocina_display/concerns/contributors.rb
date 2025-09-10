@@ -65,12 +65,17 @@ module CocinaDisplay
 
       # A hash mapping role names to the names of contributors with that role.
       # @param with_date [Boolean] Include life dates, if present
-      # @return [Hash<String, Array<Contributor>>]
+      # @return [Hash<[String,NilClass], Array<Contributor>>]
       def contributors_by_role(with_date: false)
         @contributors_by_role ||= contributors.each_with_object({}) do |contributor, hash|
-          contributor.roles.each do |role|
-            hash[role.to_s] ||= []
-            hash[role.to_s] << contributor
+          if contributor.roles.empty?
+            hash[nil] ||= []
+            hash[nil] << contributor
+          else
+            contributor.roles.each do |role|
+              hash[role.to_s] ||= []
+              hash[role.to_s] << contributor
+            end
           end
         end
       end
