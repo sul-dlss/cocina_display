@@ -57,12 +57,20 @@ module CocinaDisplay
 
     # A subject value representing an entity with a title.
     class TitleSubjectValue < SubjectValue
+      attr_reader :title
+
+      # Initialize a TitleSubjectValue object with Cocina structured data.
+      # @param cocina [Hash] The Cocina structured data for the subject.
+      def initialize(cocina)
+        super
+        @title = Title.new(cocina)
+      end
+
       # Construct a title string to use for display.
-      # @see CocinaDisplay::TitleBuilder.build
-      # @note Unclear how often structured title subjects occur "in the wild".
-      # @return [String]
+      # @see CocinaDisplay::Title#to_s
+      # @return [String, nil]
       def to_s
-        TitleBuilder.build([cocina])
+        title.to_s
       end
     end
 

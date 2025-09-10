@@ -1,154 +1,499 @@
 require "spec_helper"
 
 RSpec.describe CocinaDisplay::CocinaRecord do
-  describe "#main_title" do
-    context "with fixture data" do
-      let(:cocina_json) { File.read(file_fixture("#{druid}.json")) }
-      let(:cocina_doc) { JSON.parse(cocina_json) }
+  let(:titles) { [] }
+  let(:part_label) { nil }
+  let(:cocina_doc) do
+    {
+      "description" => {
+        "title" => titles
+      },
+      "identification" => {
+        "catalogLinks" => [
+          {"catalog" => "folio", "partLabel" => part_label}
+        ]
+      }
+    }
+  end
 
-      subject { described_class.from_json(cocina_json).main_title }
+  # can this happen? oh well, we handle it anyway
+  context "with no titles" do
+    describe "#main_title" do
+      subject { described_class.new(cocina_doc).main_title }
+      it { is_expected.to be_nil }
+    end
 
-      context "with nonsorting characters" do
-        let(:druid) { "bt553vr2845" }
+    describe "#full_title" do
+      subject { described_class.new(cocina_doc).full_title }
+      it { is_expected.to be_nil }
+    end
 
-        it "does not add any padding" do
-          is_expected.to eq "The master and Margarita"
+    describe "#display_title" do
+      subject { described_class.new(cocina_doc).display_title }
+      it { is_expected.to be_nil }
+    end
+
+    describe "#sort_title" do
+      subject { described_class.new(cocina_doc).sort_title }
+      it { is_expected.to eq "\u{10FFFF}" }
+    end
+
+    describe "#title_display_data" do
+      subject { described_class.new(cocina_doc).title_display_data }
+      it { is_expected.to be_empty }
+    end
+  end
+
+  # druid:vk217bh4910
+  context "with a single untyped title" do
+    let(:titles) do
+      [
+        {"value" => "2010 Machine Learning Data Set for NASA's Solar Dynamics Observatory - Atmospheric Imaging Assembly"}
+      ]
+    end
+
+    describe "#main_title" do
+      subject { described_class.new(cocina_doc).main_title }
+      it { is_expected.to eq "2010 Machine Learning Data Set for NASA's Solar Dynamics Observatory - Atmospheric Imaging Assembly" }
+    end
+
+    describe "#full_title" do
+      subject { described_class.new(cocina_doc).full_title }
+      it { is_expected.to eq "2010 Machine Learning Data Set for NASA's Solar Dynamics Observatory - Atmospheric Imaging Assembly" }
+    end
+
+    describe "#display_title" do
+      subject { described_class.new(cocina_doc).display_title }
+      it { is_expected.to eq "2010 Machine Learning Data Set for NASA's Solar Dynamics Observatory - Atmospheric Imaging Assembly" }
+    end
+
+    describe "#sort_title" do
+      subject { described_class.new(cocina_doc).sort_title }
+      it { is_expected.to eq "2010 Machine Learning Data Set for NASAs Solar Dynamics Observatory Atmospheric Imaging Assembly" }
+    end
+
+    describe "#additional_titles" do
+      subject { described_class.new(cocina_doc).additional_titles }
+      it { is_expected.to be_empty }
+    end
+
+    describe "#title_display_data" do
+      subject do
+        described_class.new(cocina_doc).title_display_data.each_with_object({}) do |display_data, output|
+          output[display_data.label] = display_data.values
+        end
+      end
+      it { is_expected.to eq "Title" => ["2010 Machine Learning Data Set for NASA's Solar Dynamics Observatory - Atmospheric Imaging Assembly"] }
+    end
+  end
+
+  # druid:bx658jh7339
+  context "with a structured title" do
+    let(:titles) do
+      [
+        {
+          "structuredValue" => [
+            {"value" => "M. de Courville", "type" => "main title"},
+            {"value" => "[estampe]", "type" => "subtitle"}
+          ]
+        }
+      ]
+    end
+
+    describe "#main_title" do
+      subject { described_class.new(cocina_doc).main_title }
+      it { is_expected.to eq "M. de Courville" }
+    end
+
+    describe "#full_title" do
+      subject { described_class.new(cocina_doc).full_title }
+      it { is_expected.to eq "M. de Courville [estampe]" }
+    end
+
+    describe "#display_title" do
+      subject { described_class.new(cocina_doc).display_title }
+      it { is_expected.to eq "M. de Courville : [estampe]" }
+    end
+
+    describe "#sort_title" do
+      subject { described_class.new(cocina_doc).sort_title }
+      it { is_expected.to eq "M de Courville estampe" }
+    end
+
+    describe "#additional_titles" do
+      subject { described_class.new(cocina_doc).additional_titles }
+      it { is_expected.to be_empty }
+    end
+
+    describe "#title_display_data" do
+      subject do
+        described_class.new(cocina_doc).title_display_data.each_with_object({}) do |display_data, output|
+          output[display_data.label] = display_data.values
+        end
+      end
+      it { is_expected.to eq "Title" => ["M. de Courville : [estampe]"] }
+    end
+  end
+
+  # druid:wb133vg3886
+  context "with nonsorting characters and subtitle" do
+    let(:titles) do
+      [
+        {
+          "structuredValue" => [
+            {"value" => "The", "type" => "nonsorting characters"},
+            {"value" => "Ingersoll-Gladstone controversy on Christianity", "type" => "main title"},
+            {"value" => "two articles from the North American review", "type" => "subtitle"}
+          ],
+          "note" => [
+            {"value" => "4", "type" => "nonsorting character count"}
+          ]
+        }
+      ]
+    end
+
+    describe "#main_title" do
+      subject { described_class.new(cocina_doc).main_title }
+      it { is_expected.to eq "The Ingersoll-Gladstone controversy on Christianity" }
+    end
+
+    describe "#full_title" do
+      subject { described_class.new(cocina_doc).full_title }
+      it { is_expected.to eq "The Ingersoll-Gladstone controversy on Christianity two articles from the North American review" }
+    end
+
+    describe "#display_title" do
+      subject { described_class.new(cocina_doc).display_title }
+      it { is_expected.to eq "The Ingersoll-Gladstone controversy on Christianity : two articles from the North American review" }
+    end
+
+    describe "#sort_title" do
+      subject { described_class.new(cocina_doc).sort_title }
+      it { is_expected.to eq "IngersollGladstone controversy on Christianity two articles from the North American review" }
+    end
+
+    describe "#additional_titles" do
+      subject { described_class.new(cocina_doc).additional_titles }
+      it { is_expected.to be_empty }
+    end
+
+    describe "#title_display_data" do
+      subject do
+        described_class.new(cocina_doc).title_display_data.each_with_object({}) do |display_data, output|
+          output[display_data.label] = display_data.values
+        end
+      end
+      it { is_expected.to eq "Title" => ["The Ingersoll-Gladstone controversy on Christianity : two articles from the North American review"] }
+    end
+  end
+
+  # druid:sw705fr7011
+  context "with part number and nonsorting characters" do
+    let(:titles) do
+      [
+        {
+          "structuredValue" => [
+            {"value" => "Oral history interview with", "type" => "nonsorting characters"},
+            {"value" => "anonymous, white, female, SNCC volunteer, 0405 (sides 1 and 2), Laurel, Mississippi", "type" => "main title"},
+            {"value" => "0405", "type" => "part number"}
+          ],
+          "note" => [
+            {"value" => "28", "type" => "nonsorting character count"}
+          ]
+        }
+      ]
+    end
+
+    describe "#main_title" do
+      subject { described_class.new(cocina_doc).main_title }
+      it { is_expected.to eq "Oral history interview with anonymous, white, female, SNCC volunteer, 0405 (sides 1 and 2), Laurel, Mississippi" }
+    end
+
+    describe "#full_title" do
+      subject { described_class.new(cocina_doc).full_title }
+      it { is_expected.to eq "Oral history interview with anonymous, white, female, SNCC volunteer, 0405 (sides 1 and 2), Laurel, Mississippi 0405" }
+    end
+
+    describe "#display_title" do
+      subject { described_class.new(cocina_doc).display_title }
+      it { is_expected.to eq "Oral history interview with anonymous, white, female, SNCC volunteer, 0405 (sides 1 and 2), Laurel, Mississippi. 0405" }
+    end
+
+    describe "#sort_title" do
+      subject { described_class.new(cocina_doc).sort_title }
+      it { is_expected.to eq "anonymous white female SNCC volunteer 0405 sides 1 and 2 Laurel Mississippi 0405" }
+    end
+
+    describe "#additional_titles" do
+      subject { described_class.new(cocina_doc).additional_titles }
+      it { is_expected.to be_empty }
+    end
+
+    describe "#title_display_data" do
+      subject do
+        described_class.new(cocina_doc).title_display_data.each_with_object({}) do |display_data, output|
+          output[display_data.label] = display_data.values
+        end
+      end
+      it { is_expected.to eq "Title" => ["Oral history interview with anonymous, white, female, SNCC volunteer, 0405 (sides 1 and 2), Laurel, Mississippi. 0405"] }
+    end
+  end
+
+  # druid:sm324fc8745
+  context "with multiple parallel titles and uniform title with name" do
+    let(:titles) do
+      [
+        {
+          "parallelValue" => [
+            {"value" => "Teshuvot she'ilot"},
+            {"value" => "תשובות שאילות"}
+          ]
+        },
+        {
+          "parallelValue" => [
+            {"value" => "Teshuvot ha-Rashba ha-meyuḥasot leha-Ramban", "type" => "alternative"},
+            {"value" => "תשובות הרשב׳׳א המיוחסות להרמב׳׳ן", "type" => "alternative"}
+          ]
+        },
+        {
+          "value" => "Teshuvot sheʼelot",
+          "type" => "uniform",
+          "note" => [
+            {
+              "structuredValue" => [
+                {"value" => "Adret, Solomon ben Abraham", "type" => "name"},
+                {"value" => "1235-1310", "type" => "life dates"}
+              ],
+              "type" => "associated name"
+            }
+          ]
+        }
+      ]
+    end
+
+    describe "#main_title" do
+      subject { described_class.new(cocina_doc).main_title }
+      it { is_expected.to eq "Teshuvot she'ilot" } # first parallel of primary (first untyped) title
+    end
+
+    describe "#full_title" do
+      subject { described_class.new(cocina_doc).full_title }
+      it { is_expected.to eq "Teshuvot she'ilot" }
+    end
+
+    describe "#display_title" do
+      subject { described_class.new(cocina_doc).display_title }
+      it { is_expected.to eq "Teshuvot she'ilot" }
+    end
+
+    describe "#sort_title" do
+      subject { described_class.new(cocina_doc).sort_title }
+      it { is_expected.to eq "Teshuvot sheilot" }
+    end
+
+    describe "#additional_titles" do
+      subject { described_class.new(cocina_doc).additional_titles }
+      it do
+        is_expected.to eq [
+          "תשובות שאילות", # parallel of primary title
+          "Teshuvot ha-Rashba ha-meyuḥasot leha-Ramban", # first parallel of alternative title
+          "תשובות הרשב׳׳א המיוחסות להרמב׳׳ן", # second parallel of alternative title
+          "Adret, Solomon ben Abraham, 1235-1310. Teshuvot sheʼelot" # uniform title with name
+        ]
+      end
+    end
+
+    describe "#title_display_data" do
+      subject do
+        described_class.new(cocina_doc).title_display_data.each_with_object({}) do |display_data, output|
+          output[display_data.label] = display_data.values
         end
       end
 
-      context "with a subtitle" do
-        let(:druid) { "bx658jh7339" }
-
-        it "returns the title formatted without the subtitle" do
-          is_expected.to eq "M. de Courville"
-        end
-      end
-
-      context "with escaped characters" do
-        let(:druid) { "bb112zx3193" }
-
-        it "renders the title correctly" do
-          is_expected.to eq "Bugatti Type 51A. Road & Track Salon January 1957"
-        end
+      it do
+        is_expected.to eq(
+          "Title" => [
+            "Teshuvot she'ilot",
+            "תשובות שאילות"
+          ],
+          "Alternative title" => [
+            "Teshuvot ha-Rashba ha-meyuḥasot leha-Ramban",
+            "תשובות הרשב׳׳א המיוחסות להרמב׳׳ן"
+          ],
+          "Uniform title" => ["Adret, Solomon ben Abraham, 1235-1310. Teshuvot sheʼelot"]
+        )
       end
     end
   end
 
-  describe "#full_title" do
-    context "with fixture data" do
-      let(:cocina_json) { File.read(file_fixture("#{druid}.json")) }
-      let(:cocina_doc) { JSON.parse(cocina_json) }
+  # druid:bb022pc9382
+  context "with parallel main, alternative, and uniform titles" do
+    let(:titles) do
+      [
+        {
+          "parallelValue" => [
+            {
+              "structuredValue" => [
+                {"value" => "Sefer Bet nadiv", "type" => "main title"},
+                {"value" => "sheʼelot u-teshuvot, ḥidushe Torah, derashot", "type" => "subtitle"}
+              ],
+              "status" => "primary"
+            },
+            {
+              "structuredValue" => [
+                {"value" => "ספר בית נדיב", "type" => "main title"},
+                {"value" => "שאלות ותשובות, חידושי תורה, דרשות", "type" => "subtitle"}
+              ]
+            }
+          ]
+        },
+        {
+          "parallelValue" => [
+            {
+              "value" => "Bet nadiv",
+              "note" => [
+                {
+                  "structuredValue" => [
+                    {"value" => "Leṿin, Natan", "type" => "name"},
+                    {"value" => "1856 or 1857-1926", "type" => "life dates"}
+                  ],
+                  "type" => "associated name"
+                }
+              ]
+            },
+            {
+              "value" => "בית נדיב",
+              "note" => [
+                {
+                  "value" => "לוין, נתן",
+                  "type" => "associated name"
+                }
+              ]
+            }
+          ],
+          "type" => "uniform"
+        },
+        {
+          "parallelValue" => [
+            {"value" => "Bet nadiv", "type" => "alternative"},
+            {"value" => "בית נדיב", "type" => "alternative"}
+          ]
+        }
+      ]
+    end
 
-      subject { described_class.from_json(cocina_json).full_title }
+    describe "#main_title" do
+      subject { described_class.new(cocina_doc).main_title }
+      it { is_expected.to eq "Sefer Bet nadiv" } # parallel marked as primary
+    end
 
-      context "with nonsorting characters" do
-        let(:druid) { "bt553vr2845" }
+    describe "#full_title" do
+      subject { described_class.new(cocina_doc).full_title }
+      it { is_expected.to eq "Sefer Bet nadiv sheʼelot u-teshuvot, ḥidushe Torah, derashot" }
+    end
 
-        it "adds the specified nonsorting padding" do
-          is_expected.to eq "The  master and Margarita"
+    describe "#display_title" do
+      subject { described_class.new(cocina_doc).display_title }
+      it { is_expected.to eq "Sefer Bet nadiv : sheʼelot u-teshuvot, ḥidushe Torah, derashot" }
+    end
+
+    describe "#sort_title" do
+      subject { described_class.new(cocina_doc).sort_title }
+      it { is_expected.to eq "Sefer Bet nadiv sheʼelot uteshuvot ḥidushe Torah derashot" }
+    end
+
+    describe "#additional_titles" do
+      subject { described_class.new(cocina_doc).additional_titles }
+      it do
+        is_expected.to eq [
+          "ספר בית נדיב : שאלות ותשובות, חידושי תורה, דרשות", # parallel of primary title
+          "Leṿin, Natan, 1856 or 1857-1926. Bet nadiv", # first parallel of uniform title
+          "לוין, נתן. בית נדיב", # second parallel of uniform title
+          "Bet nadiv", # first parallel of alternative title
+          "בית נדיב" # second parallel of alternative title
+        ]
+      end
+    end
+
+    describe "#title_display_data" do
+      subject do
+        described_class.new(cocina_doc).title_display_data.each_with_object({}) do |display_data, output|
+          output[display_data.label] = display_data.values
         end
       end
 
-      context "with a subtitle" do
-        let(:druid) { "bx658jh7339" }
-
-        it "returns the full title with subtitle but no punctuation" do
-          is_expected.to eq "M. de Courville [estampe]"
-        end
+      it do
+        is_expected.to eq(
+          "Title" => [
+            "Sefer Bet nadiv : sheʼelot u-teshuvot, ḥidushe Torah, derashot",
+            "ספר בית נדיב : שאלות ותשובות, חידושי תורה, דרשות"  # parallel *is* included here
+          ],
+          "Uniform title" => [
+            "Leṿin, Natan, 1856 or 1857-1926. Bet nadiv",
+            "לוין, נתן. בית נדיב"
+          ],
+          "Alternative title" => [
+            "Bet nadiv",
+            "בית נדיב"
+          ]
+        )
       end
     end
   end
 
-  describe "#display_title" do
-    context "with fixture data" do
-      let(:cocina_json) { File.read(file_fixture("#{druid}.json")) }
-      let(:cocina_doc) { JSON.parse(cocina_json) }
-
-      subject { described_class.from_json(cocina_json).display_title }
-
-      context "with nonsorting characters" do
-        let(:druid) { "bt553vr2845" }
-
-        it "adds the specified nonsorting padding" do
-          is_expected.to eq "The  master and Margarita"
-        end
-      end
-
-      context "with a subtitle" do
-        let(:druid) { "bx658jh7339" }
-
-        it "returns the title with subtitle and punctuation" do
-          is_expected.to eq "M. de Courville : [estampe]"
-        end
-      end
+  # druid:jt959wc5586
+  context "with a digital serial with part label from the catalog" do
+    let(:titles) do
+      [
+        {
+          "structuredValue" => [
+            {"value" => "Archives parlementaires de 1787 à 1860", "type" => "main title"},
+            {"value" => "recueil complet des débats législatifs & politiques des chambres françaises imprimé par ordre du Sénat et de la Chambre des députés sous la direction de m. J. Mavidal ... et de m. E. Laurent", "type" => "subtitle"}
+          ],
+          "status" => "primary"
+        },
+        {"value" => "Archives parlementaires", "type" => "alternative"}
+      ]
     end
-  end
+    let(:part_label) { "Series 1, Volume 1" }
 
-  describe "#sort_title" do
-    context "with fixture data" do
-      let(:cocina_json) { File.read(file_fixture("#{druid}.json")) }
-      let(:cocina_doc) { JSON.parse(cocina_json) }
-
-      subject { described_class.from_json(cocina_json).sort_title }
-
-      context "with nonsorting characters" do
-        let(:druid) { "bt553vr2845" }
-
-        it "returns the title without nonsorting characters" do
-          is_expected.to eq "master and Margarita"
-        end
-      end
-
-      context "with a subtitle" do
-        let(:druid) { "bx658jh7339" }
-
-        it "returns the title with subtitle but without punctuation" do
-          is_expected.to eq "M de Courville estampe"
-        end
-      end
-
-      context "with a title containing punctuation surrounded by spaces" do
-        let(:druid) { "vk217bh4910" }
-
-        it "returns the sort title without duplicate spaces" do
-          is_expected.to eq "2010 Machine Learning Data Set for NASAs Solar Dynamics Observatory Atmospheric Imaging Assembly"
-        end
-      end
+    describe "#main_title" do
+      subject { described_class.new(cocina_doc).main_title }
+      it { is_expected.to eq "Archives parlementaires de 1787 à 1860" }
     end
 
-    context "with no title" do
-      let(:cocina_doc) { {"description" => {"title" => []}} }
-      let(:cocina_json) { cocina_doc.to_json }
-
-      subject { described_class.from_json(cocina_json).sort_title }
-
-      it "returns the placeholder that sorts last" do
-        is_expected.to eq "\u{10FFFF}"
-      end
+    describe "#full_title" do
+      subject { described_class.new(cocina_doc).full_title }
+      it { is_expected.to eq "Archives parlementaires de 1787 à 1860 recueil complet des débats législatifs & politiques des chambres françaises imprimé par ordre du Sénat et de la Chambre des députés sous la direction de m. J. Mavidal ... et de m. E. Laurent Series 1, Volume 1" }
     end
-  end
 
-  describe "#additional_titles" do
-    context "with fixture data" do
-      let(:cocina_json) { File.read(file_fixture("#{druid}.json")) }
-      let(:cocina_doc) { JSON.parse(cocina_json) }
+    describe "#display_title" do
+      subject { described_class.new(cocina_doc).display_title }
+      it { is_expected.to eq "Archives parlementaires de 1787 à 1860 : recueil complet des débats législatifs & politiques des chambres françaises imprimé par ordre du Sénat et de la Chambre des députés sous la direction de m. J. Mavidal ... et de m. E. Laurent. Series 1, Volume 1" }
+    end
 
-      subject { described_class.from_json(cocina_json).additional_titles }
+    describe "#sort_title" do
+      subject { described_class.new(cocina_doc).sort_title }
+      it { is_expected.to eq "Archives parlementaires de 1787 a 1860 recueil complet des débats législatifs politiques des chambres françaises imprime par ordre du Sénat et de la Chambre des députés sous la direction de m J Mavidal et de m E Laurent Series 1 Volume 1" }
+    end
 
-      context "with an alternative title" do
-        let(:druid) { "nz187ct8959" }
+    describe "#additional_titles" do
+      subject { described_class.new(cocina_doc).additional_titles }
+      it { is_expected.to eq ["Archives parlementaires. Series 1, Volume 1"] }
+    end
 
-        it "returns the alternative title" do
-          is_expected.to eq ["Two thousand and ten China province population census data with GIS maps"]
+    describe "#title_display_data" do
+      subject do
+        described_class.new(cocina_doc).title_display_data.each_with_object({}) do |display_data, output|
+          output[display_data.label] = display_data.values
         end
       end
 
-      context "with a parallel translated title" do
-        let(:druid) { "bt553vr2845" }
-
-        it "returns the parallel title" do
-          is_expected.to eq ["Master i Margarita. English"]
-        end
+      it do
+        is_expected.to eq(
+          "Title" => ["Archives parlementaires de 1787 à 1860 : recueil complet des débats législatifs & politiques des chambres françaises imprimé par ordre du Sénat et de la Chambre des députés sous la direction de m. J. Mavidal ... et de m. E. Laurent. Series 1, Volume 1"],
+          "Alternative title" => ["Archives parlementaires. Series 1, Volume 1"]
+        )
       end
     end
   end
