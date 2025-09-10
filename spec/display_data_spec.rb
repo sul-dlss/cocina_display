@@ -91,12 +91,16 @@ RSpec.describe CocinaDisplay::DisplayData do
       [
         {"value" => ""},
         {"value" => nil},
-        {"value" => "A real note"}
+        {"value" => "A real note"},
+        {"value" => "https://example.com"},
+        {"value" => "A note with a URL in the middle of the text https://example.com and more text"}
       ].map { |obj| CocinaDisplay::Note.new(obj) }
     end
 
     it "returns the values from the objects" do
-      is_expected.to eq(["A real note"])
+      is_expected.to contain_exactly("A real note",
+        be_a(CocinaDisplay::DisplayData::LinkData).and(have_attributes(link_text: nil, url: "https://example.com")),
+        "A note with a URL in the middle of the text https://example.com and more text")
     end
 
     context "when some of the supplied values contain newline characters" do
