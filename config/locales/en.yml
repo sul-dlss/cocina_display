@@ -61,6 +61,15 @@ en:
         subject: Subject
         topic: Subject
       use_and_reproduction: Use and reproduction statement
+      title:
+        title: Title
+        abbreviated: Abbreviated title
+        alternative: Alternative title
+        parallel: Parallel title
+        supplied: Supplied title
+        translated: Translated title
+        transliterated: Transliterated title
+        uniform: Uniform title
     contributor:
       role:
         default: Associated with
