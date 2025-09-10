@@ -400,6 +400,62 @@ RSpec.describe CocinaDisplay::CocinaRecord do
     end
   end
 
+  describe "#contributors_by_role" do
+    subject(:result) { record.contributors_by_role(with_date: with_date) }
+
+    context "with multiple contributors and roles and with date" do
+      let(:with_date) { true }
+      let(:contributors) do
+        [
+          {
+            "name" => [{"value" => "Doe, John"}],
+            "role" => [{"value" => "author"}],
+            "type" => "person"
+          },
+          {
+            "name" => [{"value" => "Smith, Jane"}],
+            "role" => [{"value" => "editor"}],
+            "type" => "person"
+          },
+          {
+            "name" => [{"value" => "ACME Corp"}],
+            "role" => [{"value" => "publisher"}],
+            "type" => "organization"
+          },
+          # from druid:kj040zn0537
+          {
+            "type" => "person",
+            "name" => [
+              {
+                "structuredValue" => [
+                  {"value" => "Lasinio, Carlo", "type" => "name"},
+                  {"value" => "1759-1838", "type" => "life dates"}
+                ]
+              }
+            ],
+            "status" => "primary",
+            "role" => [
+              {"code" => "egr", "source" => {"code" => "marcrelator"}}
+            ]
+          }
+        ]
+      end
+
+      it "groups contributors by their roles" do
+        expect(result["author"]).to eq [CocinaDisplay::Contributors::Contributor.new(contributors[0])]
+        expect(result["editor"]).to eq [CocinaDisplay::Contributors::Contributor.new(contributors[1])]
+        expect(result["publisher"]).to eq [CocinaDisplay::Contributors::Contributor.new(contributors[2])]
+        expect(result["engraver"]).to eq [CocinaDisplay::Contributors::Contributor.new(contributors[3])]
+      end
+    end
+
+    context "with no contributors" do
+      let(:contributors) { [] }
+
+      it { is_expected.to be_empty }
+    end
+  end
+
   describe "#publisher_names" do
     subject { record.publisher_names }
 

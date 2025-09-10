@@ -58,12 +58,19 @@ module CocinaDisplay
       # @param with_date [Boolean] Include life dates, if present
       # @return [Hash<String, Array<String>>]
       def contributor_names_by_role(with_date: false)
-        contributors.each_with_object({}) do |contributor, hash|
-          if (name = contributor.display_name(with_date: with_date)).present?
-            contributor.roles.each do |role|
-              hash[role.to_s] ||= []
-              hash[role.to_s] << name
-            end
+        contributors_by_role(with_date: with_date)
+          .transform_values { |contributor_list| contributor_list.map { |contributor| contributor.display_name(with_date: with_date) }.compact_blank }
+          .compact_blank
+      end
+
+      # A hash mapping role names to the names of contributors with that role.
+      # @param with_date [Boolean] Include life dates, if present
+      # @return [Hash<String, Array<Contributor>>]
+      def contributors_by_role(with_date: false)
+        @contributors_by_role ||= contributors.each_with_object({}) do |contributor, hash|
+          contributor.roles.each do |role|
+            hash[role.to_s] ||= []
+            hash[role.to_s] << contributor
           end
         end
       end

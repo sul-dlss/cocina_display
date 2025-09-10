@@ -19,6 +19,10 @@ module CocinaDisplay
         Utils.compact_and_join([display_name, display_role], delimiter: ": ")
       end
 
+      def ==(other)
+        other.is_a?(Contributor) && other.cocina == cocina
+      end
+
       # Is this contributor a human?
       # @return [Boolean]
       def person?
