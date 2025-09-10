@@ -2,7 +2,7 @@
 
 require "spec_helper"
 
-RSpec.describe CocinaDisplay::Accesses::Url do
+RSpec.describe CocinaDisplay::Description::Url do
   subject { described_class.new(url) }
 
   let(:url) { {"value" => "https://example.com", "displayLabel" => "My favorite website"} }

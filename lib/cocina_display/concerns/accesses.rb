@@ -18,28 +18,28 @@ module CocinaDisplay
       end
 
       # All access metadata except contact emails and URLs
-      # @return [Array<Access>]
+      # @return [Array<Description::Access>]
       def accesses
         @accesses ||= Enumerator::Chain.new(
           path("$.description.access.physicalLocation.*"),
           path("$.description.access.digitalLocation.*"),
           path("$.description.access.digitalRepository.*")
-        ).map { |a| CocinaDisplay::Access.new(a) }
+        ).map { |a| CocinaDisplay::Description::Access.new(a) }
       end
 
       # All access contact metadata
-      # @return [Array<Accesses::AccessContact>]
+      # @return [Array<Description::AccessContact>]
       def access_contacts
         path("$.description.access.accessContact.*").map do |contact|
-          CocinaDisplay::Accesses::AccessContact.new(contact)
+          CocinaDisplay::Description::AccessContact.new(contact)
         end
       end
 
       # All access URL metadata
-      # @return [Array<Accesses::Url>]
+      # @return [Array<Description::Url>]
       def urls
         path("$.description.access.url.*").map do |url|
-          CocinaDisplay::Accesses::Url.new(url)
+          CocinaDisplay::Description::Url.new(url)
         end
       end
 

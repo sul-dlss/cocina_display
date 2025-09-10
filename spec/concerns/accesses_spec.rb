@@ -41,7 +41,7 @@ RSpec.describe CocinaDisplay::CocinaRecord do
   describe "#accesses" do
     it "returns an array of Access objects" do
       expect(record.accesses).to contain_exactly(
-        be_a(CocinaDisplay::Access).and(have_attributes(type: "discovery", to_s: "Series: The Prosecutor v. Sabino Gouveia Leite"))
+        be_a(CocinaDisplay::Description::Access).and(have_attributes(type: "discovery", to_s: "Series: The Prosecutor v. Sabino Gouveia Leite"))
       )
     end
   end
@@ -49,7 +49,7 @@ RSpec.describe CocinaDisplay::CocinaRecord do
   describe "#access_contacts" do
     it "returns an array of AccessContact objects" do
       expect(record.access_contacts).to contain_exactly(
-        be_a(CocinaDisplay::Accesses::AccessContact).and(have_attributes(type: "email", to_s: "email@example.com"))
+        be_a(CocinaDisplay::Description::AccessContact).and(have_attributes(type: "email", to_s: "email@example.com"))
       )
     end
   end
@@ -57,7 +57,7 @@ RSpec.describe CocinaDisplay::CocinaRecord do
   describe "#urls" do
     it "returns an array of Url objects" do
       expect(record.urls).to contain_exactly(
-        be_a(CocinaDisplay::Accesses::Url).and(have_attributes(link_text: "My favorite website", to_s: "https://example.com"))
+        be_a(CocinaDisplay::Description::Url).and(have_attributes(link_text: "My favorite website", to_s: "https://example.com"))
       )
     end
   end
