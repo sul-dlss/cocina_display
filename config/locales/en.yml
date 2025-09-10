@@ -61,3 +61,6 @@ en:
         subject: Subject
         topic: Subject
       use_and_reproduction: Use and reproduction statement
+    contributor:
+      role:
+        default: Associated with

@@ -481,6 +481,100 @@ RSpec.describe CocinaDisplay::CocinaRecord do
     end
   end
 
+  describe "#contributor_display_data" do
+    subject(:result) { record.contributor_display_data }
+
+    context "with multiple contributors and roles and with date" do
+      let(:with_date) { true }
+      let(:contributors) do
+        [
+          {
+            "name" => [{"value" => "Doe, John"}],
+            "role" => [{"value" => "author"}],
+            "type" => "person"
+          },
+          {
+            "name" => [{"value" => "Smith, Jane"}],
+            "role" => [{"value" => "editor"}],
+            "type" => "person"
+          },
+          {
+            "name" => [{"value" => "ACME Corp"}],
+            "role" => [{"value" => "publisher"}],
+            "type" => "organization"
+          },
+          # from druid:kj040zn0537
+          {
+            "type" => "person",
+            "name" => [
+              {
+                "structuredValue" => [
+                  {"value" => "Lasinio, Carlo", "type" => "name"},
+                  {"value" => "1759-1838", "type" => "life dates"}
+                ]
+              }
+            ],
+            "status" => "primary",
+            "role" => [
+              {"code" => "egr", "source" => {"code" => "marcrelator"}}
+            ]
+          }
+        ]
+      end
+      it "returns an array of DisplayValue objects" do
+        expect(result).to contain_exactly(
+          be_a(CocinaDisplay::DisplayData).and(
+            have_attributes(label: "Author", values: ["Doe, John"])
+          ),
+          be_a(CocinaDisplay::DisplayData).and(
+            have_attributes(label: "Editor", values: ["Smith, Jane"])
+          ),
+          be_a(CocinaDisplay::DisplayData).and(
+            have_attributes(label: "Publisher", values: ["ACME Corp"])
+          ),
+          be_a(CocinaDisplay::DisplayData).and(
+            have_attributes(label: "Engraver", values: ["Lasinio, Carlo, 1759-1838"])
+          )
+        )
+      end
+    end
+
+    context "with no contributors" do
+      let(:contributors) { [] }
+
+      it { is_expected.to be_empty }
+    end
+
+    context "when contributor has no declared role" do
+      let(:contributors) do
+        [
+          # from druid:bb737zp0787
+          {
+            "type" => "person",
+            "name" => [
+              {
+                "structuredValue" => [
+                  {"value" => "Paget, Francis Edward", "type" => "name"},
+                  {"value" => "1759-1838", "type" => "life dates"}
+                ]
+              }
+            ],
+            "status" => "primary",
+            "role" => []
+          }
+        ]
+      end
+
+      it 'gives a label of "associated with"' do
+        expect(result).to contain_exactly(
+          be_a(CocinaDisplay::DisplayData).and(
+            have_attributes(label: "Associated with", values: ["Paget, Francis Edward, 1759-1838"])
+          )
+        )
+      end
+    end
+  end
+
   describe "#publisher_names" do
     subject { record.publisher_names }
 

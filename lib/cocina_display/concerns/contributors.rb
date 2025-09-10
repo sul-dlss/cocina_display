@@ -80,6 +80,14 @@ module CocinaDisplay
         end
       end
 
+      def contributor_display_data
+        contributors_by_role.map do |role, contributors|
+          label = I18n.t(role, scope: "cocina_display.contributor.role",
+            default: role&.capitalize || I18n.t("default", scope: "cocina_display.contributor.role"))
+          DisplayData.new(label: label, objects: contributors)
+        end
+      end
+
       # A string value for sorting by contributor that sorts missing values last.
       # Appends the sort title to break ties between contributor names.
       # Ignores punctuation and leading/trailing spaces.
