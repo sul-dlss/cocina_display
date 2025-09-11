@@ -3,6 +3,7 @@ module CocinaDisplay
     # Base class for subjects in Cocina structured data.
     class Subject
       attr_reader :cocina
+      SUBJECT_DELIMITER = " > "
 
       # Initialize a Subject object with Cocina structured data.
       # @param cocina [Hash] The Cocina structured data for the subject.
@@ -34,7 +35,7 @@ module CocinaDisplay
       # A string representation of the entire subject, concatenated for display.
       # @return [String]
       def display_value
-        Utils.compact_and_join(display_values, delimiter: " > ")
+        Utils.compact_and_join(display_values, delimiter: SUBJECT_DELIMITER)
       end
 
       # Label used to render the subject for display.
