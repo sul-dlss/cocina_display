@@ -465,6 +465,9 @@ RSpec.describe CocinaDisplay::CocinaRecord do
         },
         {"type" => "genre", "value" => "Science Fiction"},  # ignored; goes in genre
         {"type" => "topic", "value" => "History"},
+        {"type" =>	"topic", "value" => "Presidents--Election",
+         "uri" =>	"http://id.loc.gov/authorities/subjects/sh85106460",
+         "source" => {"code" => "lcsh", "uri" => "http://id.loc.gov/authorities/subjects/"}},
         {"type" => "map coordinates", "value" => "W 18°--E 51°/N 37°--S 35°"}, # ignored; goes in map data
         {"type" => "classification", "value" => "QA76.73.J38"} # ignored; internal only
       ]
@@ -476,7 +479,8 @@ RSpec.describe CocinaDisplay::CocinaRecord do
           label: "Subject",
           values: [
             "Painters > Italy",
-            "History"
+            "History",
+            "Presidents > Election"
           ]
         ))
       )

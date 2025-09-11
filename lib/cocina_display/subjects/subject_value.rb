@@ -3,6 +3,7 @@ module CocinaDisplay
     # A descriptive value that can be part of a Subject.
     class SubjectValue
       attr_reader :cocina
+      LC_SUBJECT_DELIMITER = "--"
 
       # The type of the subject value, like "person", "title", or "time".
       # @see https://github.com/sul-dlss/cocina-models/blob/main/docs/description_types.md#subject-part-types-for-structured-value
@@ -29,10 +30,13 @@ module CocinaDisplay
       end
 
       # The display string for the subject value.
+      # This also handles pre-coordinated subject values from LCSH and replaces the "--" with the configured delimeter.
       # Subclasses should override this method to provide specific formatting.
       # @return [String]
       def to_s
-        cocina["value"]
+        return unless cocina["value"]
+
+        cocina["value"].split(LC_SUBJECT_DELIMITER).join(Subject::SUBJECT_DELIMITER)
       end
     end
 
@@ -115,7 +119,7 @@ module CocinaDisplay
       # Falls back to the raw value if parsing fails.
       # @return [String, nil]
       def to_s
-        coordinates&.to_s || super
+        coordinates&.to_s || cocina["value"]
       end
     end
   end
