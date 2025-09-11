@@ -12,11 +12,10 @@ module CocinaDisplay
         @cocina = cocina
       end
 
-      # String representation of the contributor, including name and role.
-      # Used for debugging and logging.
+      # String representation of the contributor, including name with dates, if present.
       # @return [String]
       def to_s
-        Utils.compact_and_join([display_name, display_role], delimiter: ": ")
+        display_name(with_date: true)
       end
 
       def ==(other)
@@ -95,13 +94,6 @@ module CocinaDisplay
       # @return [String, nil]
       def surname
         names.map(&:surname_str).first.presence
-      end
-
-      # A string representation of the contributor's roles, formatted for display.
-      # If there are multiple roles, they are joined with commas.
-      # @return [String]
-      def display_role
-        roles.map(&:to_s).to_sentence
       end
 
       # All names in the Cocina as Name objects.
