@@ -3,7 +3,6 @@
 module CocinaDisplay
   # Public Cocina metadata for an SDR object, as fetched from PURL.
   class CocinaRecord < JsonBackedRecord
-    include CocinaDisplay::Concerns::Accesses
     include CocinaDisplay::Concerns::Events
     include CocinaDisplay::Concerns::Contributors
     include CocinaDisplay::Concerns::Identifiers
@@ -91,6 +90,10 @@ module CocinaDisplay
     def copyright_display_data
       CocinaDisplay::DisplayData.from_string(cocina_doc.dig("access", "copyright"),
         label: I18n.t("cocina_display.field_label.copyright"))
+    end
+
+    def descriptive_access
+      DescriptiveAccess.new(lookup: ->(json_path) { path(json_path) }, purl_url:)
     end
   end
 end

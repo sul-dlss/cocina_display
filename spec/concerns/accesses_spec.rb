@@ -16,9 +16,9 @@ RSpec.describe CocinaDisplay::CocinaRecord do
       }
     }.to_json
   end
-  let(:record) { described_class.from_json(cocina_json) }
+  let(:record) { described_class.from_json(cocina_json).descriptive_access }
 
-  describe "#access_display_data" do
+  describe "access_display_data" do
     it "returns an array of access display data" do
       expect(record.access_display_data).to contain_exactly(
         be_a(CocinaDisplay::DisplayData).and(have_attributes(label: "Special location", values: ["Series: The Prosecutor v. Sabino Gouveia Leite"])),
