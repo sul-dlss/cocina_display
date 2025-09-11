@@ -90,5 +90,18 @@ module CocinaDisplay
     def use_and_reproduction
       cocina_doc.dig("access", "useAndReproductionStatement")
     end
+
+    # Description of the license
+    # @return [String, nil]
+    def license_description
+      @license_description ||=
+        license ? License.new(url: license).description : nil
+    end
+
+    # License URI
+    # @return [String, nil]
+    def license
+      cocina_doc.dig("access", "license")
+    end
   end
 end

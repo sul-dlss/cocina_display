@@ -33,6 +33,11 @@ module CocinaDisplay
           label: I18n.t("cocina_display.field_label.copyright"))
       end
 
+      def license_display_data
+        CocinaDisplay::DisplayData.from_string(license_description,
+          label: I18n.t("cocina_display.field_label.license"))
+      end
+
       # All access metadata except contact emails and URLs
       # @return [Array<Description::Access>]
       def accesses
