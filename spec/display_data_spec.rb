@@ -84,6 +84,20 @@ RSpec.describe CocinaDisplay::DisplayData do
     end
   end
 
+  describe "#objects" do
+    subject { described_class.new(label: label, objects: objects).objects }
+    let(:label) { "Some label" }
+    let(:objects) do
+      [
+        {"value" => "Some text"}
+      ].map { |obj| CocinaDisplay::Language.new(obj) }
+    end
+
+    it "returns the objects as supplied" do
+      is_expected.to contain_exactly(be_a(CocinaDisplay::Language))
+    end
+  end
+
   describe "#values" do
     subject { described_class.new(label: label, objects: objects).values }
     let(:label) { "Some label" }
