@@ -72,53 +72,19 @@ module CocinaDisplay
 
     attr_reader :label
 
-    # A Data object to hold link text and URL for link metadata.
-    # @attr [String] link_text
-    # @attr [String] url
-    LinkData = Data.define(:link_text, :url)
-
     # The unique, non-blank values for display
-    # @return [Array<String, LinkData>]
+    # @return [Array<String>]
     def values
-      values_for_display.compact_blank.uniq
+      @objects.flat_map { |obj| split_string_on_newlines(obj.to_s) }.compact_blank.uniq
     end
 
     private
-
-    # Extract the values for display from the objects.
-    # @return [Array<String, LinkData>]
-    def values_for_display
-      @objects.flat_map do |object|
-        if object.respond_to?(:link_text) || url?(object.to_s)
-          convert_url_strings_to_link_data(object)
-        else
-          split_string_on_newlines(object.to_s)
-        end
-      end
-    end
-
-    # Convert a URL string or object with link text to a LinkData object.
-    # @param object [Object] The object to convert
-    # @return [LinkData]
-    def convert_url_strings_to_link_data(object)
-      LinkData.new(link_text: (object.respond_to?(:link_text) ? object.link_text : nil), url: object.to_s)
-    end
 
     # Split a string on newlines (including HTML-encoded newlines) and strip whitespace.
     # @param string [String] The string to split
     # @return [Array<String>]
     def split_string_on_newlines(string)
       string&.gsub("&#10;", "\n")&.split("\n")&.map(&:strip)
-    end
-
-    # Whether a string looks like a URL.
-    # @param string [String] The string to check
-    # @return [Boolean]
-    def url?(string)
-      uri = URI.parse(string)
-      uri.is_a?(URI::HTTP) || uri.is_a?(URI::HTTPS)
-    rescue URI::InvalidURIError
-      false
     end
   end
 end

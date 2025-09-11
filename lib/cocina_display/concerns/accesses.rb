@@ -2,13 +2,12 @@ module CocinaDisplay
   module Concerns
     # Methods for extracting access/location information from a Cocina object.
     module Accesses
-      # Display data for all access metadata except contact emails
+      # Display data for all access metadata except contact emails and URLs
       # @return [Array<DisplayData>]
       def access_display_data
         CocinaDisplay::DisplayData.from_objects(accesses +
                                                 access_contacts.reject(&:contact_email?) +
-                                                purls +
-                                                urls)
+                                                purls)
       end
 
       # Display data for all access contact email metadata

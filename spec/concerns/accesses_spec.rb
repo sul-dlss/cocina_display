@@ -22,10 +22,7 @@ RSpec.describe CocinaDisplay::CocinaRecord do
     it "returns an array of access display data" do
       expect(record.access_display_data).to contain_exactly(
         be_a(CocinaDisplay::DisplayData).and(have_attributes(label: "Special location", values: ["Series: The Prosecutor v. Sabino Gouveia Leite"])),
-        be_a(CocinaDisplay::DisplayData).and(have_attributes(label: "Location", values: contain_exactly(
-          be_a(CocinaDisplay::DisplayData::LinkData).and(have_attributes(link_text: nil, url: "https://purl.stanford.edu/km388vz4371")),
-          be_a(CocinaDisplay::DisplayData::LinkData).and(have_attributes(link_text: "My favorite website", url: "https://example.com"))
-        )))
+        be_a(CocinaDisplay::DisplayData).and(have_attributes(label: "Location", values: ["https://purl.stanford.edu/km388vz4371"]))
       )
     end
   end

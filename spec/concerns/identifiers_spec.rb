@@ -250,10 +250,8 @@ RSpec.describe CocinaDisplay::CocinaRecord do
 
     it "returns an array of DisplayValue objects" do
       expect(subject.identifier_display_data).to contain_exactly(
-        be_a(CocinaDisplay::DisplayData).and(have_attributes(label: "DOI", values: contain_exactly(
-          be_a(CocinaDisplay::DisplayData::LinkData).and(have_attributes(link_text: nil, url: "https://doi.org/10.25740/ppax-bf07")),
-          be_a(CocinaDisplay::DisplayData::LinkData).and(have_attributes(link_text: nil, url: "https://doi.org/10.25740/sb4q-wj06"))
-        ))),
+        be_a(CocinaDisplay::DisplayData).and(have_attributes(label: "DOI", values: ["https://doi.org/10.25740/ppax-bf07",
+          "https://doi.org/10.25740/sb4q-wj06"])),
         be_a(CocinaDisplay::DisplayData).and(have_attributes(label: "ISBN", values: ["978-0-061-96436-7"])),
         be_a(CocinaDisplay::DisplayData).and(have_attributes(label: "Identifier", values: ["other-id-123", "other-id-456"])),
         be_a(CocinaDisplay::DisplayData).and(have_attributes(label: "Custom label", values: ["custom-id-123"]))
