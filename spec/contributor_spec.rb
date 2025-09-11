@@ -213,7 +213,6 @@ RSpec.describe CocinaDisplay::Contributors::Contributor do
     end
   end
 
-  # used for debugging, but tested for completeness
   describe "#to_s" do
     subject { instance.to_s }
 
@@ -221,12 +220,17 @@ RSpec.describe CocinaDisplay::Contributors::Contributor do
       let(:cocina) do
         {
           "type" => "person",
-          "name" => [{"value" => "John Doe"}],
+          "name" => [
+            {"structuredValue" => [
+              {"value" => "John Doe", "type" => "name"},
+              {"value" => "1920 - 2000", "type" => "life dates"}
+            ]}
+          ],
           "role" => [{"value" => "author"}]
         }
       end
 
-      it { is_expected.to eq("John Doe: author") }
+      it { is_expected.to eq("John Doe, 1920 - 2000") }
     end
 
     context "with an organization with a name" do
@@ -238,7 +242,7 @@ RSpec.describe CocinaDisplay::Contributors::Contributor do
         }
       end
 
-      it { is_expected.to eq("ACME Corp: publisher") }
+      it { is_expected.to eq("ACME Corp") }
     end
 
     context "person with multiple roles" do
@@ -253,7 +257,7 @@ RSpec.describe CocinaDisplay::Contributors::Contributor do
         }
       end
 
-      it { is_expected.to eq("John Doe: author and editor") }
+      it { is_expected.to eq("John Doe") }
     end
   end
 
