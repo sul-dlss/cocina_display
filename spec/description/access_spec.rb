@@ -2,7 +2,7 @@
 
 require "spec_helper"
 
-RSpec.describe CocinaDisplay::Access do
+RSpec.describe CocinaDisplay::Description::Access do
   subject { described_class.new(access) }
 
   let(:access) { {"value" => "Test Access", "type" => "repository"} }

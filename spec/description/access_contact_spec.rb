@@ -2,7 +2,7 @@
 
 require "spec_helper"
 
-RSpec.describe CocinaDisplay::Accesses::AccessContact do
+RSpec.describe CocinaDisplay::Description::AccessContact do
   subject { described_class.new(contact) }
 
   let(:contact) { {"value" => "test@example.com", "type" => "email"} }

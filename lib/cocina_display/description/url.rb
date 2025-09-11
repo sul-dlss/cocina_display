@@ -1,5 +1,5 @@
 module CocinaDisplay
-  module Accesses
+  module Description
     class Url < Access
       # The display label for the URL access metadata.
       # @return [String]
