@@ -17,6 +17,22 @@ module CocinaDisplay
         CocinaDisplay::DisplayData.from_objects(access_contacts.select(&:contact_email?))
       end
 
+      # Display data for the use and reproduction statement.
+      # Exhibits and EarthWorks handle useAndReproductionStatement like descriptive metadata.
+      # @return [Array<CocinaDisplay::DisplayData>]
+      def use_and_reproduction_display_data
+        CocinaDisplay::DisplayData.from_string(use_and_reproduction,
+          label: I18n.t("cocina_display.field_label.use_and_reproduction"))
+      end
+
+      # Display data for the copyright statement.
+      # Exhibits and EarthWorks handle copyright like descriptive metadata.
+      # @return [Array<CocinaDisplay::DisplayData>]
+      def copyright_display_data
+        CocinaDisplay::DisplayData.from_string(copyright,
+          label: I18n.t("cocina_display.field_label.copyright"))
+      end
+
       # All access metadata except contact emails and URLs
       # @return [Array<Description::Access>]
       def accesses

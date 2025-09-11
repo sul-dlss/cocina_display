@@ -75,93 +75,19 @@ RSpec.describe CocinaDisplay::CocinaRecord do
     end
   end
 
-  describe "#use_and_reproduction_display_data" do
-    let(:cocina_json) do
-      {
-        "access" => {
-          "useAndReproductionStatement" => "Available for use in research, teaching, and private study."
-        }
-      }.to_json
-    end
+  describe "#use_and_reproduction" do
+    let(:druid) { "bb099mt5053" }
 
-    it "returns the use and reproduction display data" do
-      expect(subject.use_and_reproduction_display_data).to contain_exactly(
-        be_a(CocinaDisplay::DisplayData).and(have_attributes(
-          values: ["Available for use in research, teaching, and private study."],
-          label: "Use and reproduction statement"
-        ))
-      )
-    end
-
-    context "when the use and reproduction statement is empty" do
-      let(:cocina_json) do
-        {
-          "access" => {
-            "useAndReproductionStatement" => ""
-          }
-        }.to_json
-      end
-
-      it "returns an empty array" do
-        expect(subject.use_and_reproduction_display_data).to be_empty
-      end
-    end
-
-    context "when there is no use and reproduction statement" do
-      let(:cocina_json) do
-        {
-          "access" => {}
-        }.to_json
-      end
-
-      it "returns an empty array" do
-        expect(subject.use_and_reproduction_display_data).to be_empty
-      end
+    it "returns the use and reproduction statement" do
+      expect(subject.use_and_reproduction).to match "permission to examine collection materials is not an authorization to publish"
     end
   end
 
-  describe "#copyright_display_data" do
-    let(:cocina_json) do
-      {
-        "access" => {
-          "copyright" => "Copyright 2022 Stanford University."
-        }
-      }.to_json
-    end
+  describe "#copyright" do
+    let(:druid) { "bb099mt5053" }
 
-    it "returns the copyright display data" do
-      expect(subject.copyright_display_data).to contain_exactly(
-        be_a(CocinaDisplay::DisplayData).and(have_attributes(
-          values: ["Copyright 2022 Stanford University."],
-          label: "Copyright"
-        ))
-      )
-    end
-
-    context "when the copyright statement is empty" do
-      let(:cocina_json) do
-        {
-          "access" => {
-            "copyright" => ""
-          }
-        }.to_json
-      end
-
-      it "returns an empty array" do
-        expect(subject.copyright_display_data).to be_empty
-      end
-    end
-
-    context "when there is no copyright statement" do
-      let(:cocina_json) do
-        {
-          "access" => {}
-        }.to_json
-      end
-
-      it "returns an empty array" do
-        expect(subject.copyright_display_data).to be_empty
-      end
+    it "returns the copyright statement" do
+      expect(subject.copyright).to eq "Materials may be subject to copyright."
     end
   end
 end

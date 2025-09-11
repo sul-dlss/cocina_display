@@ -79,18 +79,16 @@ module CocinaDisplay
       @related_resources ||= path("$.description.relatedResource[*]").map { |res| RelatedResource.new(res) }
     end
 
-    # Display data for the use and reproduction statement.
-    # @return [Array<CocinaDisplay::DisplayData>]
-    def use_and_reproduction_display_data
-      CocinaDisplay::DisplayData.from_string(cocina_doc.dig("access", "useAndReproductionStatement"),
-        label: I18n.t("cocina_display.field_label.use_and_reproduction"))
+    # Copyright statement from Cocina access metadata.
+    # @return [String, nil]
+    def copyright
+      cocina_doc.dig("access", "copyright")
     end
 
-    # Display data for the copyright statement.
-    # @return [Array<CocinaDisplay::DisplayData>]
-    def copyright_display_data
-      CocinaDisplay::DisplayData.from_string(cocina_doc.dig("access", "copyright"),
-        label: I18n.t("cocina_display.field_label.copyright"))
+    # Use and reproduction statement from Cocina access metadata.
+    # @return [String, nil]
+    def use_and_reproduction
+      cocina_doc.dig("access", "useAndReproductionStatement")
     end
   end
 end
