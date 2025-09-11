@@ -114,6 +114,23 @@ RSpec.describe CocinaDisplay::CocinaRecord do
     end
   end
 
+  describe "#license_display_data" do
+    let(:cocina_access) do
+      {
+        "license" => "https://www.apache.org/licenses/LICENSE-2.0"
+      }
+    end
+
+    it "returns the license display data" do
+      expect(record.license_display_data).to contain_exactly(
+        be_a(CocinaDisplay::DisplayData).and(have_attributes(
+          values: ["This work is licensed under an Apache License 2.0."],
+          label: "License"
+        ))
+      )
+    end
+  end
+
   describe "#accesses" do
     it "returns an array of Access objects" do
       expect(record.accesses).to contain_exactly(
