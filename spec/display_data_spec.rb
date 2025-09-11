@@ -99,7 +99,7 @@ RSpec.describe CocinaDisplay::DisplayData do
 
     it "returns the values from the objects" do
       is_expected.to contain_exactly("A real note",
-        be_a(CocinaDisplay::DisplayData::LinkData).and(have_attributes(link_text: nil, url: "https://example.com")),
+        "https://example.com",
         "A note with a URL in the middle of the text https://example.com and more text")
     end
 
