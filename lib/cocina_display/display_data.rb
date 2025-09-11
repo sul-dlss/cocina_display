@@ -70,7 +70,7 @@ module CocinaDisplay
       @objects = objects
     end
 
-    attr_reader :label
+    attr_reader :label, :objects
 
     # A Data object to hold link text and URL for link metadata.
     # @attr [String] link_text
@@ -88,7 +88,7 @@ module CocinaDisplay
     # Extract the values for display from the objects.
     # @return [Array<String, LinkData>]
     def values_for_display
-      @objects.flat_map do |object|
+      objects.flat_map do |object|
         if object.respond_to?(:link_text) || url?(object.to_s)
           convert_url_strings_to_link_data(object)
         else
