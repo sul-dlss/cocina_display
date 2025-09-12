@@ -9,6 +9,7 @@ en:
         repository: Repository
         url: Location
       form:
+        extent: Extent
         form: Form
         genre: Genre
         map_projection: Map data

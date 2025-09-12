@@ -225,6 +225,7 @@ RSpec.describe CocinaDisplay::CocinaRecord do
         {"value" => "electronic resource", "type" => "form"},
         {"value" => "optical disc", "type" => "form", "displayLabel" => "Physical format"}, # custom label
         {"value" => "map", "type" => "form"},
+        {"value" => "1 online resource.", "type" => "extent"},
         {"value" => "picture", "type" => "genre"},  # ignored
         {"value" => "[ca.1:60,000,000]", "type" => "map scale"}, # ignored
         {"value" => "EPSG:4326", "type" => "map projection"}, # ignored
@@ -241,6 +242,10 @@ RSpec.describe CocinaDisplay::CocinaRecord do
         be_a(CocinaDisplay::DisplayData).and(have_attributes(
           label: "Form",
           values: ["electronic resource", "map"]
+        )),
+        be_a(CocinaDisplay::DisplayData).and(have_attributes(
+          label: "Extent",
+          values: ["1 online resource."]
         ))
       )
     end
