@@ -36,6 +36,7 @@ en:
         upc: UPC
         videorecording_identifier: Videorecording identifier
       language: Language
+      license: License
       note:
         abstract: Abstract
         bibliography: Bibliography

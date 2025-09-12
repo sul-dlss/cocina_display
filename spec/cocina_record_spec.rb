@@ -90,4 +90,42 @@ RSpec.describe CocinaDisplay::CocinaRecord do
       expect(subject.copyright).to eq "Materials may be subject to copyright."
     end
   end
+
+  describe "#license" do
+    let(:druid) { "zw438wf4318" }
+
+    it "returns the license URL" do
+      expect(subject.license).to eq "https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode"
+    end
+  end
+
+  describe "#license_description" do
+    let(:druid) { "zw438wf4318" }
+
+    it "returns the license description" do
+      expect(subject.license_description).to match "Creative Commons Attribution Non Commercial No Derivatives 4.0 International license"
+    end
+
+    context "when there is no license" do
+      let(:druid) { "bb099mt5053" }
+
+      it "returns nil" do
+        expect(subject.license_description).to be_nil
+      end
+    end
+
+    context "when the license is not in the config" do
+      let(:cocina_doc) do
+        {
+          "access" => {
+            "license" => "http://example.com/license/not-in-config"
+          }
+        }
+      end
+
+      it "raises an error" do
+        expect { subject.license_description }.to raise_error(CocinaDisplay::License::LegacyLicenseError)
+      end
+    end
+  end
 end
