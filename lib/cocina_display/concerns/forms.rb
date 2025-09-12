@@ -208,13 +208,13 @@ module CocinaDisplay
       # Issuance terms for a work, drawn from the event notes.
       # @return [Array<String>]
       def issuance_terms
-        path("$.description.event.*.note[?@.type == 'issuance'].value").map(&:downcase).uniq
+        events.flat_map(&:notes).filter { |note| note.type == "issuance" }.map { |note| note.to_s.downcase }.uniq
       end
 
       # Frequency terms for a periodical, drawn from the event notes.
       # @return [Array<String>]
       def frequency
-        path("$.description.event.*.note[?@.type == 'frequency'].value").map(&:downcase).uniq
+        events.flat_map(&:notes).filter { |note| note.type == "frequency" }.map { |note| note.to_s.downcase }.uniq
       end
     end
   end

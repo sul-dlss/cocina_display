@@ -69,6 +69,14 @@ module CocinaDisplay
           CocinaDisplay::Events::Location.new(location)
         end
       end
+
+      # All notes associated with this event.
+      # @return [Array<CocinaDisplay::Events::Note>]
+      def notes
+        @notes ||= Array(cocina["note"]).map do |note|
+          CocinaDisplay::Events::Note.new(note)
+        end
+      end
     end
   end
 end
