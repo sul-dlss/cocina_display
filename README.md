@@ -92,6 +92,13 @@ cat spec/fixtures/bb112zx3193.json | janeway "$.description.contributor[?@.role[
 
 Sometimes you need to determine if records exist "in the wild" that exhibit particular characteristics in the Cocina metadata, like the presence or absence of a field, or a specific value in a field. There is a template script in the `scripts/` directory that can be used to crawl all DRUIDs released to a particular target, like Searchworks, and examine each record.
 
+Another approach is to examine the records in the `/stacks` share using jq. For example:
+
+```shell
+find /stacks -name cocina.json | head -10000 |
+  xargs jq '.description.subject[] | select(.source.uri=="http://id.loc.gov/authorities/subjects/") | select(.value != null) | select(.value | contains("--")) | .value'
+```
+
 ### Logging of errors
 
 You may create a custom error handler by implementing the `Honeybadger` interface (or just using Honeybadger) and assigning it to the `CocinaRecord.notifier`.
