@@ -474,4 +474,29 @@ RSpec.describe CocinaDisplay::CocinaRecord do
 
     it { is_expected.to be_a(CocinaDisplay::Events::Event) }
   end
+
+  describe "#event_note_display_data" do
+    let(:cocina_json) do
+      {
+        "description" => {
+          "event" => [
+            {"note" => [{"value" => "monographic", "type" => "issuance"}, {"value" => "[Warwickshire ed.]", "type" => "edition"}], "type" => "publication"}
+          ]
+        }
+      }.to_json
+    end
+
+    subject { record.event_note_display_data }
+
+    it "returns the note display data" do
+      expect(subject).to contain_exactly(
+        be_a(CocinaDisplay::DisplayData).and(
+          have_attributes(label: "Issuance", values: ["monographic"])
+        ),
+        be_a(CocinaDisplay::DisplayData).and(
+          have_attributes(label: "Edition", values: ["[Warwickshire ed.]"])
+        )
+      )
+    end
+  end
 end
