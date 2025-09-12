@@ -2,12 +2,17 @@
 en:
   cocina_display:
     field_label:
-      copyright: Copyright
       access:
         access: Location
         email: Contact information
         repository: Repository
         url: Location
+      copyright: Copyright
+      event:
+        note:
+          default: Imprint note
+          edition: Edition
+          issuance: Issuance
       form:
         extent: Extent
         form: Form
