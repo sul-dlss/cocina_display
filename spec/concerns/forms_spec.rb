@@ -289,4 +289,30 @@ RSpec.describe CocinaDisplay::CocinaRecord do
       end
     end
   end
+
+  describe "#form_note_display_data" do
+    subject { record.form_note_display_data }
+
+    let(:forms) do
+      [
+        {"note" => [
+          {"value" => "Foliation: i+202+i", "displayLabel" => "Foliation statement"},
+          {"value" => "Includes bibliographical references"}
+        ]}
+      ]
+    end
+
+    it "aggregates all form notes" do
+      is_expected.to contain_exactly(
+        be_a(CocinaDisplay::DisplayData).and(have_attributes(
+          label: "Foliation statement",
+          values: ["Foliation: i+202+i"]
+        )),
+        be_a(CocinaDisplay::DisplayData).and(have_attributes(
+          label: "Note",
+          values: ["Includes bibliographical references"]
+        ))
+      )
+    end
+  end
 end

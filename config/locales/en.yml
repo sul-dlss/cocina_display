@@ -13,6 +13,7 @@ en:
         genre: Genre
         map_projection: Map data
         map_scale: Map data
+        note: Note
         resource_type: Type of resource
       identifier:
         doi: DOI
