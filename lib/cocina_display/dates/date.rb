@@ -461,6 +461,10 @@ module CocinaDisplay
     # Less strict W3CDTF-encoded date parser.
     class W3cdtfFormat < Date
       def self.normalize_to_edtf(value)
+        unless value
+          notifier&.notify("Invalid date value: #{value}")
+          return
+        end
         super.gsub("-00", "")
       end
     end
