@@ -3,8 +3,22 @@
 require "spec_helper"
 
 RSpec.describe CocinaDisplay::RelatedResource do
+  let(:related_resource) { described_class.new(cocina_doc) }
+
+  describe "label" do
+    subject { related_resource.label }
+
+    let(:cocina_doc) do
+      {
+        "displayLabel" => "Finding Aid"
+      }
+    end
+
+    it { is_expected.to eq "Finding Aid" }
+  end
+
   describe "titles" do
-    subject { described_class.new(cocina_doc).main_title }
+    subject { related_resource.main_title }
 
     context "when there is no title" do
       let(:cocina_doc) { {} }
@@ -25,7 +39,7 @@ RSpec.describe CocinaDisplay::RelatedResource do
 
   describe "access" do
     [:purl_url, :oembed_url, :download_url, :iiif_manifest_url].each do |method|
-      subject { described_class.new(cocina_doc).send(method) }
+      subject { related_resource.send(method) }
 
       describe "##{method}" do
         context "when there is no purl url" do
@@ -49,25 +63,25 @@ RSpec.describe CocinaDisplay::RelatedResource do
       end
 
       describe "#purl_url" do
-        subject { described_class.new(cocina_doc).purl_url }
+        subject { related_resource.purl_url }
 
         it { is_expected.to eq "https://purl.stanford.edu/xx111yy2223" }
       end
 
       describe "#oembed_url" do
-        subject { described_class.new(cocina_doc).oembed_url }
+        subject { related_resource.oembed_url }
 
         it { is_expected.to eq "https://purl.stanford.edu/embed.json?url=https%3A%2F%2Fpurl.stanford.edu%2Fxx111yy2223" }
       end
 
       describe "#download_url" do
-        subject { described_class.new(cocina_doc).download_url }
+        subject { related_resource.download_url }
 
         it { is_expected.to eq "https://stacks.stanford.edu/object/xx111yy2223" }
       end
 
       describe "#iiif_manifest_url" do
-        subject { described_class.new(cocina_doc).iiif_manifest_url }
+        subject { related_resource.iiif_manifest_url }
 
         it { is_expected.to eq "https://purl.stanford.edu/xx111yy2223/iiif3/manifest" }
       end

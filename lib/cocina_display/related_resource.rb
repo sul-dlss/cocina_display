@@ -27,5 +27,11 @@ module CocinaDisplay
       @type = cocina_doc["type"]
       super({"description" => cocina_doc.except("type")})
     end
+
+    # The display label set in Cocina
+    # @return [String, nil]
+    def label
+      cocina_doc.dig("description", "displayLabel")
+    end
   end
 end
