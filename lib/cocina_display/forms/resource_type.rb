@@ -12,10 +12,21 @@ module CocinaDisplay
       # @note These are handled separately when displayed.
       # @return [Boolean]
       def stanford_self_deposit?
-        cocina.dig("source", "value") == "Stanford self-deposit resource types"
+        source == "Stanford self-deposit resource types"
+      end
+
+      # Is this a MODS resource type?
+      # @return [Boolean]
+      def mods?
+        source == "MODS resource types"
       end
 
       private
+
+      # @return [String]
+      def source
+        cocina.dig("source", "value")
+      end
 
       # Stanford self-deposit resource types are labeled "Genre".
       # @return [String]
