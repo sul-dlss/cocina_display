@@ -26,7 +26,7 @@ module CocinaDisplay
     # Decoded name of the language based on the code, if present.
     # @return [String, nil]
     def decoded_value
-      Vocabularies::SEARCHWORKS_LANGUAGES[code] || (Iso639[code] if iso_639?)
+      Vocabularies::SEARCHWORKS_LANGUAGES[code] if searchworks_language?
     end
 
     # Display label for this field.
@@ -39,14 +39,7 @@ module CocinaDisplay
     # @see CocinaDisplay::Vocabularies::SEARCHWORKS_LANGUAGES
     # @return [Boolean]
     def searchworks_language?
-      Vocabularies::SEARCHWORKS_LANGUAGES.value?(to_s)
-    end
-
-    # True if the language has a code sourced from the ISO 639 vocabulary.
-    # @see https://en.wikipedia.org/wiki/List_of_ISO_639_language_codes
-    # @return [Boolean]
-    def iso_639?
-      cocina.dig("source", "code")&.start_with? "iso639"
+      Vocabularies::SEARCHWORKS_LANGUAGES.value?(cocina["value"]) || Vocabularies::SEARCHWORKS_LANGUAGES.key?(code)
     end
   end
 end

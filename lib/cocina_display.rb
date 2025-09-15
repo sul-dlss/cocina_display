@@ -10,7 +10,6 @@ require "active_support/core_ext/object/blank"
 require "active_support/core_ext/hash/conversions"
 require "geo/coord"
 require "edtf"
-require "iso639"
 require "i18n"
 require "i18n/backend/fallbacks"
 I18n::Backend::Simple.include I18n::Backend::Fallbacks
