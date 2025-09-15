@@ -7,11 +7,25 @@ RSpec.describe CocinaDisplay::Dates::Date do
 
   describe "initialize" do
     # See also https://github.com/sul-dlss/cocina-models/issues/830
-    context "with missing data (as seen in wf027xk3554)" do
+    context "with missing marc data (as seen in wf027xk3554)" do
       let(:cocina) do
         {
           "encoding" => {
             "code" => "marc"
+          }
+        }
+      end
+
+      it "does not raise an error" do
+        expect { date }.not_to raise_error
+      end
+    end
+
+    context "with missing w3cdtf data (as seen in gg897rh6063)" do
+      let(:cocina) do
+        {
+          "encoding" => {
+            "code" => "w3cdtf"
           }
         }
       end
