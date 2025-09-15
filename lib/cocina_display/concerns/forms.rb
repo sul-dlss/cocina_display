@@ -6,10 +6,16 @@ module CocinaDisplay
     module Forms
       # Resource types of the object, expressed in SearchWorks controlled vocabulary.
       # @return [Array<String>]
-      def resource_types
+      def searchworks_resource_types
         mapped_values = resource_type_values.flat_map { |resource_type| searchworks_resource_type(resource_type) }
         mapped_values << "Dataset" if dataset?
         mapped_values.uniq
+      end
+
+      # Resource types of the object, expressed in SearchWorks controlled vocabulary.
+      # @return [Array<String>]
+      def mods_resource_types
+        all_resource_types.select { |type| type.mods? }.map(&:to_s)
       end
 
       # Physical or digital forms of the object.

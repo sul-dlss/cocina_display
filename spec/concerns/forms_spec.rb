@@ -15,8 +15,8 @@ RSpec.describe CocinaDisplay::CocinaRecord do
   end
   let(:record) { described_class.from_json(cocina_json) }
 
-  describe "#resource_types" do
-    subject { record.resource_types }
+  describe "#searchworks_resource_types" do
+    subject { record.searchworks_resource_types }
 
     context "with general mapped resource types" do
       let(:forms) do
@@ -68,6 +68,65 @@ RSpec.describe CocinaDisplay::CocinaRecord do
         is_expected.to eq(["Archived website"])
       end
     end
+  end
+
+  describe "#mods_resource_types" do
+    subject { record.mods_resource_types }
+
+    let(:forms) do
+      [
+        {
+          "value" => "theses",
+          "type" => "genre",
+          "source" => {
+            "code" => "marcgt"
+          }
+        },
+        {
+
+          "value" => "text",
+          "type" => "resource type",
+          "source" => {
+            "value" => "MODS resource types"
+          }
+        },
+        {
+          "value" => "electronic",
+          "type" => "form",
+          "source" => {
+            "code" => "marcform"
+          }
+        },
+        {
+
+          "value" => "electronic resource",
+          "type" => "form",
+          "source" => {
+            "code" => "marccategory"
+          }
+        },
+        {
+          "value" => "remote",
+          "type" => "form",
+          "source" => {
+            "code" => "marcsmd"
+          }
+        },
+        {
+          "value" => "electronic resource",
+          "type" => "form",
+          "source" => {
+            "code" => "gmd"
+          }
+        },
+        {
+          "value" => "1 online resource.",
+          "type" => "extent"
+        }
+      ]
+    end
+
+    it { is_expected.to eq ["text"] }
   end
 
   describe "#forms" do
