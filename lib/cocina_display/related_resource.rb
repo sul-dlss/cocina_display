@@ -9,7 +9,6 @@ module CocinaDisplay
     include CocinaDisplay::Concerns::Identifiers
     include CocinaDisplay::Concerns::Notes
     include CocinaDisplay::Concerns::Titles
-    include CocinaDisplay::Concerns::UrlHelpers
     include CocinaDisplay::Concerns::Subjects
     include CocinaDisplay::Concerns::Forms
     include CocinaDisplay::Concerns::Languages
@@ -26,6 +25,16 @@ module CocinaDisplay
     def initialize(cocina_doc)
       @type = cocina_doc["type"]
       super({"description" => cocina_doc.except("type")})
+    end
+
+    # @return [String] the url of the related item
+    def url
+      cocina_doc.dig("description", "access", "url", 0, "value")
+    end
+
+    # @return [String] the purl of the related item
+    def purl
+      cocina_doc.dig("description", "purl")
     end
   end
 end

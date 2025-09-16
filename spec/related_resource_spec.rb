@@ -3,8 +3,10 @@
 require "spec_helper"
 
 RSpec.describe CocinaDisplay::RelatedResource do
+  let(:instance) { described_class.new(cocina_doc) }
+
   describe "titles" do
-    subject { described_class.new(cocina_doc).main_title }
+    subject { instance.main_title }
 
     context "when there is no title" do
       let(:cocina_doc) { {} }
@@ -23,54 +25,33 @@ RSpec.describe CocinaDisplay::RelatedResource do
     end
   end
 
-  describe "access" do
-    [:purl_url, :oembed_url, :download_url, :iiif_manifest_url].each do |method|
-      subject { described_class.new(cocina_doc).send(method) }
+  describe "#url" do
+    subject { instance.url }
 
-      describe "##{method}" do
-        context "when there is no purl url" do
-          let(:cocina_doc) do
+    let(:cocina_doc) do
+      {
+        "access" => {
+          "url" => [
             {
-              "title" => [{"value" => "the title"}]
+              "value" => "http://www.oac.cdlib.org/findaid/ark:/13030/kt5b69s0t3"
             }
-          end
-
-          it { is_expected.to be_nil }
-        end
-      end
-    end
-
-    context "when there is a purl url" do
-      let(:cocina_doc) do
-        {
-          "title" => [{"value" => "the title"}],
-          "purl" => "https://purl.stanford.edu/xx111yy2223"
+          ]
         }
-      end
-
-      describe "#purl_url" do
-        subject { described_class.new(cocina_doc).purl_url }
-
-        it { is_expected.to eq "https://purl.stanford.edu/xx111yy2223" }
-      end
-
-      describe "#oembed_url" do
-        subject { described_class.new(cocina_doc).oembed_url }
-
-        it { is_expected.to eq "https://purl.stanford.edu/embed.json?url=https%3A%2F%2Fpurl.stanford.edu%2Fxx111yy2223" }
-      end
-
-      describe "#download_url" do
-        subject { described_class.new(cocina_doc).download_url }
-
-        it { is_expected.to eq "https://stacks.stanford.edu/object/xx111yy2223" }
-      end
-
-      describe "#iiif_manifest_url" do
-        subject { described_class.new(cocina_doc).iiif_manifest_url }
-
-        it { is_expected.to eq "https://purl.stanford.edu/xx111yy2223/iiif3/manifest" }
-      end
+      }
     end
+
+    it { is_expected.to eq "http://www.oac.cdlib.org/findaid/ark:/13030/kt5b69s0t3" }
+  end
+
+  describe "#purl (as seen in rp193xx6845)" do
+    subject { instance.purl }
+
+    let(:cocina_doc) do
+      {
+        "purl" =>	"https://purl.stanford.edu/dz777fh8531"
+      }
+    end
+
+    it { is_expected.to eq "https://purl.stanford.edu/dz777fh8531" }
   end
 end
