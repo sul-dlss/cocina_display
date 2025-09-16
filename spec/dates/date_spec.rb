@@ -34,6 +34,28 @@ RSpec.describe CocinaDisplay::Dates::Date do
         expect { date }.not_to raise_error
       end
     end
+
+    context "with a structured date that has no values (as seen in bg704jr7687)" do
+      let(:cocina) do
+        {
+          "structuredValue" => [
+            {
+              "type" => "start",
+              "status" => "primary"
+            },
+            {
+              "type" => "end"
+            }
+          ],
+          "type" => "creation",
+          "encoding" => {
+            "code" => "w3cdtf"
+          }
+        }
+      end
+
+      it { is_expected.to be_a CocinaDisplay::Dates::DateRange }
+    end
   end
 
   describe "#value" do
