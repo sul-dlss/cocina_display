@@ -7,7 +7,7 @@ module CocinaDisplay
       # @example
       #  record.purl_url #=> "https://purl.stanford.edu/bx658jh7339"
       def purl_url
-        cocina_doc.dig("description", "purl") || ("https://purl.stanford.edu/#{bare_druid}" if bare_druid)
+        cocina_doc.dig("description", "purl")
       end
 
       # The oEmbed URL for the object, optionally with additional parameters.
