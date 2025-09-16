@@ -517,7 +517,7 @@ module CocinaDisplay
     # Base class for date formats that match using a regex.
     class ExtractorDateFormat < Date
       def self.supports?(value)
-        value.match self::REGEX
+        self::REGEX.match?(value)
       end
     end
 
