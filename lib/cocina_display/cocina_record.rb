@@ -15,6 +15,7 @@ module CocinaDisplay
     include CocinaDisplay::Concerns::Languages
     include CocinaDisplay::Concerns::Geospatial
     include CocinaDisplay::Concerns::Structural
+    include CocinaDisplay::Concerns::RelatedResources
 
     # Fetch a public Cocina document from PURL and create a CocinaRecord.
     # @note This is intended to be used in development or testing only.
@@ -71,12 +72,6 @@ module CocinaDisplay
     # @return [Boolean]
     def collection?
       content_type == "collection"
-    end
-
-    # Resources related to the object.
-    # @return [Array<CocinaDisplay::RelatedResource>]
-    def related_resources
-      @related_resources ||= path("$.description.relatedResource[*]").map { |res| RelatedResource.new(res) }
     end
 
     # Copyright statement from Cocina access metadata.

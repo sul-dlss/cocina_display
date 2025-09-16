@@ -69,6 +69,28 @@ en:
         subject: Subject
         topic: Subject
       use_and_reproduction: Use and reproduction statement
+      related_resource:
+        described_by: Described by
+        describes: Describes
+        derived_from: Derived from
+        has_original_version: Has original version
+        has_other_format: Has other format
+        has_part: Contains
+        has_version: Has version
+        identical_to: Identical to
+        in_series: In series
+        other_relation_type: Related to
+        part_of: Part of
+        preceded_by: Preceded by
+        referenced_by: Referenced by
+        references: References
+        related_to: Related item
+        reviewed_by: Reviewed by
+        source_of: Source of
+        succeeded_by: Succeeded by
+        supplemented_by: Supplemented by
+        supplement_to: Supplement to
+        version_of_record: Version of record
       title:
         title: Title
         abbreviated: Abbreviated title

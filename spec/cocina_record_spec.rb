@@ -59,22 +59,6 @@ RSpec.describe CocinaDisplay::CocinaRecord do
     end
   end
 
-  describe "#related_resources" do
-    let(:druid) { "vk217bh4910" }
-
-    it "returns all related resources" do
-      expect(subject.related_resources.size).to eq(10)
-    end
-
-    it "knows the type of the relationship" do
-      expect(subject.related_resources.first.type).to eq "succeeded by"
-    end
-
-    it "supports calling CocinaRecord methods on the related resources" do
-      expect(subject.related_resources.first.doi).to eq "10.25740/sb4q-wj06"
-    end
-  end
-
   describe "#use_and_reproduction" do
     let(:druid) { "bb099mt5053" }
 

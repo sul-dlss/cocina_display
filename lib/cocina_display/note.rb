@@ -28,6 +28,16 @@ module CocinaDisplay
       Utils.flatten_nested_values(cocina).pluck("value").compact_blank
     end
 
+    # The raw values from the Cocina data as a hash with type as key.
+    # @return [Hash{String => String}]
+    def values_by_type
+      Utils.flatten_nested_values(cocina).each_with_object({}) do |node, hash|
+        type = node["type"]
+        hash[type] ||= []
+        hash[type] << node["value"]
+      end
+    end
+
     # The type of the note, e.g. "abstract".
     # @return [String, nil]
     def type
@@ -57,10 +67,10 @@ module CocinaDisplay
         ABSTRACT_TYPES.include?(type)
     end
 
-    # Check if the note is a general note (not a table of contents, abstract, or preferred citation)
+    # Check if the note is a general note (not a table of contents, abstract, preferred citation, or part)
     # @return [Boolean]
     def general_note?
-      !table_of_contents? && !abstract? && !preferred_citation?
+      !table_of_contents? && !abstract? && !preferred_citation? && !part?
     end
 
     # Check if the note is a preferred citation
@@ -75,6 +85,13 @@ module CocinaDisplay
     def table_of_contents?
       display_label&.match?(TOC_DISPLAY_LABEL_REGEX) ||
         TOC_TYPES.include?(type)
+    end
+
+    # Check if the note is a part note
+    # @note These are combined with the title and not displayed separately.
+    # @return [Boolean]
+    def part?
+      type == "part"
     end
 
     private
