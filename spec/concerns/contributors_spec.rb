@@ -97,6 +97,49 @@ RSpec.describe CocinaDisplay::CocinaRecord do
 
       it { is_expected.to eq("Doe, John, 1970-2020") }
     end
+
+    context "with contributors with parallel names" do
+      # adapted from druid:bb070yy8209
+      let(:contributors) do
+        [
+          {
+            "name" => [
+              {
+                "parallelValue" => [
+                  {
+                    "value" => "Ṣabāḥ, 1927-2014",
+                    "type" => "transliteration"
+                  },
+                  {
+                    "value" => "صباح، 1927-2014",
+                    "status" => "primary"
+                  }
+                ]
+              }
+            ],
+            "type" => "person",
+            "status" => "primary",
+            "role" => [{"value" => "actor"}]
+          },
+          {
+            "name" => [
+              {
+                "parallelValue" => [
+                  {"value" => "ذو الفقار، محمود"},
+                  {"value" => "Dhū al-Fiqār, Maḥmūd"}
+                ]
+              }
+            ],
+            "type" => "person",
+            "role" => [{"value" => "director"}]
+          }
+        ]
+      end
+
+      it "returns the primary parallel name for the primary contributor" do
+        is_expected.to eq("صباح، 1927-2014")
+      end
+    end
   end
 
   describe "#additional_contributor_names" do
@@ -119,6 +162,49 @@ RSpec.describe CocinaDisplay::CocinaRecord do
 
       it "returns additional authors excluding the primary one" do
         is_expected.to eq(["Smith, Jane"])
+      end
+    end
+
+    context "with contributors with parallel names" do
+      # adapted from druid:bb070yy8209
+      let(:contributors) do
+        [
+          {
+            "name" => [
+              {
+                "parallelValue" => [
+                  {
+                    "value" => "Ṣabāḥ, 1927-2014",
+                    "type" => "transliteration"
+                  },
+                  {
+                    "value" => "صباح، 1927-2014",
+                    "status" => "primary"
+                  }
+                ]
+              }
+            ],
+            "type" => "person",
+            "status" => "primary",
+            "role" => [{"value" => "actor"}]
+          },
+          {
+            "name" => [
+              {
+                "parallelValue" => [
+                  {"value" => "ذو الفقار، محمود"},
+                  {"value" => "Dhū al-Fiqār, Maḥmūd"}
+                ]
+              }
+            ],
+            "type" => "person",
+            "role" => [{"value" => "director"}]
+          }
+        ]
+      end
+
+      it "returns the parallel names for non-primary contributors" do
+        is_expected.to eq(["ذو الفقار، محمود", "Dhū al-Fiqār, Maḥmūd"])
       end
     end
   end
@@ -158,6 +244,49 @@ RSpec.describe CocinaDisplay::CocinaRecord do
       end
 
       it { is_expected.to be_empty }
+    end
+
+    context "with contributors with parallel names" do
+      # adapted from druid:bb070yy8209
+      let(:contributors) do
+        [
+          {
+            "name" => [
+              {
+                "parallelValue" => [
+                  {
+                    "value" => "Ṣabāḥ, 1927-2014",
+                    "type" => "transliteration"
+                  },
+                  {
+                    "value" => "صباح، 1927-2014",
+                    "status" => "primary"
+                  }
+                ]
+              }
+            ],
+            "type" => "person",
+            "status" => "primary",
+            "role" => [{"value" => "actor"}]
+          },
+          {
+            "name" => [
+              {
+                "parallelValue" => [
+                  {"value" => "ذو الفقار، محمود"},
+                  {"value" => "Dhū al-Fiqār, Maḥmūd"}
+                ]
+              }
+            ],
+            "type" => "person",
+            "role" => [{"value" => "director"}]
+          }
+        ]
+      end
+
+      it "returns all parallel contributor names separately" do
+        is_expected.to eq(["Ṣabāḥ, 1927-2014", "صباح، 1927-2014", "ذو الفقار، محمود", "Dhū al-Fiqār, Maḥmūd"])
+      end
     end
   end
 
@@ -570,6 +699,56 @@ RSpec.describe CocinaDisplay::CocinaRecord do
           be_a(CocinaDisplay::DisplayData).and(
             have_attributes(label: "Associated with", values: ["Paget, Francis Edward, 1759-1838"])
           )
+        )
+      end
+    end
+
+    context "with contributors with parallel names" do
+      let(:display_data_hash) { CocinaDisplay::DisplayData.to_hash(result) }
+
+      # adapted from druid:bb070yy8209
+      let(:contributors) do
+        [
+          {
+            "name" => [
+              {
+                "parallelValue" => [
+                  {
+                    "value" => "صباح، 1927-2014",
+                    "status" => "primary"
+                  },
+                  {
+                    "value" => "Ṣabāḥ, 1927-2014",
+                    "type" => "transliteration"
+                  }
+                ]
+              }
+            ],
+            "type" => "person",
+            "status" => "primary",
+            "role" => [{"value" => "actor"}]
+          },
+          {
+            "name" => [
+              {
+                "parallelValue" => [
+                  {"value" => "ذو الفقار، محمود"},
+                  {"value" => "Dhū al-Fiqār, Maḥmūd"}
+                ]
+              }
+            ],
+            "type" => "person",
+            "role" => [{"value" => "director"}]
+          }
+        ]
+      end
+
+      it "returns display data using the primary name as value" do
+        expect(display_data_hash).to eq(
+          {
+            "Actor" => ["صباح، 1927-2014"],
+            "Director" => ["ذو الفقار، محمود"]
+          }
         )
       end
     end
