@@ -22,7 +22,7 @@ module CocinaDisplay
     # @param deep_compact [Boolean] If true, compact the JSON to remove blank values.
     # @return [CocinaDisplay::CocinaRecord]
     # :nocov:
-    def self.fetch(druid, deep_compact: false)
+    def self.fetch(druid, deep_compact: true)
       from_json(Net::HTTP.get(URI("https://purl.stanford.edu/#{druid}.json")), deep_compact: deep_compact)
     end
     # :nocov:
