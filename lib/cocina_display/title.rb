@@ -16,9 +16,11 @@ module CocinaDisplay
     # Create a new Title object.
     # @param cocina [Hash]
     # @param part_label [String, nil] part label for digital serials
-    def initialize(cocina, part_label: nil)
+    # @param part_numbers [Array<String>] part numbers for related resources
+    def initialize(cocina, part_label: nil, part_numbers: nil)
       @cocina = cocina
       @part_label = part_label
+      @part_numbers = part_numbers
       @type = cocina["type"].presence
       @status = cocina["status"].presence
     end
@@ -137,7 +139,12 @@ module CocinaDisplay
     # Default delimiter is a space, but can be overridden.
     # @return [String, nil]
     def parts_str(delimiter: " ")
-      Utils.compact_and_join(Array(title_components["part number"]) + Array(title_components["part name"]) + [@part_label], delimiter: delimiter)
+      Utils.compact_and_join(
+        Array(title_components["part number"] || @part_numbers) +
+        Array(title_components["part name"]) +
+        [@part_label],
+        delimiter: delimiter
+      )
     end
 
     # The associated names, joined together with periods.

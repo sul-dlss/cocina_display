@@ -66,7 +66,7 @@ module CocinaDisplay
       def all_titles
         @all_titles ||= cocina_titles.flat_map do |cocina_title|
           (Array(cocina_title["parallelValue"]).presence || [cocina_title]).map do |value|
-            Title.new(value, part_label: part_label).tap do |title|
+            Title.new(value, part_label: part_label, part_numbers: part_numbers).tap do |title|
               title.type ||= cocina_title["type"]
               title.status ||= cocina_title["status"]
             end
@@ -93,6 +93,13 @@ module CocinaDisplay
       # @return [String, nil]
       def part_label
         catalog_links.find { |link| link["catalog"] == "folio" }&.fetch("partLabel", nil)
+      end
+
+      # Part numbers from notes, if any.
+      # @note This is used for RelatedResource title display.
+      # @return [Array<String>]
+      def part_numbers
+        notes.filter(&:part?).flat_map { |note| note.values_by_type["number"] }.compact_blank
       end
     end
   end
