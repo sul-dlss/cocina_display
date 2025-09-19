@@ -4,12 +4,24 @@ module CocinaDisplay
   module Contributors
     # A name associated with a contributor.
     class Name
+      # The underlying Cocina structured data for the name.
+      # @return [Hash]
       attr_reader :cocina
+
+      # The type of name, if any (e.g., "personal", "corporate", etc.).
+      # @return [String, nil]
+      attr_accessor :type
+
+      # The status of the name, if any (e.g., "primary").
+      # @return [String, nil]
+      attr_accessor :status
 
       # Initialize a Name object with Cocina structured data.
       # @param cocina [Hash] The Cocina structured data for the name.
       def initialize(cocina)
         @cocina = cocina
+        @type = cocina["type"]
+        @status = cocina["status"]
       end
 
       # The display string for the name, optionally including life dates.
@@ -77,6 +89,12 @@ module CocinaDisplay
       # @return [String]
       def dates_str
         Utils.compact_and_join(Array(name_values["life dates"]) + Array(name_values["activity dates"]), delimiter: ", ")
+      end
+
+      # Is this a primary name for the contributor?
+      # @return [Boolean]
+      def primary?
+        status == "primary"
       end
 
       private

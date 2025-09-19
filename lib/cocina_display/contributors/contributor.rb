@@ -12,16 +12,20 @@ module CocinaDisplay
         @cocina = cocina
       end
 
-      # String representation of the contributor, including name with dates, if present.
-      # @return [String]
+      # String representation of the contributor, using display name with date.
+      # @return [String, nil]
       def to_s
         display_name(with_date: true)
       end
 
+      # Support equality based on the underlying Cocina data.
+      # @param other [Object]
       def ==(other)
         other.is_a?(Contributor) && other.cocina == cocina
       end
 
+      # Identifiers for the contributor.
+      # @return [Array<Identifier>]
       def identifiers
         Array(cocina["identifier"]).map { |id| Identifier.new(id) }
       end
@@ -74,22 +78,37 @@ module CocinaDisplay
         roles.any?
       end
 
-      # The display name for the contributor as a string.
-      # Uses the first name if multiple names are present.
+      # The primary display name for the contributor as a string.
       # @param with_date [Boolean] Include life dates, if present
-      # @return [String]
+      # @return [String, nil]
       def display_name(with_date: false)
-        names.map { |name| name.to_s(with_date: with_date) }.compact_blank.first
+        primary_name&.to_s(with_date: with_date)
       end
 
-      # The full forename for the contributor from the first available name.
+      # String renderings of all names for the contributor.
+      # @param with_date [Boolean] Include life dates, if present
+      # @return [Array<String>]
+      def display_names(with_date: false)
+        names.map { |name| name.to_s(with_date: with_date) }.compact_blank
+      end
+
+      # A single primary name for the contributor.
+      # Prefers a name of type "display" or one marked primary.
+      # @return [Contributor::Name, nil]
+      def primary_name
+        names.find { |name| name.type == "display" }.presence ||
+          names.find(&:primary?).presence ||
+          names.first
+      end
+
+      # The forename for the contributor, if structured name info is available.
       # @see Contributor::Name::forename_str
       # @return [String, nil]
       def forename
         names.map(&:forename_str).first.presence
       end
 
-      # The full surname for the contributor from the first available name.
+      # The surname for the contributor, if structured name info is available.
       # @see Contributor::Name::surname_str
       # @return [String, nil]
       def surname
@@ -97,9 +116,19 @@ module CocinaDisplay
       end
 
       # All names in the Cocina as Name objects.
+      # Flattens parallel values into separate Name objects.
       # @return [Array<Name>]
       def names
-        @names ||= Array(cocina["name"]).map { |name| Name.new(name) }
+        @names ||= Array(cocina["name"]).flat_map do |name|
+          (Array(name["parallelValue"]).presence || [name]).filter_map do |name_value|
+            unless name_value.blank?
+              Name.new(name_value).tap do |name_obj|
+                name_obj.type ||= name["type"]
+                name_obj.status ||= name["status"]
+              end
+            end
+          end
+        end
       end
 
       # All roles in the Cocina structured data.

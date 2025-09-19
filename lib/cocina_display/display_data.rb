@@ -41,6 +41,14 @@ module CocinaDisplay
         [DescriptiveValue.new(label: label, value: string)]
       end
 
+      # Take one or several DisplayData and merge into a single hash.
+      # Keys are labels; values are the merged array of values for that label.
+      # @param display_data [DisplayData, Array<DisplayData>]
+      # @return [Hash{String => Array<String>}] The merged hash
+      def to_hash(display_data)
+        Array(display_data).map(&:to_h).reduce(:merge)
+      end
+
       private
 
       # Wrap Cocina nodes into {DescriptiveValue} so they are labelled.
@@ -76,6 +84,12 @@ module CocinaDisplay
     # @return [Array<String>]
     def values
       objects.flat_map { |object| split_string_on_newlines(object.to_s) }.compact_blank.uniq
+    end
+
+    # Express the display data as a hash mapping the label to its values.
+    # @return [Hash{String => Array<String>}] The label and values
+    def to_h
+      {label => values}
     end
 
     private
