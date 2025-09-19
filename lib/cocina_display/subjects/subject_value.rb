@@ -8,11 +8,29 @@ module CocinaDisplay
       # @see https://github.com/sul-dlss/cocina-models/blob/main/docs/description_types.md#subject-part-types-for-structured-value
       attr_accessor :type
 
-      # Create a SubjectValue from Cocina structured data.
+      # Create SubjectValues from Cocina structured data.
+      # Pre-coordinated string values will be split into multiple SubjectValues.
       # @param cocina [Hash] The Cocina structured data for the subject.
-      # @return [SubjectValue]
-      def self.from_cocina(cocina)
-        SUBJECT_VALUE_TYPES.fetch(cocina["type"], SubjectValue).new(cocina)
+      # @param type [String, nil] The type, coming from the parent Subject.
+      # @return [Array<SubjectValue>]
+      def self.from_cocina(cocina, type:)
+        split_pre_coordinated_values(cocina, type: type).map do |value|
+          SUBJECT_VALUE_TYPES.fetch(type, SubjectValue).new(value).tap do |obj|
+            obj.type ||= type
+          end
+        end
+      end
+
+      # Split a pre-coordinated subject value joined with "--" into multiple values.
+      # Ignores the "--" string for coordinate subject types, which use it differently.
+      # @param cocina [Hash] The Cocina structured data for the subject.
+      # @return [Array<Hash>] An array of Cocina hashes, one for each split value
+      def self.split_pre_coordinated_values(cocina, type:)
+        if cocina["value"].is_a?(String) && cocina["value"].include?("--") && !type.include?("coordinates")
+          cocina["value"].split("--").map { |v| cocina.merge("value" => v.strip) }
+        else
+          [cocina]
+        end
       end
 
       # All subject value types that should not be further destructured.

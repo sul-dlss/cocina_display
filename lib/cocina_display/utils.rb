@@ -21,7 +21,7 @@ module CocinaDisplay
       end.delete_suffix(delimiter)
     end
 
-    # Recursively flatten structured, parallel, and grouped values in Cocina metadata.
+    # Recursively flatten structured, and grouped values in Cocina metadata.
     # Returns a list of hashes representing the "leaf" nodes with +value+ key.
     # @return [Array<Hash>] List of node hashes with "value" present
     # @param cocina [Hash] The Cocina structured data to flatten
@@ -35,8 +35,8 @@ module CocinaDisplay
     #  cocina = { "structuredValue" => [{"value" => "foo"},  {"value" => "bar"}] }
     #  Utils.flatten_nested_values(cocina)
     #  #=> [{"value" => "foo"}, {"value" => "bar"}]
-    # @example parallel structured and simple values
-    #  cocina = { "parallelValue" => [{"value" => "foo" }, { "structuredValue" => [{"value" => "bar"},  {"value" => "baz"}] }] }
+    # @example nested structured and simple values
+    #  cocina = { "structuredValue" => [{"value" => "foo" }, { "structuredValue" => [{"value" => "bar"},  {"value" => "baz"}] }] }
     #  Utils.flatten_nested_values(cocina)
     #  #=> [{"value" => "foo"}, {"value" => "foo"}, {"value" => "baz"}]
     def self.flatten_nested_values(cocina, output = [], atomic_types: [])
@@ -44,7 +44,7 @@ module CocinaDisplay
       return [cocina] if atomic_types.include?(cocina["type"])
       return cocina.flat_map { |node| flatten_nested_values(node, output, atomic_types: atomic_types) } if cocina.is_a?(Array)
 
-      nested_values = Array(cocina["structuredValue"]) + Array(cocina["parallelValue"]) + Array(cocina["groupedValue"])
+      nested_values = Array(cocina["structuredValue"]) + Array(cocina["groupedValue"])
       return output unless nested_values.any?
 
       nested_values.flat_map { |node| flatten_nested_values(node, output, atomic_types: atomic_types) }

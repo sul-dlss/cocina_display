@@ -90,6 +90,23 @@ RSpec.describe CocinaDisplay::CocinaRecord do
         is_expected.to eq(["Emprisonnement"])
       end
     end
+
+    context "with pre-coordinated LCSH topic subjects" do
+      let(:subjects) do
+        [
+          {
+            "type" => "topic",
+            "value" => "Presidents--Election",
+            "uri" => "http://id.loc.gov/authorities/subjects/sh85106460",
+            "source" => {"code" => "lcsh", "uri" => "http://id.loc.gov/authorities/subjects/"}
+          }
+        ]
+      end
+
+      it "splits the value on --" do
+        is_expected.to eq(["Presidents", "Election"])
+      end
+    end
   end
 
   describe "#subject_names" do
@@ -463,6 +480,7 @@ RSpec.describe CocinaDisplay::CocinaRecord do
             {"value" => "Italy", "type" => "topic"}
           ]
         },
+        {"type" => "topic", "value" => "Presidents--Election"}, # pre-coordinated; replace '--' with ' > '
         {"type" => "genre", "value" => "Science Fiction"},  # ignored; goes in genre
         {"type" => "topic", "value" => "History"},
         {"type" => "map coordinates", "value" => "W 18°--E 51°/N 37°--S 35°"}, # ignored; goes in map data
@@ -476,6 +494,7 @@ RSpec.describe CocinaDisplay::CocinaRecord do
           label: "Subject",
           values: [
             "Painters > Italy",
+            "Presidents > Election",
             "History"
           ]
         ))
