@@ -51,9 +51,9 @@ module CocinaDisplay
       def subject_values
         @subject_values ||= (Array(cocina["parallelValue"]).presence || [cocina]).flat_map do |node|
           if SubjectValue.atomic_types.include?(type)
-            [SubjectValue.from_cocina(node, type: type)]
+            SubjectValue.from_cocina(node, type: type)
           else
-            Utils.flatten_nested_values(node, atomic_types: SubjectValue.atomic_types).map do |value|
+            Utils.flatten_nested_values(node, atomic_types: SubjectValue.atomic_types).flat_map do |value|
               SubjectValue.from_cocina(value, type: value["type"] || type)
             end
           end
