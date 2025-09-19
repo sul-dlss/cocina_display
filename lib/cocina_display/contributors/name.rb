@@ -25,10 +25,6 @@ module CocinaDisplay
       end
 
       # The display string for the name, optionally including life dates.
-      # Uses these values in order, if present:
-      # 1. Unstructured value
-      # 2. Any structured/parallel values marked as "display"
-      # 3. Joined structured values, optionally with life dates
       # @param with_date [Boolean] Include life dates, if present
       # @return [String]
       # @example no dates
@@ -38,8 +34,6 @@ module CocinaDisplay
       def to_s(with_date: false)
         if cocina["value"].present?
           cocina["value"]
-        elsif display_name_str.present?
-          display_name_str
         elsif dates_str.present? && with_date
           Utils.compact_and_join([full_name_str, dates_str], delimiter: ", ")
         else
@@ -51,12 +45,6 @@ module CocinaDisplay
       # @return [String]
       def full_name_str
         Utils.compact_and_join(name_components.push(terms_of_address_str), delimiter: ", ")
-      end
-
-      # Flattened form of any names explicitly marked as "display name".
-      # @return [String]
-      def display_name_str
-        Utils.compact_and_join(Array(name_values["display"]), delimiter: ", ")
       end
 
       # List of all name components.
