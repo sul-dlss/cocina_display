@@ -10,9 +10,12 @@ module CocinaDisplay
 
       # Create a SubjectValue from Cocina structured data.
       # @param cocina [Hash] The Cocina structured data for the subject.
+      # @param type [String, nil] The type, coming from the parent Subject.
       # @return [SubjectValue]
-      def self.from_cocina(cocina)
-        SUBJECT_VALUE_TYPES.fetch(cocina["type"], SubjectValue).new(cocina)
+      def self.from_cocina(cocina, type:)
+        SUBJECT_VALUE_TYPES.fetch(type, SubjectValue).new(cocina).tap do |obj|
+          obj.type ||= type
+        end
       end
 
       # All subject value types that should not be further destructured.

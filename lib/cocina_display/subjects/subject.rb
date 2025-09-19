@@ -46,13 +46,17 @@ module CocinaDisplay
 
       # Individual values composing this subject.
       # Can be multiple if the Cocina featured nested data.
-      # If no type was specified on a value, uses the top-level subject type.
+      # All SubjectValues inherit the type of their parent Subject.
       # @return [Array<SubjectValue>]
       def subject_values
-        @subject_values ||= Utils.flatten_nested_values(cocina, atomic_types: SubjectValue.atomic_types).map do |value|
-          subject_value = SubjectValue.from_cocina(value)
-          subject_value.type ||= type
-          subject_value
+        @subject_values ||= (Array(cocina["parallelValue"]).presence || [cocina]).flat_map do |node|
+          if SubjectValue.atomic_types.include?(type)
+            [SubjectValue.from_cocina(node, type: type)]
+          else
+            Utils.flatten_nested_values(node, atomic_types: SubjectValue.atomic_types).map do |value|
+              SubjectValue.from_cocina(value, type: value["type"] || type)
+            end
+          end
         end
       end
 
