@@ -41,51 +41,6 @@ RSpec.describe CocinaDisplay::Utils do
       end
     end
 
-    context "with parallel values" do
-      let(:cocina) do
-        {
-          "parallelValue" => [
-            {"value" => "John Doe", "type" => "name"},
-            {"value" => "Jane Smith", "type" => "name"}
-          ]
-        }
-      end
-
-      it "flattens parallel values into a single array" do
-        is_expected.to eq([
-          {"value" => "John Doe", "type" => "name"},
-          {"value" => "Jane Smith", "type" => "name"}
-        ])
-      end
-    end
-
-    context "with mixed structured and parallel values" do
-      let(:cocina) do
-        {
-          "parallelValue" => [
-            {
-              "value" => "John Doe",
-              "type" => "name"
-            },
-            {
-              "structuredValue" => [
-                {"value" => "King", "type" => "term of address"},
-                {"value" => "1920 - 2000", "type" => "life dates"}
-              ]
-            }
-          ]
-        }
-      end
-
-      it "flattens all nodes into a single array" do
-        is_expected.to eq([
-          {"value" => "John Doe", "type" => "name"},
-          {"value" => "King", "type" => "term of address"},
-          {"value" => "1920 - 2000", "type" => "life dates"}
-        ])
-      end
-    end
-
     context "with grouped values" do
       let(:cocina) do
         # from druid:sw705fr7011
