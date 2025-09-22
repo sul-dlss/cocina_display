@@ -342,7 +342,7 @@ RSpec.describe CocinaDisplay::CocinaRecord do
       it "deduplicates and formats the resource types separately, excluding self-deposit" do
         is_expected.to contain_exactly(
           be_a(CocinaDisplay::DisplayData).and(have_attributes(
-            label: "Type of resource",
+            label: "Resource Type",
             values: ["text"]
           )),
           be_a(CocinaDisplay::DisplayData).and(have_attributes(
