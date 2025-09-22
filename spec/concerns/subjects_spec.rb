@@ -242,6 +242,29 @@ RSpec.describe CocinaDisplay::CocinaRecord do
       it "returns the value as a string" do
         is_expected.to eq(["2020"])
       end
+
+      context "with a non-parsable value" do
+        let(:subjects) do
+          [{
+            "value" => "d1843",
+            "type" => "time",
+            "encoding" => {
+              "code" => "iso8601"
+            }
+          }]
+        end
+
+        let(:notifier) { double(:notifier, notify: nil) }
+
+        before do
+          allow(CocinaDisplay).to receive(:notifier).and_return(notifier)
+        end
+
+        it "returns the value as a string and notifies of a parse error" do
+          is_expected.to eq(["d1843"])
+          expect(notifier).to have_received(:notify).with("Invalid date value \"d1843\" for iso8601 encoding")
+        end
+      end
     end
 
     context "with structured temporal subjects" do

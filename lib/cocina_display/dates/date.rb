@@ -455,6 +455,9 @@ module CocinaDisplay
     class Iso8601Format < Date
       def self.parse_date(value)
         ::Date.parse(normalize_to_edtf(value))
+      rescue ::Date::Error
+        notifier&.notify("Invalid date value \"#{value}\" for iso8601 encoding")
+        nil
       end
     end
 
