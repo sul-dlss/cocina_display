@@ -128,6 +128,12 @@ module CocinaDisplay
         CocinaDisplay::DisplayData.from_objects(events.flat_map(&:notes))
       end
 
+      # DisplayData for all dates associated with events.
+      # @return [Array<CocinaDisplay::DisplayData>]
+      def event_date_display_data
+        CocinaDisplay::DisplayData.from_objects(event_dates)
+      end
+
       # The earliest preferred publication date as a CocinaDisplay::Dates::Date object.
       # Considers publication, creation, and capture dates in that order.
       # Prefers dates marked as primary and those with a declared encoding.

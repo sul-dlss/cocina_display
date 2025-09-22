@@ -119,6 +119,18 @@ module CocinaDisplay
         cocina["value"]
       end
 
+      # The string representation of the date for display.
+      # @return [String]
+      def to_s
+        qualified_value
+      end
+
+      # Label used to group the date for display.
+      # @return [String]
+      def label
+        cocina["displayLabel"].presence || type_label
+      end
+
       # The qualifier for this date, if any, such as "approximate", "inferred", etc.
       # @return [String, nil]
       def qualifier
@@ -448,6 +460,18 @@ module CocinaDisplay
         else
           [nil, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][month]
         end
+      end
+
+      # Label for the date based on its type.
+      # @example "publication" becomes "Publication date"
+      # @return [String]
+      def type_label
+        I18n.t(
+          type || "untyped",
+          scope: "cocina_display.field_label.event.date",
+          type: type&.capitalize,
+          default: [:default]
+        )
       end
     end
 
