@@ -14,6 +14,7 @@ en:
           edition: Edition
           issuance: Issuance
       form:
+        digital_origin: Digital origin
         extent: Extent
         form: Form
         genre: Genre
