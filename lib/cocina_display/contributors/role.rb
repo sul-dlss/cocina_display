@@ -14,15 +14,9 @@ module CocinaDisplay
 
       # The name of the role.
       # Translates the MARC relator code if no value was present.
-      # @return [String, nil]
+      # @return [String, nil] A nil role is typically displayed in the UI as an "Associated with" relationship
       def to_s
-        cocina["value"] || (Vocabularies::MARC_RELATOR[code] if marc_relator?)
-      end
-
-      # A code associated with the role, e.g. a MARC relator code.
-      # @return [String, nil]
-      def code
-        cocina["code"]
+        cocina.fetch("value") { marc_value }
       end
 
       # Does this role indicate the contributor is an author?
@@ -44,6 +38,21 @@ module CocinaDisplay
       end
 
       private
+
+      # The name of the MARC relator role
+      # @raises [KeyError] if the role is not valid
+      # @return [String, nil]
+      def marc_value
+        return unless marc_relator?
+
+        Vocabularies::MARC_RELATOR.fetch(code)
+      end
+
+      # A code associated with the role, e.g. a MARC relator code.
+      # @return [String, nil]
+      def code
+        cocina["code"]
+      end
 
       # Does this role have a MARC relator code?
       # @return [Boolean]
