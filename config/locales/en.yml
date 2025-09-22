@@ -20,7 +20,7 @@ en:
         map_projection: Map data
         map_scale: Map data
         note: Note
-        resource_type: Type of resource
+        resource_type: Resource Type
       identifier:
         doi: DOI
         handle: Handle
