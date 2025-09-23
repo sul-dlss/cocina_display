@@ -499,4 +499,62 @@ RSpec.describe CocinaDisplay::CocinaRecord do
       )
     end
   end
+
+  describe "#event_date_display_data" do
+    let(:cocina_json) do
+      {
+        "description" => {
+          "event" => [
+            {
+              "date" => [
+                {
+                  "structuredValue" => [
+                    {
+                      "value" => "1758",
+                      "type" => "start"
+                    },
+                    {
+                      "value" => "uuuu",
+                      "type" => "end"
+                    }
+                  ],
+                  "type" => "publication",
+                  "encoding" => {
+                    "code" => "marc"
+                  },
+                  "qualifier" => "questionable"
+                }
+              ]
+            },
+            {
+              "date" => [{"value" => "invalid-date", "type" => "production"}] # left alone
+            },
+            {
+              "date" => [{"type" => "copyright", "value" => "-0099", "encoding" => {"code" => "edtf"}}]
+            },
+            {
+              "date" => [{"value" => "199x", "encoding" => {"code" => "edtf"}, "displayLabel" => "Fictional date"}]
+            },
+            {
+              "date" => [{"value" => "2021"}]
+            }
+          ]
+        }
+      }.to_json
+    end
+
+    subject { CocinaDisplay::DisplayData.to_hash(record.event_date_display_data) }
+
+    it "groups by label and returns the display value for the date" do
+      expect(subject).to eq(
+        {
+          "Publication date" => ["[1758 - Unknown?]"],
+          "Production date" => ["invalid-date"],
+          "Copyright date" => ["100 BCE"],
+          "Fictional date" => ["1990s"],
+          "Date" => ["2021"]
+        }
+      )
+    end
+  end
 end

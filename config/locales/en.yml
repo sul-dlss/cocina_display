@@ -9,6 +9,9 @@ en:
         url: Location
       copyright: Copyright
       event:
+        date:
+          default: "%{type} date"
+          untyped: Date
         note:
           default: Imprint note
           edition: Edition
