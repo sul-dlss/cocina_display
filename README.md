@@ -88,6 +88,79 @@ cat spec/fixtures/bb112zx3193.json | janeway "$.description.contributor[?@.role[
 ]
 ```
 
+### Formatting for display
+
+Methods ending in `_display_data` usually return arrays of a class called `DisplayData`, which is designed for rendering into HTML by a consuming application. Each `DisplayData` object has a `label`, which serves as a heading under which its data is grouped. The `values` method returns an array of strings, which are the individual values to be displayed under that heading.
+
+For example, when displaying contributors, the label is usually determined by the role of the contributor, and the values are the display names of the contributors with that role:
+
+```ruby
+> rec.contributor_display_data.first.label
+=> "Former owner"
+> rec.contributor_display_data.first.values
+=> ["Hearst Magazines, Inc."]
+```
+
+The `#to_hash` helper method, which collapses all provided `DisplayData` into a single hash, can be used as a quick way to check the overall structure:
+
+```ruby
+> CocinaDisplay::DisplayData.to_hash(record.subject_display_data)
+=> {"Marque"=>["Bugatti"], "Model"=>["Bugatti T51A"], "Subject"=>["Bugatti automobile"]}
+```
+
+Note that usage of the `displayLabel` attribute in Cocina overrides the `label` that would ordinarily be used to group an item. If some items in a field have a `displayLabel` and others do not, each unique `displayLabel` will get its own `DisplayData` object, because those items will be grouped under a separate heading. If you call a method like `#subject_display_data`, it's always possible that you will get some items grouped under the default label "Subject" as well as others grouped under custom labels.
+
+#### Creating display data
+
+In some cases, you may wish to create `DisplayData` for some data that isn't immediately available via a `_display_data` method. Depending on what you have, there are several helper methods available to do this that will label and group the data for you.
+
+If the data you have is an array of objects that respond to `#label` and `#to_s`, you can use `DisplayData.from_objects`, which will automatically group the objects by their `label` and set the `values` to the result of calling `#to_s` on each object. Most of the objects returned by `CocinaRecord` methods, like `Contributor` and `Subject`, respond to these methods, and also handle nested `structuredValue`s in the Cocina when rendering to string. Handling of `parallelValue`s is also included for some object types like `Name` and `Title`.
+
+```ruby
+# This is actually equivalent to record.contributor_display_data!
+> CocinaDisplay::DisplayData.from_objects(record.contributors)
+```
+
+If the data you have is a simple array of strings, you can use `DisplayData.from_strings`. You need to provide a `label` to group the strings under:
+
+```ruby
+> CocinaDisplay::DisplayData.from_strings(["Bugatti", "Bugatti T51A", "Bugatti automobile"], label: "Subject")
+```
+
+If the data you have is a hash from parsed Cocina JSON, you can use `DisplayData.from_cocina`. This will respect any `displayLabel` attributes in the provided Cocina. You can optionally provide a `label` to use if the Cocina did not contain a `displayLabel` attribute:
+
+```ruby
+> cocina = { 'value' => 'Bugatti', 'displayLabel' => 'Marque' }
+# Will create a DisplayData with label "Marque" and value "Bugatti"
+> CocinaDisplay::DisplayData.from_cocina(cocina)
+# The same, but if the Cocina did not contain a displayLabel, it would use "Brand" instead
+> CocinaDisplay::DisplayData.from_cocina(cocina, label: 'Brand')
+```
+
+Note that `DisplayData.from_cocina` does not handle `structuredValue`s or `parallelValue`s in the provided Cocina. Because the correct handling is dependent on the type of data, you're usually better off selecting the appropriate objects from the `CocinaRecord` and using `DisplayData.from_objects` instead. To find out more about the various objects returned by `CocinaRecord` methods, see the [API Documentation](https://sul-dlss.github.io/cocina_display/).
+
+#### Custom formatting
+
+In some cases, you may need more control over the formatting. The `DisplayData#objects` method gives access to the underlying objects that were grouped under a particular `label`, allowing you to format them as needed.
+
+For contributors, the underlying objects are `Contributor` instances, which provide access to the associated `Name` and `Role` objects, as well as some other useful methods like `#forename` and `#organization?`:
+
+```ruby
+> record.contributor_display_data.first.label
+=> "Former owner"
+# All of the Contributors grouped under "Former owner"
+> former_owners = record.contributor_display_data.first.objects
+=> 
+[#<CocinaDisplay::Contributors::Contributor:0x0000000123ad6550
+...
+> former_owners.first.names.first.to_s
+=> "Hearst Magazines, Inc."
+> former_owners.first.organization?
+=> true
+```
+
+To review all the methods available on `Contributor`, see the [API Documentation](https://sul-dlss.github.io/cocina_display/CocinaDisplay/Contributors/Contributor.html).
+
 ### Searching for records
 
 Sometimes you need to determine if records exist "in the wild" that exhibit particular characteristics in the Cocina metadata, like the presence or absence of a field, or a specific value in a field. There is a template script in the `scripts/` directory that can be used to crawl all DRUIDs released to a particular target, like Searchworks, and examine each record.
@@ -104,12 +177,12 @@ find /stacks -name cocina.json | head -10000 |
 You may create a custom error handler by implementing the `Honeybadger` interface (or just using Honeybadger) and assigning it to the `CocinaRecord.notifier`.
 
 For example:
+
 ```ruby
 Rails.application.config.to_prepare do
   CocinaDisplay.notifier = Honeybadger
 end
 ```
-
 
 ## Development
 
