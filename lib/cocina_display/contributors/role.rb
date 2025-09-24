@@ -4,7 +4,15 @@ module CocinaDisplay
   module Contributors
     # A role associated with a contributor.
     class Role
+      MARC_RELATORS_FILE_PATH = File.join(__dir__, "..", "..", "..", "config", "marc_relators.yml").freeze
+
       attr_reader :cocina
+
+      # A hash mapping MARC relator codes to their names.
+      # @return [Hash{String => String}]
+      def self.marc_relators
+        @marc_relators ||= YAML.safe_load_file(MARC_RELATORS_FILE_PATH)
+      end
 
       # Initialize a Role object with Cocina structured data.
       # @param cocina [Hash] The Cocina structured data for the role.
@@ -45,7 +53,7 @@ module CocinaDisplay
       def marc_value
         return unless marc_relator?
 
-        Vocabularies::MARC_RELATOR.fetch(code)
+        Role.marc_relators.fetch(code)
       end
 
       # A code associated with the role, e.g. a MARC relator code.
