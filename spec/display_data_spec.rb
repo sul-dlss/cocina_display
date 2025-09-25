@@ -46,27 +46,28 @@ RSpec.describe CocinaDisplay::DisplayData do
     end
   end
 
-  describe ".from_string" do
-    subject { described_class.from_string(value, label: label) }
-    let(:value) { "Some text" }
+  describe ".from_strings" do
+    subject { described_class.from_strings(values, label: label) }
+    let(:values) { ["Some text", "Another text"] }
     let(:label) { "Some label" }
 
     it "returns an array containing a DisplayData object" do
       is_expected.to contain_exactly(
-        be_a(CocinaDisplay::DisplayData).and(have_attributes(label: "Some label", values: ["Some text"]))
+        be_a(CocinaDisplay::DisplayData).and(have_attributes(label: "Some label", values: ["Some text", "Another text"]))
       )
     end
   end
 
-  describe ".descriptive_values_from_string" do
-    subject { described_class.descriptive_values_from_string(string, label: label) }
-    let(:string) { "Some text" }
+  describe ".descriptive_values_from_strings" do
+    subject { described_class.descriptive_values_from_strings(strings, label: label) }
+    let(:strings) { ["Some text", "Another text"] }
     let(:label) { "Some label" }
 
     it "returns an array containing an object with label and value attributes" do
       is_expected.to contain_exactly(
-       have_attributes(label: "Some label", value: "Some text")
-     )
+        have_attributes(label: "Some label", value: "Some text"),
+        have_attributes(label: "Some label", value: "Another text")
+      )
     end
   end
 
