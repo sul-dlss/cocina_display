@@ -169,6 +169,30 @@ RSpec.describe CocinaDisplay::Contributors::Contributor do
     end
   end
 
+  describe "#roles" do
+    subject { instance.roles.first.to_s }
+
+    context "with marcrelator defined" do
+      let(:cocina) do
+        {
+          "role" => [{"code" => "prf", "source" => {"code" => "marcrelator"}}]
+        }
+      end
+
+      it { is_expected.to eq "performer" }
+    end
+
+    context "with marcrelator is invalid" do
+      let(:cocina) do
+        {
+          "role" => [{"code" => "vla", "source" => {"code" => "marcrelator"}}]
+        }
+      end
+
+      it { is_expected.to be_nil }
+    end
+  end
+
   describe "#conference?" do
     subject { instance.conference? }
 

@@ -54,6 +54,9 @@ module CocinaDisplay
         return unless marc_relator?
 
         Role.marc_relators.fetch(code)
+      rescue
+        CocinaDisplay.notifier&.notify("Invalid marc relator: #{code}")
+        nil
       end
 
       # A code associated with the role, e.g. a MARC relator code.
