@@ -5,7 +5,7 @@ module CocinaDisplay
   # This is the license entity used for translating a license URL into text
   # for display.
   class License
-    LICENSE_FILE_PATH = File.join(__dir__, "..", "..", "config", "licenses.yml").freeze
+    LICENSE_FILE_PATH = CocinaDisplay.root / "config" / "licenses.yml"
 
     attr_reader :description, :uri
 

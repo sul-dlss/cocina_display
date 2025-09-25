@@ -4,7 +4,7 @@ module CocinaDisplay
   module Contributors
     # A role associated with a contributor.
     class Role
-      MARC_RELATORS_FILE_PATH = File.join(__dir__, "..", "..", "..", "config", "marc_relators.yml").freeze
+      MARC_RELATORS_FILE_PATH = CocinaDisplay.root / "config" / "marc_relators.yml"
 
       attr_reader :cocina
 
