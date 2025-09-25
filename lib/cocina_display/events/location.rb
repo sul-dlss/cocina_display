@@ -2,7 +2,7 @@ module CocinaDisplay
   module Events
     # A single location represented in a Cocina event, like a publication place.
     class Location
-      MARC_COUNTRIES_FILE_PATH = File.join(__dir__, "..", "..", "..", "config", "marc_countries.yml").freeze
+      MARC_COUNTRIES_FILE_PATH = CocinaDisplay.root / "config" / "marc_countries.yml"
 
       attr_reader :cocina
 

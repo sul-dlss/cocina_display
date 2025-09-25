@@ -3,7 +3,7 @@
 module CocinaDisplay
   # A language associated with part or all of a Cocina object.
   class Language
-    SEARCHWORKS_LANGUAGES_FILE_PATH = File.join(__dir__, "..", "..", "config", "searchworks_languages.yml").freeze
+    SEARCHWORKS_LANGUAGES_FILE_PATH = CocinaDisplay.root / "config" / "searchworks_languages.yml"
 
     attr_reader :cocina
 

@@ -26,4 +26,9 @@ loader.setup
 module CocinaDisplay
   # set to an object with a #notify method. This is called if an error is encountered.
   mattr_accessor :notifier
+
+  # @return [Pathname] Returns the root path of this gem
+  def self.root
+    @root ||= Pathname.new(File.expand_path("..", __dir__))
+  end
 end
