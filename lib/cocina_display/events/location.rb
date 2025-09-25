@@ -2,7 +2,15 @@ module CocinaDisplay
   module Events
     # A single location represented in a Cocina event, like a publication place.
     class Location
+      MARC_COUNTRIES_FILE_PATH = File.join(__dir__, "..", "..", "..", "config", "marc_countries.yml").freeze
+
       attr_reader :cocina
+
+      # A hash mapping MARC country codes to their names.
+      # @return [Hash{String => String}]
+      def self.marc_countries
+        @marc_countries ||= YAML.safe_load_file(MARC_COUNTRIES_FILE_PATH)
+      end
 
       # Initialize a Location object with Cocina structured data.
       # @param cocina [Hash] The Cocina structured data for the location.
@@ -34,7 +42,7 @@ module CocinaDisplay
       # Decoded country name if the location is encoded with a MARC country code.
       # @return [String, nil]
       def decoded_country
-        Vocabularies::MARC_COUNTRY[code] if marc_country? && valid_country_code?
+        Location.marc_countries[code] if marc_country? && valid_country_code?
       end
 
       # Is this a decodable country code?

@@ -3,7 +3,15 @@
 module CocinaDisplay
   # A language associated with part or all of a Cocina object.
   class Language
+    SEARCHWORKS_LANGUAGES_FILE_PATH = File.join(__dir__, "..", "..", "config", "searchworks_languages.yml").freeze
+
     attr_reader :cocina
+
+    # A hash of language codes to language names recognized by Searchworks.
+    # @return [Hash{String => String}]
+    def self.searchworks_languages
+      @searchworks_languages ||= YAML.safe_load_file(SEARCHWORKS_LANGUAGES_FILE_PATH)
+    end
 
     # Create a Language object from Cocina structured data.
     # @param cocina [Hash]
@@ -26,7 +34,7 @@ module CocinaDisplay
     # Decoded name of the language based on the code, if present.
     # @return [String, nil]
     def decoded_value
-      Vocabularies::SEARCHWORKS_LANGUAGES[code] if searchworks_language?
+      Language.searchworks_languages[code] if searchworks_language?
     end
 
     # Display label for this field.
@@ -36,10 +44,10 @@ module CocinaDisplay
     end
 
     # True if the language is recognized by Searchworks.
-    # @see CocinaDisplay::Vocabularies::SEARCHWORKS_LANGUAGES
+    # @see CocinaDisplay::Language.searchworks_languages
     # @return [Boolean]
     def searchworks_language?
-      Vocabularies::SEARCHWORKS_LANGUAGES.value?(cocina["value"]) || Vocabularies::SEARCHWORKS_LANGUAGES.key?(code)
+      Language.searchworks_languages.value?(cocina["value"]) || Language.searchworks_languages.key?(code)
     end
   end
 end

@@ -15,7 +15,7 @@ module CocinaDisplay
     # A hash of license URLs to their description attributes
     # @return [Hash{String => Hash{String => String}}]
     def self.licenses
-      @licenses || YAML.safe_load(ERB.new(File.read(LICENSE_FILE_PATH)).result)
+      @licenses ||= YAML.safe_load_file(LICENSE_FILE_PATH)
     end
 
     # Initialize a License from a license URL.
