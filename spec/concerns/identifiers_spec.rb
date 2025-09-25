@@ -204,6 +204,9 @@ RSpec.describe CocinaDisplay::CocinaRecord do
 
     let(:cocina_doc) do
       {
+        "identification" => {
+          "doi" => "identification-doi"
+        },
         "description" => {
           "identifier" => [
             {
@@ -248,13 +251,14 @@ RSpec.describe CocinaDisplay::CocinaRecord do
       }
     end
 
-    it "returns an array of DisplayValue objects" do
-      expect(subject.identifier_display_data).to contain_exactly(
-        be_a(CocinaDisplay::DisplayData).and(have_attributes(label: "DOI", values: ["https://doi.org/10.25740/ppax-bf07",
-          "https://doi.org/10.25740/sb4q-wj06"])),
-        be_a(CocinaDisplay::DisplayData).and(have_attributes(label: "ISBN", values: ["978-0-061-96436-7"])),
-        be_a(CocinaDisplay::DisplayData).and(have_attributes(label: "Identifier", values: ["other-id-123", "other-id-456"])),
-        be_a(CocinaDisplay::DisplayData).and(have_attributes(label: "Custom label", values: ["custom-id-123"]))
+    it "groups by label and includes DOIs in identification section" do
+      expect(CocinaDisplay::DisplayData.to_hash(subject.identifier_display_data)).to eq(
+        {
+          "DOI" => ["https://doi.org/10.25740/ppax-bf07", "https://doi.org/10.25740/sb4q-wj06", "https://doi.org/identification-doi"],
+          "ISBN" => ["978-0-061-96436-7"],
+          "Identifier" => ["other-id-123", "other-id-456"],
+          "Custom label" => ["custom-id-123"]
+        }
       )
     end
   end
