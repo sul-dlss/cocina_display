@@ -21,7 +21,7 @@ module CocinaDisplay
       # Exhibits and EarthWorks handle useAndReproductionStatement like descriptive metadata.
       # @return [Array<CocinaDisplay::DisplayData>]
       def use_and_reproduction_display_data
-        CocinaDisplay::DisplayData.from_string(use_and_reproduction,
+        CocinaDisplay::DisplayData.from_strings([use_and_reproduction],
           label: I18n.t("cocina_display.field_label.use_and_reproduction"))
       end
 
@@ -29,12 +29,12 @@ module CocinaDisplay
       # Exhibits and EarthWorks handle copyright like descriptive metadata.
       # @return [Array<CocinaDisplay::DisplayData>]
       def copyright_display_data
-        CocinaDisplay::DisplayData.from_string(copyright,
+        CocinaDisplay::DisplayData.from_strings([copyright],
           label: I18n.t("cocina_display.field_label.copyright"))
       end
 
       def license_display_data
-        CocinaDisplay::DisplayData.from_string(license_description,
+        CocinaDisplay::DisplayData.from_strings([license_description],
           label: I18n.t("cocina_display.field_label.license"))
       end
 
@@ -71,7 +71,7 @@ module CocinaDisplay
       def purls
         return [] unless purl_url.present?
 
-        CocinaDisplay::DisplayData.descriptive_values_from_string(purl_url, label: I18n.t("cocina_display.field_label.purl"))
+        CocinaDisplay::DisplayData.descriptive_values_from_strings([purl_url], label: I18n.t("cocina_display.field_label.purl"))
       end
     end
   end

@@ -24,21 +24,21 @@ module CocinaDisplay
         from_objects(descriptive_values_from_cocina(cocina, label: label))
       end
 
-      # Create display data from a string value.
-      # @param value [String] The string value to display
+      # Create display data from string values.
+      # @param value [String] The string values to display
       # @param label [String] The label for the display data
       # @return [Array<DisplayData>] The display data
-      def from_string(value, label: nil)
-        from_objects(descriptive_values_from_string(value, label: label))
+      def from_strings(values, label: nil)
+        from_objects(descriptive_values_from_strings(values, label: label))
       end
 
-      # Create an array containing a descriptive object from a string value.
+      # Create an array containing a descriptive object from string values.
       # Can be used to combine a string derived value with other metadata objects.
-      # @param string [String] The string value to display
+      # @param strings [Array<String>] The string values to display
       # @param label [String] The label for the display data
       # @return [Array<DescriptiveValue>] The descriptive values
-      def descriptive_values_from_string(string, label: nil)
-        [DescriptiveValue.new(label: label, value: string)]
+      def descriptive_values_from_strings(strings, label: nil)
+        strings.map { |string| DescriptiveValue.new(label: label, value: string) }
       end
 
       # Take one or several DisplayData and merge into a single hash.
@@ -72,7 +72,7 @@ module CocinaDisplay
 
     # Create a DisplayData object from a list of objects that share a label
     # @param label [String]
-    # @param objects [Array<Object>]
+    # @param objects [Array<#to_s>]
     def initialize(label:, objects:)
       @label = label
       @objects = objects
