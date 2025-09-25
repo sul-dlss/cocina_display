@@ -326,6 +326,93 @@ RSpec.describe CocinaDisplay::CocinaRecord do
     end
   end
 
+  # druid:ym079kd1568
+  context "with structured titles with nonsorting characters that should not be padded" do
+    let(:titles) do
+      [
+        {
+          "structuredValue" => [
+            {"value" => "The", "type" => "nonsorting characters"},
+            {"value" => "Child Dreams (1993) revised script", "type" => "main title"}
+          ],
+          "status" => "primary"
+        },
+        {
+          "parallelValue" => [
+            {
+              "structuredValue" => [
+                {"value" => "ha-", "type" => "nonsorting characters"},
+                {"value" => "Yeled ḥalom ", "type" => "main title"},
+                {"value" => "maḥazeh be-arbaʻah ḥalaḳim ", "type" => "subtitle"}
+              ],
+              "type" => "transliterated"
+            },
+            {
+              "structuredValue" => [
+                {"value" => "ה", "type" => "nonsorting characters"},
+                {"value" => "ילד חלום", "type" => "main title"},
+                {"value" => "מחזה בארבעה חלקים", "type" => "subtitle"}
+              ],
+              "type" => "alternative"
+            },
+            {
+              "structuredValue" => [
+                {"value" => "The ", "type" => "nonsorting characters"},
+                {"value" => "Child Dreams", "type" => "main title"},
+                {"value" => "play in four parts", "type" => "subtitle"}
+              ],
+              "type" => "translated"
+            }
+          ]
+        }
+      ]
+    end
+
+    describe "#main_title" do
+      subject { described_class.new(cocina_doc).main_title }
+      it { is_expected.to eq "The Child Dreams (1993) revised script" } # primary title
+    end
+
+    describe "#full_title" do
+      subject { described_class.new(cocina_doc).full_title }
+      it { is_expected.to eq "The Child Dreams (1993) revised script" }
+    end
+
+    describe "#display_title" do
+      subject { described_class.new(cocina_doc).display_title }
+      it { is_expected.to eq "The Child Dreams (1993) revised script" }
+    end
+
+    describe "#sort_title" do
+      subject { described_class.new(cocina_doc).sort_title }
+      it { is_expected.to eq "Child Dreams 1993 revised script" }
+    end
+
+    describe "#additional_titles" do
+      subject { described_class.new(cocina_doc).additional_titles }
+      it do
+        is_expected.to eq [
+          "ha-Yeled ḥalom : maḥazeh be-arbaʻah ḥalaḳim", # transliterated
+          "הילד חלום : מחזה בארבעה חלקים", # alternative
+          "The Child Dreams : play in four parts" # translated
+        ]
+      end
+    end
+
+    describe "#title_display_data" do
+      subject { CocinaDisplay::DisplayData.to_hash(described_class.new(cocina_doc).title_display_data) }
+
+      it do
+        is_expected.to eq(
+          "Title" => ["The Child Dreams (1993) revised script"],
+          "Transliterated title" => ["ha-Yeled ḥalom : maḥazeh be-arbaʻah ḥalaḳim"],
+          "Alternative title" => ["הילד חלום : מחזה בארבעה חלקים"],
+          "Translated title" => ["The Child Dreams : play in four parts"]
+        )
+      end
+    end
+  end
+
   # druid:bb022pc9382
   context "with parallel main, alternative, and uniform titles" do
     let(:titles) do

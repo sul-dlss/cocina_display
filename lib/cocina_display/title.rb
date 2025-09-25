@@ -81,7 +81,7 @@ module CocinaDisplay
     def sort_title
       return "\u{10FFFF}" unless full_title
 
-      full_title[nonsorting_char_count..]
+      sort_title_str
         .unicode_normalize(:nfd) # Prevent accents being stripped
         .gsub(/[[:punct:]]*/, "")
         .gsub(/\W{2,}/, " ")  # Collapse whitespace after removing punctuation
@@ -99,28 +99,35 @@ module CocinaDisplay
     # Generate the full title by joining all title components with spaces.
     # @return [String, nil]
     def full_title_str
-      Utils.compact_and_join([nonsorting_chars_str, main_title_str, subtitle_str, parts_str])
+      nonsorting_chars_str + sort_title_str
+    end
+
+    # All of the sorting parts of the title joined together with spaces.
+    # @return [String]
+    def sort_title_str
+      Utils.compact_and_join([main_title_str, subtitle_str, parts_str])
     end
 
     # Generate the display title by joining all components with punctuation:
     # - Join main title and subtitle with " : "
     # - Join part name/number/label with ", "
     # - Join part string with preceding title with ". "
-    # - Prepend nonsorting characters with specified padding
+    # - Prepend preformatted nonsorting characters
     # - Prepend associated names with ". "
     # @return [String, nil]
     def display_title_str
       title_str = Utils.compact_and_join([main_title_str, subtitle_str], delimiter: " : ")
       title_str = Utils.compact_and_join([title_str, parts_str(delimiter: ", ")], delimiter: ". ")
-      title_str = Utils.compact_and_join([nonsorting_chars_str, title_str]) if nonsorting_chars_str.present?
+      title_str = nonsorting_chars_str + title_str # pre-formatted padding
       title_str = Utils.compact_and_join([names_str, title_str], delimiter: ". ") if names_str.present?
       title_str.presence
     end
 
     # All nonsorting characters joined together with padding applied.
+    # Handles languages that do not separate nonsorting characters with spaces.
     # @return [String, nil]
     def nonsorting_chars_str
-      Utils.compact_and_join(Array(title_components["nonsorting characters"])).ljust(nonsorting_char_count, " ")
+      pad_nonsorting(Utils.compact_and_join(Array(title_components["nonsorting characters"])))
     end
 
     # The main title component(s), joined together.
@@ -182,13 +189,33 @@ module CocinaDisplay
     # Number of nonsorting characters to ignore at the start of the title.
     # @return [Integer, nil]
     def nonsorting_char_count
-      Janeway.enum_for("$.note[?(@.type=='nonsorting character count')].value", cocina).first&.to_i || 0
+      Janeway.enum_for("$.note[?(@.type=='nonsorting character count')].value", cocina).first&.to_i
     end
 
     # Type-specific label for the title, falling back to a generic "Title".
     # @return [String]
     def type_label
       I18n.t(type&.parameterize&.underscore, scope: "cocina_display.field_label.title", default: :title)
+    end
+
+    private
+
+    # Add or remove padding from nonsorting portion of the title.
+    # @param value [String]
+    # @return [String]
+    def pad_nonsorting(value)
+      case value.strip
+      when /.*-$/, /.*'$/, "ה"  # Arabic, French, Hebrew prefixes use no padding
+        value.strip
+      when ""  # No nonsorting characters; return empty string
+        ""
+      else  # Pad to nonsorting char count if set, otherwise add a single space
+        if nonsorting_char_count.present?
+          value.ljust(nonsorting_char_count, " ")
+        else
+          value + " "
+        end
+      end
     end
   end
 end
