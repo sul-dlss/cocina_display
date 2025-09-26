@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    cocina_display (1.2.1)
+    cocina_display (1.2.2)
       activesupport (>= 7)
       edtf (~> 3.2)
       geo_coord (~> 0.2)
