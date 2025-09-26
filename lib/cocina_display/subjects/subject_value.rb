@@ -26,7 +26,7 @@ module CocinaDisplay
       # @param cocina [Hash] The Cocina structured data for the subject.
       # @return [Array<Hash>] An array of Cocina hashes, one for each split value
       def self.split_pre_coordinated_values(cocina, type:)
-        if cocina["value"].is_a?(String) && cocina["value"].include?("--") && !type.include?("coordinates")
+        if cocina["value"].is_a?(String) && cocina["value"].include?("--") && !type&.include?("coordinates")
           cocina["value"].split("--").map { |v| cocina.merge("value" => v.strip) }
         else
           [cocina]
