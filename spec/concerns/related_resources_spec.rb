@@ -33,16 +33,7 @@ RSpec.describe CocinaDisplay::CocinaRecord do
   end
 
   describe "#related_resource_display_data" do
-    # Create nested hash structure from display data for easier testing
-    subject do
-      record.related_resource_display_data.map do |dd|
-        {
-          dd.label => dd.objects.flat_map(&:display_data).flat_map do |dd2|
-            {dd2.label => dd2.values}
-          end
-        }
-      end.reduce(:merge)
-    end
+    subject { CocinaDisplay::DisplayData.to_hash(record.related_resource_display_data) }
 
     # taken from druid:hp566jq8781
     context "with relations that include display labels" do
@@ -64,12 +55,8 @@ RSpec.describe CocinaDisplay::CocinaRecord do
       it "uses the display labels" do
         is_expected.to eq(
           {
-            "Downloadable James Catalogue Record" => [
-              {"Title" => ["https://stacks.stanford.edu/file/druid:vz744tc9861/MS_367.pdf"]}
-            ],
-            "Superseded Interim Catalogue Record" => [
-              {"Title" => ["https://stacks.stanford.edu/file/druid:pw577ky6421/367.pdf"]}
-            ]
+            "Downloadable James Catalogue Record" => ["https://stacks.stanford.edu/file/druid:vz744tc9861/MS_367.pdf"],
+            "Superseded Interim Catalogue Record" => ["https://stacks.stanford.edu/file/druid:pw577ky6421/367.pdf"]
           }
         )
       end
@@ -128,13 +115,45 @@ RSpec.describe CocinaDisplay::CocinaRecord do
         is_expected.to eq(
           {
             "Referenced by" => [
-              {"Title" => ["Wardington, Lord: The Book Collector, 2003. vol. 52 pgs 199-211 & 317-355"]},
-              {"Title" => ["Phillips. 203"]},
-              {"Title" => ["Tooley. 395"]}
+              "Wardington, Lord: The Book Collector, 2003. vol. 52 pgs 199-211 & 317-355",
+              "Phillips. 203",
+              "Tooley. 395"
             ],
-            "Related item" => [
-              {"Location" => ["https://purl.stanford.edu/wj967bm6421"]}
+            "Related item" => ["https://purl.stanford.edu/wj967bm6421"]
+          }
+        )
+      end
+    end
+
+    context "with related resources with DOIs" do
+      let(:related_resources) do
+        [
+          {
+            "type" => "succeeded by",
+            "identifier" => [
+              {
+                "value" => "10.25740/sb4q-wj06",
+                "type" => "doi"
+              }
             ]
+          },
+          {
+            "type" => "supplement to",
+            "identifier" => [
+              {
+                "value" => "10.1234/abcde",
+                "type" => "doi"
+              }
+            ]
+          }
+        ]
+      end
+
+      it "returns display data with the DOIs" do
+        is_expected.to eq(
+          {
+            "Succeeded by" => ["https://doi.org/10.25740/sb4q-wj06"],
+            "Supplement to" => ["https://doi.org/10.1234/abcde"]
           }
         )
       end

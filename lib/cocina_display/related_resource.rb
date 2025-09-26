@@ -38,14 +38,14 @@ module CocinaDisplay
     # String representation of the related resource.
     # @return [String, nil]
     def to_s
-      main_title || url
+      display_data.flat_map(&:values).first
     end
 
     # URL to the related resource for link construction.
     # If there are multiple URLs, uses the first.
     # @return [String, nil]
     def url
-      urls.first&.to_s || purl_url
+      (urls.map(&:to_s) + identifiers.map(&:uri) + [purl_url]).compact.first
     end
 
     # Is this a related resource with a URL?
@@ -59,7 +59,7 @@ module CocinaDisplay
     # @note Used for extended display of citations, e.g. on hp566jq8781.
     # @return [Array<DisplayData>]
     def display_data
-      title_display_data + contributor_display_data + general_note_display_data + preferred_citation_display_data + access_display_data
+      title_display_data + contributor_display_data + general_note_display_data + preferred_citation_display_data + access_display_data + identifier_display_data
     end
 
     private
