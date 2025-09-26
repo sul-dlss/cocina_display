@@ -463,6 +463,21 @@ RSpec.describe CocinaDisplay::CocinaRecord do
       end
     end
 
+    context "with pre-coordinated LCSH topic subjects and no type" do
+      let(:subjects) do
+        [
+          {
+            "value" => "Presidents--Election",
+            "uri" => "http://id.loc.gov/authorities/subjects/sh85106460"
+          }
+        ]
+      end
+
+      it "splits the value on --" do
+        is_expected.to eq(["Presidents > Election"])
+      end
+    end
+
     context "with deeply nested structured subjects of different types" do
       # from druid:kj040zn0537
       let(:subjects) do
