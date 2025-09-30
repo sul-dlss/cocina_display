@@ -66,7 +66,7 @@ module CocinaDisplay
           nested = deep_compact_blank(value)
           output[key] = nested unless nested.empty?
         when Array
-          compacted_array = value.map { |v| deep_compact_blank(v) }.reject(&:blank?)
+          compacted_array = value.map { |v| deep_compact_blank(v) }.compact_blank
           output[key] = compacted_array unless compacted_array.empty?
         else
           output[key] = value if value.present?
