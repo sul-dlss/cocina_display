@@ -51,29 +51,27 @@ module CocinaDisplay
     end
 
     # Recursively remove empty values from a hash, including nested hashes and arrays.
-    # @param hash [Hash] The hash to process
-    # @param output [Hash] Used for recursion, should be empty on first call
-    # @return [Hash] The hash with empty values removed
+    # @param [Hash, String, NilClass] node The object to process
+    # @return [Hash, String] The hash with empty values removed, string if the node you pass in is a string
     # @example
     #  hash = { "name" => "", "age" => nil, "address => { "city" => "Anytown", "state" => [] } }
     #  #  Utils.remove_empty_values(hash)
     #  #=> { "address" => { "city" => "Anytown" } }
-    def self.deep_compact_blank(node, output = {})
+    def self.deep_compact_blank(node)
       return node unless node.is_a?(Hash)
 
-      node.each do |key, value|
-        if value.is_a?(Hash)
+      node.each_with_object({}) do |(key, value), output|
+        case value
+        when Hash
           nested = deep_compact_blank(value)
           output[key] = nested unless nested.empty?
-        elsif value.is_a?(Array)
+        when Array
           compacted_array = value.map { |v| deep_compact_blank(v) }.reject(&:blank?)
           output[key] = compacted_array unless compacted_array.empty?
-        elsif value.present?
-          output[key] = value
+        else
+          output[key] = value if value.present?
         end
       end
-
-      output
     end
   end
 end
