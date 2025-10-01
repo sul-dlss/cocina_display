@@ -68,6 +68,8 @@ module CocinaDisplay
         when Array
           compacted_array = value.map { |v| deep_compact_blank(v) }.compact_blank
           output[key] = compacted_array unless compacted_array.empty?
+        when TrueClass, FalseClass
+          output[key] = value
         else
           output[key] = value if value.present?
         end
