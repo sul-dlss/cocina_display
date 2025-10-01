@@ -147,5 +147,18 @@ RSpec.describe CocinaDisplay::Utils do
         is_expected.to eq(hash)
       end
     end
+
+    context "with false" do
+      let(:hash) do
+        {
+          "name" => "John Doe",
+          "isMinor" => false
+        }
+      end
+
+      it "returns the original hash" do
+        is_expected.to eq(hash)
+      end
+    end
   end
 end
