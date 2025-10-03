@@ -59,7 +59,7 @@ module CocinaDisplay
     # @example
     #  record.content_type #=> "image"
     def content_type
-      cocina_doc["type"].delete_prefix("https://cocina.sul.stanford.edu/models/")
+      @content_type ||= cocina_doc["type"].delete_prefix("https://cocina.sul.stanford.edu/models/")
     end
 
     # Primary processing label for the object.
