@@ -814,4 +814,120 @@ RSpec.describe CocinaDisplay::CocinaRecord do
       end
     end
   end
+
+  describe "contributor ORCIDs and affiliations" do
+    # from druid:cz537wr8540
+    let(:cocina_json) do
+      {
+        "description" => {
+          "contributor" => [
+            # simple name; no ORCID; no affiliations
+            {
+              "name" => [{"value" => "ACME Corp"}],
+              "type" => "organization",
+              "identifier" => [{"value" => "http://id.loc.gov/authorities/names/n79021164", "type" => "LCCN"}],
+              "affiliation" => []
+            },
+            # simple name; ORCID without URI; one simple affiliation with no ROR
+            {
+              "name" => [{"value" => "John Smith"}],
+              "type" => "person",
+              "identifier" => [
+                {"value" => "0000-0003-1234-5678", "type" => "ORCID"}
+              ],
+              "affiliation" => [
+                {
+                  "value" => "Some Institution"
+                }
+              ]
+            },
+            # structured name; multiple structured affiliations; same ROR 2 ways
+            {
+              "name" => [
+                {
+                  "structuredValue" => [
+                    {"value" => "Sayak", "type" => "forename"},
+                    {"value" => "Ghosh", "type" => "surname"}
+                  ]
+                }
+              ],
+              "type" => "person",
+              "identifier" => [
+                {"value" => "https://orcid.org/0000-0003-4168-7198", "type" => "ORCID"}
+              ],
+              "affiliation" => [
+                {
+                  "structuredValue" => [
+                    {
+                      "value" => "Stanford University",
+                      "identifier" => [
+                        {"type" => "ROR", "uri" => "https://ror.org/00f54p054"}
+                      ]
+                    },
+                    {"value" => "Geballe Laboratory for Advanced Materials"}
+                  ]
+                },
+                {
+                  "structuredValue" => [
+                    {
+                      "value" => "Stanford University",
+                      "identifier" => [
+                        {"type" => "ROR", "value" => "00f54p054"}
+                      ]
+                    },
+                    {"value" => "Department of Applied Physics"}
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      }.to_json
+    end
+
+    # Create data structure for checking ORCIDs and affiliations with RORs
+    subject(:affiliation_data) do
+      record.contributors.map do |contributor|
+        {
+          name: contributor.to_s,
+          orcid: (contributor.orcid if contributor.orcid?),
+          orcid_id: (contributor.orcid_id if contributor.orcid?),
+          affiliations: contributor.affiliations.map do |affiliation|
+            {
+              name: affiliation.to_s,
+              ror: (affiliation.ror if affiliation.ror?),
+              ror_id: (affiliation.ror_id if affiliation.ror?)
+            }.compact_blank
+          end.compact_blank
+        }.compact_blank
+      end
+    end
+
+    it "returns expected ORCIDs and affiliations with RORs" do
+      is_expected.to eq(
+        [
+          {
+            name: "ACME Corp"
+          },
+          {
+            name: "John Smith",
+            orcid: "https://orcid.org/0000-0003-1234-5678",
+            orcid_id: "0000-0003-1234-5678",
+            affiliations: [
+              {name: "Some Institution"}
+            ]
+          },
+          {
+            name: "Ghosh, Sayak",
+            orcid: "https://orcid.org/0000-0003-4168-7198",
+            orcid_id: "0000-0003-4168-7198",
+            affiliations: [
+              {name: "Stanford University, Geballe Laboratory for Advanced Materials", ror: "https://ror.org/00f54p054", ror_id: "00f54p054"},
+              {name: "Stanford University, Department of Applied Physics", ror: "https://ror.org/00f54p054", ror_id: "00f54p054"}
+            ]
+          }
+        ]
+      )
+    end
+  end
 end

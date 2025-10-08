@@ -24,12 +24,6 @@ module CocinaDisplay
         other.is_a?(Contributor) && other.cocina == cocina
       end
 
-      # Identifiers for the contributor.
-      # @return [Array<Identifier>]
-      def identifiers
-        Array(cocina["identifier"]).map { |id| Identifier.new(id) }
-      end
-
       # Is this contributor a human?
       # @return [Boolean]
       def person?
@@ -135,6 +129,46 @@ module CocinaDisplay
       # @return [Array<Hash>]
       def roles
         @roles ||= Array(cocina["role"]).map { |role| Role.new(role) }
+      end
+
+      # Affiliation data for the contributor.
+      # @return [Array<CocinaDisplay::Contributors::Affiliation>]
+      def affiliations
+        @affiliations ||= Array(cocina["affiliation"]).map { |affiliation| Affiliation.new(affiliation) }
+      end
+
+      # Identifiers for the contributor.
+      # @return [Array<Identifier>]
+      def identifiers
+        @identifiers ||= Array(cocina["identifier"]).map { |id| Identifier.new(id) }
+      end
+
+      # Does this contributor have an ORCID?
+      # @return [Boolean]
+      def orcid?
+        orcid_identifier.present?
+      end
+
+      # ORCID URI for the contributor, if present.
+      # @return [String, nil]
+      # @example https://orcid.org/0000-0003-4168-7198
+      def orcid
+        orcid_identifier&.uri
+      end
+
+      # ORCID ID for the contributor, if present.
+      # @return [String, nil]
+      # @example 0000-0003-4168-7198
+      def orcid_id
+        orcid_identifier&.identifier
+      end
+
+      private
+
+      # The first Identifier object containing an ORCID.
+      # @return [CocinaDisplay::Identifier, nil]
+      def orcid_identifier
+        identifiers.find { |id| id.type == "ORCID" }
       end
     end
   end
