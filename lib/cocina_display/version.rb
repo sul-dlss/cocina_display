@@ -2,5 +2,5 @@
 
 # :nodoc:
 module CocinaDisplay
-  VERSION = "1.2.2" # :nodoc:
+  VERSION = "1.3.0" # :nodoc:
 end
