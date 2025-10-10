@@ -45,8 +45,6 @@ module CocinaDisplay
         /^funder/i.match? to_s
       end
 
-      private
-
       # The name of the MARC relator role
       # @raises [KeyError] if the role is not valid
       # @return [String, nil]
