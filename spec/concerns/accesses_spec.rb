@@ -18,7 +18,7 @@ RSpec.describe CocinaDisplay::CocinaRecord do
       }
     }.to_json
   end
-  let(:record) { described_class.from_json(cocina_json) }
+  subject(:record) { described_class.from_json(cocina_json) }
 
   describe "#access_display_data" do
     it "returns an array of access display data" do
@@ -128,6 +128,170 @@ RSpec.describe CocinaDisplay::CocinaRecord do
           label: "License"
         ))
       )
+    end
+  end
+
+  describe "access rights" do
+    context "dark" do
+      let(:cocina_access) do
+        {
+          "view" => "dark",
+          "download" => "none"
+        }
+      end
+
+      it { is_expected.not_to be_viewable }
+      it { is_expected.not_to be_downloadable }
+      it { is_expected.not_to be_world_access }
+      it { is_expected.not_to be_stanford_access }
+      it { is_expected.not_to be_stanford_only_access }
+      it { is_expected.not_to be_location_only_access }
+      it { is_expected.not_to be_citation_only_access }
+      it { is_expected.to be_dark_access }
+    end
+
+    context "world view and download" do
+      let(:cocina_access) do
+        {
+          "view" => "world",
+          "download" => "world"
+        }
+      end
+
+      it { is_expected.to be_viewable }
+      it { is_expected.to be_downloadable }
+      it { is_expected.to be_world_viewable }
+      it { is_expected.to be_world_downloadable }
+      it { is_expected.to be_world_access }
+      it { is_expected.to be_stanford_access }
+      it { is_expected.to be_stanford_viewable }
+      it { is_expected.to be_stanford_downloadable }
+      it { is_expected.not_to be_stanford_only_access }
+      it { is_expected.not_to be_dark_access }
+      it { is_expected.not_to be_location_only_access }
+      it { is_expected.not_to be_citation_only_access }
+    end
+
+    context "world view, stanford only download" do
+      let(:cocina_access) do
+        {
+          "view" => "world",
+          "download" => "stanford"
+        }
+      end
+
+      it { is_expected.to be_viewable }
+      it { is_expected.to be_downloadable }
+      it { is_expected.to be_world_viewable }
+      it { is_expected.not_to be_world_downloadable }
+      it { is_expected.not_to be_world_access }
+      it { is_expected.to be_stanford_viewable }
+      it { is_expected.to be_stanford_downloadable }
+      it { is_expected.to be_stanford_access }
+      it { is_expected.not_to be_stanford_only_access }
+      it { is_expected.not_to be_dark_access }
+      it { is_expected.not_to be_location_only_access }
+      it { is_expected.not_to be_citation_only_access }
+    end
+
+    context "stanford only view and download" do
+      let(:cocina_access) do
+        {
+          "view" => "stanford",
+          "download" => "stanford"
+        }
+      end
+
+      it { is_expected.to be_viewable }
+      it { is_expected.to be_downloadable }
+      it { is_expected.not_to be_world_viewable }
+      it { is_expected.not_to be_world_downloadable }
+      it { is_expected.not_to be_world_access }
+      it { is_expected.to be_stanford_viewable }
+      it { is_expected.to be_stanford_downloadable }
+      it { is_expected.to be_stanford_access }
+      it { is_expected.to be_stanford_only_access }
+      it { is_expected.not_to be_dark_access }
+      it { is_expected.not_to be_location_only_access }
+      it { is_expected.not_to be_citation_only_access }
+    end
+
+    context "view and download at ars only" do
+      let(:cocina_access) do
+        {
+          "view" => "location-based",
+          "download" => "location-based",
+          "location" => "ars"
+        }
+      end
+
+      it { is_expected.to be_viewable }
+      it { is_expected.to be_downloadable }
+      it { is_expected.not_to be_world_viewable }
+      it { is_expected.not_to be_world_downloadable }
+      it { is_expected.not_to be_world_access }
+      it { is_expected.not_to be_stanford_viewable }
+      it { is_expected.not_to be_stanford_downloadable }
+      it { is_expected.not_to be_stanford_only_access }
+      it { is_expected.not_to be_stanford_access }
+      it { is_expected.not_to be_dark_access }
+      it { is_expected.not_to be_citation_only_access }
+      it { is_expected.to be_location_only_viewable }
+      it { is_expected.to be_location_only_downloadable }
+      it { is_expected.to be_location_only_access }
+      it { is_expected.to be_viewable_at_location("ars") }
+      it { is_expected.not_to be_viewable_at_location("spec") }
+    end
+
+    context "view at spec only, no download" do
+      let(:cocina_access) do
+        {
+          "view" => "location-based",
+          "download" => "none",
+          "location" => "spec"
+        }
+      end
+
+      it { is_expected.to be_viewable }
+      it { is_expected.not_to be_downloadable }
+      it { is_expected.not_to be_world_viewable }
+      it { is_expected.not_to be_world_downloadable }
+      it { is_expected.not_to be_world_access }
+      it { is_expected.not_to be_stanford_viewable }
+      it { is_expected.not_to be_stanford_downloadable }
+      it { is_expected.not_to be_stanford_only_access }
+      it { is_expected.not_to be_stanford_access }
+      it { is_expected.not_to be_dark_access }
+      it { is_expected.to be_location_only_viewable }
+      it { is_expected.not_to be_location_only_downloadable }
+      it { is_expected.not_to be_location_only_access }
+      it { is_expected.not_to be_citation_only_access }
+      it { is_expected.to be_viewable_at_location("spec") }
+      it { is_expected.not_to be_viewable_at_location("ars") }
+    end
+
+    context "citation only" do
+      let(:cocina_access) do
+        {
+          "view" => "citation-only",
+          "download" => "none"
+        }
+      end
+
+      it { is_expected.to be_viewable }
+      it { is_expected.not_to be_downloadable }
+      it { is_expected.not_to be_world_viewable }
+      it { is_expected.not_to be_world_downloadable }
+      it { is_expected.not_to be_world_access }
+      it { is_expected.not_to be_stanford_viewable }
+      it { is_expected.not_to be_stanford_downloadable }
+      it { is_expected.not_to be_stanford_only_access }
+      it { is_expected.not_to be_dark_access }
+      it { is_expected.not_to be_stanford_access }
+      it { is_expected.not_to be_location_only_viewable }
+      it { is_expected.not_to be_location_only_downloadable }
+      it { is_expected.not_to be_location_only_access }
+      it { is_expected.to be_citation_only_access }
     end
   end
 
