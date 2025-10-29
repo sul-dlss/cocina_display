@@ -105,8 +105,6 @@ module CocinaDisplay
         genres.include?("Dataset")
       end
 
-      private
-
       # Collapses all nested form values into an array of {Form} objects.
       # Preserves resource type without flattening, since it can be structured.
       # @return [Array<Form>]
@@ -147,6 +145,38 @@ module CocinaDisplay
         all_forms.filter { |form| ["reformatting quality", "media type"].include?(form.type) }
       end
 
+      # All resource types forms, as {ResourceType}s.
+      # @return [Array<ResourceType>]
+      def all_resource_types
+        all_forms.filter { |form| form.is_a?(CocinaDisplay::Forms::ResourceType) }
+      end
+
+      # {ResourceType} objects that are Stanford self-deposit resource types.
+      # @return [Array<ResourceType>]
+      def self_deposit_resource_types
+        all_resource_types.filter { |resource_type| resource_type.stanford_self_deposit? }
+      end
+
+      # Display values of all resource types.
+      # @return [Array<String>]
+      def resource_type_values
+        all_resource_types.map(&:to_s).uniq
+      end
+
+      # Issuance terms for a work, drawn from the event notes.
+      # @return [Array<String>]
+      def issuance_terms
+        events.flat_map(&:notes).filter { |note| note.type == "issuance" }.map { |note| note.to_s.downcase }.uniq
+      end
+
+      # Frequency terms for a periodical, drawn from the event notes.
+      # @return [Array<String>]
+      def frequency
+        events.flat_map(&:notes).filter { |note| note.type == "frequency" }.map { |note| note.to_s.downcase }.uniq
+      end
+
+      private
+
       # Map a resource type to SearchWorks format value(s).
       # @param resource_type [String] The resource type to map.
       # @return [Array<String>]
@@ -185,36 +215,6 @@ module CocinaDisplay
         end
 
         values.compact_blank
-      end
-
-      # All resource types forms, as {ResourceType}s.
-      # @return [Array<ResourceType>]
-      def all_resource_types
-        all_forms.filter { |form| form.is_a?(CocinaDisplay::Forms::ResourceType) }
-      end
-
-      # {ResourceType} objects that are Stanford self-deposit resource types.
-      # @return [Array<ResourceType>]
-      def self_deposit_resource_types
-        all_resource_types.filter { |resource_type| resource_type.stanford_self_deposit? }
-      end
-
-      # Display values of all resource types.
-      # @return [Array<String>]
-      def resource_type_values
-        all_resource_types.map(&:to_s).uniq
-      end
-
-      # Issuance terms for a work, drawn from the event notes.
-      # @return [Array<String>]
-      def issuance_terms
-        events.flat_map(&:notes).filter { |note| note.type == "issuance" }.map { |note| note.to_s.downcase }.uniq
-      end
-
-      # Frequency terms for a periodical, drawn from the event notes.
-      # @return [Array<String>]
-      def frequency
-        events.flat_map(&:notes).filter { |note| note.type == "frequency" }.map { |note| note.to_s.downcase }.uniq
       end
     end
   end
