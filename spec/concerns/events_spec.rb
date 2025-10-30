@@ -240,6 +240,24 @@ RSpec.describe CocinaDisplay::CocinaRecord do
 
       it { is_expected.to eq(-5) }
     end
+
+    context "with a marc range with unknown start" do
+      let(:dates) do
+        [
+          {
+            "structuredValue" => [
+              {"value" => "uuuu", "type" => "start"},
+              {"value" => "1868", "type" => "end"}
+            ],
+            "type" => "publication",
+            "encoding" => {"code" => "marc"},
+            "qualifier" => "questionable"
+          }
+        ]
+      end
+
+      it { is_expected.to eq(1868) }
+    end
   end
 
   describe "#pub_year_int_range" do

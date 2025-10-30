@@ -398,31 +398,31 @@ RSpec.describe CocinaDisplay::Dates::Date do
           expect(date.decoded_value(allowed_precisions: [:day, :month, :year])).to eq("January  1, 2023")
         end
       end
+    end
 
-      context "with a structuredValue that encodes an open ended range" do
-        let(:cocina) do
-          {
-            "structuredValue" => [
-              {
-                "value" => "1758",
-                "type" => "start"
-              },
-              {
-                "value" => "uuuu",
-                "type" => "end"
-              }
-            ],
-            "type" => "publication",
-            "encoding" => {
-              "code" => "marc"
+    context "with a structuredValue that encodes an open ended range" do
+      let(:cocina) do
+        {
+          "structuredValue" => [
+            {
+              "value" => "1758",
+              "type" => "start"
             },
-            "qualifier" => "questionable"
-          }
-        end
+            {
+              "value" => "uuuu",
+              "type" => "end"
+            }
+          ],
+          "type" => "publication",
+          "encoding" => {
+            "code" => "marc"
+          },
+          "qualifier" => "questionable"
+        }
+      end
 
-        it "returns the cocina value" do
-          expect(date.decoded_value).to eq("1758 - Unknown")
-        end
+      it "returns the cocina value" do
+        expect(date.decoded_value).to eq("1758 - Unknown")
       end
     end
 
