@@ -229,6 +229,32 @@ RSpec.describe CocinaDisplay::CocinaRecord do
       it { is_expected.to eq(2020) }
     end
 
+    context "with a MARC date range with unknown start (uuuu to 1868)" do
+      let(:dates) do
+        [
+          {
+            "structuredValue": [
+              {
+                "value": "uuuu",
+                "type": "start"
+              },
+              {
+                "value": "1868",
+                "type": "end"
+              }
+            ],
+            "type": "publication",
+            "encoding": {
+              "code": "marc"
+            },
+            "qualifier": "questionable"
+          }
+        ]
+      end
+
+      it { is_expected.to eq(1868) }
+    end
+
     context "with an EDTF interval (6 BCE to 5 BCE)" do
       let(:dates) do
         [

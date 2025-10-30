@@ -17,13 +17,14 @@ module CocinaDisplay
 
       # Construct a Date from parsed Cocina data.
       # @param cocina [Hash] Cocina date data
+      # @param code [String, nil] Optional encoding code when present on structuredValue
       # @return [CocinaDisplay::Date]
-      def self.from_cocina(cocina)
+      def self.from_cocina(cocina, code: nil)
         # Create a DateRange instead if structuredValue(s) are present
         return DateRange.from_cocina(cocina) if cocina["structuredValue"].present?
 
         # If an encoding was declared, use it. Cocina validates this
-        case cocina.dig("encoding", "code")
+        case cocina.dig("encoding", "code") || code
         when "w3cdtf"
           W3cdtfFormat.new(cocina)
         when "iso8601"

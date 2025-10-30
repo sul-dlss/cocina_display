@@ -13,7 +13,7 @@ module CocinaDisplay
         return unless date
 
         if date.is_a? CocinaDisplay::Dates::DateRange
-          date = date.start || date.stop
+          date = date.start.date ? date.start : date.stop
         end
 
         edtf_date = date.date
