@@ -9,21 +9,22 @@ module CocinaDisplay
       # @return [Date, nil]
       # @see https://github.com/inukshuk/edtf-ruby
       def pub_date_edtf(ignore_qualified: false)
-        date = pub_date(ignore_qualified: ignore_qualified)
-        return unless date
+        return unless (date = pub_date(ignore_qualified: ignore_qualified))
 
         if date.is_a? CocinaDisplay::Dates::DateRange
-          date = date.start || date.stop
-        end
-
-        edtf_date = date.date
-        return unless edtf_date
-
-        if edtf_date.is_a? EDTF::Interval
-          edtf_date.from
+          if !date.start.date.is_a? EDTF::Unknown
+            edtf_date = date.start.date
+          elsif !date.stop.date.is_a? EDTF::Unknown
+            edtf_date = date.stop.date
+          end
         else
-          edtf_date
+          edtf_date = date.date
         end
+
+        return if edtf_date.is_a? EDTF::Unknown
+        return edtf_date.from if edtf_date.is_a?(EDTF::Interval)
+
+        edtf_date
       end
 
       # The earliest preferred publication year as an integer.
