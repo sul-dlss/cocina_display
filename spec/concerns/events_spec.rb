@@ -258,6 +258,40 @@ RSpec.describe CocinaDisplay::CocinaRecord do
 
       it { is_expected.to eq(1868) }
     end
+
+    context "with a date range with no start" do
+      let(:dates) do
+        [
+          {
+            "structuredValue" => [
+              {"value" => "1948", "type" => "end", "status" => "primary"}
+            ],
+            "type" => "creation",
+            "encoding" => {"code" => "w3cdtf"},
+            "qualifier" => "approximate"
+          }
+        ]
+      end
+
+      it { is_expected.to eq(1948) }
+    end
+
+    context "with a date range with no end" do
+      let(:dates) do
+        [
+          {
+            "structuredValue" => [
+              {"value" => "2001", "type" => "start", "status" => "primary"}
+            ],
+            "type" => "creation",
+            "encoding" => {"code" => "w3cdtf"},
+            "qualifier" => "approximate"
+          }
+        ]
+      end
+
+      it { is_expected.to eq(2001) }
+    end
   end
 
   describe "#pub_year_int_range" do

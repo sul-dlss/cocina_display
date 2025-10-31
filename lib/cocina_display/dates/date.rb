@@ -143,6 +143,12 @@ module CocinaDisplay
         qualifier.present?
       end
 
+      # Does this represent a known date?
+      # @return [Boolean]
+      def known?
+        !date.is_a?(EDTF::Unknown)
+      end
+
       # Was an encoding declared for this date?
       # @return [Boolean]
       def encoding?
