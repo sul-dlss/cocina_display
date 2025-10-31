@@ -12,7 +12,7 @@ module CocinaDisplay
         return unless (date = pub_date(ignore_qualified: ignore_qualified))
 
         if date.is_a? CocinaDisplay::Dates::DateRange
-          if !date.start.date.is_a? EDTF::Unknown
+          if date.start.present? && !date.start.date.is_a?(EDTF::Unknown)
             edtf_date = date.start.date
           elsif !date.stop.date.is_a? EDTF::Unknown
             edtf_date = date.stop.date
