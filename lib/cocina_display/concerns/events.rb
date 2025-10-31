@@ -12,19 +12,13 @@ module CocinaDisplay
         return unless (date = pub_date(ignore_qualified: ignore_qualified))
 
         if date.is_a? CocinaDisplay::Dates::DateRange
-          if !date.start.date.is_a? EDTF::Unknown
-            edtf_date = date.start.date
-          elsif !date.stop.date.is_a? EDTF::Unknown
-            edtf_date = date.stop.date
-          end
-        else
-          edtf_date = date.date
+          date = date.start&.known? ? date.start : date.stop
         end
 
-        return if edtf_date.is_a? EDTF::Unknown
-        return edtf_date.from if edtf_date.is_a?(EDTF::Interval)
+        return unless date&.known?
+        return date.date.from if date.date.is_a?(EDTF::Interval)
 
-        edtf_date
+        date.date
       end
 
       # The earliest preferred publication year as an integer.
