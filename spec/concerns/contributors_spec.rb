@@ -659,9 +659,6 @@ RSpec.describe CocinaDisplay::CocinaRecord do
             have_attributes(label: "Editor", values: ["Smith, Jane"])
           ),
           be_a(CocinaDisplay::DisplayData).and(
-            have_attributes(label: "Publisher", values: ["ACME Corp"])
-          ),
-          be_a(CocinaDisplay::DisplayData).and(
             have_attributes(label: "Engraver", values: ["Lasinio, Carlo, 1759-1838"])
           )
         )
