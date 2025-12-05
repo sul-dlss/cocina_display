@@ -53,6 +53,7 @@ module CocinaDisplay
 
         (link["refresh"] == refresh) ? hrid : nil
       end
+      alias_method :catkey, :folio_hrid
 
       # The FOLIO HRID if defined, otherwise the bare DRUID.
       # @note This doesn't imply the object is available in Searchworks at this ID.
