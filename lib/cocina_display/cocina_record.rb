@@ -18,16 +18,14 @@ module CocinaDisplay
     include CocinaDisplay::Concerns::RelatedResources
 
     # Fetch a public Cocina document from PURL and create a CocinaRecord.
-    # @note This is intended to be used in development or testing only.
     # @param druid [String] The bare DRUID of the object to fetch.
     # @param purl_url [String] The base url for the purl service.
     # @param deep_compact [Boolean] If true, compact the JSON to remove blank values.
     # @return [CocinaDisplay::CocinaRecord]
-    # :nocov:
     def self.fetch(druid, deep_compact: true, purl_url: "https://purl.stanford.edu")
-      from_json(Net::HTTP.get(URI("#{purl_url}/#{druid}.json")), deep_compact: deep_compact)
+      response = Net::HTTP.get_response(URI("#{purl_url}/#{druid}.json"))
+      from_json(response.body, deep_compact: deep_compact) if response.is_a?(Net::HTTPSuccess)
     end
-    # :nocov:
 
     # Create a CocinaRecord from a JSON string.
     # @param cocina_json [String]

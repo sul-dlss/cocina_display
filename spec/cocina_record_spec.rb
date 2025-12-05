@@ -9,6 +9,30 @@ RSpec.describe CocinaDisplay::CocinaRecord do
 
   subject { described_class.new(cocina_doc) }
 
+  describe "#fetch" do
+    before do
+      stub_request(:get, "https://purl.stanford.edu/#{druid}.json")
+        .to_return(body: cocina_json, status: 200)
+    end
+
+    it "fetches and returns a CocinaRecord" do
+      record = described_class.fetch(druid)
+      expect(record).to be_a(described_class)
+    end
+
+    context "when the object has no public cocina" do
+      before do
+        stub_request(:get, "https://purl.stanford.edu/#{druid}.json")
+          .to_return(status: 404)
+      end
+
+      it "returns nil" do
+        record = described_class.fetch(druid)
+        expect(record).to be_nil
+      end
+    end
+  end
+
   describe "#content_type" do
     let(:druid) { "bx658jh7339" }
 

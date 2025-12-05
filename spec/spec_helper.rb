@@ -5,6 +5,7 @@ require "rspec"
 require "simplecov"
 require "simplecov-rspec"
 require "debug"
+require "webmock/rspec"
 
 # Ignore coverage if running a single file; otherwise turn it on
 if RSpec.configuration.files_to_run.count > 1
