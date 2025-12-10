@@ -44,6 +44,17 @@ module CocinaDisplay
         "#{purl_url}/#{iiif_path}/manifest" if purl_url.present?
       end
 
+      # The Searchworks URL for this object.
+      # Uses the catkey (FOLIO HRID) if present, otherwise uses the druid.
+      # @note This does not guarantee that the object is actually in Searchworks.
+      # @return [String]
+      # @example
+      #  record.searchworks_url #=> "https://searchworks.stanford.edu/view/bx658jh7339"
+      def searchworks_url
+        return "#{searchworks_base_url}/view/#{folio_hrid}" if folio_hrid.present?
+        "#{searchworks_base_url}/view/#{bare_druid}" if bare_druid.present?
+      end
+
       private
 
       # The URL to the PURL environment this object is from.
@@ -66,6 +77,20 @@ module CocinaDisplay
           "https://sul-stacks-stage.stanford.edu"
         elsif purl_base_url.present?
           "https://stacks.stanford.edu"
+        end
+      end
+
+      # The URL to the Searchworks environment this object could be found in.
+      # Corresponds to the PURL environment.
+      # @see purl_base_url
+      # @return [String]
+      # @example
+      #  record.searchworks_base_url #=> "https://searchworks.stanford.edu"
+      def searchworks_base_url
+        if purl_base_url == "https://sul-purl-stage.stanford.edu"
+          "https://searchworks-stage.stanford.edu"
+        elsif purl_base_url.present?
+          "https://searchworks.stanford.edu"
         end
       end
     end
