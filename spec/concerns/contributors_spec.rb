@@ -812,6 +812,47 @@ RSpec.describe CocinaDisplay::CocinaRecord do
     end
   end
 
+  describe "#author_names" do
+    subject { record.author_names }
+
+    context "with author contributors" do
+      let(:contributors) do
+        [
+          {
+            "name" => [{"value" => "Doe, John"}],
+            "role" => [{"value" => "author"}],
+            "type" => "person"
+          },
+          {
+            "name" => [{"value" => "John Smith"}],
+            "role" => [{"code" => "aut", "source" => {"code" => "marcrelator"}}],
+            "type" => "person"
+          },
+          {
+            "name" => [{"value" => "Smith, Jane"}],
+            "role" => [{"value" => "editor"}],
+            "type" => "person"
+          }
+        ]
+      end
+      it { is_expected.to eq(["Doe, John", "John Smith"]) }
+    end
+
+    context "with no author contributors" do
+      let(:contributors) do
+        [
+          {
+            "name" => [{"value" => "ACME Corp"}],
+            "role" => [{"value" => "publisher"}],
+            "type" => "organization"
+          }
+        ]
+      end
+
+      it { is_expected.to be_empty }
+    end
+  end
+
   describe "contributor ORCIDs and affiliations" do
     # from druid:cz537wr8540
     let(:cocina_json) do

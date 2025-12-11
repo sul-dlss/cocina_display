@@ -27,6 +27,12 @@ module CocinaDisplay
         publisher_contributors.flat_map(&:display_names).compact
       end
 
+      # All names of authors, formatted for display.
+      # @return [Array<String>]
+      def author_names
+        author_contributors.flat_map(&:display_names).compact
+      end
+
       # All names of contributors who are people, formatted for display.
       # @param with_date [Boolean] Include life dates, if present
       # @return [Array<String>]
@@ -109,6 +115,13 @@ module CocinaDisplay
           path("$.description.contributor.*"),
           path("$.description.event.*.contributor.*")
         ).map { |c| CocinaDisplay::Contributors::Contributor.new(c) }
+      end
+
+      # All contributors with an "author" role.
+      # @return [Array<Contributor>]
+      # @see Contributor#author?
+      def author_contributors
+        contributors.filter(&:author?)
       end
 
       # All contributors with a "publisher" role.
