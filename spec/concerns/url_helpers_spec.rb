@@ -76,4 +76,28 @@ RSpec.describe CocinaDisplay::CocinaRecord do
       end
     end
   end
+
+  describe "#searchworks_url" do
+    let(:druid) { "bx658jh7339" }
+
+    it "returns the correct SearchWorks URL" do
+      expect(subject.searchworks_url).to eq "https://searchworks.stanford.edu/view/bx658jh7339"
+    end
+
+    context "for a staging object" do
+      let(:druid) { "qr918wy2257" }
+
+      it "returns the correct SearchWorks URL" do
+        expect(subject.searchworks_url).to eq "https://searchworks-stage.stanford.edu/view/qr918wy2257"
+      end
+    end
+
+    context "for an object with a catkey" do
+      let(:druid) { "pv074by7080" }
+
+      it "returns the correct SearchWorks URL" do
+        expect(subject.searchworks_url).to eq "https://searchworks.stanford.edu/view/a12845814"
+      end
+    end
+  end
 end
