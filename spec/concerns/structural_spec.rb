@@ -35,4 +35,20 @@ RSpec.describe CocinaDisplay::CocinaRecord do
       expect(subject.total_file_size_int).to eq(14744206)
     end
   end
+
+  describe "#containing_collections" do
+    it "returns an array of collection DRUIDs" do
+      expect(subject.containing_collections).to contain_exactly("sj775xm6965")
+    end
+
+    context "when the object is not a member of any collections" do
+      before do
+        cocina_doc["structural"].delete("isMemberOf")
+      end
+
+      it "returns an empty array" do
+        expect(subject.containing_collections).to be_empty
+      end
+    end
+  end
 end
