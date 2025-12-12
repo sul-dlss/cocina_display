@@ -36,6 +36,13 @@ module CocinaDisplay
       def total_file_size_int
         files.pluck("size").sum
       end
+
+      # DRUIDs of collections this object is a member of.
+      # @return [Array<String>]
+      # @example ["sj775xm6965"]
+      def containing_collections
+        path("$.structural.isMemberOf.*").map { |druid| druid.delete_prefix("druid:") }
+      end
     end
   end
 end
