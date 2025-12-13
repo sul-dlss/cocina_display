@@ -53,6 +53,14 @@ RSpec.describe CocinaDisplay::CocinaRecord do
         expect(subject.download_url).to eq "https://sul-stacks-stage.stanford.edu/object/qr918wy2257"
       end
     end
+
+    context "for a collection" do
+      let(:druid) { "nz187ct8959" }
+
+      it "returns nil" do
+        expect(subject.download_url).to be_nil
+      end
+    end
   end
 
   describe "#iiif_manifest_url" do

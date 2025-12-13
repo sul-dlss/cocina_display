@@ -63,7 +63,7 @@ RSpec.describe CocinaDisplay::RelatedResource do
       describe "#download_url" do
         subject { described_class.new(cocina_doc).download_url }
 
-        it { is_expected.to eq "https://stacks.stanford.edu/object/xx111yy2223" }
+        it { is_expected.to be_nil }
       end
 
       describe "#iiif_manifest_url" do
