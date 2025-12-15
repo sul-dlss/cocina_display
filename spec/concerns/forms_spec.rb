@@ -4,12 +4,14 @@ RSpec.describe CocinaDisplay::CocinaRecord do
   let(:forms) { [] }
   let(:events) { [] }
   let(:subjects) { [] }
+  let(:geographic) { [] }
   let(:cocina_json) do
     {
       "description" => {
         "form" => forms,
         "event" => events,
-        "subject" => subjects
+        "subject" => subjects,
+        "geographic" => geographic
       }
     }.to_json
   end
@@ -152,6 +154,23 @@ RSpec.describe CocinaDisplay::CocinaRecord do
 
       it "extracts the individual form values" do
         is_expected.to eq(["audiotape reel"])
+      end
+    end
+
+    context "when the forms are in the geographic section" do
+      let(:geographic) do
+        [
+          {
+            "form" => [
+              {"value" => "topographic map", "type" => "form"},
+              {"value" => "aerial photograph", "type" => "form"}
+            ]
+          }
+        ]
+      end
+
+      it "includes those form values as well" do
+        is_expected.to eq(["topographic map", "aerial photograph"])
       end
     end
   end

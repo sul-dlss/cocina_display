@@ -75,10 +75,16 @@ module CocinaDisplay
       end
 
       # All form notes to be rendered for display.
+      # Checks both description.form.note and description.geographic.form.note.
       # @return [Array<DisplayData>]
       def form_note_display_data
-        CocinaDisplay::DisplayData.from_cocina(path("$.description.form[*].note[*]"),
-          label: I18n.t("cocina_display.field_label.form.note"))
+        CocinaDisplay::DisplayData.from_cocina(
+          Enumerator::Chain.new(
+            path("$.description.form.*.note.*"),
+            path("$.description.geographic.*.form.*.note.*")
+          ),
+          label: I18n.t("cocina_display.field_label.form.note")
+        )
       end
 
       # Is the object a periodical or serial?
@@ -106,10 +112,14 @@ module CocinaDisplay
       end
 
       # Collapses all nested form values into an array of {Form} objects.
+      # Checks both description.form and description.geographic.form.
       # Preserves resource type without flattening, since it can be structured.
       # @return [Array<Form>]
       def all_forms
-        @all_forms ||= path("$.description.form.*")
+        @all_forms ||= Enumerator::Chain.new(
+          path("$.description.form.*"),
+          path("$.description.geographic.*.form.*")
+        )
           .flat_map { |form| Utils.flatten_nested_values(form, atomic_types: ["resource type"]) }
           .map { |form| CocinaDisplay::Forms::Form.from_cocina(form) }
       end
