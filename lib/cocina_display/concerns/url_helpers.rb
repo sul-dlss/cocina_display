@@ -3,7 +3,7 @@ module CocinaDisplay
     # Methods that generate URLs to access an object.
     module UrlHelpers
       # The PURL URL for this object.
-      # @return [String]
+      # @return [String, nil]
       # @example
       #  record.purl_url #=> "https://purl.stanford.edu/bx658jh7339"
       def purl_url
@@ -13,8 +13,7 @@ module CocinaDisplay
       # The oEmbed URL for the object, optionally with additional parameters.
       # Corresponds to the PURL environment.
       # @param params [Hash] Additional parameters to include in the oEmbed URL.
-      # @return [String]
-      # @return [nil] if the object is a collection.
+      # @return [String, nil]
       # @example Generate an oEmbed URL for the viewer and hide the title
       #   record.oembed_url(hide_title: true) #=> "https://purl.stanford.edu/bx658jh7339/embed.json?hide_title=true"
       def oembed_url(params: {})
@@ -26,8 +25,8 @@ module CocinaDisplay
 
       # The download URL to get the entire object as a .zip file.
       # Stacks generates the .zip for the object on request.
-      # @note Collections do not have a download URL.
-      # @return [String]
+      # @note Collections and related resources do not have a download URL.
+      # @return [String, nil]
       # @example
       #   record.download_url #=> "https://stacks.stanford.edu/object/bx658jh7339"
       def download_url
@@ -37,7 +36,7 @@ module CocinaDisplay
       # The IIIF manifest URL for the object.
       # PURL generates the IIIF manifest.
       # @param version [Integer] The IIIF presentation spec version to use (3 or 2).
-      # @return [String]
+      # @return [String, nil]
       # @example
       #  record.iiif_manifest_url #=> "https://purl.stanford.edu/bx658jh7339/iiif3/manifest"
       def iiif_manifest_url(version: 3)
@@ -48,7 +47,7 @@ module CocinaDisplay
       # The Searchworks URL for this object.
       # Uses the catkey (FOLIO HRID) if present, otherwise uses the druid.
       # @note This does not guarantee that the object is actually in Searchworks.
-      # @return [String]
+      # @return [String, nil]
       # @example
       #  record.searchworks_url #=> "https://searchworks.stanford.edu/view/bx658jh7339"
       def searchworks_url
@@ -60,7 +59,7 @@ module CocinaDisplay
 
       # The URL to the PURL environment this object is from.
       # @note Objects accessed via UAT will still have a production PURL base URL.
-      # @return [String]
+      # @return [String, nil]
       # @example
       #   record.purl_base_url #=> "https://purl.stanford.edu"
       def purl_base_url
@@ -70,7 +69,7 @@ module CocinaDisplay
       # The URL to the stacks environment this object is shelved in.
       # Corresponds to the PURL environment.
       # @see purl_base_url
-      # @return [String]
+      # @return [String, nil]
       # @example
       #  record.stacks_base_url #=> "https://stacks.stanford.edu"
       def stacks_base_url
@@ -84,7 +83,7 @@ module CocinaDisplay
       # The URL to the Searchworks environment this object could be found in.
       # Corresponds to the PURL environment.
       # @see purl_base_url
-      # @return [String]
+      # @return [String, nil]
       # @example
       #  record.searchworks_base_url #=> "https://searchworks.stanford.edu"
       def searchworks_base_url
