@@ -26,11 +26,12 @@ module CocinaDisplay
 
       # The download URL to get the entire object as a .zip file.
       # Stacks generates the .zip for the object on request.
+      # @note Collections do not have a download URL.
       # @return [String]
       # @example
       #   record.download_url #=> "https://stacks.stanford.edu/object/bx658jh7339"
       def download_url
-        "#{stacks_base_url}/object/#{bare_druid}" if bare_druid.present?
+        "#{stacks_base_url}/object/#{bare_druid}" if is_a?(CocinaDisplay::CocinaRecord) && bare_druid.present? && !collection?
       end
 
       # The IIIF manifest URL for the object.
