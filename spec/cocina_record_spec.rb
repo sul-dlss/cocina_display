@@ -39,6 +39,14 @@ RSpec.describe CocinaDisplay::CocinaRecord do
     it "returns the content type from the cocina document" do
       expect(subject.content_type).to eq "image"
     end
+
+    context "with a stub object" do
+      let(:cocina_doc) { {} }
+
+      it "returns nil" do
+        expect(subject.content_type).to be_nil
+      end
+    end
   end
 
   describe "#collection?" do

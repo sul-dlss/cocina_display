@@ -51,13 +51,12 @@ module CocinaDisplay
     end
 
     # SDR content type of the object.
-    # @note {RelatedResource}s may not have a content type.
     # @return [String, nil]
     # @see https://github.com/sul-dlss/cocina-models/blob/main/openapi.yml#L532-L546
     # @example
     #  record.content_type #=> "image"
     def content_type
-      cocina_doc["type"].delete_prefix("https://cocina.sul.stanford.edu/models/")
+      cocina_doc["type"]&.delete_prefix("https://cocina.sul.stanford.edu/models/")
     end
 
     # Primary processing label for the object.
