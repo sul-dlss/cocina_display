@@ -43,6 +43,18 @@ module CocinaDisplay
       def containing_collections
         path("$.structural.isMemberOf.*").map { |druid| druid.delete_prefix("druid:") }
       end
+
+      def virtual_object?
+        return false if path("$.structural.contains.*").any?
+
+        path("$.structural.hasMemberOrders.*.members.*").any?
+      end
+
+      def virtual_object_members
+        return [] unless virtual_object?
+
+        path("$.structural.hasMemberOrders.*.members.*").map { |druid| druid.delete_prefix("druid:") }
+      end
     end
   end
 end

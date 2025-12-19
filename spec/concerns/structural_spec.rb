@@ -51,4 +51,36 @@ RSpec.describe CocinaDisplay::CocinaRecord do
       end
     end
   end
+
+  describe "#virtual_object?" do
+    context "when the object is a virtual object" do
+      let(:druid) { "ws947mh3822" }
+
+      it "returns true" do
+        expect(subject.virtual_object?).to be true
+      end
+    end
+
+    context "when the object is not a virtual object" do
+      it "returns false" do
+        expect(subject.virtual_object?).to be false
+      end
+    end
+  end
+
+  describe "#virtual_object_members" do
+    context "when the object is a virtual object" do
+      let(:druid) { "ws947mh3822" }
+
+      it "returns an array of member DRUIDs" do
+        expect(subject.virtual_object_members).to contain_exactly("ts786ny5936", "tp006ms8736", "tj297ys4758")
+      end
+    end
+
+    context "when the object is not a virtual object" do
+      it "returns an empty array" do
+        expect(subject.virtual_object_members).to be_empty
+      end
+    end
+  end
 end
