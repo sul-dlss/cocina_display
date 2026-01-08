@@ -2,11 +2,11 @@ module CocinaDisplay
   module Concerns
     # Methods for finding and formatting titles.
     module Titles
-      # The main title for the object, without subtitle, part name, etc.
+      # The short title for the object, without subtitle, part name, etc.
       # If there are multiple primary titles, uses the first.
-      # @see CocinaDisplay::Title#main_title
+      # @see CocinaDisplay::Title#short_title
       # @return [String, nil]
-      def main_title
+      def short_title
         primary_title&.short_title
       end
 

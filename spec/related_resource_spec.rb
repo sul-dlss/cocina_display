@@ -4,7 +4,7 @@ require "spec_helper"
 
 RSpec.describe CocinaDisplay::RelatedResource do
   describe "titles" do
-    subject { described_class.new(cocina_doc).main_title }
+    subject { described_class.new(cocina_doc).short_title }
 
     context "when there is no title" do
       let(:cocina_doc) { {} }
