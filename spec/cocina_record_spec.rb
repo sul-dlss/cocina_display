@@ -144,4 +144,14 @@ RSpec.describe CocinaDisplay::CocinaRecord do
       end
     end
   end
+
+  describe "#text" do
+    let(:druid) { "bk264hq9320" }
+
+    it "returns flattened text of all node values" do
+      # rubocop:disable Layout/LineLength
+      expect(subject.text).to eq("Trustees Demo reel Stanford University. News and Publications Service pro producer 2004-02-09 w3cdtf cau Stanford (Calif.) Unedited footage moving image videocassette access video/mp4 image/jpeg 1 MiniDV tape reformatted digital NTSC Sound Color eng English Reformatted by Stanford University Libraries in 2017. sc1125_s02_b11_04-0209-1 SC1125 Stanford University. Libraries. Department of Special Collections and University Archives Stanford University, News and Publication Service, Audiovisual Recordings (SC1125) http://www.oac.cdlib.org/findaid/ark:/13030/c8dn43sv CSt original cataloging agency eng English human prepared")
+      # rubocop:enable Layout/LineLength
+    end
+  end
 end
