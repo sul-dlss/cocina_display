@@ -61,15 +61,14 @@ module CocinaDisplay
     # The long form of the title, including subtitle, part name, etc.
     # @note This corresponds to the entire MARC 245 field.
     # @return [String, nil]
-    # @example "M. de Courville [estampe]"
+    # @example "M. de Courville : [estampe]"
     def full_title
       full_title_str.presence || cocina["value"]
     end
 
-    # The long form of the title, with added punctuation between parts if not present.
+    # The long form of the title, without trailing punctuation.
     # @note This corresponds to the entire MARC 245 field.
     # @return [String, nil]
-    # @example "M. de Courville : [estampe]"
     def display_title
       display_title_str.presence || cocina["value"]
     end
@@ -81,7 +80,7 @@ module CocinaDisplay
     def sort_title
       return "\u{10FFFF}" unless full_title
 
-      sort_title_str
+      full_title[nonsorting_chars_str.length..]
         .unicode_normalize(:nfd) # Prevent accents being stripped
         .gsub(/[[:punct:]]*/, "")
         .gsub(/\W{2,}/, " ")  # Collapse whitespace after removing punctuation
@@ -96,31 +95,26 @@ module CocinaDisplay
       Utils.compact_and_join([nonsorting_chars_str, main_title_str])
     end
 
-    # Generate the full title by joining all title components with spaces.
+    # Generate the full title by joining all title components with punctuation.
     # @return [String, nil]
     def full_title_str
-      nonsorting_chars_str + sort_title_str
-    end
-
-    # All of the sorting parts of the title joined together with spaces.
-    # @return [String]
-    def sort_title_str
-      Utils.compact_and_join([main_title_str, subtitle_str, parts_str])
-    end
-
-    # Generate the display title by joining all components with punctuation:
-    # - Join main title and subtitle with " : "
-    # - Join part name/number/label with ", "
-    # - Join part string with preceding title with ". "
-    # - Prepend preformatted nonsorting characters
-    # - Prepend associated names with ". "
-    # @return [String, nil]
-    def display_title_str
-      title_str = Utils.compact_and_join([main_title_str, subtitle_str], delimiter: " : ")
-      title_str = Utils.compact_and_join([title_str, parts_str(delimiter: ", ")], delimiter: ". ")
+      title_str = Utils.compact_and_join([main_subtitle_str, parts_str], delimiter: ". ")
       title_str = nonsorting_chars_str + title_str # pre-formatted padding
       title_str = Utils.compact_and_join([names_str, title_str], delimiter: ". ") if names_str.present?
+      title_str += "." unless title_str&.match?(/[[:punct:]]\z/)
       title_str.presence
+    end
+
+    # Generate the display title by stripping trailing punctuation from the full title.
+    # @return [String, nil]
+    def display_title_str
+      full_title_str&.sub(/[\.,;:\/\\]+\z/, "")
+    end
+
+    # The main title and subtitle, joined together with a colon.
+    # @return [String, nil]
+    def main_subtitle_str
+      Utils.compact_and_join([main_title_str, subtitle_str], delimiter: " : ")
     end
 
     # All nonsorting characters joined together with padding applied.
@@ -142,15 +136,14 @@ module CocinaDisplay
       Utils.compact_and_join(Array(title_components["subtitle"]))
     end
 
-    # The part name, number, and label components, joined together.
-    # Default delimiter is a space, but can be overridden.
+    # The part name, number, and label components, joined together with commas.
     # @return [String, nil]
-    def parts_str(delimiter: " ")
+    def parts_str
       Utils.compact_and_join(
         Array(title_components["part number"] || @part_numbers) +
         Array(title_components["part name"]) +
         [@part_label],
-        delimiter: delimiter
+        delimiter: ", "
       )
     end
 
@@ -197,8 +190,6 @@ module CocinaDisplay
     def type_label
       I18n.t(type&.parameterize&.underscore, scope: "cocina_display.field_label.title", default: :title)
     end
-
-    private
 
     # Add or remove padding from nonsorting portion of the title.
     # @param value [String]

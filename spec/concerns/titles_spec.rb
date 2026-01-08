@@ -18,8 +18,8 @@ RSpec.describe CocinaDisplay::CocinaRecord do
 
   # can this happen? oh well, we handle it anyway
   context "with no titles" do
-    describe "#main_title" do
-      subject { described_class.new(cocina_doc).main_title }
+    describe "#short_title" do
+      subject { described_class.new(cocina_doc).short_title }
       it { is_expected.to be_nil }
     end
 
@@ -52,14 +52,14 @@ RSpec.describe CocinaDisplay::CocinaRecord do
       ]
     end
 
-    describe "#main_title" do
-      subject { described_class.new(cocina_doc).main_title }
+    describe "#short_title" do
+      subject { described_class.new(cocina_doc).short_title }
       it { is_expected.to eq "2010 Machine Learning Data Set for NASA's Solar Dynamics Observatory - Atmospheric Imaging Assembly" }
     end
 
     describe "#full_title" do
       subject { described_class.new(cocina_doc).full_title }
-      it { is_expected.to eq "2010 Machine Learning Data Set for NASA's Solar Dynamics Observatory - Atmospheric Imaging Assembly" }
+      it { is_expected.to eq "2010 Machine Learning Data Set for NASA's Solar Dynamics Observatory - Atmospheric Imaging Assembly." }
     end
 
     describe "#display_title" do
@@ -100,14 +100,14 @@ RSpec.describe CocinaDisplay::CocinaRecord do
       ]
     end
 
-    describe "#main_title" do
-      subject { described_class.new(cocina_doc).main_title }
+    describe "#short_title" do
+      subject { described_class.new(cocina_doc).short_title }
       it { is_expected.to eq "M. de Courville" }
     end
 
     describe "#full_title" do
       subject { described_class.new(cocina_doc).full_title }
-      it { is_expected.to eq "M. de Courville [estampe]" }
+      it { is_expected.to eq "M. de Courville : [estampe]" }
     end
 
     describe "#display_title" do
@@ -152,14 +152,14 @@ RSpec.describe CocinaDisplay::CocinaRecord do
       ]
     end
 
-    describe "#main_title" do
-      subject { described_class.new(cocina_doc).main_title }
+    describe "#short_title" do
+      subject { described_class.new(cocina_doc).short_title }
       it { is_expected.to eq "The Ingersoll-Gladstone controversy on Christianity" }
     end
 
     describe "#full_title" do
       subject { described_class.new(cocina_doc).full_title }
-      it { is_expected.to eq "The Ingersoll-Gladstone controversy on Christianity two articles from the North American review" }
+      it { is_expected.to eq "The Ingersoll-Gladstone controversy on Christianity : two articles from the North American review." }
     end
 
     describe "#display_title" do
@@ -204,14 +204,14 @@ RSpec.describe CocinaDisplay::CocinaRecord do
       ]
     end
 
-    describe "#main_title" do
-      subject { described_class.new(cocina_doc).main_title }
+    describe "#short_title" do
+      subject { described_class.new(cocina_doc).short_title }
       it { is_expected.to eq "Oral history interview with anonymous, white, female, SNCC volunteer, 0405 (sides 1 and 2), Laurel, Mississippi" }
     end
 
     describe "#full_title" do
       subject { described_class.new(cocina_doc).full_title }
-      it { is_expected.to eq "Oral history interview with anonymous, white, female, SNCC volunteer, 0405 (sides 1 and 2), Laurel, Mississippi 0405" }
+      it { is_expected.to eq "Oral history interview with anonymous, white, female, SNCC volunteer, 0405 (sides 1 and 2), Laurel, Mississippi. 0405." }
     end
 
     describe "#display_title" do
@@ -271,14 +271,14 @@ RSpec.describe CocinaDisplay::CocinaRecord do
       ]
     end
 
-    describe "#main_title" do
-      subject { described_class.new(cocina_doc).main_title }
+    describe "#short_title" do
+      subject { described_class.new(cocina_doc).short_title }
       it { is_expected.to eq "Teshuvot she'ilot" } # first parallel of primary (first untyped) title
     end
 
     describe "#full_title" do
       subject { described_class.new(cocina_doc).full_title }
-      it { is_expected.to eq "Teshuvot she'ilot" }
+      it { is_expected.to eq "Teshuvot she'ilot." }
     end
 
     describe "#display_title" do
@@ -368,14 +368,14 @@ RSpec.describe CocinaDisplay::CocinaRecord do
       ]
     end
 
-    describe "#main_title" do
-      subject { described_class.new(cocina_doc).main_title }
+    describe "#short_title" do
+      subject { described_class.new(cocina_doc).short_title }
       it { is_expected.to eq "The Child Dreams (1993) revised script" } # primary title
     end
 
     describe "#full_title" do
       subject { described_class.new(cocina_doc).full_title }
-      it { is_expected.to eq "The Child Dreams (1993) revised script" }
+      it { is_expected.to eq "The Child Dreams (1993) revised script." }
     end
 
     describe "#display_title" do
@@ -469,14 +469,14 @@ RSpec.describe CocinaDisplay::CocinaRecord do
       ]
     end
 
-    describe "#main_title" do
-      subject { described_class.new(cocina_doc).main_title }
+    describe "#short_title" do
+      subject { described_class.new(cocina_doc).short_title }
       it { is_expected.to eq "Sefer Bet nadiv" } # parallel marked as primary
     end
 
     describe "#full_title" do
       subject { described_class.new(cocina_doc).full_title }
-      it { is_expected.to eq "Sefer Bet nadiv sheʼelot u-teshuvot, ḥidushe Torah, derashot" }
+      it { is_expected.to eq "Sefer Bet nadiv : sheʼelot u-teshuvot, ḥidushe Torah, derashot." }
     end
 
     describe "#display_title" do
@@ -544,14 +544,14 @@ RSpec.describe CocinaDisplay::CocinaRecord do
     end
     let(:part_label) { "Series 1, Volume 1" }
 
-    describe "#main_title" do
-      subject { described_class.new(cocina_doc).main_title }
+    describe "#short_title" do
+      subject { described_class.new(cocina_doc).short_title }
       it { is_expected.to eq "Archives parlementaires de 1787 à 1860" }
     end
 
     describe "#full_title" do
       subject { described_class.new(cocina_doc).full_title }
-      it { is_expected.to eq "Archives parlementaires de 1787 à 1860 recueil complet des débats législatifs & politiques des chambres françaises imprimé par ordre du Sénat et de la Chambre des députés sous la direction de m. J. Mavidal ... et de m. E. Laurent Series 1, Volume 1" }
+      it { is_expected.to eq "Archives parlementaires de 1787 à 1860 : recueil complet des débats législatifs & politiques des chambres françaises imprimé par ordre du Sénat et de la Chambre des députés sous la direction de m. J. Mavidal ... et de m. E. Laurent. Series 1, Volume 1." }
     end
 
     describe "#display_title" do
