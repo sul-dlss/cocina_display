@@ -302,7 +302,7 @@ RSpec.describe CocinaDisplay::CocinaRecord do
         }.to_json
       end
 
-      it "does not include the event contributor in additional contributors" do
+      it "does not include the event contributor" do
         is_expected.to eq([
           "Gabbay, Yehezkel",
           "Jerusalmi, Isaac",
@@ -909,8 +909,8 @@ RSpec.describe CocinaDisplay::CocinaRecord do
         }.to_json
       end
 
-      it "returns the publisher from the event" do
-        is_expected.to eq(["Chronicle Books"])
+      it "does not use the event contributor" do
+        is_expected.to be_empty
       end
     end
   end
