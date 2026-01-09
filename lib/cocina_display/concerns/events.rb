@@ -63,8 +63,8 @@ module CocinaDisplay
       # String for displaying the imprint statement(s).
       # @return [String, nil]
       # @see CocinaDisplay::Imprint#to_s
-      # @example
-      #   CocinaRecord.fetch('bt553vr2845').imprint_str #=> "New York : Meridian Book, 1993, c1967"
+      # @example bt553vr2845
+      # "New York : Meridian Book, 1993, c1967"
       def imprint_str
         imprint_events.map(&:to_s).compact_blank.join("; ")
       end

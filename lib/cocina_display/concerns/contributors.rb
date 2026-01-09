@@ -142,11 +142,18 @@ module CocinaDisplay
         contributors.find(&:primary?).presence || contributors.find { |c| !c.role? }.presence || contributors.first
       end
 
-      # All contributors except the main one.
+      # Contributors other than the main contributor.
+      # Also excludes the contributor (usually publisher) coming from an imprint event.
       # @return [Array<Contributor>]
       def additional_contributors
         return [] if contributors.empty? || contributors.one?
-        contributors - [main_contributor]
+        contributors.reject { |c| imprint_contributors.include?(c) } - [main_contributor]
+      end
+
+      # The contributors associated with imprint events (usually publishers).
+      # @return [Array<Contributor>]
+      def imprint_contributors
+        imprint_events.flat_map(&:contributors).uniq
       end
     end
   end
