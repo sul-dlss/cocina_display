@@ -584,4 +584,59 @@ RSpec.describe CocinaDisplay::CocinaRecord do
       end
     end
   end
+
+  # druid:kf879tn8532
+  context "with a title that duplicates part label in the primary title" do
+    let(:titles) do
+      [
+        {"value" => "Mehmet Sadik Rifat Pasha's Risale-i ahlak", "status" => "primary"},
+        {"value" => "Risale-i ahlak", "type" => "alternative"},
+        {"value" => "Risâle-yi ahlâk. Ladino",
+         "type" => "uniform",
+         "uri" => "http://id.loc.gov/authorities/names/n2003060121",
+         "note" => [
+           {
+             "structuredValue" => [
+               {"value" => "Rifat Paşa, Mehmet Sadık", "type" => "name"},
+               {"value" => "1807-1856", "type" => "life dates"}
+             ],
+             "type" => "associated name"
+           }
+         ]}
+      ]
+    end
+    let(:part_label) { "Risale-i ahlak" }
+
+    describe "#short_title" do
+      subject { described_class.new(cocina_doc).short_title }
+      it { is_expected.to eq "Mehmet Sadik Rifat Pasha's Risale-i ahlak" }
+    end
+
+    describe "#full_title" do
+      subject { described_class.new(cocina_doc).full_title }
+      it { is_expected.to eq "Mehmet Sadik Rifat Pasha's Risale-i ahlak." }
+    end
+
+    describe "#display_title" do
+      subject { described_class.new(cocina_doc).display_title }
+      it { is_expected.to eq "Mehmet Sadik Rifat Pasha's Risale-i ahlak" }
+    end
+
+    describe "#sort_title" do
+      subject { described_class.new(cocina_doc).sort_title }
+      it { is_expected.to eq "Mehmet Sadik Rifat Pashas Risalei ahlak" }
+    end
+
+    describe "#additional_titles" do
+      subject { described_class.new(cocina_doc).additional_titles }
+      it do
+        is_expected.to eq [
+          # alternative title
+          "Risale-i ahlak",
+          # it would be nice if we could prevent duplication here, but tough to detect it...
+          "Rifat Paşa, Mehmet Sadık, 1807-1856. Risâle-yi ahlâk. Ladino. Risale-i ahlak"
+        ]
+      end
+    end
+  end
 end

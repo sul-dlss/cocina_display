@@ -98,7 +98,8 @@ module CocinaDisplay
     # Generate the full title by joining all title components with punctuation.
     # @return [String, nil]
     def full_title_str
-      title_str = Utils.compact_and_join([main_subtitle_str, parts_str], delimiter: ". ")
+      title_str = main_subtitle_str
+      title_str = Utils.compact_and_join([main_subtitle_str, parts_str], delimiter: ". ") unless main_subtitle_str.end_with?(parts_str)
       title_str = nonsorting_chars_str + title_str # pre-formatted padding
       title_str = Utils.compact_and_join([names_str, title_str], delimiter: ". ") if names_str.present?
       title_str += "." unless title_str&.match?(/[[:punct:]]\z/)
