@@ -73,7 +73,14 @@ module CocinaDisplay
       # Considers locations for all publication, creation, and capture events.
       # @return [Array<String>]
       def publication_places
-        publication_events.flat_map { |event| event.locations.map(&:to_s) }
+        publication_events.flat_map { |event| event.locations.map(&:to_s) }.compact_blank.uniq
+      end
+
+      # List of countries of publication as strings.
+      # Considers locations for all publication, creation, and capture events.
+      # @return [Array<String>]
+      def publication_countries
+        publication_events.flat_map { |event| event.locations.map(&:country_name) }.compact_blank.uniq
       end
 
       # All root level events associated with the object.
