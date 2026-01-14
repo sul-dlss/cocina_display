@@ -22,7 +22,7 @@ module CocinaDisplay
       # Decodes a MARC country code if present and no value was present.
       # @return [String, nil]
       def to_s
-        cocina["value"] || decoded_country
+        cocina["value"] || country_name
       end
 
       # Is there an unencoded value (name) for this location?
@@ -31,18 +31,18 @@ module CocinaDisplay
         cocina["value"].present?
       end
 
+      # Decoded country name if the location is encoded with a MARC country code.
+      # @return [String, nil]
+      def country_name
+        Location.marc_countries[code] if marc_country? && valid_country_code?
+      end
+
       private
 
       # A code, like a MARC country code, representing the location.
       # @return [String, nil]
       def code
         cocina["code"]
-      end
-
-      # Decoded country name if the location is encoded with a MARC country code.
-      # @return [String, nil]
-      def decoded_country
-        Location.marc_countries[code] if marc_country? && valid_country_code?
       end
 
       # Is this a decodable country code?
