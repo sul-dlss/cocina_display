@@ -72,6 +72,13 @@ module CocinaDisplay
         roles.any?
       end
 
+      # String representation of the contributor's role(s).
+      # @return [String, nil]
+      # @example "author, editor, publisher"
+      def display_role
+        roles.map(&:to_s).join(", ") if role?
+      end
+
       # The primary display name for the contributor as a string.
       # @param with_date [Boolean] Include life dates, if present
       # @return [String, nil]

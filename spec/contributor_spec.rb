@@ -193,6 +193,36 @@ RSpec.describe CocinaDisplay::Contributors::Contributor do
     end
   end
 
+  describe "#display_role" do
+    subject { instance.display_role }
+
+    context "with no roles" do
+      let(:cocina) { {} }
+
+      it { is_expected.to be_nil }
+    end
+
+    context "with one role" do
+      let(:cocina) do
+        {
+          "role" => [{"value" => "author"}]
+        }
+      end
+
+      it { is_expected.to eq "author" }
+    end
+
+    context "with multiple roles" do
+      let(:cocina) do
+        {
+          "role" => [{"value" => "author"}, {"value" => "editor"}, {"value" => "publisher"}]
+        }
+      end
+
+      it { is_expected.to eq "author, editor, publisher" }
+    end
+  end
+
   describe "#conference?" do
     subject { instance.conference? }
 
