@@ -491,6 +491,52 @@ RSpec.describe CocinaDisplay::CocinaRecord do
     end
   end
 
+  describe "#publication_countries" do
+    subject { record.publication_countries }
+
+    let(:cocina_json) do
+      {
+        "description" => {
+          "event" => events
+        }
+      }.to_json
+    end
+
+    context "with publication event with unencoded location" do
+      let(:events) do
+        [
+          {
+            "date" => [
+              {"value" => "[192-?]-[193-?]", "type" => "publication"}
+            ],
+            "location" => [
+              {"value" => "London"}
+            ]
+          }
+        ]
+      end
+
+      it { is_expected.to eq [] }
+    end
+
+    context "with publication event with an encoded location" do
+      let(:events) do
+        [
+          {
+            "date" => [
+              {"value" => "[192-?]-[193-?]", "type" => "publication"}
+            ],
+            "location" => [
+              {"source" => {"code" => "marccountry"}, "code" => "enk"}
+            ]
+          }
+        ]
+      end
+
+      it { is_expected.to eq ["England"] }
+    end
+  end
+
   describe "#admin_creation_event" do
     subject { record.admin_creation_event }
 
