@@ -60,7 +60,8 @@ module CocinaDisplay
     end
 
     # Primary processing label for the object.
-    # @note This may or may not be the same as the title.
+    # @note For public Cocina fetched via PURL, this is generated at publish time from the title. It will have the same value as #display_title.
+    # @see https://github.com/sul-dlss/cocina_display/issues/205#issuecomment-3781393715
     # @return [String, nil]
     def label
       cocina_doc["label"]
