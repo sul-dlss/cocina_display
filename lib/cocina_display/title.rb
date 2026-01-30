@@ -109,7 +109,7 @@ module CocinaDisplay
     # Generate the display title by stripping trailing punctuation from the full title.
     # @return [String, nil]
     def display_title_str
-      full_title_str&.sub(/[\.,;:\/\\]+\z/, "")
+      full_title_str&.sub(/[.,;:\/\\]+\z/, "")
     end
 
     # The main title and subtitle, joined together with a colon.
