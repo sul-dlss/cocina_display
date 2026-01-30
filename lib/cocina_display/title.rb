@@ -89,10 +89,10 @@ module CocinaDisplay
 
     private
 
-    # Generate the short title by joining main title and nonsorting characters with spaces.
+    # Generate the short title by joining main title and nonsorting characters.
     # @return [String, nil]
     def short_title_str
-      Utils.compact_and_join([nonsorting_chars_str, main_title_str])
+      nonsorting_chars_str + main_title_str # pre-formatted padding
     end
 
     # Generate the full title by joining all title components with punctuation.

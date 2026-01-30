@@ -136,7 +136,7 @@ RSpec.describe CocinaDisplay::CocinaRecord do
   end
 
   # druid:wb133vg3886
-  context "with nonsorting characters and subtitle" do
+  context "with English nonsorting characters and subtitle" do
     let(:titles) do
       [
         {
@@ -184,6 +184,27 @@ RSpec.describe CocinaDisplay::CocinaRecord do
         end
       end
       it { is_expected.to eq "Title" => ["The Ingersoll-Gladstone controversy on Christianity : two articles from the North American review"] }
+    end
+  end
+
+  context "with French nonsorting characters and subtitle" do
+    let(:titles) do
+      [
+        {
+          "structuredValue" => [
+            {"value" => "L'", "type" => "nonsorting characters"},
+            {"value" => "autre title", "type" => "main title"}
+          ],
+          "note" => [
+            {"value" => "2", "type" => "nonsorting character count"}
+          ]
+        }
+      ]
+    end
+
+    describe "#short_title" do
+      subject { described_class.new(cocina_doc).short_title }
+      it { is_expected.to eq "L'autre title" }
     end
   end
 
