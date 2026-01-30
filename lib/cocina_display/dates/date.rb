@@ -84,7 +84,7 @@ module CocinaDisplay
           return
         end
 
-        sanitized = value.gsub(/^[\[]+/, "").gsub(/[\.\]]+$/, "")
+        sanitized = value.gsub(/^\[+/, "").gsub(/[.\]]+$/, "")
         sanitized = value.rjust(4, "0") if /^\d{3}$/.match?(value)
 
         sanitized
@@ -291,7 +291,7 @@ module CocinaDisplay
           return value.sub(/(\d{2})(\d{2})-(\d{2})/, '\1\2-\1\3')
         end
 
-        value.gsub(/(?<![\d])(\d{1,3})([xu-]{1,3})/i) { "#{Regexp.last_match(1)}#{"0" * Regexp.last_match(2).length}" }.scan(/[\d-]/).join
+        value.gsub(/(?<!\d)(\d{1,3})([xu-]{1,3})/i) { "#{Regexp.last_match(1)}#{"0" * Regexp.last_match(2).length}" }.scan(/[\d-]/).join
       end
 
       # Decoded version of the date with "BCE" or "CE". Strips leading zeroes.
@@ -600,7 +600,7 @@ module CocinaDisplay
 
     # Extractor for dates encoded as Roman numerals.
     class RomanNumeralYearFormat < ExtractorDateFormat
-      REGEX = /(?<![A-Za-z\.])(?<year>[MCDLXVI\.]+)(?![A-Za-z])/
+      REGEX = /(?<![A-Za-z.])(?<year>[MCDLXVI.]+)(?![A-Za-z])/
 
       def self.normalize_to_edtf(text)
         matches = text.match(REGEX)

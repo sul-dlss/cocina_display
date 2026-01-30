@@ -38,7 +38,7 @@ module CocinaDisplay
         # @return [Coordinates, nil]
         def parse(value)
           # Remove all whitespace for easier matching/parsing
-          match_str = value.gsub(/[\s]+/, "")
+          match_str = value.gsub(/\s+/, "")
 
           # Try each parser in order until one matches; bail out if none do
           parser_class = [
@@ -310,12 +310,14 @@ module CocinaDisplay
     # Parse for decimal degree points, like "41.891797, 12.486419".
     class DecimalPointParser < PointParser
       include DecimalParser
-      PATTERN = /(?<lat>[0-9.EW\+\-]+),(?<lng>[0-9.NS\+\-]+)/
+
+      PATTERN = /(?<lat>[0-9.EW+-]+),(?<lng>[0-9.NS+-]+)/
     end
 
     # Parser for DMS-format points, like "N34°03′08″ W118°14′37″".
     class DMSPointParser < PointParser
       include DMSParser
+
       PATTERN = /(?<lat>[^EW]+)(?<lng>[^NS]+)/
     end
 
@@ -324,6 +326,7 @@ module CocinaDisplay
     # @see https://www.oclc.org/bibformats/en/2xx/255.html#subfieldc
     class DMSBoundingBoxParser < BoundingBoxParser
       include DMSParser
+
       PATTERN = /(?<min_lng>.+?)-+(?<max_lng>.+)\/(?<max_lat>.+?)-+(?<min_lat>.+)/
     end
 
@@ -331,6 +334,7 @@ module CocinaDisplay
     # @example W 126.04--W 052.03/N 050.37--N 006.8
     class DecimalBoundingBoxParser < BoundingBoxParser
       include DecimalParser
+
       PATTERN = /(?<min_lng>[0-9.EW]+?)-+(?<max_lng>[0-9.EW]+)\/(?<max_lat>[0-9.NS]+?)-+(?<min_lat>[0-9.NS]+)/
     end
 
