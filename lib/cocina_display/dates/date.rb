@@ -352,11 +352,12 @@ module CocinaDisplay
       end
 
       # Array of all dates that fall into the range of possible dates in the data.
+      # @note Output will have the same precision as the input date (e.g. year vs day).
       # @note Some encodings support disjoint sets of ranges, so this method could be more accurate than {#as_range}.
-      # @return [Array]
+      # @return [Array<EDTF::Date>]
       def to_a
         case date
-        when EDTF::Set
+        when EDTF::Set, EDTF::Interval
           date.to_a
         else
           as_range.to_a
