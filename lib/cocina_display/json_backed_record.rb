@@ -8,7 +8,10 @@ module CocinaDisplay
     attr_reader :cocina_doc
 
     # Initialize a record with a Cocina document hash.
-    # @param cocina_doc [Hash]
+    # @param cocina_doc [Hash<String, Object>] The Cocina document hash
+    # @example Initialize a record with a Cocina document
+    #   cocina = Cocina.find(id)
+    #   record = CocinaDisplay::CocinaDisplay.new(cocina.as_json)
     def initialize(cocina_doc)
       @cocina_doc = cocina_doc
     end
