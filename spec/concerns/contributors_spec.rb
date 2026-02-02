@@ -207,109 +207,6 @@ RSpec.describe CocinaDisplay::CocinaRecord do
         is_expected.to eq(["ذو الفقار، محمود", "Dhū al-Fiqār, Maḥmūd"])
       end
     end
-
-    context "with contributors and an event contributor from imprint statement" do
-      # adapted from druid:kf879tn8532
-      let(:contributors) do
-        [
-          {
-            "name" => [
-              {
-                "structuredValue" => [
-                  {"value" => "Rifat Paşa, Mehmet Sadık", "type" => "name"},
-                  {"value" => "1807-1856", "type" => "life dates"}
-                ]
-              }
-            ],
-            "type" => "person",
-            "status" => "primary",
-            "role" => [{"value" => "author"}]
-          },
-          {
-            "name" => [
-              {
-                "structuredValue" => [
-                  {"value" => "Gabbay, Yehezkel", "type" => "name"},
-                  {"value" => "1825-1898", "type" => "life dates"}
-                ]
-              }
-            ],
-            "type" => "person",
-            "role" => [{"value" => "translator"}]
-          },
-          {
-            "name" => [
-              {
-                "structuredValue" => [
-                  {"value" => "Jerusalmi, Isaac", "type" => "name"},
-                  {"value" => "1928-2018", "type" => "life dates"}
-                ]
-              }
-            ],
-            "type" => "person",
-            "role" => [{"value" => "editor"}]
-          },
-          {
-            "name" => [
-              {
-                "structuredValue" => [
-                  {"value" => "Taube Center for Jewish Studies (Stanford University)"},
-                  {"value" => "Sephardic Studies Project"}
-                ]
-              }
-            ],
-            "type" => "organization"
-          }
-        ]
-      end
-      let(:events) do
-        [
-          {
-            "date" => [
-              {"value" => "[1990?]", "type" => "publication"}
-            ],
-            "contributor" => [
-              {
-                "name" => [
-                  {"value" => "[Isaac Jerushalmi]"}
-                ],
-                "type" => "organization",
-                "role" => [
-                  {
-                    "value" => "publisher",
-                    "code" => "pbl",
-                    "uri" => "http://id.loc.gov/vocabulary/relators/pbl",
-                    "source" => {"code" => "marcrelator", "uri" => "http://id.loc.gov/vocabulary/relators/"}
-                  }
-                ]
-              }
-            ],
-            "location" => [
-              {"value" => "[Cincinnati, Ohio?]"}
-            ],
-            "note" => [
-              {"value" => "[Enl. and restored ed.].", "type" => "edition"}
-            ]
-          }
-        ]
-      end
-      let(:cocina_json) do
-        {
-          "description" => {
-            "contributor" => contributors,
-            "event" => events
-          }
-        }.to_json
-      end
-
-      it "does not include the event contributor" do
-        is_expected.to eq([
-          "Gabbay, Yehezkel",
-          "Jerusalmi, Isaac",
-          "Taube Center for Jewish Studies (Stanford University), Sephardic Studies Project"
-        ])
-      end
-    end
   end
 
   describe "#person_contributor_names" do
@@ -909,8 +806,8 @@ RSpec.describe CocinaDisplay::CocinaRecord do
         }.to_json
       end
 
-      it "does not use the event contributor" do
-        is_expected.to be_empty
+      it "returns the publisher from the event" do
+        is_expected.to eq(["Chronicle Books"])
       end
     end
   end
