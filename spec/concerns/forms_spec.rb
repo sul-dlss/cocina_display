@@ -38,7 +38,7 @@ RSpec.describe CocinaDisplay::CocinaRecord do
       end
 
       it "maps and deduplicates the values" do
-        is_expected.to eq(["Archive/Manuscript", "Map", "Video", "Music score", "Music recording", "Sound recording", "Image", "Book", "Object"])
+        is_expected.to eq(["Archive/Manuscript", "Map", "Video/Film", "Music score", "Sound recording", "Image", "Book", "Object"])
       end
     end
 
@@ -67,7 +67,7 @@ RSpec.describe CocinaDisplay::CocinaRecord do
       end
 
       it do
-        is_expected.to eq(["Archived website"])
+        is_expected.to eq(["Website", "Website|Archived website"])
       end
     end
   end

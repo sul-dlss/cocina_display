@@ -199,15 +199,13 @@ module CocinaDisplay
         when "manuscript", "mixed material"
           values << "Archive/Manuscript"
         when "moving image"
-          values << "Video"
+          values << "Video/Film"
         when "notated music"
           values << "Music score"
         when "software, multimedia"
           # Prevent GIS datasets from being labeled as "Software"
           values << "Software/Multimedia" unless cartographic? || dataset?
-        when "sound recording-musical"
-          values << "Music recording"
-        when "sound recording-nonmusical", "sound recording"
+        when "sound recording-musical", "sound recording-nonmusical", "sound recording"
           values << "Sound recording"
         when "still image"
           values << "Image"
@@ -216,7 +214,8 @@ module CocinaDisplay
           # 2 records currently (2025) in Searchworks do this, but it is real.
           if periodical? || archived_website?
             values << "Journal/Periodical" if periodical?
-            values << "Archived website" if archived_website?
+            values << "Website" if archived_website?
+            values << "Website|Archived website" if archived_website?
           else
             values << "Book"
           end
