@@ -108,11 +108,13 @@ module CocinaDisplay
       end
 
       # All contributors for the object, including authors, editors, etc.
-      # @note Does not include contributors attached to events.
+      # Checks both description.contributor and description.event.contributor.
       # @return [Array<Contributor>]
       def contributors
-        @contributors ||= path("$.description.contributor.*")
-          .map { |c| CocinaDisplay::Contributors::Contributor.new(c) }
+        @contributors ||= Enumerator::Chain.new(
+          path("$.description.contributor.*"),
+          path("$.description.event.*.contributor.*")
+        ).map { |c| CocinaDisplay::Contributors::Contributor.new(c) }
       end
 
       # All contributors with an "author" role.
@@ -145,7 +147,13 @@ module CocinaDisplay
       # @return [Array<Contributor>]
       def additional_contributors
         return [] if contributors.empty? || contributors.one?
-        contributors - [main_contributor]
+        contributors.reject { |c| imprint_contributors.include?(c) } - [main_contributor]
+      end
+
+      # The contributors associated with imprint events (usually publishers).
+      # @return [Array<Contributor>]
+      def imprint_contributors
+        imprint_events.flat_map(&:contributors).uniq
       end
     end
   end
