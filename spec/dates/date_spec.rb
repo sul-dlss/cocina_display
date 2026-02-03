@@ -446,12 +446,6 @@ RSpec.describe CocinaDisplay::Dates::Date do
       it "returns the value unmodified" do
         expect(date.decoded_value).to eq("about 933")
       end
-
-      context "with display_original_value false" do
-        it "returns the decoded value" do
-          expect(date.decoded_value(display_original_value: false)).to eq("933 CE")
-        end
-      end
     end
 
     context "with an interval" do

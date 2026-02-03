@@ -298,16 +298,12 @@ module CocinaDisplay
       # @param allowed_precisions [Array<Symbol>] List of allowed precisions for the output.
       #   Defaults to [:day, :month, :year, :decade, :century, :unknown].
       # @param ignore_unparseable [Boolean] Return nil instead of the original value if it couldn't be parsed
-      # @param display_original_value [Boolean] Return the original value if it was not encoded
       # @return [String]
-      def decoded_value(allowed_precisions: [:day, :month, :year, :decade, :century, :unknown], ignore_unparseable: false, display_original_value: true)
+      def decoded_value(allowed_precisions: [:day, :month, :year, :decade, :century, :unknown], ignore_unparseable: false)
         return if ignore_unparseable && !parsed_date?
-        return value.strip unless parsed_date?
 
-        if display_original_value
-          unless encoding?
-            return value.strip unless value =~ /^-?\d+$/ || value =~ /^[\dXxu?-]{4}$/
-          end
+        if !parsed_date? || (!encoding? && value !~ /^-?\d+$/ && value !~ /^[\dXxu?-]{4}$/)
+          return value.strip
         end
         if date.is_a?(EDTF::Interval)
           range = [
