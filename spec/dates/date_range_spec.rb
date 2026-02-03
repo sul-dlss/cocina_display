@@ -19,6 +19,23 @@ RSpec.describe CocinaDisplay::Dates::DateRange do
       expect(CocinaDisplay::Dates::Date.from_cocina(cocina).value).to eq(date_range.value)
     end
 
+    context "with a top-level encoding" do
+      let(:cocina) do
+        {
+          "structuredValue" => [
+            {"value" => "-0024", "type" => "start"},
+            {"value" => "-0022", "type" => "end"}
+          ],
+          "encoding" => {"code" => "edtf"}
+        }
+      end
+
+      it "uses the top-level encoding on the start and end" do
+        expect(date_range.start).to be_kind_of CocinaDisplay::Dates::EdtfFormat
+        expect(date_range.stop).to be_kind_of CocinaDisplay::Dates::EdtfFormat
+      end
+    end
+
     context "with a top-level type and no start/end types" do
       let(:cocina) do
         {
