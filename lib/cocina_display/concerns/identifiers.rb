@@ -64,10 +64,12 @@ module CocinaDisplay
         folio_hrid || bare_druid
       end
 
-      # Identifier objects extracted from the Cocina metadata.
+      # All identifier objects, optionally filtered by type.
+      # @param type [String, nil] The type of identifier to filter by (e.g. "DOI").
+      # @note Type matching is case insensitive.
       # @return [Array<Identifier>]
-      def identifiers
-        @identifiers ||= path("$.description.identifier[*]").map { |id| Identifier.new(id) } + Array(doi_from_identification)
+      def identifiers(type: nil)
+        type.present? ? all_identifiers.filter { |id| id.type&.casecmp?(type) } : all_identifiers
       end
 
       # Labelled display data for identifiers.
@@ -77,6 +79,12 @@ module CocinaDisplay
       end
 
       private
+
+      # All identifier objects extracted from the Cocina metadata.
+      # @return [Array<Identifier>]
+      def all_identifiers
+        @identifiers ||= path("$.description.identifier[*]").map { |id| Identifier.new(id) } + Array(doi_from_identification)
+      end
 
       # Synthetic Identifier object for a DOI in the identification block.
       # @return [Array<Identifier>]

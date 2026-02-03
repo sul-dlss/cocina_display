@@ -262,4 +262,75 @@ RSpec.describe CocinaDisplay::CocinaRecord do
       )
     end
   end
+
+  describe "#identifiers" do
+    subject { described_class.new(cocina_doc) }
+
+    let(:cocina_doc) do
+      {
+        "identification" => {
+          "doi" => "identification-doi"
+        },
+        "description" => {
+          "identifier" => [
+            {
+              "type" => "doi",
+              "value" => "10.25740/ppax-bf07"
+            },
+            {
+              "type" => "doi",
+              "value" => "https://doi.org/10.25740/sb4q-wj06"
+            },
+            {
+              "type" => "isbn",
+              "value" => "978-0-061-96436-7"
+            },
+            {
+              "type" => "other",
+              "value" => "other-id-123"
+            },
+            {
+              "type" => "other",
+              "value" => "other-id-123"
+            },
+            {
+              "type" => "other",
+              "value" => ""
+            },
+            {
+              "type" => "lccn",
+              "value" => ""
+            },
+            {
+              "type" => "other",
+              "value" => "other-id-456"
+            },
+            {
+              "type" => "custom",
+              "value" => "custom-id-123",
+              "displayLabel" => "Custom label"
+            }
+          ]
+        }
+      }
+    end
+
+    it "returns all identifiers when no type is given" do
+      expect(subject.identifiers.size).to eq 10
+    end
+
+    it "returns all identifiers of a given type when specified" do
+      dois = subject.identifiers(type: "doi")
+      expect(dois.map(&:identifier)).to contain_exactly(
+        "10.25740/ppax-bf07",
+        "10.25740/sb4q-wj06",
+        "identification-doi"
+      )
+    end
+
+    it "is case insensitive when filtering by type" do
+      isbns = subject.identifiers(type: "ISBN")
+      expect(isbns.map(&:identifier)).to contain_exactly("978-0-061-96436-7")
+    end
+  end
 end
