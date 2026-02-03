@@ -161,4 +161,53 @@ RSpec.describe CocinaDisplay::Utils do
       end
     end
   end
+
+  describe "#compact_and_join" do
+    subject { described_class.compact_and_join(values, delimiter: delimiter) }
+
+    let(:delimiter) { ", " }
+
+    context "with blank and nil values" do
+      let(:values) { ["Alice", "", nil, "Bob", "  ", "Charlie"] }
+
+      it "removes blank and nil values and joins the rest" do
+        is_expected.to eq("Alice, Bob, Charlie")
+      end
+    end
+
+    context "with all values blank or nil" do
+      let(:values) { ["", "   ", nil] }
+
+      it "returns an empty string" do
+        is_expected.to eq("")
+      end
+    end
+
+    context "with a single non-blank value" do
+      let(:values) { [nil, "  ", "Alice", "   "] }
+
+      it "returns the single value without delimiters" do
+        is_expected.to eq("Alice")
+      end
+    end
+
+    context "with custom delimiter" do
+      let(:values) { ["Apple", "Banana", "Cherry"] }
+      let(:delimiter) { " | " }
+
+      it "joins values using the custom delimiter" do
+        is_expected.to eq("Apple | Banana | Cherry")
+      end
+    end
+
+    context "when values start or end with the delimiter" do
+      # from druid:bm971cx9348
+      let(:delimiter) { " -- " }
+      let(:values) { ["-- pt.2. Abergavenny", "-- pt.5. Merthyr Tydfil"] }
+
+      it "does not duplicate delimiter" do
+        is_expected.to eq("-- pt.2. Abergavenny -- pt.5. Merthyr Tydfil")
+      end
+    end
+  end
 end

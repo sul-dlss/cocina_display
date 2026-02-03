@@ -13,12 +13,12 @@ module CocinaDisplay
       return compacted_values.first if compacted_values.one?
 
       compacted_values.reduce(+"") do |result, value|
-        result << if value.end_with?(delimiter.strip)
+        result << if value.end_with?(delimiter.strip) || value.start_with?(delimiter.strip)
           value + " "
         else
           value + delimiter
         end
-      end.delete_suffix(delimiter)
+      end.delete_prefix(delimiter).delete_suffix(delimiter).strip
     end
 
     # Recursively flatten structured, and grouped values in Cocina metadata.
