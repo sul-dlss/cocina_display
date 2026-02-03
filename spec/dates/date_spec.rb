@@ -432,12 +432,6 @@ RSpec.describe CocinaDisplay::Dates::Date do
       it "returns the value unmodified" do
         expect(date.decoded_value).to eq("invalid-date")
       end
-
-      context "with ignore_unparseable true" do
-        it "returns nil" do
-          expect(date.decoded_value(ignore_unparseable: true)).to be_nil
-        end
-      end
     end
 
     context "with an unencoded date" do

@@ -297,11 +297,8 @@ module CocinaDisplay
       # Decoded version of the date with "BCE" or "CE". Strips leading zeroes.
       # @param allowed_precisions [Array<Symbol>] List of allowed precisions for the output.
       #   Defaults to [:day, :month, :year, :decade, :century, :unknown].
-      # @param ignore_unparseable [Boolean] Return nil instead of the original value if it couldn't be parsed
       # @return [String]
-      def decoded_value(allowed_precisions: [:day, :month, :year, :decade, :century, :unknown], ignore_unparseable: false)
-        return if ignore_unparseable && !parsed_date?
-
+      def decoded_value(allowed_precisions: [:day, :month, :year, :decade, :century, :unknown])
         if !parsed_date? || (!encoding? && value !~ /^-?\d+$/ && value !~ /^[\dXxu?-]{4}$/)
           return value.strip
         end
