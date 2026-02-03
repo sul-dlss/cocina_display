@@ -42,7 +42,6 @@ module CocinaDisplay
         date = pub_date(ignore_qualified: ignore_qualified)
         return unless date
 
-        date = date.as_interval if date.is_a? CocinaDisplay::Dates::DateRange
         date.to_a.map(&:year).compact.uniq.sort
       end
 

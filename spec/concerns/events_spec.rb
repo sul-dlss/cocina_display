@@ -354,6 +354,21 @@ RSpec.describe CocinaDisplay::CocinaRecord do
 
       it { is_expected.to be_nil }
     end
+
+    context "with an open-ended date range" do
+      let(:dates) do
+        [
+          {
+            "structuredValue" => [
+              {"value" => "2000", "type" => "start"}
+            ],
+            "type" => "publication"
+          }
+        ]
+      end
+
+      it { is_expected.to eq([2000]) }
+    end
   end
 
   describe "#imprint_str" do
