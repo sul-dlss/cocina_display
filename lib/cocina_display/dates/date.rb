@@ -309,7 +309,6 @@ module CocinaDisplay
             return value.strip unless value =~ /^-?\d+$/ || value =~ /^[\dXxu?-]{4}$/
           end
         end
-
         if date.is_a?(EDTF::Interval)
           range = [
             Date.format_date(date.min, date.min.precision, allowed_precisions),
@@ -523,7 +522,7 @@ module CocinaDisplay
     # MARC date parser; similar to EDTF but with some MARC-specific encodings.
     class MarcFormat < Date
       def self.normalize_to_edtf(value)
-        return nil if value == "9999" || value == "uuuu" || value == "||||"
+        return nil if value == "9999" || value == "||||"
 
         super
       end

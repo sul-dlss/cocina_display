@@ -14,8 +14,8 @@ module CocinaDisplay
         # Create the individual dates; if no encoding/type declared give them
         # top-level encoding/type
         dates = cocina["structuredValue"].map do |sv|
+          sv["encoding"] ||= cocina["encoding"]
           date = Date.from_cocina(sv)
-          date.encoding ||= cocina.dig("encoding", "code")
           date.type ||= cocina["type"]
           date
         end
