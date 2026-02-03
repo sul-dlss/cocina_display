@@ -8,6 +8,18 @@ module CocinaDisplay
         @notes ||= path("$.description.note.*").map { |note| CocinaDisplay::Note.new(note) }
       end
 
+      # Text of all abstract notes.
+      # @return [Array<String>]
+      def abstracts
+        notes.select(&:abstract?).map(&:to_s).compact_blank
+      end
+
+      # Text of all table of contents notes.
+      # @return [Array<String>]
+      def tables_of_contents
+        notes.select(&:table_of_contents?).map(&:to_s).compact_blank
+      end
+
       # Abstract metadata for display.
       # @return [Array<CocinaDisplay::DisplayData>]
       def abstract_display_data

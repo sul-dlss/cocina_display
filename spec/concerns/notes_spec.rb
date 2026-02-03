@@ -50,6 +50,38 @@ RSpec.describe CocinaDisplay::CocinaRecord do
     end
   end
 
+  describe "#abstracts" do
+    subject { record.abstracts }
+
+    let(:notes) do
+      [
+        {value: "This is a note"},
+        {value: "This is an abstract", type: "abstract"}
+      ]
+    end
+
+    it "returns the abstract note texts" do
+      expect(subject).to eq ["This is an abstract"]
+    end
+  end
+
+  describe "#tables_of_contents" do
+    subject { record.tables_of_contents }
+
+    let(:notes) do
+      [
+        {value: "This is a note"},
+        {structuredValue: [{value: "This is a table of contents"},
+          {value: "With structured values"}],
+         type: "table of contents"}
+      ]
+    end
+
+    it "returns the table of contents note texts" do
+      expect(subject).to eq ["This is a table of contents -- With structured values"]
+    end
+  end
+
   describe "#abstract_display_data" do
     subject { record.abstract_display_data }
 
