@@ -24,6 +24,12 @@ RSpec.describe CocinaDisplay::CocinaRecord do
     end
   end
 
+  describe "#fileset_types" do
+    it "returns an array of unique fileset types" do
+      expect(subject.fileset_types).to contain_exactly("audio", "image")
+    end
+  end
+
   describe "#total_file_size_str" do
     it "returns a human-readable string representation of the total file size" do
       expect(subject.total_file_size_str).to eq("14.1 MB")
