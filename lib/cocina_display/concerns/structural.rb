@@ -4,44 +4,44 @@ module CocinaDisplay
   module Concerns
     # Methods for inspecting structural metadata (e.g. file hierarchy)
     module Structural
-      # Structured data for all individual files in the object.
-      # Traverses nested FileSet structure to return a flattened array.
-      # @return [Array<Hash>]
-      # @example
-      #  record.files.each do |file|
-      #   puts file["filename"] #=> "image1.jpg"
-      #   puts file["size"] #=> 123456
-      #  end
-      def files
-        @files ||= path("$.structural.contains.*.structural.contains.*").search
-      end
-
       # Structured data for all file sets in the object.
       # Each fileset contains one or more files.
-      # @return [Array<Hash>]
+      # @return [Array<CocinaDisplay::Structural::FileSet>]
       # @example
       #  record.filesets.each do |fileset|
-      #   puts fileset["type"] #=> "image"
-      #   puts fileset["label"] #=> "High Resolution Images"
+      #   puts fileset.type #=> "image"
+      #   puts fileset.label #=> "High Resolution Images"
       #  end
       def filesets
-        @filesets ||= path("$.structural.contains.*").search
+        @filesets ||= path("$.structural.contains.*").map do |fileset|
+          CocinaDisplay::Structural::FileSet.new(fileset)
+        end
+      end
+
+      # Structured data for all individual files in the object.
+      # Traverses nested FileSet structure to return a flattened array.
+      # @return [Array<CocinaDisplay::Structural::File>]
+      # @example
+      #  record.files.each do |file|
+      #   puts file.filename #=> "image1.jpg"
+      #   puts file.size #=> 123456
+      #  end
+      def files
+        filesets.flat_map(&:files)
       end
 
       # All unique MIME types of files in this object.
       # @return [Array<String>]
       # @example ["image/jpeg", "application/pdf"]
       def file_mime_types
-        files.pluck("hasMimeType").uniq
+        files.map(&:mime_type).compact.uniq
       end
 
       # All unique types of filesets in this object.
       # @return [Array<String>]
       # @example ["image", "document"]
       def fileset_types
-        filesets.pluck("type")
-          .map { |type| type.delete_prefix("https://cocina.sul.stanford.edu/models/resources/") }
-          .uniq
+        filesets.map(&:type).compact.uniq
       end
 
       # Human-readable string representation of {total_file_size_int}.
@@ -55,7 +55,21 @@ module CocinaDisplay
       # @return [Integer]
       # @example 2621440
       def total_file_size_int
-        files.pluck("size").sum
+        files.map(&:size).compact.sum
+      end
+
+      # The thumbnail file for this object, if any.
+      # Prefers files marked as thumbnails; falls back to any JP2 image.
+      # @return [CocinaDisplay::Structural::File, nil]
+      def thumbnail_file
+        files.find(&:thumbnail?) || files.find(&:jp2_image?)
+      end
+
+      # True if the object has a usable thumbnail file.
+      # @note Does not attempt to crawl virtual object members for thumbnails.
+      # @return [Boolean]
+      def thumbnail?
+        thumbnail_file.present?
       end
 
       # DRUIDs of collections this object is a member of.
