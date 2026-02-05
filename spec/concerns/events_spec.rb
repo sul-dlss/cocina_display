@@ -303,14 +303,14 @@ RSpec.describe CocinaDisplay::CocinaRecord do
           {
             "structuredValue" => [
               {"value" => "2020-01-01", "type" => "start", "encoding" => {"code" => "w3cdtf"}},
-              {"value" => "2021-10-31", "type" => "end", "encoding" => {"code" => "w3cdtf"}}
+              {"value" => "2022-10-31", "type" => "end", "encoding" => {"code" => "w3cdtf"}}
             ],
             "type" => "publication"
           }
         ]
       end
 
-      it { is_expected.to eq([2020, 2021]) }
+      it { is_expected.to eq(2020..2022) }
     end
 
     context "with an EDTF interval (6 BCE to 5 BCE)" do
@@ -322,7 +322,7 @@ RSpec.describe CocinaDisplay::CocinaRecord do
         ]
       end
 
-      it { is_expected.to eq([-5, -4]) }
+      it { is_expected.to eq(-5..-4) }
     end
 
     context "with a single year date (2020)" do
@@ -332,7 +332,7 @@ RSpec.describe CocinaDisplay::CocinaRecord do
         ]
       end
 
-      it { is_expected.to eq([2020]) }
+      it { is_expected.to eq(2020..2020) }
     end
 
     context "with a decade date (209x)" do
@@ -342,7 +342,7 @@ RSpec.describe CocinaDisplay::CocinaRecord do
         ]
       end
 
-      it { is_expected.to eq([2090, 2091, 2092, 2093, 2094, 2095, 2096, 2097, 2098, 2099]) }
+      it { is_expected.to eq(2090..2099) }
     end
 
     context "with an invalid date" do
@@ -367,7 +367,7 @@ RSpec.describe CocinaDisplay::CocinaRecord do
         ]
       end
 
-      it { is_expected.to eq([2000]) }
+      it { is_expected.to eq(2000..) }
     end
   end
 
