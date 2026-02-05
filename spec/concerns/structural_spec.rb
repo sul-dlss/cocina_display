@@ -10,11 +10,9 @@ RSpec.describe CocinaDisplay::CocinaRecord do
   subject { described_class.new(cocina_doc) }
 
   describe "#files" do
-    it "returns an array of file hashes" do
-      expect(subject.files).to be_an(Array)
-      expect(subject.files.first).to be_a(Hash)
-      expect(subject.files.first["filename"]).to eq("bb099mt5053_sl.m4a")
-      expect(subject.files.first["size"]).to eq(13832365)
+    it "returns an array of file objects" do
+      expect(subject.files.first.filename).to eq("bb099mt5053_sl.m4a")
+      expect(subject.files.first.size).to eq(13832365)
     end
   end
 
@@ -39,6 +37,77 @@ RSpec.describe CocinaDisplay::CocinaRecord do
   describe "#total_file_size_int" do
     it "returns the total file size in bytes" do
       expect(subject.total_file_size_int).to eq(14744206)
+    end
+  end
+
+  describe "#thumbnail_file" do
+    context "when there is a file marked for thumbnail use" do
+      let(:druid) { "bc798xr9549" }
+
+      it "returns the thumbnail file" do
+        expect(subject.thumbnail_file.filename).to eq("bc798xr9549_30C_Kalsang_Yulgial_thumb.jp2")
+      end
+    end
+
+    context "when there is no marked file, but there are jp2 images" do
+      let(:druid) { "bk264hq9320" }
+
+      it "returns the first jp2 image file" do
+        expect(subject.thumbnail_file.filename).to eq("bk264hq9320_img_1.jp2")
+      end
+    end
+
+    context "when there is an image but it has zero dimensions" do
+      let(:cocina_doc) do
+        {
+          "structural" => {
+            "contains" => [
+              {
+                "type" => "https://cocina.sul.stanford.edu/models/resources/image",
+                "structural" => {
+                  "contains" => [
+                    {
+                      "filename" => "zero_dim_image.jp2",
+                      "hasMimeType" => "image/jp2",
+                      "presentation" => {
+                        "height" => 0,
+                        "width" => 0
+                      },
+                      "size" => 204800
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      end
+
+      it "returns nil" do
+        expect(subject.thumbnail_file).to be_nil
+      end
+    end
+
+    context "with a virtual object (no files)" do
+      let(:druid) { "ws947mh3822" }
+
+      it "returns nil" do
+        expect(subject.thumbnail_file).to be_nil
+      end
+    end
+  end
+
+  describe "#thumbnail?" do
+    context "with images" do
+      let(:druid) { "bk264hq9320" }
+
+      it { is_expected.to be_thumbnail }
+    end
+
+    context "with no images" do
+      let(:druid) { "nz187ct8959" }
+
+      it { is_expected.not_to be_thumbnail }
     end
   end
 
