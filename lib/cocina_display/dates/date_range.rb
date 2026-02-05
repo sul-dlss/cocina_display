@@ -144,6 +144,14 @@ module CocinaDisplay
         interval_stop = stop&.date&.edtf || "open"
         ::Date.edtf("#{interval_start}/#{interval_stop}")
       end
+
+      # Array of all dates that fall into the range of possible dates in the data.
+      # @note Output will have the same precision as the input dates (e.g. year vs day).
+      # @see CocinaDisplay::Date#to_a
+      # @return [Array<EDTF::Date>]
+      def to_a
+        [start&.to_a, stop&.to_a].flatten.compact.sort.uniq
+      end
     end
   end
 end
