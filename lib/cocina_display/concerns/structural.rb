@@ -95,6 +95,13 @@ module CocinaDisplay
 
         path("$.structural.hasMemberOrders.*.members.*").map { |druid| druid.delete_prefix("druid:") }
       end
+
+      # DRUIDs of virtual objects this object is a part of.
+      # @return [Array<String>]
+      # @example "hj097bm8879"
+      def virtual_object_parents
+        related_resources.filter { |res| res.type == "part of" }.map(&:druid).compact_blank
+      end
     end
   end
 end

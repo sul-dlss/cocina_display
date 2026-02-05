@@ -158,4 +158,22 @@ RSpec.describe CocinaDisplay::CocinaRecord do
       end
     end
   end
+
+  describe "#virtual_object_parents" do
+    context "when the object is part of virtual objects" do
+      let(:druid) { "fn851zf9475" }
+
+      it "returns an array of parent virtual object DRUIDs" do
+        expect(subject.virtual_object_parents).to contain_exactly("dg050kz7339")
+      end
+    end
+
+    context "when the object is not part of any virtual objects" do
+      let(:druid) { "bb099mt5053" }
+
+      it "returns an empty array" do
+        expect(subject.virtual_object_parents).to be_empty
+      end
+    end
+  end
 end
