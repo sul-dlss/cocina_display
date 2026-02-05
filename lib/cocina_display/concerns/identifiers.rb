@@ -8,8 +8,7 @@ module CocinaDisplay
       # @example
       #   record.druid #=> "druid:bb099mt5053"
       def druid
-        cocina_doc["externalIdentifier"] ||
-          cocina_doc.dig("description", "purl")&.split("/")&.last
+        cocina_doc["externalIdentifier"] || purl_url&.split("/")&.last
       end
 
       # The DRUID for the object, without the +druid:+ prefix.
