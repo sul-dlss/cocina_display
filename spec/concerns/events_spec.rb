@@ -297,20 +297,36 @@ RSpec.describe CocinaDisplay::CocinaRecord do
   describe "#pub_year_int_range" do
     subject { record.pub_year_int_range }
 
-    context "with a valid date range (2020-01-01 to 2021-10-31)" do
+    context "with a start and end with day precision" do
       let(:dates) do
         [
           {
             "structuredValue" => [
               {"value" => "2020-01-01", "type" => "start", "encoding" => {"code" => "w3cdtf"}},
-              {"value" => "2021-10-31", "type" => "end", "encoding" => {"code" => "w3cdtf"}}
+              {"value" => "2022-10-31", "type" => "end", "encoding" => {"code" => "w3cdtf"}}
             ],
             "type" => "publication"
           }
         ]
       end
 
-      it { is_expected.to eq([2020, 2021]) }
+      it { is_expected.to eq([2020, 2021, 2022]) }
+    end
+
+    context "with a start and end with year precision" do
+      let(:dates) do
+        [
+          {
+            "structuredValue" => [
+              {"value" => "1200", "type" => "start", "encoding" => {"code" => "marc"}},
+              {"value" => "1299", "type" => "end", "encoding" => {"code" => "marc"}}
+            ],
+            "type" => "publication"
+          }
+        ]
+      end
+
+      it { is_expected.to eq((1200..1299).to_a) }
     end
 
     context "with an EDTF interval (6 BCE to 5 BCE)" do
@@ -323,6 +339,49 @@ RSpec.describe CocinaDisplay::CocinaRecord do
       end
 
       it { is_expected.to eq([-5, -4]) }
+    end
+
+    # NOTE: currently doesn't exist in SDR, but valid EDTF
+    context "with an EDTF interval (month precision)" do
+      let(:dates) do
+        [
+          {
+            "value" => "1984-06/2004-08", "type" => "publication", "encoding" => {"code" => "edtf"}
+          }
+        ]
+      end
+
+      it { is_expected.to eq((1984..2004).to_a) }
+    end
+
+    # NOTE: currently doesn't exist in SDR, but valid EDTF
+    context "with EDTF set intersection" do
+      let(:dates) do
+        [
+          {
+            "value" => "{1667,1668,1670..1672}", "type" => "publication", "encoding" => {"code" => "edtf"}
+          }
+        ]
+      end
+
+      it { is_expected.to eq([1667, 1668, 1670, 1671, 1672]) }
+    end
+
+    # NOTE: currently doesn't exist in SDR, but valid EDTF
+    context "with date range including an interval" do
+      let(:dates) do
+        [
+          {
+            "structuredValue" => [
+              {"value" => "1667", "type" => "start", "encoding" => {"code" => "edtf"}},
+              {"value" => "1670/1672", "type" => "end", "encoding" => {"code" => "edtf"}}
+            ],
+            "type" => "publication"
+          }
+        ]
+      end
+
+      it { is_expected.to eq([1667, 1670, 1671, 1672]) }
     end
 
     context "with a single year date (2020)" do
@@ -355,7 +414,26 @@ RSpec.describe CocinaDisplay::CocinaRecord do
       it { is_expected.to be_nil }
     end
 
-    context "with an open-ended date range" do
+    context "with an end date and open start date" do
+      let(:dates) do
+        [
+          {
+            "structuredValue" => [
+              {"value" => "1948", "type" => "end", "status" => "primary"}
+            ],
+            "type" => "creation",
+            "encoding" => {"code" => "w3cdtf"},
+            "qualifier" => "approximate"
+          }
+        ]
+      end
+
+      it "uses the end date" do
+        is_expected.to eq([1948])
+      end
+    end
+
+    context "with a start date and open end date" do
       let(:dates) do
         [
           {
@@ -367,7 +445,9 @@ RSpec.describe CocinaDisplay::CocinaRecord do
         ]
       end
 
-      it { is_expected.to eq([2000]) }
+      it "extends the range to the current year" do
+        is_expected.to eq((2000..Date.today.year).to_a)
+      end
     end
   end
 
