@@ -294,8 +294,8 @@ RSpec.describe CocinaDisplay::CocinaRecord do
     end
   end
 
-  describe "#pub_year_int_range" do
-    subject { record.pub_year_int_range }
+  describe "#pub_year_ints" do
+    subject { record.pub_year_ints }
 
     context "with a start and end with day precision" do
       let(:dates) do

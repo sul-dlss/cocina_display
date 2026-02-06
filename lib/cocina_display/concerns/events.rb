@@ -38,7 +38,7 @@ module CocinaDisplay
       # @param ignore_qualified [Boolean] Reject qualified dates (e.g. approximate)
       # @return [Array<Integer>, nil]
       # @note 6 BCE will appear as -5; 4 CE will appear as 4.
-      def pub_year_int_range(ignore_qualified: false)
+      def pub_year_ints(ignore_qualified: false)
         date = pub_date(ignore_qualified: ignore_qualified)
         return unless date
 
