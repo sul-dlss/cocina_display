@@ -268,7 +268,7 @@ RSpec.describe CocinaDisplay::CocinaRecord do
   end
 
   describe "#genre_display_data" do
-    subject { record.genre_display_data }
+    subject { CocinaDisplay::DisplayData.to_hash(record.genre_display_data) }
 
     let(:forms) do
       [
@@ -285,12 +285,34 @@ RSpec.describe CocinaDisplay::CocinaRecord do
     end
 
     it "combines, capitalizes and deduplicates genre forms and subject forms" do
-      is_expected.to contain_exactly(
-        be_a(CocinaDisplay::DisplayData).and(have_attributes(
-          label: "Genre",
-          values: ["Picture", "Portrait", "Biography"]
-        ))
-      )
+      is_expected.to eq({
+        "Genre" => ["Picture", "Portrait", "Biography"]
+      })
+    end
+
+    context "with self-deposit resource types" do
+      let(:forms) do
+        [
+          {
+            "structuredValue" => [
+              {"value" => "Mixed Materials", "type" => "type"},
+              {"value" => "Data", "type" => "subtype"},
+              {"value" => "Software", "type" => "subtype"},
+              {"value" => "3D model", "type" => "subtype"}
+            ],
+            "type" => "resource type",
+            "source" => {
+              "value" => "Stanford self-deposit resource types"
+            }
+          }
+        ]
+      end
+
+      it "includes self-deposit resource types in the genre section" do
+        is_expected.to eq({
+          "Genre" => ["Portrait", "Biography", "Mixed Materials (Data, Software, 3D model)"]
+        })
+      end
     end
   end
 
