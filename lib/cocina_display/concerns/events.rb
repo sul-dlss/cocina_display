@@ -38,20 +38,11 @@ module CocinaDisplay
       # @param ignore_qualified [Boolean] Reject qualified dates (e.g. approximate)
       # @return [Array<Integer>, nil]
       # @note 6 BCE will appear as -5; 4 CE will appear as 4.
-      def pub_year_int_range(ignore_qualified: false)
+      def pub_year_ints(ignore_qualified: false)
         date = pub_date(ignore_qualified: ignore_qualified)
         return unless date
-        case date
-        when CocinaDisplay::Dates::DateRange
-          (date.start&.date&.year..date.stop&.date&.year)
-        else
-          bounds = date.to_a.map(&:year)
-          if bounds.size == 1
-            (bounds.first..bounds.first)
-          else
-            (bounds.first..bounds.last)
-          end
-        end
+
+        date.to_a.map(&:year).compact.uniq.sort
       end
 
       # String for displaying the earliest preferred publication year or range.

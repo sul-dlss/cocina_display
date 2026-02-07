@@ -137,12 +137,40 @@ module CocinaDisplay
         end
       end
 
+      # Earliest possible date encoded in data, respecting unspecified/imprecise info.
+      # @return [Date]
+      # @return [nil] if open start
+      def earliest_date
+        start&.earliest_date
+      end
+
+      # Latest possible date encoded in data, respecting unspecified/imprecise info.
+      # @return [Date]
+      # @return [nil] if open-ended range
+      def latest_date
+        stop&.latest_date
+      end
+
       # Express the range as an EDTF::Interval between the start and stop dates.
       # @return [EDTF::Interval]
       def as_interval
         interval_start = start&.date&.edtf || "open"
         interval_stop = stop&.date&.edtf || "open"
         ::Date.edtf("#{interval_start}/#{interval_stop}")
+      end
+
+      # Array of all individual {Date}s that are described by the data.
+      # @note Output dates will have the same precision as the input date (e.g. year vs day).
+      # @note {EDTF::Set}s can be disjoint ranges; unlike {#as_range} this method will respect any gaps.
+      # @return [Array<Date>]
+      def to_a
+        start_dates = start&.to_a || []
+        stop_dates = stop&.to_a || []
+
+        return [] if start_dates.empty? && stop_dates.empty?
+        return as_range.to_a if start_dates.one? && stop_dates.one? || stop_dates.empty?
+
+        [start_dates, stop_dates].flatten.sort.uniq
       end
     end
   end

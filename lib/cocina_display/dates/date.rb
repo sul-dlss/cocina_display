@@ -334,29 +334,33 @@ module CocinaDisplay
         format(qualified_format, decoded_value)
       end
 
-      # Range between earliest possible date and latest possible date.
-      # @note Some encodings support disjoint sets of ranges, so this method could be less accurate than {#to_a}.
-      # @return [Range]
+      # Range of {Date}s between earliest possible date and latest possible date.
+      # @note Output has day precision, using the first day/month if unspecified.
+      # @note If the range is open-ended, uses today's date as the end date.
+      # @note {EDTF::Set}s can be disjoint ranges, but this method will return the full span, unlike {#to_a}.
+      # @return [Range<Date>, nil]
       def as_range
-        return unless earliest_date && latest_date
+        return unless earliest_date || latest_date
 
-        earliest_date..latest_date
+        start = earliest_date || latest_date
+        stop = latest_date || ::Date.today
+
+        start..stop
       end
 
-      # Array of all dates that fall into the range of possible dates in the data.
-      # @note Output will have the same precision as the input date (e.g. year vs day).
-      # @note Some encodings support disjoint sets of ranges, so this method could be more accurate than {#as_range}.
-      # @return [Array<EDTF::Date>]
+      # Array of all individual {Date}s that are described by the data.
+      # @note Output dates will have the same precision as the input date (e.g. year vs day).
+      # @note If the range is open-ended, uses today's date as the end date.
+      # @note {EDTF::Set}s can be disjoint ranges; unlike {#as_range} this method will respect any gaps.
+      # @return [Array<Date>]
       def to_a
         case date
-        when EDTF::Set, EDTF::Interval
+        when EDTF::Set
           date.to_a
         else
           as_range.to_a
         end
       end
-
-      private
 
       class << self
         # Returns the date in the format specified by the precision.
@@ -436,6 +440,8 @@ module CocinaDisplay
           d
         end
       end
+
+      private
 
       # Expand placeholders like "19XX" into an object representing the full range.
       # @note This is different from dates with an explicit start/end in the Cocina.
@@ -521,8 +527,6 @@ module CocinaDisplay
         super
       end
 
-      private
-
       def earliest_date
         if value == "1uuu"
           ::Date.parse("1000-01-01")
@@ -538,6 +542,8 @@ module CocinaDisplay
           super
         end
       end
+
+      private
     end
 
     # Base class for date formats that match using a regex.
