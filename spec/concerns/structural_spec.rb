@@ -40,12 +40,12 @@ RSpec.describe CocinaDisplay::CocinaRecord do
     end
   end
 
-  describe "#thumbnail_file" do
+  describe "#thumbnail_url" do
     context "when there is a file marked for thumbnail use" do
       let(:druid) { "bc798xr9549" }
 
       it "returns the thumbnail file" do
-        expect(subject.thumbnail_file.filename).to eq("bc798xr9549_30C_Kalsang_Yulgial_thumb.jp2")
+        expect(subject.thumbnail_url).to eq("https://stacks.stanford.edu/image/iiif/bc798xr9549%2Fbc798xr9549_30C_Kalsang_Yulgial_thumb/full/!400,400/0/default.jpg")
       end
     end
 
@@ -53,7 +53,7 @@ RSpec.describe CocinaDisplay::CocinaRecord do
       let(:druid) { "bk264hq9320" }
 
       it "returns the first jp2 image file" do
-        expect(subject.thumbnail_file.filename).to eq("bk264hq9320_img_1.jp2")
+        expect(subject.thumbnail_url).to eq("https://stacks.stanford.edu/image/iiif/bk264hq9320%2Fbk264hq9320_img_1/full/!400,400/0/default.jpg")
       end
     end
 
@@ -84,7 +84,7 @@ RSpec.describe CocinaDisplay::CocinaRecord do
       end
 
       it "returns nil" do
-        expect(subject.thumbnail_file).to be_nil
+        expect(subject.thumbnail_url).to be_nil
       end
     end
 
@@ -92,7 +92,7 @@ RSpec.describe CocinaDisplay::CocinaRecord do
       let(:druid) { "ws947mh3822" }
 
       it "returns nil" do
-        expect(subject.thumbnail_file).to be_nil
+        expect(subject.thumbnail_url).to be_nil
       end
     end
   end
