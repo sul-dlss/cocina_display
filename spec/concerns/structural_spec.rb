@@ -180,4 +180,12 @@ RSpec.describe CocinaDisplay::CocinaRecord do
       end
     end
   end
+
+  context "with a staging object" do
+    let(:druid) { "bh114dk3076" }
+
+    it "generates file download URLs from stacks staging environment" do
+      expect(subject.files.first.download_url).to eq("https://sul-stacks-stage.stanford.edu/file/druid:bh114dk3076/README.md")
+    end
+  end
 end

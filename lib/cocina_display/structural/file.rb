@@ -5,10 +5,17 @@ module CocinaDisplay
       # Underlying hash parsed from Cocina JSON.
       attr_reader :cocina
 
+      # URL to Stacks environment that will serve this file.
+      attr_reader :base_url
+
       # Initialize the File with Cocina file data.
       # @param cocina [Hash] Cocina structured data for a single file
-      def initialize(cocina)
+      # @param druid [String, nil] DRUID of the object this file belongs to
+      # @note Staging objects can't infer their DRUID and need it passed in explicitly.
+      def initialize(cocina, base_url: "https://stacks.stanford.edu", druid: nil)
         @cocina = cocina
+        @base_url = base_url
+        @druid = druid
       end
 
       # The name of the file on disk, including file extension.
@@ -70,38 +77,57 @@ module CocinaDisplay
       end
 
       # Generate a IIIF image URL for this file.
-      # @param base_url [String] Base URL for the IIIF image server.
       # @param region [String] Desired region of the image (e.g., "full", "square", "x,y,w,h", "pct:x,y,w,h").
       # @param width [String] Desired width of the image in pixels (use "!" prefix to preserve aspect ratio).
       # @param height [String] Desired height of the image in pixels.
       # @return [String, nil]
       # @example "https://stacks.stanford.edu/image/iiif/ts786ny5936%2FPC0170_s1_E_0204.jp2/full/!400,400/0/default.jpg"
-      def iiif_url(base_url:, region: "full", width: "!400", height: "400")
-        return unless base_url.present? && iiif_id.present?
+      def iiif_url(region: "full", width: "!400", height: "400")
+        return unless iiif_id.present?
 
         "#{base_url}/image/iiif/#{iiif_id}/#{region}/#{width},#{height}/0/default.jpg"
       end
 
-      # For images served over IIIF, we encode the DRUID and filename as an identifier.
+      # For images served over IIIF, we use the encoded file ID minus the extension.
       # @return [String, nil]
       # @example "ts786ny5936%2FPC0170_s1_E_0204"
       def iiif_id
-        ERB::Util.url_encode("#{druid}/#{filename.delete_suffix(".jp2")}") if druid.present? && filename.present?
+        ERB::Util.url_encode(file_id.delete_suffix(".jp2")) if file_id.present? && jp2_image?
+      end
+
+      # Generate a download URL for this file from stacks.
+      # @return [String, nil]
+      def download_url
+        return unless file_id.present?
+
+        "#{base_url}/file/druid:#{file_id}"
       end
 
       private
 
-      # External identifier for the file, including the DRUID and file ID.
+      # External identifier for the file, minus the URL prefix.
       # @return [String, nil]
-      # @example "ts786ny5936-ts786ny5936_1/PC0170_s1_E_0204.jp2"
+      # @note Staging and production formats differ.
+      # @example production
+      #   "fn851zf9475-fn851zf9475_1/fn851zf9475_00_0001.jp2"
+      # @example staging
+      #   "ddbd323d-0dd9-4f14-ba72-336c2bccfb29"
       def external_id
         cocina["externalIdentifier"]&.delete_prefix("https://cocina.sul.stanford.edu/file/")
       end
 
       # The DRUID of the object this file belongs to.
+      # @note Staging objects can't infer this from the externalIdentifier.
       # @return [String, nil]
       def druid
-        external_id.split("-").first if external_id.present?
+        @druid || external_id.split("-").first if external_id.present?
+      end
+
+      # Combination of the DRUID and filename to uniquely identify the file.
+      # @return [String, nil]
+      # @example "ts786ny5936/PC0170_s1_E_0204.jp2"
+      def file_id
+        "#{druid}/#{filename}" if druid.present? && filename.present?
       end
     end
   end
