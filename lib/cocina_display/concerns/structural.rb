@@ -58,11 +58,12 @@ module CocinaDisplay
         files.map(&:size).compact.sum
       end
 
-      # The thumbnail file for this object, if any.
-      # Prefers files marked as thumbnails; falls back to any JP2 image.
-      # @return [CocinaDisplay::Structural::File, nil]
-      def thumbnail_file
-        files.find(&:thumbnail?) || files.find(&:jp2_image?)
+      # URL to a thumbnail image for this object, if any.
+      # @note Uses the IIIF image server to generate an image of the given size.
+      # @return [String, nil]
+      # @example "https://stacks.stanford.edu/image/iiif/ts786ny5936%2FPC0170_s1_E_0204.jp2/full/400,400/0/default.jpg"
+      def thumbnail_url(base_url: stacks_base_url, height: 400, width: 400)
+        thumbnail_file&.iiif_url(base_url: base_url, height: height, width: width)
       end
 
       # True if the object has a usable thumbnail file.
@@ -101,6 +102,13 @@ module CocinaDisplay
       # @example "hj097bm8879"
       def virtual_object_parents
         related_resources.filter { |res| res.type == "part of" }.map(&:druid).compact_blank
+      end
+
+      # The thumbnail file for this object, if any.
+      # Prefers files marked as thumbnails; falls back to any JP2 image.
+      # @return [CocinaDisplay::Structural::File, nil]
+      def thumbnail_file
+        files.find(&:thumbnail?) || files.find(&:jp2_image?)
       end
     end
   end

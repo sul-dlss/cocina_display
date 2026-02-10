@@ -68,6 +68,40 @@ module CocinaDisplay
       def width
         cocina.dig("presentation", "width").to_i
       end
+
+      # Generate a IIIF image URL for this file.
+      # @param base_url [String] Base URL for the IIIF image server.
+      # @param height [Integer] Desired height of the image in pixels.
+      # @param width [Integer] Desired width of the image in pixels.
+      # @return [String, nil]
+      # @example "https://stacks.stanford.edu/image/iiif/ts786ny5936%2FPC0170_s1_E_0204.jp2/full/400,400/0/default.jpg"
+      def iiif_url(base_url:, height: 400, width: 400)
+        return unless base_url.present? && iiif_id.present?
+
+        "#{base_url}/image/iiif/#{iiif_id}/full/!#{width},#{height}/0/default.jpg"
+      end
+
+      # For images served over IIIF, we encode the DRUID and filename as an identifier.
+      # @return [String, nil]
+      # @example "ts786ny5936%2FPC0170_s1_E_0204"
+      def iiif_id
+        ERB::Util.url_encode("#{druid}/#{filename.delete_suffix(".jp2")}") if druid.present? && filename.present?
+      end
+
+      private
+
+      # External identifier for the file, including the DRUID and file ID.
+      # @return [String, nil]
+      # @example "ts786ny5936-ts786ny5936_1/PC0170_s1_E_0204.jp2"
+      def external_id
+        cocina["externalIdentifier"]&.delete_prefix("https://cocina.sul.stanford.edu/file/")
+      end
+
+      # The DRUID of the object this file belongs to.
+      # @return [String, nil]
+      def druid
+        external_id.split("-").first if external_id.present?
+      end
     end
   end
 end
