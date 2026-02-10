@@ -71,14 +71,15 @@ module CocinaDisplay
 
       # Generate a IIIF image URL for this file.
       # @param base_url [String] Base URL for the IIIF image server.
-      # @param height [Integer] Desired height of the image in pixels.
-      # @param width [Integer] Desired width of the image in pixels.
+      # @param region [String] Desired region of the image (e.g., "full", "square", "x,y,w,h", "pct:x,y,w,h").
+      # @param width [String] Desired width of the image in pixels (use "!" prefix to preserve aspect ratio).
+      # @param height [String] Desired height of the image in pixels.
       # @return [String, nil]
-      # @example "https://stacks.stanford.edu/image/iiif/ts786ny5936%2FPC0170_s1_E_0204.jp2/full/400,400/0/default.jpg"
-      def iiif_url(base_url:, height: 400, width: 400)
+      # @example "https://stacks.stanford.edu/image/iiif/ts786ny5936%2FPC0170_s1_E_0204.jp2/full/!400,400/0/default.jpg"
+      def iiif_url(base_url:, region: "full", width: "!400", height: "400")
         return unless base_url.present? && iiif_id.present?
 
-        "#{base_url}/image/iiif/#{iiif_id}/full/!#{width},#{height}/0/default.jpg"
+        "#{base_url}/image/iiif/#{iiif_id}/#{region}/#{width},#{height}/0/default.jpg"
       end
 
       # For images served over IIIF, we encode the DRUID and filename as an identifier.
