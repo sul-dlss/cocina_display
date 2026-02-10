@@ -14,7 +14,7 @@ module CocinaDisplay
       #  end
       def filesets
         @filesets ||= path("$.structural.contains.*").map do |fileset|
-          CocinaDisplay::Structural::FileSet.new(fileset)
+          CocinaDisplay::Structural::FileSet.new(fileset, druid: bare_druid, base_url: stacks_base_url)
         end
       end
 
@@ -60,14 +60,13 @@ module CocinaDisplay
 
       # URL to a thumbnail image for this object, if any.
       # @note Uses the IIIF image server to generate an image of the given size.
-      # @param base_url [String] Base URL for the IIIF image server.
       # @param region [String] Desired region of the image (e.g., "full", "square", "x,y,w,h", "pct:x,y,w,h").
       # @param width [String] Desired width of the image in pixels (use "!" prefix to preserve aspect ratio).
       # @param height [String] Desired height of the image in pixels.
       # @return [String, nil]
       # @example "https://stacks.stanford.edu/image/iiif/ts786ny5936%2FPC0170_s1_E_0204.jp2/full/!400,400/0/default.jpg"
-      def thumbnail_url(base_url: stacks_base_url, region: "full", width: "!400", height: "400")
-        thumbnail_file&.iiif_url(base_url: base_url, region: region, width: width, height: height)
+      def thumbnail_url(region: "full", width: "!400", height: "400")
+        thumbnail_file&.iiif_url(region: region, width: width, height: height)
       end
 
       # True if the object has a usable thumbnail file.
