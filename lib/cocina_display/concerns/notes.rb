@@ -20,6 +20,13 @@ module CocinaDisplay
         notes.select(&:table_of_contents?).map(&:to_s).compact_blank
       end
 
+      # Preferred citation for the object.
+      # If there are multiple notes with this type, uses the first.
+      # @return [String, nil]
+      def preferred_citation
+        notes.find(&:preferred_citation?)&.to_s
+      end
+
       # Abstract metadata for display.
       # @return [Array<CocinaDisplay::DisplayData>]
       def abstract_display_data

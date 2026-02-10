@@ -82,6 +82,21 @@ RSpec.describe CocinaDisplay::CocinaRecord do
     end
   end
 
+  describe "#preferred_citation" do
+    subject { record.preferred_citation }
+
+    let(:notes) do
+      [
+        {value: "This is a note"},
+        {value: "This is a citation", type: "preferred citation"}
+      ]
+    end
+
+    it "returns the preferred citation note text" do
+      expect(subject).to eq "This is a citation"
+    end
+  end
+
   describe "#abstract_display_data" do
     subject { record.abstract_display_data }
 
