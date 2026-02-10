@@ -47,6 +47,10 @@ RSpec.describe CocinaDisplay::CocinaRecord do
       it "returns the thumbnail file" do
         expect(subject.thumbnail_url).to eq("https://stacks.stanford.edu/image/iiif/bc798xr9549%2Fbc798xr9549_30C_Kalsang_Yulgial_thumb/full/!400,400/0/default.jpg")
       end
+
+      it "allows optional parameters for region, width, and height" do
+        expect(subject.thumbnail_url(region: "square", width: "200", height: "200")).to eq("https://stacks.stanford.edu/image/iiif/bc798xr9549%2Fbc798xr9549_30C_Kalsang_Yulgial_thumb/square/200,200/0/default.jpg")
+      end
     end
 
     context "when there is no marked file, but there are jp2 images" do
