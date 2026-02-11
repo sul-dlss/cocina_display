@@ -32,8 +32,8 @@ RSpec.describe CocinaDisplay::Events::Imprint do
         }
       end
 
-      it "concatenates all valid dates" do
-        is_expected.to eq "no date here 18th century September 1920"
+      it "concatenates and orders all valid dates" do
+        is_expected.to eq "no date here; 18th century; September 1920"
       end
     end
 
@@ -86,6 +86,44 @@ RSpec.describe CocinaDisplay::Events::Imprint do
 
       it "renders the range" do
         is_expected.to eq "1920 - 1921"
+      end
+    end
+
+    # from druid:zs247rr8237
+    context "with two distinct dates" do
+      let(:cocina) do
+        {
+          "date" => [
+            {
+              "value" => "1674",
+              "type" => "creation",
+              "status" => "primary",
+              "qualifier" => "approximate"
+            },
+            {
+              "structuredValue" => [
+                {
+                  "value" => "1690",
+                  "type" => "end"
+                }
+              ],
+              "type" => "creation",
+              "encoding" => {
+                "code" => "w3cdtf"
+              },
+              "qualifier" => "approximate"
+            }
+          ],
+          "location" => [
+            {
+              "value" => "[Italy?]"
+            }
+          ]
+        }
+      end
+
+      it "lists them separately, in order" do
+        is_expected.to eq "[Italy?], [ca. 1674]; [ca. - 1690]"
       end
     end
   end
