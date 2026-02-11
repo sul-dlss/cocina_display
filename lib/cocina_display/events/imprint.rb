@@ -23,7 +23,7 @@ module CocinaDisplay
       # The date portion of the imprint statement, comprising all unique dates.
       # @return [String]
       def date_str
-        Utils.compact_and_join(unique_dates_for_display.map(&:qualified_value))
+        Utils.compact_and_join(unique_dates_for_display.map(&:qualified_value), delimiter: "; ")
       end
 
       # The editions portion of the imprint statement, combining all edition notes.
@@ -71,7 +71,7 @@ module CocinaDisplay
         # Remove any ranges that duplicate part of an unencoded non-range date
         ranges, singles = deduped_dates.partition { |date| date.is_a?(CocinaDisplay::Dates::DateRange) }
         unencoded_singles_dates = singles.reject(&:encoding?).flat_map(&:to_a)
-        ranges.reject! { |range| unencoded_singles_dates.any? { |date| range.as_interval.include?(date) } }
+        ranges.reject! { |date_range| unencoded_singles_dates.any? { |date| date_range.as_range.include?(date) } }
 
         (singles + ranges).sort
       end

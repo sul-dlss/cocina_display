@@ -44,7 +44,7 @@ module CocinaDisplay
       # @see CocinaDisplay::Date#value
       # @return [Array<String>]
       def value
-        [start&.value, stop&.value]
+        [start&.value, stop&.value].compact
       end
 
       # Key used to sort this date range. Respects BCE/CE ordering and precision.
@@ -52,7 +52,7 @@ module CocinaDisplay
       # @see CocinaDisplay::Date#sort_key
       # @return [String]
       def sort_key
-        [start&.sort_key, stop&.sort_key].join(" - ")
+        [start&.sort_key, stop&.sort_key].compact.join(" - ")
       end
 
       # Base values of start/end as single string. Used for comparison/deduping.
@@ -116,7 +116,7 @@ module CocinaDisplay
         [
           start&.decoded_value(**kwargs),
           stop&.decoded_value(**kwargs)
-        ].uniq.join(" - ")
+        ].uniq.join(" - ").strip
       end
 
       # Decoded range with "BCE" or "CE" and qualifier markers applied.
@@ -139,29 +139,23 @@ module CocinaDisplay
 
       # Earliest possible date encoded in data, respecting unspecified/imprecise info.
       # @return [Date]
-      # @return [nil] if open start
+      # @return [nil] if no start or stop date is parsable
       def earliest_date
-        start&.earliest_date
+        start&.earliest_date || stop&.earliest_date
       end
 
       # Latest possible date encoded in data, respecting unspecified/imprecise info.
+      # @note If the range is open-ended, uses today's date as the end date.
       # @return [Date]
-      # @return [nil] if open-ended range
+      # @return [nil] if open-ended range or stop is not parsable
       def latest_date
-        stop&.latest_date
-      end
-
-      # Express the range as an EDTF::Interval between the start and stop dates.
-      # @return [EDTF::Interval]
-      def as_interval
-        interval_start = start&.date&.edtf || "open"
-        interval_stop = stop&.date&.edtf || "open"
-        ::Date.edtf("#{interval_start}/#{interval_stop}")
+        stop&.latest_date || ::Date.today
       end
 
       # Array of all individual {Date}s that are described by the data.
       # @note Output dates will have the same precision as the input date (e.g. year vs day).
       # @note {EDTF::Set}s can be disjoint ranges; unlike {#as_range} this method will respect any gaps.
+      # @note If the range is open-ended, uses today's date as the end date.
       # @return [Array<Date>]
       def to_a
         start_dates = start&.to_a || []
