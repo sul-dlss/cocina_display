@@ -13,6 +13,7 @@ module CocinaDisplay
 
       # All valid coordinate data formatted for indexing into a Solr RPT field.
       # @note This type of field accommodates both points and bounding boxes.
+      # @note In WKT, POINTs have longitude first, unlike {coordinates_as_point}.
       # @see https://solr.apache.org/guide/solr/latest/query-guide/spatial-search.html#rpt
       # @return [Array<String>]
       # @example ["POINT(34.0522 -118.2437)", "POLYGON((-118.2437 34.0522, -118.2437 34.1996, -117.9522 34.1996, -117.9522 34.0522, -118.2437 34.0522))"]

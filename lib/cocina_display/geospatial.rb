@@ -117,10 +117,10 @@ module CocinaDisplay
       # Format using the Well-Known Text (WKT) representation.
       # @note Limits decimals to 6 places.
       # @see https://en.wikipedia.org/wiki/Well-known_text_representation_of_geometry
-      # @example "POINT(34.0522 -118.2437)"
+      # @example "POINT(-118.2437 34.0522)"
       # @return [String]
       def as_wkt
-        "POINT(%.6f %.6f)" % [point.lat, point.lng]
+        "POINT(%.6f %.6f)" % [point.lng, point.lat]
       end
 
       # Format using the CQL ENVELOPE representation.
