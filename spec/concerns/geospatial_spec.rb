@@ -437,7 +437,7 @@ RSpec.describe CocinaDisplay::CocinaRecord do
       subject { cocina_record.coordinates_as_wkt }
 
       it "returns the point in WKT format" do
-        expect(subject[0]).to eq("POINT(36.740468 -121.246580)")
+        expect(subject[0]).to eq("POINT(-121.246580 36.740468)")
       end
 
       it "returns the box in WKT format" do
