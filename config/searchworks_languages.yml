@@ -116,7 +116,7 @@ dar: Dargwa
 day: Dayak
 del: Delaware
 den: Slavey
-dgr: Dogrib
+dgr: Tlicho
 din: Dinka
 div: Divehi
 doi: Dogri
@@ -129,6 +129,7 @@ dyu: Dyula
 dzo: Dzongkha
 efi: Efik
 egy: Egyptian
+# per RFC 5646 and ISO 15924
 egy-Egyd: Egyptian, Demotic
 eka: Ekajuk
 elx: Elamite
@@ -320,7 +321,7 @@ men: Mende
 mga: Irish, Middle (ca. 1100-1550)
 mic: Micmac
 min: Minangkabau
-mis: Miscellaneous languages
+# mis: Miscellaneous languages
 mkh: Mon-Khmer (Other)
 # mla is deprecated
 mla: Malagasy
@@ -334,7 +335,7 @@ moh: Mohawk
 mol: Moldavian
 mon: Mongolian
 mos: Mooré
-mul: Multiple languages
+# mul: Multiple languages
 mun: Munda (Other)
 mus: Creek
 mwl: Mirandese
@@ -520,6 +521,7 @@ uga: Ugaritic
 uig: Uighur
 ukr: Ukrainian
 umb: Umbundu
+# und: Undetermined
 urd: Urdu
 uzb: Uzbek
 vai: Vai
