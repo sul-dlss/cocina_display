@@ -502,12 +502,12 @@ RSpec.describe CocinaDisplay::CocinaRecord do
 
       subject { cocina_record.coordinates_as_point }
 
-      it "returns the point in Solr LatLon format" do
-        expect(subject[0]).to eq("36.740468,-121.246580")
+      it "returns the point in Solr RPT format" do
+        expect(subject[0]).to eq("-121.246580 36.740468")
       end
 
-      it "returns the box center in Solr LatLon format" do
-        expect(subject[1]).to eq("37.188545,-120.652546")
+      it "returns the box center in Solr RPT format" do
+        expect(subject[1]).to eq("-120.652546 37.188545")
       end
     end
   end
