@@ -449,6 +449,46 @@ RSpec.describe CocinaDisplay::CocinaRecord do
         is_expected.to eq((2000..Date.today.year).to_a)
       end
     end
+
+    context "with an unknown end date" do
+      let(:dates) do
+        [
+          {
+            "structuredValue" => [
+              {"value" => "2000", "type" => "start"},
+              {"value" => "uuuu", "type" => "end"}
+            ],
+            "type" => "publication",
+            "encoding" => {"code" => "marc"},
+            "qualifier" => "questionable"
+          }
+        ]
+      end
+
+      it "extends the range to the current year" do
+        is_expected.to eq((2000..Date.today.year).to_a)
+      end
+    end
+
+    context "with an unknown start date" do
+      let(:dates) do
+        [
+          {
+            "structuredValue" => [
+              {"value" => "uuuu", "type" => "start"},
+              {"value" => "2000", "type" => "end"}
+            ],
+            "type" => "publication",
+            "encoding" => {"code" => "marc"},
+            "qualifier" => "questionable"
+          }
+        ]
+      end
+
+      it "uses only the known year" do
+        is_expected.to eq([2000])
+      end
+    end
   end
 
   describe "#imprint_str" do
