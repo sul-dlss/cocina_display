@@ -407,6 +407,8 @@ module CocinaDisplay
         return nil if date.nil?
 
         case date_range
+        when EDTF::Unknown
+          nil
         when EDTF::Epoch, EDTF::Interval, EDTF::Season
           date_range.min
         when EDTF::Set
@@ -427,6 +429,8 @@ module CocinaDisplay
         return nil if date.nil?
 
         case date_range
+        when EDTF::Unknown
+          nil
         when EDTF::Epoch, EDTF::Interval, EDTF::Season
           date_range.max
         when EDTF::Set
