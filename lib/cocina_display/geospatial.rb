@@ -130,12 +130,12 @@ module CocinaDisplay
         nil
       end
 
-      # Format as a comma-separated latitude,longitude pair.
+      # Format as a space-separated x y (longitude latitude) pair.
       # @note Limits decimals to 6 places.
-      # @example "34.0522,-118.2437"
+      # @example "-118.2437 34.0522"
       # @return [String]
       def as_point
-        "%.6f,%.6f" % [point.lat, point.lng]
+        "%.6f %.6f" % [point.lng, point.lat]
       end
     end
 
@@ -205,15 +205,15 @@ module CocinaDisplay
         ]
       end
 
-      # The box center point as a comma-separated latitude,longitude pair.
+      # The box center point as a space-separated x y (longitude latitude) pair.
       # @note Limits decimals to 6 places.
-      # @example "34.0522,-118.2437"
+      # @example "-118.2437 34.0522"
       # @return [String]
       def as_point
         azimuth = min_point.azimuth(max_point)
         distance = min_point.distance(max_point)
         center = min_point.endpoint(distance / 2, azimuth)
-        "%.6f,%.6f" % [center.lat, center.lng]
+        "%.6f %.6f" % [center.lng, center.lat]
       end
     end
 

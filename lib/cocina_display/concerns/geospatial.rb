@@ -30,11 +30,11 @@ module CocinaDisplay
         coordinate_objects.map(&:as_envelope).compact.uniq
       end
 
-      # All valid coordinate data formatted for indexing into a Solr LatLon field.
+      # All valid coordinate data formatted for indexing into a Solr RPT field.
       # @note Bounding boxes are automatically converted to their center point.
       # @see https://solr.apache.org/guide/solr/latest/query-guide/spatial-search.html#indexing-points
       # @return [Array<String>]
-      # @example ["34.0522,-118.2437"]
+      # @example ["-118.2437 34.0522"]
       def coordinates_as_point
         coordinate_objects.map(&:as_point).uniq
       end
