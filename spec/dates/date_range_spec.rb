@@ -36,6 +36,22 @@ RSpec.describe CocinaDisplay::Dates::DateRange do
       end
     end
 
+    context "with a top-level edtf encoding and no values on the structured value entries" do
+      let(:cocina) do
+        {
+          "structuredValue" => [
+            {"type" => "start", "status" => "primary"},
+            {"type" => "end"}
+          ],
+          "encoding" => {"code" => "edtf"}
+        }
+      end
+
+      it "does not raise an error" do
+        expect { date_range }.not_to raise_error
+      end
+    end
+
     context "with a top-level type and no start/end types" do
       let(:cocina) do
         {
