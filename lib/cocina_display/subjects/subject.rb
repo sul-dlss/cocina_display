@@ -2,12 +2,14 @@ module CocinaDisplay
   module Subjects
     # Base class for subjects in Cocina structured data.
     class Subject
-      attr_reader :cocina
+      attr_reader :cocina, :delimiter
 
       # Initialize a Subject object with Cocina structured data.
       # @param cocina [Hash] The Cocina structured data for the subject.
-      def initialize(cocina)
+      # @param delimiter [String] The delimiter to use when flattening for display
+      def initialize(cocina, delimiter: " > ")
         @cocina = cocina
+        @delimiter = delimiter
       end
 
       # The top-level type of the subject.
@@ -20,7 +22,7 @@ module CocinaDisplay
       # Array of display strings for each value in the subject.
       # Used for search, where each value should be indexed separately.
       # @return [Array<String>]
-      def display_values
+      def values
         subject_values.map(&:to_s).compact_blank
       end
 
@@ -28,13 +30,13 @@ module CocinaDisplay
       # Genre values are capitalized; other subject values are not.
       # @return [String]
       def to_s
-        (type == "genre") ? display_value&.upcase_first : display_value
+        (type == "genre") ? flat_value&.upcase_first : flat_value
       end
 
       # A string representation of the entire subject, concatenated for display.
       # @return [String]
-      def display_value
-        Utils.compact_and_join(display_values, delimiter: " > ")
+      def flat_value
+        Utils.compact_and_join(values, delimiter: delimiter)
       end
 
       # Label used to render the subject for display.

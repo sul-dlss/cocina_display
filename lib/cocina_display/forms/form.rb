@@ -5,7 +5,7 @@ module CocinaDisplay
   module Forms
     # A form associated with part or all of a Cocina object.
     class Form
-      attr_reader :cocina
+      attr_reader :cocina, :delimiter
 
       # Create a Form object from Cocina structured data.
       # Delegates to subclasses for specific types.
@@ -24,8 +24,10 @@ module CocinaDisplay
 
       # Create a Form object from Cocina structured data.
       # @param cocina [Hash]
-      def initialize(cocina)
+      # @param delimiter [String] The delimiter to use when flattening for display
+      def initialize(cocina, delimiter: " > ")
         @cocina = cocina
+        @delimiter = delimiter
       end
 
       # The value to use for display.
@@ -37,7 +39,7 @@ module CocinaDisplay
       # Single concatenated string value for the form.
       # @return [String]
       def flat_value
-        Utils.compact_and_join(values, delimiter: " > ")
+        Utils.compact_and_join(values, delimiter: delimiter)
       end
 
       # The raw values from the Cocina data, flattened if nested.
