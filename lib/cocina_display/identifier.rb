@@ -57,7 +57,7 @@ module CocinaDisplay
     # The type of the identifier, e.g. "DOI".
     # @return [String, nil]
     def type
-      ("DOI" if doi?) || cocina["type"].presence
+      ("DOI" if doi?) || ("ORCID" if orcid_uri?) || cocina["type"].presence
     end
 
     # The declared encoding of the identifier, if any.
@@ -96,6 +96,13 @@ module CocinaDisplay
     # @return [String, nil]
     def label_key
       type&.parameterize&.underscore
+    end
+
+    # Identifer is an ORCID if the URI contains "orcid.org".
+    # (in other cases this is indicated by type)
+    # @return [Boolean]
+    def orcid_uri?
+      cocina["uri"]&.include?("orcid.org")
     end
   end
 end
