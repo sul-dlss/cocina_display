@@ -600,5 +600,21 @@ RSpec.describe CocinaDisplay::Contributors::Contributor do
 
       it { is_expected.to eq([CocinaDisplay::Identifier.new({"type" => "ORCID", "id" => "0000-0002-1825-0097"})]) }
     end
+
+    context "with an ORCID identifier without a type" do
+      let(:cocina) do
+        {
+          "type" => "person",
+          "name" => [
+            {"value" => "John Doe"}
+          ],
+          "identifier" => [
+            {"uri" => "https://orcid.org/0000-0002-1825-0097"}
+          ]
+        }
+      end
+
+      it { is_expected.to eq([CocinaDisplay::Identifier.new({"uri" => "https://orcid.org/0000-0002-1825-0097"})]) }
+    end
   end
 end

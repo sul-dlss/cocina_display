@@ -83,6 +83,36 @@ RSpec.describe CocinaDisplay::Identifier do
     it { is_expected.not_to be_doi }
   end
 
+  context "with an ORCID (without type)" do
+    let(:cocina) do
+      {
+        "uri" => "https://orcid.org/0000-0001-5028-5161"
+      }
+    end
+
+    it "has a uri" do
+      expect(subject.uri).to eq("https://orcid.org/0000-0001-5028-5161")
+    end
+
+    it "uses the uri for display" do
+      expect(subject.to_s).to eq("https://orcid.org/0000-0001-5028-5161")
+    end
+
+    it "parses the identifier from the uri" do
+      expect(subject.identifier).to eq("0000-0001-5028-5161")
+    end
+
+    it "has a type of ORCID" do
+      expect(subject.type).to eq("ORCID")
+    end
+
+    it "has a specific label" do
+      expect(subject.label).to eq("ORCID")
+    end
+
+    it { is_expected.not_to be_doi }
+  end
+
   context "with an ORCID (without URI)" do
     let(:cocina) do
       {
