@@ -42,6 +42,48 @@ RSpec.describe CocinaDisplay::CocinaRecord do
       end
     end
 
+    context "with LC resource types" do
+      let(:forms) do
+        [
+          {"value" => "Dataset", "type" => "resource type", "source" => {"value" => "LC resource types"}},
+          {"value" => "Digital", "type" => "resource type", "source" => {"value" => "LC resource types"}},
+          {"value" => "Multimedia", "type" => "resource type", "source" => {"value" => "LC resource types"}},
+          {"value" => "Audio", "type" => "resource type", "source" => {"value" => "LC resource types"}},
+          {"value" => "Artifact", "type" => "resource type", "source" => {"value" => "LC resource types"}},
+          {"value" => "Tactile", "type" => "resource type", "source" => {"value" => "LC resource types"}}
+        ]
+      end
+
+      it "maps and deduplicates the values" do
+        is_expected.to eq(["Dataset", "Software/Multimedia", "Sound recording", "Object"])
+      end
+
+      context "with a digital resource that is also a moving image" do
+        let(:forms) do
+          [
+            {"value" => "Digital", "type" => "resource type", "source" => {"value" => "LC resource types"}},
+            {"value" => "Moving image", "type" => "resource type", "source" => {"value" => "LC resource types"}}
+          ]
+        end
+
+        it "does not map to Software/Multimedia" do
+          is_expected.to eq(["Video/Film"])
+        end
+      end
+
+      context "with a digital resource that has no other resource types" do
+        let(:forms) do
+          [
+            {"value" => "Digital", "type" => "resource type", "source" => {"value" => "LC resource types"}}
+          ]
+        end
+
+        it "maps to Software/Multimedia" do
+          is_expected.to eq(["Software/Multimedia"])
+        end
+      end
+    end
+
     context "with a periodical" do
       let(:events) do
         [
