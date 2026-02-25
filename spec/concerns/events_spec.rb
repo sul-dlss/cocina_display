@@ -790,4 +790,55 @@ RSpec.describe CocinaDisplay::CocinaRecord do
       )
     end
   end
+
+  describe "#publication_display_data" do
+    let(:cocina_json) do
+      {
+        "description" => {
+          "event" => [
+            {
+              "date" => [
+                {"value" => "[192-?]-[193-?]", "type" => "publication"}
+              ],
+              "location" => [
+                {"value" => "London"}
+              ],
+              "contributor" => [
+                {
+                  "name" => [
+                    {"value" => "H.M. Stationery Off."}
+                  ],
+                  "role" => [
+                    {
+                      "value" => "publisher",
+                      "code" => "pbl",
+                      "uri" => "http://id.loc.gov/vocabulary/relators/pbl",
+                      "source" => {
+                        "code" => "marcrelator",
+                        "uri" => "http://id.loc.gov/vocabulary/relators/"
+                      }
+                    }
+                  ],
+                  "type" => "organization"
+                }
+              ]
+            }
+          ]
+        }
+      }.to_json
+    end
+
+    subject { record.publication_display_data }
+
+    it "returns DisplayData for publication place and publisher name" do
+      expect(subject).to contain_exactly(
+        be_a(CocinaDisplay::DisplayData).and(
+          have_attributes(label: "Place", values: ["London"])
+        ),
+        be_a(CocinaDisplay::DisplayData).and(
+          have_attributes(label: "Publisher", values: ["H.M. Stationery Off."])
+        )
+      )
+    end
+  end
 end

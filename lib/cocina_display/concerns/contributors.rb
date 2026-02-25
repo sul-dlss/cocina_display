@@ -88,6 +88,7 @@ module CocinaDisplay
 
       # DisplayData for Contributors, one per role (excluding publisher).
       # Contributors with no role are grouped under a default heading.
+      # @note For displaying publisher information, use {publication_display_data}.
       # @return [Array<DisplayData>]
       def contributor_display_data
         contributors_by_role.except("publisher").map do |role, contributors|
