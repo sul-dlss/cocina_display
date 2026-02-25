@@ -9,6 +9,7 @@ module CocinaDisplay
       def searchworks_resource_types
         mapped_values = resource_type_values.flat_map { |resource_type| searchworks_resource_type(resource_type) }
         mapped_values << "Dataset" if dataset?
+        mapped_values << "Software/Multimedia" if digital_only?
         mapped_values.uniq
       end
 
@@ -187,13 +188,21 @@ module CocinaDisplay
 
       private
 
-      # Map a resource type to SearchWorks format value(s).
+      # Is the object a digital resource without a more specific resource type?
+      # @return [Boolean]
+      def digital_only?
+        resource_type_values.all?("digital")
+      end
+
+      # Map a MODS or LC resource type to SearchWorks format value(s).
       # @param resource_type [String] The resource type to map.
       # @return [Array<String>]
       def searchworks_resource_type(resource_type)
         values = []
 
         case resource_type
+        when "dataset"
+          values << "Dataset"
         when "cartographic"
           values << "Map"
         when "manuscript", "mixed material"
@@ -202,10 +211,10 @@ module CocinaDisplay
           values << "Video/Film"
         when "notated music"
           values << "Music score"
-        when "software, multimedia"
+        when "software, multimedia", "multimedia"
           # Prevent GIS datasets from being labeled as "Software"
           values << "Software/Multimedia" unless cartographic? || dataset?
-        when "sound recording-musical", "sound recording-nonmusical", "sound recording"
+        when "sound recording-musical", "sound recording-nonmusical", "sound recording", "audio"
           values << "Sound recording"
         when "still image"
           values << "Image"
@@ -219,7 +228,7 @@ module CocinaDisplay
           else
             values << "Book"
           end
-        when "three dimensional object"
+        when "three dimensional object", "artifact", "tactile"
           values << "Object"
         end
 
