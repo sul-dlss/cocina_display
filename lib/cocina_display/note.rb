@@ -8,24 +8,35 @@ module CocinaDisplay
     TOC_TYPES = ["table of contents"].freeze
     TOC_DISPLAY_LABEL_REGEX = /Table of contents/i
 
-    attr_reader :cocina
+    attr_reader :cocina, :delimiter
 
     # Initialize a Note from Cocina structured data.
     # @param cocina [Hash]
-    def initialize(cocina)
+    # @param delimiter [String] Delimiter to use when joining for display.
+    def initialize(cocina, delimiter: " -- ")
       @cocina = cocina
+      @delimiter = delimiter
     end
 
-    # String representation of the note.
+    # The value to use for display.
     # @return [String, nil]
     def to_s
-      Utils.compact_and_join(values, delimiter: " -- ").presence
+      flat_value
+    end
+
+    # Single concatenated string value for the note.
+    # @return [String, nil]
+    def flat_value
+      Utils.compact_and_join(values, delimiter: delimiter).presence
     end
 
     # The raw values from the Cocina data, flattened if nested.
-    # @return [String]
+    # Strips excess whitespace and the delimiter if present.
+    # @return [Array<String>]
     def values
-      Utils.flatten_nested_values(cocina).pluck("value").compact_blank
+      Utils.flatten_nested_values(cocina).pluck("value")
+        .map { |value| value.gsub(delimiter.strip, "").strip }
+        .compact_blank
     end
 
     # The raw values from the Cocina data as a hash with type as key.
