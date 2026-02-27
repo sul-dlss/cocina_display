@@ -243,4 +243,44 @@ RSpec.describe CocinaDisplay::Note do
       end
     end
   end
+
+  describe "#values" do
+    context "with a TOC with delimiters in the values" do
+      # from druid:bm971cx9348
+      let(:note) do
+        {
+          "structuredValue" => [
+            {"value" => "-- pt.2. Abergavenny"},
+            {"value" => "-- pt.5. Merthyr Tydfil --"}
+          ],
+          "type" => "table of contents",
+          "displayLabel" => "Incomplete contents"
+        }
+      end
+
+      it "returns the values with delimiters stripped out" do
+        expect(subject.values).to eq ["pt.2. Abergavenny", "pt.5. Merthyr Tydfil"]
+      end
+    end
+  end
+
+  describe "#flat_value" do
+    context "with a TOC with delimiters in the values" do
+      # from druid:bm971cx9348
+      let(:note) do
+        {
+          "structuredValue" => [
+            {"value" => "-- pt.2. Abergavenny"},
+            {"value" => "-- pt.5. Merthyr Tydfil --"}
+          ],
+          "type" => "table of contents",
+          "displayLabel" => "Incomplete contents"
+        }
+      end
+
+      it "returns the values joined with delimiter" do
+        expect(subject.flat_value).to eq "pt.2. Abergavenny -- pt.5. Merthyr Tydfil"
+      end
+    end
+  end
 end
