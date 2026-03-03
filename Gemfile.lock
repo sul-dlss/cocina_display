@@ -6,6 +6,7 @@ PATH
       edtf (~> 3.2)
       geo_coord (~> 0.2)
       i18n
+      iso8601 (~> 0.13.0)
       janeway-jsonpath (~> 0.6)
       zeitwerk (~> 2.7)
 
@@ -60,6 +61,7 @@ GEM
       pp (>= 0.6.0)
       rdoc (>= 4.0.0)
       reline (>= 0.4.2)
+    iso8601 (0.13.0)
     janeway-jsonpath (0.6.0)
     json (2.18.0)
     language_server-protocol (3.17.0.5)
