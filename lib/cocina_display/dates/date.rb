@@ -1,4 +1,5 @@
 require "edtf"
+require "iso8601"
 
 require "active_support"
 require "active_support/core_ext/object/blank"
@@ -486,11 +487,48 @@ module CocinaDisplay
 
     # Strict ISO8601-encoded date parser.
     class Iso8601Format < Date
+      def self.normalize_to_edtf(value)
+        # Remove time component if there is one
+        value = value.split("T").first if value.include?("T")
+
+        # Datetime without "T" was valid until 2019, but iso8601 gem rejects it.
+        # YYYYMMDD is valid but EDTF needs dashes to parse it.
+        if /^\d{14}$/.match?(value) || /^\d{8}$/.match?(value)
+          "#{value[0..3]}-#{value[4..5]}-#{value[6..7]}"
+        else
+          super
+        end
+      end
+
       def self.parse_date(value)
-        ::Date.parse(normalize_to_edtf(value))
-      rescue ::Date::Error
-        notifier&.notify("Invalid date value \"#{value}\" for iso8601 encoding")
-        nil
+        value = normalize_to_edtf(value)
+
+        # Bail out if ISO8601 gem doesn't validate it
+        begin
+          date = ISO8601::Date.new(value)
+        rescue ISO8601::Errors::UnknownPattern
+          notifier&.notify("Invalid date value \"#{value}\" for iso8601 encoding")
+          return nil
+        end
+
+        case value
+        # Calendar dates already match EDTF format
+        when /^\d{4}-\d{2}-\d{2}$/, /^\d{4}-\d{2}$/, /^\d{4}$/
+          super
+        # Weeks with no day become a 7-day range
+        when /^\d{4}-W\d{2}$/, /^\d{4}W\d{2}$/
+          week_end = date + 6
+          ::Date.edtf("#{date}/#{week_end}")
+        # Weeks with day become a single day
+        when /^\d{4}-W\d{2}-\d$/, /^\d{4}W\d{3}$/
+          ::Date.edtf(date.to_s)
+        # Ordinal dates become a single day
+        when /^\d{4}-\d{3}$/, /^\d{7}$/
+          ::Date.edtf(date.to_s)
+        else
+          notifier&.notify("Unhandled date value \"#{value}\" for iso8601 encoding")
+          nil
+        end
       end
     end
 

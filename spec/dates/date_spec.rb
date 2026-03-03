@@ -474,7 +474,16 @@ RSpec.describe CocinaDisplay::Dates::Date do
 
   describe "ISO8601 encoded dates" do
     {
-      "20131114161429" => Date.parse("20131114161429")..Date.parse("20131114161429")
+      "2026-03-02T21:38:27Z" => Date.parse("2026-03-02")..Date.parse("2026-03-02"),
+      "20131114161429" => Date.parse("2013-11-14")..Date.parse("2013-11-14"), # was valid until 2019
+      "2013-08-10" => Date.parse("2013-08-10")..Date.parse("2013-08-10"),
+      "20130702" => Date.parse("2013-07-02")..Date.parse("2013-07-02"),
+      "1981-095" => Date.parse("1981-04-05")..Date.parse("1981-04-05"), # ordinal date
+      "1981-W01" => Date.parse("1980-12-29")..Date.parse("1981-01-04"), # week date
+      "1981W013" => Date.parse("1980-12-31")..Date.parse("1980-12-31"), # week date with day
+      "2013-08" => Date.parse("2013-08-01")..Date.parse("2013-08-31"),
+      "2013" => Date.parse("2013-01-01")..Date.parse("2013-12-31"),
+      "198103" => nil # not valid per the spec, YYYY-MM requires a hyphen
     }.each do |data, expected|
       describe "with #{data}" do
         let(:cocina) { {"value" => data, "encoding" => {"code" => "iso8601"}} }
