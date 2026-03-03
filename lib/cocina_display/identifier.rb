@@ -80,7 +80,7 @@ module CocinaDisplay
     # @return [String]
     def label
       cocina["displayLabel"].presence ||
-        I18n.t(label_key, default: :identifier, scope: "cocina_display.field_label.identifier")
+        I18n.t(label_key, default: default_label, scope: "cocina_display.field_label.identifier")
     end
 
     # Check if the identifier is a DOI.
@@ -91,6 +91,12 @@ module CocinaDisplay
     end
 
     private
+
+    # Default label for an identifier, based on its type.
+    # @return [String]
+    def default_label
+      type&.capitalize || :identifier
+    end
 
     # Key used for i18n lookup of the label, based on the type.
     # @return [String, nil]
