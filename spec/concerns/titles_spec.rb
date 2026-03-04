@@ -660,4 +660,52 @@ RSpec.describe CocinaDisplay::CocinaRecord do
       end
     end
   end
+
+  # druid:bb324rr4848
+  context "with a primary title and untyped title" do
+    let(:titles) do
+      [
+        {
+          "value" => "Response to Request for VTC Testimony: Request for Reclassification of Ex Parte Filing",
+          "status" => "primary"
+        },
+        {
+          "value" => "F0226_PUBLIC_AmicusPros_Resp_Req_for_VTC_Test_Req_Reclass_EN_RECLASSIFIED_Web"
+        }
+      ]
+    end
+
+    describe "#title_display_data" do
+      subject do
+        described_class.new(cocina_doc).title_display_data(exclude_primary: exclude_primary).each_with_object({}) do |display_data, output|
+          output[display_data.label] = display_data.values
+        end
+      end
+
+      context "with exclude_primary: false (default)" do
+        let(:exclude_primary) { false }
+
+        it do
+          is_expected.to eq(
+            "Title" => [
+              "Response to Request for VTC Testimony: Request for Reclassification of Ex Parte Filing",
+              "F0226_PUBLIC_AmicusPros_Resp_Req_for_VTC_Test_Req_Reclass_EN_RECLASSIFIED_Web"
+            ]
+          )
+        end
+      end
+
+      context "with exclude_primary: true" do
+        let(:exclude_primary) { true }
+
+        it do
+          is_expected.to eq(
+            "Title" => [
+              "F0226_PUBLIC_AmicusPros_Resp_Req_for_VTC_Test_Req_Reclass_EN_RECLASSIFIED_Web"
+            ]
+          )
+        end
+      end
+    end
+  end
 end
