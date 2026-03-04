@@ -29,8 +29,8 @@ RSpec.describe CocinaDisplay::Identifier do
       expect(subject.uri).to be_nil
     end
 
-    it "has a generic label" do
-      expect(subject.label).to eq("Identifier")
+    it "has a label" do
+      expect(subject.label).to eq("Local identifier")
     end
 
     it { is_expected.not_to be_doi }

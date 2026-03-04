@@ -26,26 +26,20 @@ en:
         note: Note
         resource_type: Resource Type
       identifier:
-        doi: DOI
-        handle: Handle
         identifier: Identifier
+        local: Local identifier
+        other: Other identifier
+        doi: DOI
         isbn: ISBN
         ismn: ISMN
         isrc: ISRC
         issn: ISSN
         issn_l: ISSN
-        issue_number: Issue number
-        language: Language
         lccn: LCCN
-        matrix_number: Matrix number
-        music_plate: Music plate
-        music_publisher: Music publisher
         oclc: OCLC
         orcid: ORCID
         sici: SICI
-        stock_number: Stock number
         upc: UPC
-        videorecording_identifier: Videorecording identifier
       language: Language
       license: License
       note:

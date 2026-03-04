@@ -256,7 +256,7 @@ RSpec.describe CocinaDisplay::CocinaRecord do
         {
           "DOI" => ["https://doi.org/10.25740/ppax-bf07", "https://doi.org/10.25740/sb4q-wj06", "https://doi.org/identification-doi"],
           "ISBN" => ["978-0-061-96436-7"],
-          "Identifier" => ["other-id-123", "other-id-456"],
+          "Other identifier" => ["other-id-123", "other-id-456"],
           "Custom label" => ["custom-id-123"]
         }
       )
