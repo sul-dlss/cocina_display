@@ -35,7 +35,7 @@ module CocinaDisplay
     # @return [Array<String>]
     def values
       Utils.flatten_nested_values(cocina).pluck("value")
-        .map { |value| value.gsub(delimiter.strip, "").strip }
+        .map { |value| cleaned_value(value) }
         .compact_blank
     end
 
@@ -45,7 +45,7 @@ module CocinaDisplay
       Utils.flatten_nested_values(cocina).each_with_object({}) do |node, hash|
         type = node["type"]
         hash[type] ||= []
-        hash[type] << node["value"]
+        hash[type] << cleaned_value(node["value"])
       end
     end
 
@@ -109,6 +109,15 @@ module CocinaDisplay
 
     def default_label
       type&.capitalize || I18n.t("cocina_display.field_label.note.note")
+    end
+
+    # Remove the delimiter from the ends of the value and strip whitespace.
+    # @param value [String]
+    # @return [String]
+    def cleaned_value(value)
+      value.gsub(/\s*#{Regexp.escape(delimiter.strip)}\s*$/, " ")
+        .gsub(/^\s*#{Regexp.escape(delimiter.strip)}\s*/, " ")
+        .strip
     end
   end
 end

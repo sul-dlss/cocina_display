@@ -33,6 +33,16 @@ RSpec.describe CocinaDisplay::Note do
         expect(subject.to_s).to eq "A note about a thing. -- Another note about a thing."
       end
     end
+
+    context "with a value that has a delimiter inside it, but not at the end" do
+      let(:note) do
+        {"value" => "A note about a thing. -- With a delimiter."}
+      end
+
+      it "leaves the delimiter alone" do
+        expect(subject.to_s).to eq "A note about a thing. -- With a delimiter."
+      end
+    end
   end
 
   describe "#type" do
