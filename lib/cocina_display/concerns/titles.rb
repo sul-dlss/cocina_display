@@ -44,8 +44,9 @@ module CocinaDisplay
       # All {Title} objects, grouped by their label for display.
       # @note All primary titles are included under "Title", not just the first.
       # @return [Array<DisplayData>]
-      def title_display_data
-        DisplayData.from_objects(all_titles)
+      # @param exclude_primary [Boolean] Exclude primary titles. Defaults to false.
+      def title_display_data(exclude_primary: false)
+        DisplayData.from_objects(exclude_primary ? secondary_titles : all_titles)
       end
 
       # The first title marked primary, or the first without a type.
