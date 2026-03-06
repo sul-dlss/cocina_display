@@ -8,14 +8,12 @@ module CocinaDisplay
     TOC_TYPES = ["table of contents"].freeze
     TOC_DISPLAY_LABEL_REGEX = /Table of contents/i
 
-    attr_reader :cocina, :delimiter
+    attr_reader :cocina
 
     # Initialize a Note from Cocina structured data.
     # @param cocina [Hash]
-    # @param delimiter [String] Delimiter to use when joining for display.
-    def initialize(cocina, delimiter: " -- ")
+    def initialize(cocina)
       @cocina = cocina
-      @delimiter = delimiter
     end
 
     # The value to use for display.
@@ -24,28 +22,47 @@ module CocinaDisplay
       flat_value
     end
 
+    # Delimiter used to join multiple values for display.
+    # @return [String, nil]
+    def delimiter
+      " -- " if table_of_contents?
+    end
+
+    # Does this note use a delimiter?
+    # @return [Boolean]
+    def delimited?
+      delimiter.present?
+    end
+
     # Single concatenated string value for the note.
     # @return [String, nil]
     def flat_value
-      Utils.compact_and_join(values, delimiter: delimiter).presence
+      Utils.compact_and_join(values, delimiter: delimiter || "").presence
     end
 
     # The raw values from the Cocina data, flattened if nested.
     # Strips excess whitespace and the delimiter if present.
+    # Splits on the delimiter if it was already included in the values(s).
     # @return [Array<String>]
     def values
       Utils.flatten_nested_values(cocina).pluck("value")
         .map { |value| cleaned_value(value) }
+        .flat_map { |value| delimited? ? value.split(delimiter.strip) : [value] }
         .compact_blank
     end
 
     # The raw values from the Cocina data as a hash with type as key.
-    # @return [Hash{String => String}]
+    # Strips excess whitespace and the delimiter if present.
+    # Splits on the delimiter if it was already included in the values(s).
+    # @return [Hash{String => Array<String>}]
     def values_by_type
       Utils.flatten_nested_values(cocina).each_with_object({}) do |node, hash|
-        type = node["type"]
-        hash[type] ||= []
-        hash[type] << cleaned_value(node["value"])
+        value = cleaned_value(node["value"])
+        (delimited? ? value.split(delimiter.strip) : [value]).each do |part|
+          type = node["type"]
+          hash[type] ||= []
+          hash[type] << part
+        end
       end
     end
 
@@ -115,6 +132,8 @@ module CocinaDisplay
     # @param value [String]
     # @return [String]
     def cleaned_value(value)
+      return value.strip unless delimited?
+
       value.gsub(/\s*#{Regexp.escape(delimiter.strip)}\s*$/, " ")
         .gsub(/^\s*#{Regexp.escape(delimiter.strip)}\s*/, " ")
         .strip
