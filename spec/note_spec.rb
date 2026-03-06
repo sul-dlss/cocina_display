@@ -30,7 +30,17 @@ RSpec.describe CocinaDisplay::Note do
       end
 
       it "returns the concatenated values" do
-        expect(subject.to_s).to eq "A note about a thing. -- Another note about a thing."
+        expect(subject.to_s).to eq "A note about a thing. Another note about a thing."
+      end
+    end
+
+    context "with a structuredValue when the note is a table of contents" do
+      let(:note) do
+        {"structuredValue" => [{"value" => "pt.1. A note about a thing."}, {"value" => "pt.2. Another note about a thing."}], "type" => "table of contents"}
+      end
+
+      it "returns the concatenated values with delimiter" do
+        expect(subject.to_s).to eq "pt.1. A note about a thing. -- pt.2. Another note about a thing."
       end
     end
 
@@ -255,6 +265,20 @@ RSpec.describe CocinaDisplay::Note do
   end
 
   describe "#values" do
+    context "with a non-TOC note" do
+      # from druid:gx074xz5520
+      let(:note) do
+        {
+          "value" => "Stanford University. Cabinet, Stanford University--Administration.",
+          "type" => "preferred citation"
+        }
+      end
+
+      it "leaves the values unchanged" do
+        expect(subject.values).to eq ["Stanford University. Cabinet, Stanford University--Administration."]
+      end
+    end
+
     context "with a TOC with delimiters in the values" do
       # from druid:bm971cx9348
       let(:note) do
@@ -272,9 +296,53 @@ RSpec.describe CocinaDisplay::Note do
         expect(subject.values).to eq ["pt.2. Abergavenny", "pt.5. Merthyr Tydfil"]
       end
     end
+
+    context "with a TOC with delimiters in a single value" do
+      # from druid:sw284bk0647
+      let(:note) do
+        {
+          "type" => "table of contents",
+          # rubocop:disable Layout/LineLength
+          "value" => "Progress: its law and cause.--Manners and fashion.--The genesis of science.--The physiology of laughter.--The origin and function of music.--The nebular hypothesis.--Bain on the emotions and the will.--Illogical geology.--The development hypothesis.--The social organism.--Use and beauty.--The sources of architectural types.--The use of anthropomorphism."
+          # rubocop:enable Layout/LineLength
+        }
+      end
+
+      it "returns the values split on the delimiter" do
+        expect(subject.values).to eq [
+          "Progress: its law and cause.",
+          "Manners and fashion.",
+          "The genesis of science.",
+          "The physiology of laughter.",
+          "The origin and function of music.",
+          "The nebular hypothesis.",
+          "Bain on the emotions and the will.",
+          "Illogical geology.",
+          "The development hypothesis.",
+          "The social organism.",
+          "Use and beauty.",
+          "The sources of architectural types.",
+          "The use of anthropomorphism."
+        ]
+      end
+    end
   end
 
   describe "#flat_value" do
+    context "with a non-TOC note" do
+      # from druid:gx074xz5520
+      let(:note) do
+        {
+          "value" => "Stanford University. Cabinet, Stanford University--Administration.",
+          "type" => "preferred citation"
+        }
+      end
+
+      it "leaves the value unchanged" do
+        expect(subject.flat_value).to eq "Stanford University. Cabinet, Stanford University--Administration."
+      end
+    end
+
     context "with a TOC with delimiters in the values" do
       # from druid:bm971cx9348
       let(:note) do
@@ -290,6 +358,24 @@ RSpec.describe CocinaDisplay::Note do
 
       it "returns the values joined with delimiter" do
         expect(subject.flat_value).to eq "pt.2. Abergavenny -- pt.5. Merthyr Tydfil"
+      end
+    end
+
+    context "with a TOC with delimiters in a single value" do
+      # from druid:sw284bk0647
+      let(:note) do
+        {
+          "type" => "table of contents",
+          # rubocop:disable Layout/LineLength
+          "value" => "Progress: its law and cause.--Manners and fashion.--The genesis of science.--The physiology of laughter.--The origin and function of music.--The nebular hypothesis.--Bain on the emotions and the will.--Illogical geology.--The development hypothesis.--The social organism.--Use and beauty.--The sources of architectural types.--The use of anthropomorphism."
+          # rubocop:enable Layout/LineLength
+        }
+      end
+
+      it "re-joins using the delimiter" do
+        # rubocop:disable Layout/LineLength
+        expect(subject.flat_value).to eq "Progress: its law and cause. -- Manners and fashion. -- The genesis of science. -- The physiology of laughter. -- The origin and function of music. -- The nebular hypothesis. -- Bain on the emotions and the will. -- Illogical geology. -- The development hypothesis. -- The social organism. -- Use and beauty. -- The sources of architectural types. -- The use of anthropomorphism."
+        # rubocop:enable Layout/LineLength
       end
     end
   end
