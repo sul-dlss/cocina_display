@@ -33,7 +33,7 @@ module CocinaDisplay
     # Prefers the URI representation where present.
     # @return [String, nil]
     def value
-      cocina["uri"].presence || cocina["value"].presence
+      cocina["uri"] || cocina["value"]
     end
 
     # The "identifying" part of the identifier.
@@ -42,7 +42,18 @@ module CocinaDisplay
     #   10.1234/doi
     # @return [String, nil]
     def identifier
-      URI(value).path.delete_prefix("/") if value
+      # the uri property is a valid uri, but the value isn't necessarily a valid uri
+      uri = if cocina["uri"]
+        URI(cocina["uri"])
+      elsif cocina["value"]
+        begin
+          URI(cocina["value"])
+        rescue URI::InvalidURIError
+          nil
+        end
+      end
+
+      uri&.path&.delete_prefix("/")
     end
 
     # The identifier as a URI, if available.
