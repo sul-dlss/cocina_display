@@ -52,6 +52,19 @@ RSpec.describe CocinaDisplay::Identifier do
     it { is_expected.not_to be_doi }
   end
 
+  context "with a value that is not a valid URI" do
+    let(:cocina) do
+      {
+        "type" => "local",
+        "value" => "local 123"
+      }
+    end
+
+    it "has no identifier value" do
+      expect(subject.identifier).to be_nil
+    end
+  end
+
   context "with an ORCID (with URI)" do
     let(:cocina) do
       {
