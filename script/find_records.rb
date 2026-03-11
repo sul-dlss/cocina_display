@@ -28,7 +28,7 @@ RELEASE_TARGET = "Searchworks"
 
 # Modify this expression to match the JSON path you want to search, or just
 # modify the `examine_record` method directly.
-PATH_EXPR = "$..[?length(@.groupedValue) > 0]"
+PATH_EXPR = "$..[? @.type == 'parallel' ]"
 
 # Modify this method as needed to change what you're looking for in each record.
 # It takes a CocinaRecord object and should return an array of [path, result] pairs.

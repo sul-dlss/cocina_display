@@ -78,11 +78,8 @@ RSpec.describe CocinaDisplay::CocinaRecord do
     end
 
     describe "#title_display_data" do
-      subject do
-        described_class.new(cocina_doc).title_display_data.each_with_object({}) do |display_data, output|
-          output[display_data.label] = display_data.values
-        end
-      end
+      subject { CocinaDisplay::DisplayData.to_hash(described_class.new(cocina_doc).title_display_data) }
+
       it { is_expected.to eq "Title" => ["2010 Machine Learning Data Set for NASA's Solar Dynamics Observatory - Atmospheric Imaging Assembly"] }
     end
   end
@@ -126,11 +123,8 @@ RSpec.describe CocinaDisplay::CocinaRecord do
     end
 
     describe "#title_display_data" do
-      subject do
-        described_class.new(cocina_doc).title_display_data.each_with_object({}) do |display_data, output|
-          output[display_data.label] = display_data.values
-        end
-      end
+      subject { CocinaDisplay::DisplayData.to_hash(described_class.new(cocina_doc).title_display_data) }
+
       it { is_expected.to eq "Title" => ["M. de Courville : [estampe]"] }
     end
   end
@@ -178,11 +172,8 @@ RSpec.describe CocinaDisplay::CocinaRecord do
     end
 
     describe "#title_display_data" do
-      subject do
-        described_class.new(cocina_doc).title_display_data.each_with_object({}) do |display_data, output|
-          output[display_data.label] = display_data.values
-        end
-      end
+      subject { CocinaDisplay::DisplayData.to_hash(described_class.new(cocina_doc).title_display_data) }
+
       it { is_expected.to eq "Title" => ["The Ingersoll-Gladstone controversy on Christianity : two articles from the North American review"] }
     end
   end
@@ -251,11 +242,8 @@ RSpec.describe CocinaDisplay::CocinaRecord do
     end
 
     describe "#title_display_data" do
-      subject do
-        described_class.new(cocina_doc).title_display_data.each_with_object({}) do |display_data, output|
-          output[display_data.label] = display_data.values
-        end
-      end
+      subject { CocinaDisplay::DisplayData.to_hash(described_class.new(cocina_doc).title_display_data) }
+
       it { is_expected.to eq "Title" => ["Oral history interview with anonymous, white, female, SNCC volunteer, 0405 (sides 1 and 2), Laurel, Mississippi. 0405"] }
     end
   end
@@ -294,7 +282,7 @@ RSpec.describe CocinaDisplay::CocinaRecord do
 
     describe "#short_title" do
       subject { described_class.new(cocina_doc).short_title }
-      it { is_expected.to eq "Teshuvot she'ilot" } # first parallel of primary (first untyped) title
+      it { is_expected.to eq "Teshuvot she'ilot" } # main value of primary (first untyped) title
     end
 
     describe "#full_title" do
@@ -317,19 +305,15 @@ RSpec.describe CocinaDisplay::CocinaRecord do
       it do
         is_expected.to eq [
           "תשובות שאילות", # parallel of primary title
-          "Teshuvot ha-Rashba ha-meyuḥasot leha-Ramban", # first parallel of alternative title
-          "תשובות הרשב׳׳א המיוחסות להרמב׳׳ן", # second parallel of alternative title
+          "Teshuvot ha-Rashba ha-meyuḥasot leha-Ramban", # transliterated alternative title
+          "תשובות הרשב׳׳א המיוחסות להרמב׳׳ן", # alternative title
           "Adret, Solomon ben Abraham, 1235-1310. Teshuvot sheʼelot" # uniform title with name
         ]
       end
     end
 
     describe "#title_display_data" do
-      subject do
-        described_class.new(cocina_doc).title_display_data.each_with_object({}) do |display_data, output|
-          output[display_data.label] = display_data.values
-        end
-      end
+      subject { CocinaDisplay::DisplayData.to_hash(described_class.new(cocina_doc).title_display_data) }
 
       it do
         is_expected.to eq(
@@ -413,9 +397,9 @@ RSpec.describe CocinaDisplay::CocinaRecord do
       subject { described_class.new(cocina_doc).additional_titles }
       it do
         is_expected.to eq [
-          "ha-Yeled ḥalom : maḥazeh be-arbaʻah ḥalaḳim", # transliterated
+          "ha-Yeled ḥalom : maḥazeh be-arbaʻah ḥalaḳim", # alternative, transliterated
           "הילד חלום : מחזה בארבעה חלקים", # alternative
-          "The Child Dreams : play in four parts" # translated
+          "The Child Dreams : play in four parts" # alternative, translated
         ]
       end
     end
@@ -426,9 +410,11 @@ RSpec.describe CocinaDisplay::CocinaRecord do
       it do
         is_expected.to eq(
           "Title" => ["The Child Dreams (1993) revised script"],
-          "Transliterated title" => ["ha-Yeled ḥalom : maḥazeh be-arbaʻah ḥalaḳim"],
-          "Alternative title" => ["הילד חלום : מחזה בארבעה חלקים"],
-          "Translated title" => ["The Child Dreams : play in four parts"]
+          "Alternative title" => [
+            "ha-Yeled ḥalom : maḥazeh be-arbaʻah ḥalaḳim",
+            "הילד חלום : מחזה בארבעה חלקים",
+            "The Child Dreams : play in four parts"
+          ]
         )
       end
     end
@@ -524,11 +510,7 @@ RSpec.describe CocinaDisplay::CocinaRecord do
     end
 
     describe "#title_display_data" do
-      subject do
-        described_class.new(cocina_doc).title_display_data.each_with_object({}) do |display_data, output|
-          output[display_data.label] = display_data.values
-        end
-      end
+      subject { CocinaDisplay::DisplayData.to_hash(described_class.new(cocina_doc).title_display_data) }
 
       it do
         is_expected.to eq(
@@ -591,11 +573,7 @@ RSpec.describe CocinaDisplay::CocinaRecord do
     end
 
     describe "#title_display_data" do
-      subject do
-        described_class.new(cocina_doc).title_display_data.each_with_object({}) do |display_data, output|
-          output[display_data.label] = display_data.values
-        end
-      end
+      subject { CocinaDisplay::DisplayData.to_hash(described_class.new(cocina_doc).title_display_data) }
 
       it do
         is_expected.to eq(
