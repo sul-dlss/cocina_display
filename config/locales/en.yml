@@ -16,6 +16,8 @@ en:
           default: Imprint note
           edition: Edition
           issuance: Issuance
+          frequency: Frequency
+          copyright_statement: Copyright statement
       form:
         digital_origin: Digital origin
         extent: Extent
