@@ -123,6 +123,12 @@ module CocinaDisplay
         @event_dates ||= events.flat_map(&:dates)
       end
 
+      # DisplayData for all events associated with the object.
+      # @return [Array<CocinaDisplay::DisplayData>]
+      def event_display_data
+        CocinaDisplay::DisplayData.from_objects(events)
+      end
+
       # DisplayData for all notes associated with events.
       # @return [Array<CocinaDisplay::DisplayData>]
       def event_note_display_data
