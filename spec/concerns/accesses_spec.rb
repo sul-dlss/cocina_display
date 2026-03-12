@@ -51,7 +51,7 @@ RSpec.describe CocinaDisplay::CocinaRecord do
       expect(record.use_and_reproduction_display_data).to contain_exactly(
         be_a(CocinaDisplay::DisplayData).and(have_attributes(
           values: ["Available for use in research, teaching, and private study."],
-          label: "Use and reproduction statement"
+          label: "Use and reproduction"
         ))
       )
     end
