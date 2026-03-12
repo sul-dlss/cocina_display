@@ -55,11 +55,16 @@ module CocinaDisplay
     end
 
     # Nested display data for the related resource.
-    # Combines titles, contributors, notes, and access information.
-    # @note Used for extended display of citations, e.g. on hp566jq8781.
     # @return [Array<DisplayData>]
     def display_data
-      title_display_data + contributor_display_data + general_note_display_data + preferred_citation_display_data + access_display_data + identifier_display_data
+      title_display_data +
+        contributor_display_data +
+        event_date_display_data +
+        event_note_display_data +
+        general_note_display_data +
+        preferred_citation_display_data +
+        access_display_data +
+        identifier_display_data
     end
 
     private
