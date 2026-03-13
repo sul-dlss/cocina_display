@@ -61,18 +61,19 @@ module CocinaDisplay
       end
 
       # A hash mapping role names to the names of contributors with that role.
+      # Contributors with no role are grouped under a nil key.
       # @param with_date [Boolean] Include life dates, if present
-      # @return [Hash<String, Array<String>>]
+      # @return [Hash<[String,NilClass], Array<String>>]
       def contributor_names_by_role(with_date: false)
-        contributors_by_role(with_date: with_date)
+        contributors_by_role
           .transform_values { |contributor_list| contributor_list.flat_map { |contributor| contributor.display_names(with_date: with_date) }.compact_blank }
           .compact_blank
       end
 
-      # A hash mapping role names to the names of contributors with that role.
-      # @param with_date [Boolean] Include life dates, if present
+      # A hash mapping role names to the Contributor objects with that role.
+      # Contributors with no role are grouped under a nil key.
       # @return [Hash<[String,NilClass], Array<Contributor>>]
-      def contributors_by_role(with_date: false)
+      def contributors_by_role
         @contributors_by_role ||= contributors.each_with_object({}) do |contributor, hash|
           if contributor.roles.empty?
             hash[nil] ||= []

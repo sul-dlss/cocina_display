@@ -530,7 +530,7 @@ RSpec.describe CocinaDisplay::CocinaRecord do
   end
 
   describe "#contributors_by_role" do
-    subject(:result) { record.contributors_by_role(with_date: with_date) }
+    subject(:result) { record.contributors_by_role }
 
     context "with multiple contributors and roles and with date" do
       let(:with_date) { true }
