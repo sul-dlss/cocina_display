@@ -108,11 +108,7 @@ module CocinaDisplay
       # Prefers events where the date was not encoded, if any.
       # @return [Array<CocinaDisplay::Imprint>] The list of Imprint objects
       def imprint_events
-        imprints = events.filter do |event|
-          event.has_any_type?("publication", "creation", "capture", "copyright")
-        end
-
-        imprints.reject(&:date_encoding?).presence || imprints
+        events.filter(&:imprint?)
       end
 
       # All dates associated with the object via an event.

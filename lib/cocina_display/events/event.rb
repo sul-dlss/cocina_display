@@ -11,10 +11,11 @@ module CocinaDisplay
       end
 
       # The display label for the event.
+      # Uses "Imprint" if the event is likely to represent an imprint statement.
       # Capitalizes the event's type, or its first date's type if untyped.
       # @return [String]
       def label
-        cocina["displayLabel"].presence || type&.capitalize || date_types.first&.capitalize || "Event"
+        cocina["displayLabel"].presence || (imprint? ? "Imprint" : type&.capitalize) || date_types.first&.capitalize || "Event"
       end
 
       # The declared type of the event, like "publication" or "creation".
@@ -61,10 +62,11 @@ module CocinaDisplay
         end
       end
 
-      # Were any of the dates encoded?
-      # Used to detect which event(s) most likely represent the actual imprint(s).
-      def date_encoding?
-        dates.any?(&:encoding?)
+      # True if this event is likely to represent an imprint.
+      # @note Unencoded dates often indicate an imprint statement.
+      # @return [Boolean]
+      def imprint?
+        has_any_type?("publication", "creation", "capture", "copyright") && dates.none?(&:encoding?)
       end
 
       # All contributors associated with this event.
@@ -141,7 +143,7 @@ module CocinaDisplay
       # The date portion of the imprint statement, comprising all unique dates.
       # @return [String]
       def date_str
-        Utils.compact_and_join(unique_dates_for_display.map(&:qualified_value), delimiter: "; ")
+        Utils.compact_and_join(unique_dates_for_display.map(&:to_s), delimiter: "; ")
       end
 
       # All notes associated with the event as a single string.
