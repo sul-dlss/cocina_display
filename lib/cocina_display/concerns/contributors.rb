@@ -86,12 +86,11 @@ module CocinaDisplay
         end
       end
 
-      # DisplayData for Contributors, one per role (excluding publisher).
+      # DisplayData for Contributors, one per role.
       # Contributors with no role are grouped under a default heading.
-      # @note For displaying publisher information, use {publication_display_data}.
       # @return [Array<DisplayData>]
       def contributor_display_data
-        contributors_by_role.except("publisher").map do |role, contributors|
+        contributors_by_role.map do |role, contributors|
           label = I18n.t(role, scope: "cocina_display.contributor.role",
             default: role&.capitalize || I18n.t("default", scope: "cocina_display.contributor.role"))
           DisplayData.new(label: label, objects: contributors)

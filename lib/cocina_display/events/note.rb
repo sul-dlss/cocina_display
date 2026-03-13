@@ -10,9 +10,21 @@ module CocinaDisplay
         @cocina = cocina
       end
 
-      # The value of the note.
+      # Contents of the note.
+      # @note Issuance and frequency notes are lowercased for consistency.
       # @return [String, nil]
       def to_s
+        case type
+        when "issuance", "frequency"
+          value&.downcase
+        else
+          value
+        end
+      end
+
+      # The contents of the note.
+      # @return [String, nil]
+      def value
         cocina["value"].presence
       end
 

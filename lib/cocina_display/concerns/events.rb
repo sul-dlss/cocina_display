@@ -123,23 +123,10 @@ module CocinaDisplay
         CocinaDisplay::DisplayData.from_objects(events)
       end
 
-      # DisplayData for all notes associated with events.
+      # DisplayData for issuance, copyright, and other notes associated with events.
       # @return [Array<CocinaDisplay::DisplayData>]
       def event_note_display_data
         CocinaDisplay::DisplayData.from_objects(events.flat_map(&:notes))
-      end
-
-      # DisplayData for all dates associated with events.
-      # @return [Array<CocinaDisplay::DisplayData>]
-      def event_date_display_data
-        CocinaDisplay::DisplayData.from_objects(event_dates)
-      end
-
-      # DisplayData for publisher and publication place.
-      # @return [Array<CocinaDisplay::DisplayData>]
-      def publication_display_data
-        CocinaDisplay::DisplayData.from_strings(publication_places, label: "Place") +
-          CocinaDisplay::DisplayData.from_strings(publisher_names, label: "Publisher")
       end
 
       # The earliest preferred publication date as a CocinaDisplay::Dates::Date object.
