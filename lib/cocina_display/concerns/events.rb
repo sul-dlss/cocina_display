@@ -110,8 +110,6 @@ module CocinaDisplay
       def imprint_events
         imprints = events.filter do |event|
           event.has_any_type?("publication", "creation", "capture", "copyright")
-        end.map do |event|
-          CocinaDisplay::Events::Imprint.new(event.cocina)
         end
 
         imprints.reject(&:date_encoding?).presence || imprints

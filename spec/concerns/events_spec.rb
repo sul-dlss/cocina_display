@@ -841,4 +841,45 @@ RSpec.describe CocinaDisplay::CocinaRecord do
       )
     end
   end
+
+  describe "#event_display_data" do
+    subject { CocinaDisplay::DisplayData.to_hash(record.event_display_data) }
+
+    # adapted from druid:cj555pv1585
+    let(:cocina_json) do
+      {
+        "description" => {
+          "event" => [
+            {
+              "displayLabel" => "Court location and trial date",
+              "date" => [
+                {
+                  "structuredValue" => [
+                    {"value" => "02/06/1946", "type" => "start"},
+                    {"value" => "03/22/1946", "type" => "end"}
+                  ],
+                  "displayLabel" => "Date of case active"
+                }
+              ],
+              "location" => [
+                {
+                  "value" => "Ludwigsberg (Germany)",
+                  "type" => "capture",
+                  "uri" => "http://id.loc.gov/authorities/names/n81058988"
+                }
+              ]
+            }
+          ]
+        }
+      }.to_json
+    end
+
+    it "returns DisplayData using the custom displayLabels" do
+      is_expected.to eq(
+        {
+          "Court location and trial date" => ["Ludwigsberg (Germany), 02/06/1946 - 03/22/1946"]
+        }
+      )
+    end
+  end
 end
