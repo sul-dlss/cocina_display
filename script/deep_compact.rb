@@ -4,6 +4,8 @@
 # blank values to create a more compact representation and write to stdout.
 
 require "json"
+require "active_support"
+require "active_support/core_ext"
 
 require_relative "../lib/cocina_display/utils"
 
