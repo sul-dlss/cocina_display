@@ -611,7 +611,7 @@ RSpec.describe CocinaDisplay::CocinaRecord do
   end
 
   describe "#contributor_display_data" do
-    subject(:result) { record.contributor_display_data }
+    subject(:result) { CocinaDisplay::DisplayData.to_hash(record.contributor_display_data) }
 
     context "with multiple contributors and roles and with date" do
       let(:with_date) { true }
@@ -650,17 +650,15 @@ RSpec.describe CocinaDisplay::CocinaRecord do
           }
         ]
       end
+
       it "returns an array of DisplayValue objects" do
-        expect(result).to contain_exactly(
-          be_a(CocinaDisplay::DisplayData).and(
-            have_attributes(label: "Author", values: ["Doe, John"])
-          ),
-          be_a(CocinaDisplay::DisplayData).and(
-            have_attributes(label: "Editor", values: ["Smith, Jane"])
-          ),
-          be_a(CocinaDisplay::DisplayData).and(
-            have_attributes(label: "Engraver", values: ["Lasinio, Carlo, 1759-1838"])
-          )
+        is_expected.to eq(
+          {
+            "Author" => ["Doe, John"],
+            "Editor" => ["Smith, Jane"],
+            "Publisher" => ["ACME Corp"],
+            "Engraver" => ["Lasinio, Carlo, 1759-1838"]
+          }
         )
       end
     end
@@ -668,7 +666,7 @@ RSpec.describe CocinaDisplay::CocinaRecord do
     context "with no contributors" do
       let(:contributors) { [] }
 
-      it { is_expected.to be_empty }
+      it { is_expected.to be_nil }
     end
 
     context "when contributor has no declared role" do
@@ -692,17 +690,13 @@ RSpec.describe CocinaDisplay::CocinaRecord do
       end
 
       it 'gives a label of "associated with"' do
-        expect(result).to contain_exactly(
-          be_a(CocinaDisplay::DisplayData).and(
-            have_attributes(label: "Associated with", values: ["Paget, Francis Edward, 1759-1838"])
-          )
-        )
+        is_expected.to eq({
+          "Associated with" => ["Paget, Francis Edward, 1759-1838"]
+        })
       end
     end
 
     context "with contributors with parallel names" do
-      let(:display_data_hash) { CocinaDisplay::DisplayData.to_hash(result) }
-
       # adapted from druid:bb070yy8209
       let(:contributors) do
         [
@@ -741,7 +735,7 @@ RSpec.describe CocinaDisplay::CocinaRecord do
       end
 
       it "returns display data using the primary name as value" do
-        expect(display_data_hash).to eq(
+        is_expected.to eq(
           {
             "Actor" => ["صباح، 1927-2014"],
             "Director" => ["ذو الفقار، محمود"]

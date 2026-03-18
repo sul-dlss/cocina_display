@@ -4,16 +4,16 @@ require "spec_helper"
 
 RSpec.describe CocinaDisplay::CocinaRecord do
   let(:dates) { [] }
-  let(:cocina_json) do
+  let(:cocina) do
     {
       "description" => {
         "event" => [
           {"date" => dates}
         ]
       }
-    }.to_json
+    }
   end
-  let(:record) { described_class.from_json(cocina_json) }
+  let(:record) { described_class.new(cocina) }
   let(:ignore_qualified) { false }
 
   describe "#pub_year_str" do
@@ -42,14 +42,14 @@ RSpec.describe CocinaDisplay::CocinaRecord do
 
     context "when the event has a valid type but the date has none" do
       let(:dates) { [{"value" => "2020"}] }
-      let(:cocina_json) do
+      let(:cocina) do
         {
           "description" => {
             "event" => [
               {"type" => "publication", "date" => dates}
             ]
           }
-        }.to_json
+        }
       end
 
       it "treats the date as valid" do
@@ -58,7 +58,7 @@ RSpec.describe CocinaDisplay::CocinaRecord do
     end
 
     context "when both the event and date have valid types" do
-      let(:cocina_json) do
+      let(:cocina) do
         {
           "description" => {
             "event" => [
@@ -70,7 +70,7 @@ RSpec.describe CocinaDisplay::CocinaRecord do
               }
             ]
           }
-        }.to_json
+        }
       end
 
       it "returns the publication date" do
@@ -494,12 +494,12 @@ RSpec.describe CocinaDisplay::CocinaRecord do
   describe "#imprint_str" do
     subject { record.imprint_str }
 
-    let(:cocina_json) do
+    let(:cocina) do
       {
         "description" => {
           "event" => events
         }
-      }.to_json
+      }
     end
 
     context "with multiple events, single imprint" do
@@ -566,12 +566,12 @@ RSpec.describe CocinaDisplay::CocinaRecord do
   describe "#publication_places" do
     subject { record.publication_places }
 
-    let(:cocina_json) do
+    let(:cocina) do
       {
         "description" => {
           "event" => events
         }
-      }.to_json
+      }
     end
 
     context "with publication event with unencoded location" do
@@ -629,12 +629,12 @@ RSpec.describe CocinaDisplay::CocinaRecord do
   describe "#publication_countries" do
     subject { record.publication_countries }
 
-    let(:cocina_json) do
+    let(:cocina) do
       {
         "description" => {
           "event" => events
         }
-      }.to_json
+      }
     end
 
     context "with publication event with unencoded location" do
@@ -675,211 +675,288 @@ RSpec.describe CocinaDisplay::CocinaRecord do
   describe "#admin_creation_event" do
     subject { record.admin_creation_event }
 
-    let(:cocina_json) do
-      <<~JSON
-        {
-          "description": {
-            "adminMetadata": {
-              "event": [
-                {
-                  "type": "creation",
-                  "date": [
-                    {
-                      "value": "2023-09-14",
-                      "encoding": {
-                        "code": "edtf"
-                      }
+    let(:cocina) do
+      {
+        "description" => {
+          "adminMetadata" => {
+            "event" => [
+              {
+                "type" => "creation",
+                "date" => [
+                  {
+                    "value" => "2023-09-14",
+                    "encoding" => {
+                      "code" => "edtf"
                     }
-                  ]
-                }
-              ],
-              "note": [
-                {
-                  "value": "Metadata created by user via Stanford self-deposit application",
-                  "type": "record origin"
-                }
-              ]
-            }
+                  }
+                ]
+              }
+            ],
+            "note" => [
+              {
+                "value" => "Metadata created by user via Stanford self-deposit application",
+                "type" => "record origin"
+              }
+            ]
           }
         }
-      JSON
+      }
     end
 
     it { is_expected.to be_a(CocinaDisplay::Events::Event) }
   end
 
   describe "#event_note_display_data" do
-    let(:cocina_json) do
-      {
-        "description" => {
-          "event" => [
-            {"note" => [{"value" => "monographic", "type" => "issuance"}, {"value" => "[Warwickshire ed.]", "type" => "edition"}], "type" => "publication"}
-          ]
-        }
-      }.to_json
-    end
+    subject { CocinaDisplay::DisplayData.to_hash(record.event_note_display_data) }
 
-    subject { record.event_note_display_data }
-
-    it "returns the note display data" do
-      expect(subject).to contain_exactly(
-        be_a(CocinaDisplay::DisplayData).and(
-          have_attributes(label: "Issuance", values: ["monographic"])
-        ),
-        be_a(CocinaDisplay::DisplayData).and(
-          have_attributes(label: "Edition", values: ["[Warwickshire ed.]"])
-        )
-      )
-    end
-  end
-
-  describe "#event_date_display_data" do
-    let(:cocina_json) do
+    let(:cocina) do
       {
         "description" => {
           "event" => [
             {
-              "date" => [
-                {
-                  "structuredValue" => [
-                    {
-                      "value" => "1758",
-                      "type" => "start"
-                    },
-                    {
-                      "value" => "uuuu",
-                      "type" => "end"
-                    }
-                  ],
-                  "type" => "publication",
-                  "encoding" => {
-                    "code" => "marc"
-                  },
-                  "qualifier" => "questionable"
-                }
-              ]
-            },
-            {
-              "date" => [{"value" => "invalid-date", "type" => "production"}] # left alone
-            },
-            {
-              "date" => [{"type" => "copyright", "value" => "-0099", "encoding" => {"code" => "edtf"}}]
-            },
-            {
-              "date" => [{"value" => "199x", "encoding" => {"code" => "edtf"}, "displayLabel" => "Fictional date"}]
-            },
-            {
-              "date" => [{"value" => "2021"}]
+              "note" => [
+                {"value" => "Monographic", "type" => "issuance"},
+                {"value" => "Weekly", "type" => "frequency"},
+                {"value" => "[Warwickshire ed.]", "type" => "edition"},
+                {"value" => "c2019", "type" => "copyright statement"}
+              ],
+              "type" => "publication"
             }
           ]
         }
-      }.to_json
+      }
     end
 
-    subject { CocinaDisplay::DisplayData.to_hash(record.event_date_display_data) }
-
-    it "groups by label and returns the display value for the date" do
-      expect(subject).to eq(
-        {
-          "Publication date" => ["[1758 - Unknown?]"],
-          "Production date" => ["invalid-date"],
-          "Copyright date" => ["100 BCE"],
-          "Fictional date" => ["1990s"],
-          "Date" => ["2021"]
-        }
-      )
-    end
-  end
-
-  describe "#publication_display_data" do
-    let(:cocina_json) do
-      {
-        "description" => {
-          "event" => [
-            {
-              "date" => [
-                {"value" => "[192-?]-[193-?]", "type" => "publication"}
-              ],
-              "location" => [
-                {"value" => "London"}
-              ],
-              "contributor" => [
-                {
-                  "name" => [
-                    {"value" => "H.M. Stationery Off."}
-                  ],
-                  "role" => [
-                    {
-                      "value" => "publisher",
-                      "code" => "pbl",
-                      "uri" => "http://id.loc.gov/vocabulary/relators/pbl",
-                      "source" => {
-                        "code" => "marcrelator",
-                        "uri" => "http://id.loc.gov/vocabulary/relators/"
-                      }
-                    }
-                  ],
-                  "type" => "organization"
-                }
-              ]
-            }
-          ]
-        }
-      }.to_json
-    end
-
-    subject { record.publication_display_data }
-
-    it "returns DisplayData for publication place and publisher name" do
-      expect(subject).to contain_exactly(
-        be_a(CocinaDisplay::DisplayData).and(
-          have_attributes(label: "Place", values: ["London"])
-        ),
-        be_a(CocinaDisplay::DisplayData).and(
-          have_attributes(label: "Publisher", values: ["H.M. Stationery Off."])
-        )
-      )
+    it "lowercases issuance and frequency notes" do
+      is_expected.to eq({
+        "Issuance" => ["monographic"],
+        "Frequency" => ["weekly"],
+        "Edition" => ["[Warwickshire ed.]"],
+        "Copyright statement" => ["c2019"]
+      })
     end
   end
 
   describe "#event_display_data" do
     subject { CocinaDisplay::DisplayData.to_hash(record.event_display_data) }
 
-    # adapted from druid:cj555pv1585
-    let(:cocina_json) do
-      {
-        "description" => {
-          "event" => [
-            {
-              "displayLabel" => "Court location and trial date",
-              "date" => [
-                {
-                  "structuredValue" => [
-                    {"value" => "02/06/1946", "type" => "start"},
-                    {"value" => "03/22/1946", "type" => "end"}
-                  ],
-                  "displayLabel" => "Date of case active"
-                }
-              ],
-              "location" => [
-                {
-                  "value" => "Ludwigsberg (Germany)",
-                  "type" => "capture",
-                  "uri" => "http://id.loc.gov/authorities/names/n81058988"
-                }
-              ]
-            }
-          ]
+    context "with events that only have dates" do
+      let(:cocina) do
+        {
+          "description" => {
+            "event" => [
+              {
+                "date" => [
+                  {
+                    "structuredValue" => [
+                      {
+                        "value" => "1758",
+                        "type" => "start"
+                      },
+                      {
+                        "value" => "uuuu",
+                        "type" => "end"
+                      }
+                    ],
+                    "type" => "publication",
+                    "encoding" => {
+                      "code" => "marc"
+                    },
+                    "qualifier" => "questionable"
+                  }
+                ]
+              },
+              {
+                "date" => [{"value" => "invalid-date", "type" => "production"}] # left alone
+              },
+              {
+                "date" => [{"type" => "copyright", "value" => "-0099", "encoding" => {"code" => "edtf"}}]
+              },
+              {
+                "date" => [{"value" => "199x", "encoding" => {"code" => "edtf"}, "displayLabel" => "Fictional date"}]
+              }
+            ]
+          }
         }
-      }.to_json
+      end
+
+      it "uses date labels and display labels to group content" do
+        expect(subject).to eq(
+          {
+            "Publication date" => ["[1758 - Unknown?]"],
+            "Production date" => ["invalid-date"],
+            "Copyright date" => ["100 BCE"],
+            "Fictional date" => ["1990s"]
+          }
+        )
+      end
     end
 
-    it "returns DisplayData using the custom displayLabels" do
-      is_expected.to eq(
+    context "with events that include notes" do
+      # from druid:zf208gz2565
+      let(:cocina) do
         {
-          "Court location and trial date" => ["Ludwigsberg (Germany), 02/06/1946 - 03/22/1946"]
+          "description" => {
+            "event" => [
+              {
+                "date" => [
+                  {
+                    "value" => "1866-02-22",
+                    "type" => "publication",
+                    "status" => "primary",
+                    "encoding" => {
+                      "code" => "w3cdtf"
+                    }
+                  }
+                ],
+                "location" => [
+                  {
+                    "code" => "nyu",
+                    "source" => {
+                      "code" => "marccountry"
+                    }
+                  }
+                ],
+                "note" => [
+                  {
+                    "value" => "serial",
+                    "type" => "issuance",
+                    "source" => {
+                      "value" => "MODS issuance terms"
+                    }
+                  },
+                  {
+                    "value" => "Weekly",
+                    "type" => "frequency"
+                  }
+                ]
+              },
+              {
+                "contributor" => [
+                  {
+                    "name" => [
+                      {
+                        "value" => "Street and Smith"
+                      }
+                    ],
+                    "type" => "organization",
+                    "role" => [
+                      {
+                        "value" => "publisher",
+                        "code" => "pbl",
+                        "uri" => "http://id.loc.gov/vocabulary/relators/pbl",
+                        "source" => {
+                          "code" => "marcrelator",
+                          "uri" => "http://id.loc.gov/vocabulary/relators/"
+                        }
+                      }
+                    ]
+                  }
+                ],
+                "location" => [
+                  {
+                    "value" => "New York, N.Y."
+                  }
+                ]
+              }
+            ]
+          }
         }
-      )
+      end
+
+      it "uses the date/event type as the heading and includes notes in the value" do
+        is_expected.to eq(
+          {
+            "Publication" => ["New York (State), February 22, 1866"],
+            "Imprint" => ["New York, N.Y. : Street and Smith"]
+          }
+        )
+      end
+    end
+
+    context "with an imprint" do
+      let(:cocina) do
+        {
+          "description" => {
+            "event" => [
+              {
+                "date" => [
+                  {"value" => "[192-?]-[193-?]", "type" => "publication"}
+                ],
+                "location" => [
+                  {"value" => "London"}
+                ],
+                "contributor" => [
+                  {
+                    "name" => [
+                      {"value" => "H.M. Stationery Off."}
+                    ],
+                    "role" => [
+                      {
+                        "value" => "publisher",
+                        "code" => "pbl",
+                        "uri" => "http://id.loc.gov/vocabulary/relators/pbl",
+                        "source" => {
+                          "code" => "marcrelator",
+                          "uri" => "http://id.loc.gov/vocabulary/relators/"
+                        }
+                      }
+                    ],
+                    "type" => "organization"
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      end
+
+      it "returns the imprint under an imprint heading" do
+        expect(subject).to eq(
+          {
+            "Imprint" => ["London : H.M. Stationery Off., [192-?]-[193-?]"]
+          }
+        )
+      end
+    end
+
+    context "with an event with displayLabel" do
+      # adapted from druid:cj555pv1585
+      let(:cocina) do
+        {
+          "description" => {
+            "event" => [
+              {
+                "displayLabel" => "Court location and trial date",
+                "date" => [
+                  {
+                    "structuredValue" => [
+                      {"value" => "02/06/1946", "type" => "start"},
+                      {"value" => "03/22/1946", "type" => "end"}
+                    ],
+                    "displayLabel" => "Date of case active"
+                  }
+                ],
+                "location" => [
+                  {
+                    "value" => "Ludwigsberg (Germany)",
+                    "type" => "capture",
+                    "uri" => "http://id.loc.gov/authorities/names/n81058988"
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      end
+
+      it "uses the event displayLabel as the heading" do
+        expect(subject).to eq(
+          {
+            "Court location and trial date" => ["Ludwigsberg (Germany), 02/06/1946 - 03/22/1946"]
+          }
+        )
+      end
     end
   end
 end

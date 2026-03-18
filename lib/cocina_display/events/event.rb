@@ -11,10 +11,16 @@ module CocinaDisplay
       end
 
       # The display label for the event.
+      # Uses "Imprint" if the event is likely to represent an imprint statement.
+      # If the event consists solely of a date, uses the date's label.
       # Capitalizes the event's type, or its first date's type if untyped.
       # @return [String]
       def label
-        cocina["displayLabel"].presence || type&.capitalize || date_types.first&.capitalize || "Event"
+        return cocina["displayLabel"] if cocina["displayLabel"].present?
+        return "Imprint" if imprint?
+        return dates.map(&:label).first if date_only?
+
+        type&.capitalize || date_types.first&.capitalize || "Event"
       end
 
       # The declared type of the event, like "publication" or "creation".
@@ -37,7 +43,7 @@ module CocinaDisplay
       # @param match_type [String] The type to check against
       # @return [Boolean]
       def has_type?(match_type)
-        [type, *date_types].compact.include?(match_type)
+        types.include?(match_type)
       end
 
       # True if the event or its dates have any of the provided types.
@@ -61,10 +67,11 @@ module CocinaDisplay
         end
       end
 
-      # Were any of the dates encoded?
-      # Used to detect which event(s) most likely represent the actual imprint(s).
-      def date_encoding?
-        dates.any?(&:encoding?)
+      # True if this event is likely to represent an imprint.
+      # @note Unencoded dates or no dates often indicate an imprint statement.
+      # @return [Boolean]
+      def imprint?
+        (has_type?("publication") || types.empty?) && (dates.none?(&:encoding?) || dates.none?)
       end
 
       # All contributors associated with this event.
@@ -91,14 +98,14 @@ module CocinaDisplay
         end
       end
 
-      # String representation of the event using notes, dates, locations, and contributors.
+      # String representation of the event using edition, dates, locations, and contributors.
       # Format is inspired by typical imprint statements for books.
       # @return [String]
       # @example "2nd ed. - New York : John Doe, 1999"
       def to_s
         place_contrib = Utils.compact_and_join([place_str, contributor_str], delimiter: " : ")
-        note_place_contrib = Utils.compact_and_join([note_str, place_contrib], delimiter: " - ")
-        Utils.compact_and_join([note_place_contrib, date_str], delimiter: ", ")
+        note_place_contrib = Utils.compact_and_join([edition_note_str, place_contrib], delimiter: " - ")
+        Utils.compact_and_join([note_place_contrib, date_str, copyright_note_str], delimiter: ", ")
       end
 
       private
@@ -138,16 +145,36 @@ module CocinaDisplay
         locs_for_display.map(&:to_s).compact_blank.uniq
       end
 
+      # Union of event's type and its date types.
+      # Used for imprint detection and display decisions.
+      # @return [Array<String>]
+      def types
+        [type, *date_types].compact
+      end
+
+      # Does this event include no rendered information other than its date?
+      # @note If true, the label will be "[type] date" instead of just "[type]".
+      # @return [Boolean]
+      def date_only?
+        to_s == date_str
+      end
+
       # The date portion of the imprint statement, comprising all unique dates.
       # @return [String]
       def date_str
-        Utils.compact_and_join(unique_dates_for_display.map(&:qualified_value), delimiter: "; ")
+        Utils.compact_and_join(unique_dates_for_display.map(&:to_s), delimiter: "; ")
       end
 
-      # All notes associated with the event as a single string.
+      # Edition notes associated with the event as a single string.
       # @return [String]
-      def note_str
-        Utils.compact_and_join(notes.map(&:to_s))
+      def edition_note_str
+        Utils.compact_and_join(notes.filter { |note| note.type == "edition" }.map(&:to_s), delimiter: ", ")
+      end
+
+      # Copyright notes associated with the event as a single string.
+      # @return [String]
+      def copyright_note_str
+        Utils.compact_and_join(notes.filter { |note| note.type == "copyright statement" }.map(&:to_s), delimiter: ", ")
       end
 
       # All contributors associated with the event as a single string.

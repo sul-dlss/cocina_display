@@ -103,7 +103,7 @@ module CocinaDisplay
 
       # @return [String] The formatted date/time string for display
       def to_s
-        date.qualified_value
+        date.to_s
       end
     end
 
