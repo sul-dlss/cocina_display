@@ -52,7 +52,7 @@ module CocinaDisplay
       # @see CocinaDisplay::Date#sort_key
       # @return [String]
       def sort_key
-        [start&.sort_key, stop&.sort_key].compact.join(" - ")
+        [start&.sort_key, stop&.sort_key].compact.join
       end
 
       # Base values of start/end as single string. Used for comparison/deduping.

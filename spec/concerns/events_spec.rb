@@ -491,6 +491,50 @@ RSpec.describe CocinaDisplay::CocinaRecord do
     end
   end
 
+  describe "#pub_date_sort_str" do
+    subject { record.pub_date_sort_str(ignore_qualified: ignore_qualified) }
+
+    context "with a single CE year" do
+      let(:dates) do
+        [{"value" => "2020", "type" => "publication"}]
+      end
+
+      it { is_expected.to eq("20200000") }
+    end
+
+    context "with a day range (2020-01-01 to 2021-10-31)" do
+      let(:dates) do
+        [
+          {
+            "structuredValue" => [
+              {"value" => "2020-01-01", "type" => "start", "encoding" => {"code" => "w3cdtf"}},
+              {"value" => "2021-10-31", "type" => "end", "encoding" => {"code" => "w3cdtf"}}
+            ],
+            "type" => "publication"
+          }
+        ]
+      end
+
+      it { is_expected.to eq("2020010120211031") }
+    end
+
+    context "with a BCE year range" do
+      let(:dates) do
+        [
+          {
+            "structuredValue" => [
+              {"value" => "-3500", "type" => "start", "encoding" => {"code" => "edtf"}},
+              {"value" => "-3101", "type" => "end", "encoding" => {"code" => "edtf"}}
+            ],
+            "type" => "publication"
+          }
+        ]
+      end
+
+      it { is_expected.to eq("-564990000-568980000") }
+    end
+  end
+
   describe "#imprint_str" do
     subject { record.imprint_str }
 
