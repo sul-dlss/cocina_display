@@ -877,53 +877,57 @@ RSpec.describe CocinaDisplay::CocinaRecord do
   end
 
   describe "#event_display_data" do
+    let(:cocina) do
+      {
+        "description" => {
+          "event" => events
+        }
+      }
+    end
+
     subject { CocinaDisplay::DisplayData.to_hash(record.event_display_data) }
 
     context "with events that only have dates" do
-      let(:cocina) do
-        {
-          "description" => {
-            "event" => [
+      let(:events) do
+        [
+          {
+            "date" => [
               {
-                "date" => [
+                "structuredValue" => [
                   {
-                    "structuredValue" => [
-                      {
-                        "value" => "1758",
-                        "type" => "start"
-                      },
-                      {
-                        "value" => "uuuu",
-                        "type" => "end"
-                      }
-                    ],
-                    "type" => "publication",
-                    "encoding" => {
-                      "code" => "marc"
-                    },
-                    "qualifier" => "questionable"
+                    "value" => "1758",
+                    "type" => "start"
+                  },
+                  {
+                    "value" => "uuuu",
+                    "type" => "end"
                   }
-                ]
-              },
-              {
-                "date" => [{"value" => "invalid-date", "type" => "production"}] # left alone
-              },
-              {
-                "date" => [{"type" => "copyright", "value" => "-0099", "encoding" => {"code" => "edtf"}}]
-              },
-              {
-                "date" => [{"value" => "199x", "encoding" => {"code" => "edtf"}, "displayLabel" => "Fictional date"}]
+                ],
+                "type" => "publication",
+                "encoding" => {
+                  "code" => "marc"
+                },
+                "qualifier" => "questionable"
               }
             ]
+          },
+          {
+            "date" => [{"value" => "invalid-date", "type" => "production"}] # left alone
+          },
+          {
+            "date" => [{"type" => "copyright", "value" => "-0099", "encoding" => {"code" => "edtf"}}]
+          },
+          {
+            "date" => [{"value" => "199x", "encoding" => {"code" => "edtf"}, "displayLabel" => "Fictional date"}]
           }
-        }
+        ]
       end
 
       it "uses date labels and display labels to group content" do
         expect(subject).to eq(
           {
             "Publication date" => ["[1758 - Unknown?]"],
-            "Production date" => ["invalid-date"],
+            "Production date" => ["Unknown"],
             "Copyright date" => ["100 BCE"],
             "Fictional date" => ["1990s"]
           }
@@ -931,76 +935,92 @@ RSpec.describe CocinaDisplay::CocinaRecord do
       end
     end
 
+    context "with an unencoded date-only event" do
+      let(:events) do
+        [
+          {
+            "date" => [
+              {"value" => "2020", "type" => "publication"}
+            ]
+          }
+        ]
+      end
+
+      it "treats the event as a publication date, not imprint" do
+        expect(subject).to eq(
+          {
+            "Publication date" => ["2020"]
+          }
+        )
+      end
+    end
+
     context "with events that include notes" do
       # from druid:zf208gz2565
-      let(:cocina) do
-        {
-          "description" => {
-            "event" => [
+      let(:events) do
+        [
+          {
+            "date" => [
               {
-                "date" => [
-                  {
-                    "value" => "1866-02-22",
-                    "type" => "publication",
-                    "status" => "primary",
-                    "encoding" => {
-                      "code" => "w3cdtf"
-                    }
-                  }
-                ],
-                "location" => [
-                  {
-                    "code" => "nyu",
-                    "source" => {
-                      "code" => "marccountry"
-                    }
-                  }
-                ],
-                "note" => [
-                  {
-                    "value" => "serial",
-                    "type" => "issuance",
-                    "source" => {
-                      "value" => "MODS issuance terms"
-                    }
-                  },
-                  {
-                    "value" => "Weekly",
-                    "type" => "frequency"
-                  }
-                ]
+                "value" => "1866-02-22",
+                "type" => "publication",
+                "status" => "primary",
+                "encoding" => {
+                  "code" => "w3cdtf"
+                }
+              }
+            ],
+            "location" => [
+              {
+                "code" => "nyu",
+                "source" => {
+                  "code" => "marccountry"
+                }
+              }
+            ],
+            "note" => [
+              {
+                "value" => "serial",
+                "type" => "issuance",
+                "source" => {
+                  "value" => "MODS issuance terms"
+                }
               },
               {
-                "contributor" => [
+                "value" => "Weekly",
+                "type" => "frequency"
+              }
+            ]
+          },
+          {
+            "contributor" => [
+              {
+                "name" => [
                   {
-                    "name" => [
-                      {
-                        "value" => "Street and Smith"
-                      }
-                    ],
-                    "type" => "organization",
-                    "role" => [
-                      {
-                        "value" => "publisher",
-                        "code" => "pbl",
-                        "uri" => "http://id.loc.gov/vocabulary/relators/pbl",
-                        "source" => {
-                          "code" => "marcrelator",
-                          "uri" => "http://id.loc.gov/vocabulary/relators/"
-                        }
-                      }
-                    ]
+                    "value" => "Street and Smith"
                   }
                 ],
-                "location" => [
+                "type" => "organization",
+                "role" => [
                   {
-                    "value" => "New York, N.Y."
+                    "value" => "publisher",
+                    "code" => "pbl",
+                    "uri" => "http://id.loc.gov/vocabulary/relators/pbl",
+                    "source" => {
+                      "code" => "marcrelator",
+                      "uri" => "http://id.loc.gov/vocabulary/relators/"
+                    }
                   }
                 ]
               }
+            ],
+            "location" => [
+              {
+                "value" => "New York, N.Y."
+              }
             ]
           }
-        }
+        ]
       end
 
       it "uses the date/event type as the heading and includes notes in the value" do
@@ -1013,47 +1033,66 @@ RSpec.describe CocinaDisplay::CocinaRecord do
       end
     end
 
-    context "with an imprint" do
-      let(:cocina) do
-        {
-          "description" => {
-            "event" => [
+    context "with one event and one imprint" do
+      # from druid:bm971cx9348
+      let(:events) do
+        [
+          {
+            "date" => [
               {
-                "date" => [
-                  {"value" => "[192-?]-[193-?]", "type" => "publication"}
+                "structuredValue" => [
+                  {"value" => "1920", "type" => "start"}
                 ],
-                "location" => [
-                  {"value" => "London"}
-                ],
-                "contributor" => [
-                  {
-                    "name" => [
-                      {"value" => "H.M. Stationery Off."}
-                    ],
-                    "role" => [
-                      {
-                        "value" => "publisher",
-                        "code" => "pbl",
-                        "uri" => "http://id.loc.gov/vocabulary/relators/pbl",
-                        "source" => {
-                          "code" => "marcrelator",
-                          "uri" => "http://id.loc.gov/vocabulary/relators/"
-                        }
-                      }
-                    ],
-                    "type" => "organization"
-                  }
-                ]
+                "type" => "publication",
+                "encoding" => {"code" => "marc"}
               }
+            ],
+            "location" => [
+              {"code" => "enk", "source" => {"code" => "marccountry"}}
+            ],
+            "note" => [
+              {"type" => "issuance", "value" => "monographic", "source" => {"value" => "MODS issuance terms"}}
+            ]
+          },
+          {
+            "date" => [
+              {"value" => "[192-?]-[193-?]", "type" => "publication"}
+            ],
+            "note" => [
+              {"type" => "edition", "value" => "2nd ed."}
+            ],
+            "contributor" => [
+              {
+                "name" => [
+                  {"value" => "H.M. Stationery Off."}
+                ],
+                "role" => [
+                  {
+                    "value" => "publisher",
+                    "code" => "pbl",
+                    "uri" => "http://id.loc.gov/vocabulary/relators/pbl",
+                    "source" => {
+                      "code" => "marcrelator",
+                      "uri" => "http://id.loc.gov/vocabulary/relators/"
+                    }
+                  }
+                ],
+                "type" => "organization"
+              }
+            ],
+            "location" => [
+              {"value" => "London"},
+              {"source" => {"code" => "marccountry"}, "code" => "enk"}
             ]
           }
-        }
+        ]
       end
 
       it "returns the imprint under an imprint heading" do
         expect(subject).to eq(
           {
-            "Imprint" => ["London : H.M. Stationery Off., [192-?]-[193-?]"]
+            "Publication" => ["England, 1920 -"],
+            "Imprint" => ["2nd ed. - London : H.M. Stationery Off., [192-?]-[193-?]"]
           }
         )
       end
@@ -1092,7 +1131,7 @@ RSpec.describe CocinaDisplay::CocinaRecord do
       it "uses the event displayLabel as the heading" do
         expect(subject).to eq(
           {
-            "Court location and trial date" => ["Ludwigsberg (Germany), 02/06/1946 - 03/22/1946"]
+            "Court location and trial date" => ["Ludwigsberg (Germany), February 6, 1946 - March 22, 1946"]
           }
         )
       end

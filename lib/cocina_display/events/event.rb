@@ -16,7 +16,7 @@ module CocinaDisplay
       # @note Also supports `event1.between?(event2, event3)` via {Comparable}.
       # @return [Integer, nil]
       def <=>(other)
-        [unique_dates_for_display] <=> [other.unique_dates_for_display] if other.is_a?(Event)
+        [dates] <=> [other.dates] if other.is_a?(Event)
       end
 
       # The display label for the event.
@@ -26,7 +26,6 @@ module CocinaDisplay
       # @return [String]
       def label
         return cocina["displayLabel"] if cocina["displayLabel"].present?
-        return "Imprint" if imprint?
         return dates.map(&:label).first if date_only?
 
         type&.capitalize || date_types.first&.capitalize || "Event"
@@ -80,7 +79,10 @@ module CocinaDisplay
       # @note Unencoded dates or no dates often indicate an imprint statement.
       # @return [Boolean]
       def imprint?
-        (has_type?("publication") || types.empty?) && (dates.none?(&:encoding?) || dates.none?)
+        contributors.present? &&
+          locations.present? &&
+          (has_type?("publication") || types.empty?) &&
+          (dates.any? { |date| !date.encoding? } || dates.none?)
       end
 
       # All contributors associated with this event.
@@ -107,49 +109,11 @@ module CocinaDisplay
         end
       end
 
-      # String representation of the event using edition, dates, locations, and contributors.
-      # Format is inspired by typical imprint statements for books.
+      # String representation of the event using date and location.
       # @return [String]
-      # @example "2nd ed. - New York : John Doe, 1999"
+      # @example "John Doe, New York (State), 1999"
       def to_s
-        place_contrib = Utils.compact_and_join([place_str, contributor_str], delimiter: " : ")
-        note_place_contrib = Utils.compact_and_join([edition_note_str, place_contrib], delimiter: " - ")
-        Utils.compact_and_join([note_place_contrib, date_str, copyright_note_str], delimiter: ", ")
-      end
-
-      # Filter dates for uniqueness using base value according to predefined rules.
-      # 1. For a group of dates with the same base value, choose a single one
-      # 2. Prefer unencoded dates over encoded ones when choosing a single date
-      # 3. Remove date ranges that duplicate any unencoded non-range dates
-      # @return [Array<CocinaDisplay::Dates::Date>]
-      # @see CocinaDisplay::Dates::Date#base_value
-      # @see https://consul.stanford.edu/display/chimera/MODS+display+rules#MODSdisplayrules-3b.%3CoriginInfo%3E
-      def unique_dates_for_display
-        # Choose a single date for each group with the same base value
-        deduped_dates = dates.group_by(&:base_value).map do |base_value, group|
-          if (unencoded = group.reject(&:encoding?)).any?
-            unencoded.first
-          else
-            group.first
-          end
-        end
-
-        # Remove any ranges that duplicate part of an unencoded non-range date
-        ranges, singles = deduped_dates.partition { |date| date.is_a?(CocinaDisplay::Dates::DateRange) }
-        unencoded_singles_dates = singles.reject(&:encoding?).flat_map(&:to_a)
-        ranges.reject! { |date_range| unencoded_singles_dates.any? { |date| date_range.as_range.include?(date) } }
-
-        (singles + ranges).sort
-      end
-
-      # Filter locations to display according to predefined rules.
-      # 1. Prefer unencoded locations (plain value) over encoded ones
-      # 2. If no unencoded locations but there are MARC country codes, decode them
-      # 3. Keep only unique locations after decoding
-      def locations_for_display
-        unencoded_locs, encoded_locs = locations.partition { |loc| loc.unencoded_value? }
-        locs_for_display = unencoded_locs.presence || encoded_locs
-        locs_for_display.map(&:to_s).compact_blank.uniq
+        Utils.compact_and_join([place_str, date_str], delimiter: ", ")
       end
 
       # Union of event's type and its date types.
@@ -168,34 +132,38 @@ module CocinaDisplay
         to_s == date_str
       end
 
-      # The date portion of the imprint statement, comprising all unique dates.
+      # The dates associated with this event that should be used for display.
+      # Prefers encoded dates when there are duplicates.
+      # @return [Array<CocinaDisplay::Dates::Date>]
+      def display_dates
+        # Choose a single date for each group with the same base value;
+        # prefer encoded dates when there are duplicates.
+        deduped_dates = dates.group_by(&:base_value).map do |base_value, group|
+          if (encoded = group.filter(&:encoding?)).any?
+            encoded.first
+          else
+            group.first
+          end
+        end
+
+        # Remove any ranges that duplicate part of an encoded non-range date
+        ranges, singles = deduped_dates.partition { |date| date.is_a?(CocinaDisplay::Dates::DateRange) }
+        encoded_singles_dates = singles.filter(&:encoding?).flat_map(&:to_a)
+        ranges.reject! { |date_range| encoded_singles_dates.any? { |date| date_range.as_range.include?(date) } }
+
+        (singles + ranges).sort
+      end
+
+      # Dates associated with this event as a single string.
       # @return [String]
       def date_str
-        Utils.compact_and_join(unique_dates_for_display.map(&:to_s), delimiter: "; ")
+        display_dates.map(&:qualified_value).compact_blank.uniq.to_sentence
       end
 
-      # Edition notes associated with the event as a single string.
-      # @return [String]
-      def edition_note_str
-        Utils.compact_and_join(notes.filter { |note| note.type == "edition" }.map(&:to_s), delimiter: ", ")
-      end
-
-      # Copyright notes associated with the event as a single string.
-      # @return [String]
-      def copyright_note_str
-        Utils.compact_and_join(notes.filter { |note| note.type == "copyright statement" }.map(&:to_s), delimiter: ", ")
-      end
-
-      # All contributors associated with the event as a single string.
-      # @return [String]
-      def contributor_str
-        Utils.compact_and_join(contributors.map(&:display_name), delimiter: " : ")
-      end
-
-      # The place of publication, combining all location values.
+      # Locations associated with this event as a single string.
       # @return [String]
       def place_str
-        Utils.compact_and_join(locations_for_display, delimiter: " : ")
+        locations.map(&:to_s).compact_blank.uniq.join(", ")
       end
     end
   end
