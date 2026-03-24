@@ -380,7 +380,7 @@ RSpec.describe CocinaDisplay::Dates::Date do
       let(:cocina) { {"value" => "2023-01-01", "encoding" => {"code" => "edtf"}} }
 
       [
-        ["2023-01-01", [:day], "January  1, 2023"],
+        ["2023-01-01", [:day], "January 1, 2023"],
         ["2023-01-01", [:month], "January 2023"],
         ["2023-01-01", [:year], "2023"],
         ["2023-01-01", [:decade], "2020s"],
@@ -395,7 +395,7 @@ RSpec.describe CocinaDisplay::Dates::Date do
 
       context "with several allowed precisions" do
         it "returns the most precise value" do
-          expect(date.decoded_value(allowed_precisions: [:day, :month, :year])).to eq("January  1, 2023")
+          expect(date.decoded_value(allowed_precisions: [:day, :month, :year])).to eq("January 1, 2023")
         end
       end
     end
@@ -446,7 +446,7 @@ RSpec.describe CocinaDisplay::Dates::Date do
       let(:cocina) { {"value" => "2023-01-01/2023-01-31", "encoding" => {"code" => "edtf"}} }
 
       it "returns the decoded value as a date range" do
-        expect(date.decoded_value).to eq("January  1, 2023 - January 31, 2023")
+        expect(date.decoded_value).to eq("January 1, 2023 - January 31, 2023")
       end
     end
   end

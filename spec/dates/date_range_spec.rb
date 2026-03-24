@@ -401,7 +401,7 @@ RSpec.describe CocinaDisplay::Dates::DateRange do
     end
 
     it "returns the decoded values joined together" do
-      expect(date_range.decoded_value).to eq("January  1, 2023 - December 31, 2023")
+      expect(date_range.decoded_value).to eq("January 1, 2023 - December 31, 2023")
     end
   end
 
@@ -417,7 +417,7 @@ RSpec.describe CocinaDisplay::Dates::DateRange do
       end
 
       it "returns the qualified value for the range" do
-        expect(date_range.qualified_value).to eq("[January  1, 2023 - December 31, 2023]")
+        expect(date_range.qualified_value).to eq("[January 1, 2023 - December 31, 2023]")
       end
     end
 
@@ -432,7 +432,7 @@ RSpec.describe CocinaDisplay::Dates::DateRange do
       end
 
       it "returns the qualified value for the range" do
-        expect(date_range.qualified_value).to eq("[ca. January  1, 2023 - December 31, 2023]")
+        expect(date_range.qualified_value).to eq("[ca. January 1, 2023 - December 31, 2023]")
       end
     end
 
@@ -447,7 +447,7 @@ RSpec.describe CocinaDisplay::Dates::DateRange do
       end
 
       it "returns the qualified value for the range" do
-        expect(date_range.qualified_value).to eq("[ca. January  1, 2023] - [December 31, 2023]")
+        expect(date_range.qualified_value).to eq("[ca. January 1, 2023] - [December 31, 2023]")
       end
     end
 
@@ -462,7 +462,7 @@ RSpec.describe CocinaDisplay::Dates::DateRange do
       end
 
       it "returns the decoded value without qualifiers" do
-        expect(date_range.qualified_value).to eq("January  1, 2023 - December 31, 2023")
+        expect(date_range.qualified_value).to eq("January 1, 2023 - December 31, 2023")
       end
     end
 

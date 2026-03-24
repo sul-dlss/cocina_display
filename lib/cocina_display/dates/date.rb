@@ -377,7 +377,7 @@ module CocinaDisplay
           when :unknown
             "Unknown"
           when :day
-            date.strftime("%B %e, %Y")
+            date.strftime("%B %-d, %Y")
           when :month
             date.strftime("%B %Y")
           when :year
