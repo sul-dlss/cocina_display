@@ -388,4 +388,43 @@ RSpec.describe CocinaDisplay::Events::Event do
       end
     end
   end
+
+  describe "sorting" do
+    let(:events) do
+      [
+        {"date" => [{"structuredValue" => [{"value" => "1920", "type" => "start"}, {"value" => "1930", "type" => "end"}]}]},
+        {"date" => [{"value" => "-3099", "encoding" => {"code" => "edtf"}}]},
+        {"date" => [{"value" => "1920-02-03", "encoding" => {"code" => "edtf"}}]},
+        {"date" => [{"value" => "1920"}]},
+        {"date" => [{"structuredValue" => [{"value" => "-3499", "type" => "start"}, {"value" => "-3100", "type" => "end"}], "encoding" => {"code" => "edtf"}}]}
+      ].map { |cocina| described_class.new(cocina) }
+    end
+
+    subject { events.sort.map(&:to_s) }
+
+    it "sorts events by their dates" do
+      is_expected.to eq [
+        "3500 BCE - 3101 BCE",
+        "3100 BCE",
+        "1920",
+        "1920 - 1930",
+        "February 3, 1920"
+      ]
+    end
+  end
+
+  describe "comparison" do
+    let(:event1) { described_class.new("date" => [{"value" => "1920"}]) }
+    let(:event2) { described_class.new("date" => [{"value" => "1920"}]) }
+    let(:event3) { described_class.new("date" => [{"value" => "1921"}]) }
+    let(:event4) { described_class.new("date" => [{"value" => "1930"}]) }
+
+    it "considers events with the same date as equal" do
+      expect(event1).to eq event2
+    end
+
+    it "supports #between?" do
+      expect(event3).to be_between(event1, event4)
+    end
+  end
 end
