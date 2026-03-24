@@ -50,13 +50,33 @@ module CocinaDisplay
       # Prefers dates marked as primary and those with a declared encoding.
       # @param ignore_qualified [Boolean] Reject qualified dates (e.g. approximate)
       # @return [String, nil]
-      # @example Year range
-      #  CocinaRecord.fetch('bb099mt5053').pub_year_str #=> "1932 - 2012"
+      # @example Year with month and day, 2024-08-21 (vc109xd3118)
+      #   "2024"
+      # @example Approximate year range, [ca. 1932 - 2012] (bb099mt5053)
+      #   "1932 - 2012"
+      # @example BCE year range, [ca. 3500 BCE] - 3101 BCE (yv690gn5376)
+      #   "3500 BCE - 3101 BCE"
       def pub_year_str(ignore_qualified: false)
         date = pub_date(ignore_qualified: ignore_qualified)
         return unless date
 
         date.decoded_value(allowed_precisions: [:year, :decade, :century])
+      end
+
+      # String for sorting lexicographically by publication date.
+      # Considers publication, creation, and capture dates in that order.
+      # Prefers dates marked as primary and those with a declared encoding.
+      # @note BCE dates have special handling; see Date#sort_key for details.
+      # @param ignore_qualified [Boolean] Reject qualified dates (e.g. approximate)
+      # @return [String, nil]
+      # @example Year with month and day, 2024-08-21 (vc109xd3118)
+      #   "20240821"
+      # @example Approximate year range, [ca. 1932 - 2012] (bb099mt5053)
+      #   "1932000020120000"
+      # @example BCE year range, [ca. 3500 BCE] - 3101 BCE (yv690gn5376)
+      #   "-564990000-568980000"
+      def pub_date_sort_str(ignore_qualified: false)
+        pub_date(ignore_qualified: ignore_qualified)&.sort_key
       end
 
       # String for displaying the imprint statement(s).

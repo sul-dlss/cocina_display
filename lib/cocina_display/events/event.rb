@@ -2,12 +2,21 @@ module CocinaDisplay
   module Events
     # An event associated with an object, like publication.
     class Event
+      include Comparable
+
       attr_reader :cocina
 
       # Initialize the event with Cocina event data.
       # @param cocina [Hash] Cocina structured data for a single event
       def initialize(cocina)
         @cocina = cocina
+      end
+
+      # Compare this {Event} to another {Event} using their {Date}s.
+      # @note Also supports `event1.between?(event2, event3)` via {Comparable}.
+      # @return [Integer, nil]
+      def <=>(other)
+        [unique_dates_for_display] <=> [other.unique_dates_for_display] if other.is_a?(Event)
       end
 
       # The display label for the event.
@@ -108,8 +117,6 @@ module CocinaDisplay
         Utils.compact_and_join([note_place_contrib, date_str, copyright_note_str], delimiter: ", ")
       end
 
-      private
-
       # Filter dates for uniqueness using base value according to predefined rules.
       # 1. For a group of dates with the same base value, choose a single one
       # 2. Prefer unencoded dates over encoded ones when choosing a single date
@@ -151,6 +158,8 @@ module CocinaDisplay
       def types
         [type, *date_types].compact
       end
+
+      private
 
       # Does this event include no rendered information other than its date?
       # @note If true, the label will be "[type] date" instead of just "[type]".

@@ -9,6 +9,8 @@ module CocinaDisplay
   module Dates
     # A date to be converted to a Date object.
     class Date
+      include Comparable
+
       # List of values that we shouldn't even attempt to parse.
       UNPARSABLE_VALUES = ["0000-00-00", "9999", "uuuu", "[uuuu]"].freeze
 
@@ -110,6 +112,8 @@ module CocinaDisplay
       end
 
       # Compare this date to another {Date} or {DateRange} using its {sort_key}.
+      # @note Also supports `date1.between?(date2, date3)` via {Comparable}.
+      # @return [Integer, nil]
       def <=>(other)
         sort_key <=> other.sort_key if other.is_a?(Date) || other.is_a?(DateRange)
       end
@@ -377,7 +381,7 @@ module CocinaDisplay
           when :unknown
             "Unknown"
           when :day
-            date.strftime("%B %e, %Y")
+            date.strftime("%B %-d, %Y")
           when :month
             date.strftime("%B %Y")
           when :year
