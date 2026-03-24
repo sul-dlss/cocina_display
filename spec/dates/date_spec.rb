@@ -429,16 +429,16 @@ RSpec.describe CocinaDisplay::Dates::Date do
     context "with an unparsable date" do
       let(:cocina) { {"value" => "invalid-date", "encoding" => {"code" => "edtf"}} }
 
-      it "returns the value unmodified" do
-        expect(date.decoded_value).to eq("invalid-date")
+      it "shows as Unknown" do
+        expect(date.decoded_value).to eq("Unknown")
       end
     end
 
-    context "with an unencoded date" do
+    context "with an unencoded but parsable date" do
       let(:cocina) { {"value" => "about 933"} }
 
-      it "returns the value unmodified" do
-        expect(date.decoded_value).to eq("about 933")
+      it "uses the parsed value" do
+        expect(date.decoded_value).to eq("933 CE")
       end
     end
 

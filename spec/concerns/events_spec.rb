@@ -178,6 +178,86 @@ RSpec.describe CocinaDisplay::CocinaRecord do
 
       it { is_expected.to eq("2020 - 2021") }
     end
+
+    context "with a date value embedded in running text" do
+      let(:dates) do
+        [
+          {"value" => "view of approximately 1848, published about 1865", "type" => "publication"}
+        ]
+      end
+
+      it { is_expected.to eq("1848") }
+    end
+
+    context "with an unparsable date" do
+      let(:dates) do
+        [
+          {"value" => "not a date", "type" => "publication"}
+        ]
+      end
+
+      it { is_expected.to be_nil }
+    end
+  end
+
+  describe "#pub_date_str" do
+    subject { record.pub_date_str }
+
+    context "with a year" do
+      let(:dates) do
+        [
+          {"value" => "2020", "type" => "publication"}
+        ]
+      end
+
+      it { is_expected.to eq("2020") }
+    end
+
+    context "with a decade date (209x)" do
+      let(:dates) do
+        [
+          {"value" => "209x", "type" => "publication", "encoding" => {"code" => "edtf"}}
+        ]
+      end
+
+      it { is_expected.to eq("2090s") }
+    end
+
+    context "with an encoded date range (2020-01-01 to 2021-10-31)" do
+      let(:dates) do
+        [
+          {
+            "structuredValue" => [
+              {"value" => "2020-01-01", "type" => "start", "encoding" => {"code" => "w3cdtf"}},
+              {"value" => "2021-10-31", "type" => "end", "encoding" => {"code" => "w3cdtf"}}
+            ],
+            "type" => "publication"
+          }
+        ]
+      end
+
+      it { is_expected.to eq("January 1, 2020 - October 31, 2021") }
+    end
+
+    context "with a date value embedded in running text" do
+      let(:dates) do
+        [
+          {"value" => "view of approximately 1848, published about 1865", "type" => "publication"}
+        ]
+      end
+
+      it { is_expected.to eq("view of approximately 1848, published about 1865") }
+    end
+
+    context "with an unparsable date" do
+      let(:dates) do
+        [
+          {"value" => "not a date", "type" => "publication"}
+        ]
+      end
+
+      it { is_expected.to be_nil }
+    end
   end
 
   describe "#pub_year_int" do

@@ -79,13 +79,13 @@ RSpec.describe CocinaDisplay::Dates::DateRange do
 
     it "sorts dates correctly" do
       sorted_dates = dates.sort
-      expect(sorted_dates.map(&:value)).to eq([
-        ["0455", "0496"],
-        ["1902", "2045"],
-        ["2022-10-30", "unparseable"],
-        ["2022-10-30", "2023-01-01"],
-        ["2023", "2023-01-01"],
-        ["2023-01-01", "2023-01-02"]
+      expect(sorted_dates.map(&:to_s)).to eq([
+        "455 CE - 496 CE",
+        "1902 - 2045",
+        "October 30, 2022 - Unknown",
+        "October 30, 2022 - January 1, 2023",
+        "2023 - January 1, 2023",
+        "January 1, 2023 - January 2, 2023"
       ])
     end
   end
