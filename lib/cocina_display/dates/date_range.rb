@@ -40,11 +40,11 @@ module CocinaDisplay
         @type = cocina["type"]
       end
 
-      # The values of the start and stop dates as an array.
+      # The joined values of the start and stop dates.
       # @see CocinaDisplay::Date#value
-      # @return [Array<String>]
+      # @return [String]
       def value
-        [start&.value, stop&.value].compact
+        [start&.value, stop&.value].compact.uniq.join(" - ").strip
       end
 
       # Key used to sort this date range. Respects BCE/CE ordering and precision.

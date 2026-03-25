@@ -125,9 +125,14 @@ module CocinaDisplay
       end
 
       # The string representation of the date for display.
+      # Uses the raw value if the date was not encoded or couldn't be parsed.
       # @return [String]
       def to_s
-        qualified_value
+        if !parsed_date? || (!encoding? && value !~ /^-?\d+$/ && value !~ /^[\dXxu?-]{4}$/)
+          value.strip
+        else
+          qualified_value
+        end
       end
 
       # Label used to group the date for display.
@@ -304,9 +309,6 @@ module CocinaDisplay
       #   Defaults to [:day, :month, :year, :decade, :century, :unknown].
       # @return [String]
       def decoded_value(allowed_precisions: [:day, :month, :year, :decade, :century, :unknown])
-        if !parsed_date? || (!encoding? && value !~ /^-?\d+$/ && value !~ /^[\dXxu?-]{4}$/)
-          return value.strip
-        end
         if date.is_a?(EDTF::Interval)
           range = [
             Date.format_date(date.min, date.min.precision, allowed_precisions),

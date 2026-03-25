@@ -56,9 +56,13 @@ module CocinaDisplay
       #   "1932 - 2012"
       # @example BCE year range, [ca. 3500 BCE] - 3101 BCE (yv690gn5376)
       #   "3500 BCE - 3101 BCE"
+      # @example Unencoded string, 'about 933'
+      #   "933 CE"
+      # @example Not parsable, 'invalid-date'
+      #   nil
       def pub_year_str(ignore_qualified: false)
         date = pub_date(ignore_qualified: ignore_qualified)
-        return unless date
+        return unless date&.parsed_date?
 
         date.decoded_value(allowed_precisions: [:year, :decade, :century])
       end
@@ -77,6 +81,23 @@ module CocinaDisplay
       #   "-564990000-568980000"
       def pub_date_sort_str(ignore_qualified: false)
         pub_date(ignore_qualified: ignore_qualified)&.sort_key
+      end
+
+      # String for displaying the publication date.
+      # Considers publication, creation, and capture dates in that order.
+      # Prefers dates marked as primary and those with a declared encoding.
+      # If not encoded, returns the original string value from the Cocina.
+      # @return [String, nil]
+      # @example w3cdtf encoded year with month and day (vc109xd3118)
+      #   "August 21, 2024"
+      # @example w3cdtf encoded approximate year range (bb099mt5053)
+      #   "[ca. 1932 - 2012]"
+      # @example Unencoded string, 'about 933'
+      #   "about 933"
+      # @example Not parsable, 'invalid-date'
+      #   "invalid-date"
+      def pub_date_str
+        pub_date&.to_s
       end
 
       # String for displaying the imprint statement(s).
