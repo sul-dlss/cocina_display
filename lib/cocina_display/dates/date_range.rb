@@ -133,7 +133,7 @@ module CocinaDisplay
             "[#{decoded_value}]"
           end
         else
-          "#{start&.qualified_value} - #{stop&.qualified_value}"
+          [start&.qualified_value, stop&.qualified_value].uniq.join(" - ").strip
         end
       end
 

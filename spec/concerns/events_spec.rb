@@ -239,6 +239,21 @@ RSpec.describe CocinaDisplay::CocinaRecord do
       it { is_expected.to eq("January 1, 2020 - October 31, 2021") }
     end
 
+    context "with an open-ended range" do
+      let(:dates) do
+        [
+          {
+            "structuredValue" => [
+              {"value" => "2000", "type" => "start"}
+            ],
+            "type" => "publication"
+          }
+        ]
+      end
+
+      it { is_expected.to eq("2000 -") }
+    end
+
     context "with a date value embedded in running text" do
       let(:dates) do
         [
