@@ -66,8 +66,8 @@ RSpec.describe CocinaDisplay::Events::Event do
           }
         end
 
-        it "concatenates and orders all valid dates" do
-          is_expected.to eq "no date here; 18th century; September 1920"
+        it "concatenates and orders all dates" do
+          is_expected.to eq "Unknown, 18th century, and September 1920"
         end
       end
 
@@ -81,8 +81,8 @@ RSpec.describe CocinaDisplay::Events::Event do
           }
         end
 
-        it "prefers the unencoded date to preserve punctuation-as-metadata" do
-          is_expected.to eq "1920]"
+        it "prefers the encoded date for clarity" do
+          is_expected.to eq "1920"
         end
       end
 
@@ -120,44 +120,6 @@ RSpec.describe CocinaDisplay::Events::Event do
 
         it "renders the range" do
           is_expected.to eq "1920 - 1921"
-        end
-      end
-
-      # from druid:zs247rr8237
-      context "with two distinct dates" do
-        let(:cocina) do
-          {
-            "date" => [
-              {
-                "value" => "1674",
-                "type" => "creation",
-                "status" => "primary",
-                "qualifier" => "approximate"
-              },
-              {
-                "structuredValue" => [
-                  {
-                    "value" => "1690",
-                    "type" => "end"
-                  }
-                ],
-                "type" => "creation",
-                "encoding" => {
-                  "code" => "w3cdtf"
-                },
-                "qualifier" => "approximate"
-              }
-            ],
-            "location" => [
-              {
-                "value" => "[Italy?]"
-              }
-            ]
-          }
-        end
-
-        it "lists them separately, in order" do
-          is_expected.to eq "[Italy?], [ca. 1674]; [ca. - 1690]"
         end
       end
     end
@@ -210,8 +172,8 @@ RSpec.describe CocinaDisplay::Events::Event do
           }
         end
 
-        it "prefers the unencoded place name" do
-          is_expected.to eq "London, 1921"
+        it "uses all place names" do
+          is_expected.to eq "London, England, 1921"
         end
       end
 
@@ -268,123 +230,6 @@ RSpec.describe CocinaDisplay::Events::Event do
 
       it "renders everything correctly" do
         is_expected.to eq "London, 1921"
-      end
-    end
-
-    context "with a publisher and date" do
-      let(:cocina) do
-        {
-          "date" => [
-            {"value" => "1921.", "type" => "publication"}
-          ],
-          "contributor" => [
-            {
-              "name" => [{"value" => "Chronicle Books"}],
-              "role" => [{"value" => "publisher"}]
-            }
-          ]
-        }
-      end
-
-      it "renders everything correctly" do
-        is_expected.to eq "Chronicle Books, 1921."
-      end
-    end
-
-    context "with multiple publication places" do
-      let(:cocina) do
-        {
-          "date" => [
-            {"value" => "1921.", "type" => "publication"}
-          ],
-          "location" => [
-            {"value" => "London"},
-            {"value" => "England"}
-          ]
-        }
-      end
-
-      it "renders everything correctly" do
-        is_expected.to eq "London : England, 1921."
-      end
-    end
-
-    context "with a place, publisher, and date" do
-      # from druid:bg262qk2288
-      let(:cocina) do
-        {
-          "date" => [
-            {"value" => "[1862]-", "type" => "publication"}
-          ],
-          "contributor" => [
-            {
-              "name" => [
-                {"value" => "Librairie administrative de P. Dupont"}
-              ],
-              "type" => "organization",
-              "role" => [
-                {
-                  "value" => "publisher",
-                  "code" => "pbl",
-                  "uri" => "http://id.loc.gov/vocabulary/relators/pbl",
-                  "source" => {"code" => "marcrelator", "uri" => "http://id.loc.gov/vocabulary/relators/"}
-                }
-              ]
-            }
-          ],
-          "location" => [
-            {"value" => "Paris"}
-          ]
-        }
-      end
-
-      it "renders everything correctly" do
-        # MARC may have had a comma after the place, but Cocina does not include it
-        is_expected.to eq "Paris : Librairie administrative de P. Dupont, [1862]-"
-      end
-    end
-
-    context "with an edition, publisher, place, and date" do
-      # adapted from druid:bm971cx9348
-      let(:cocina) do
-        {
-          "type" => "publication",
-          "date" => [
-            {"value" => "[192-?]-[193-?]", "type" => "publication"},
-            {"structuredValue" => [{"value" => "1920", "type" => "start"}], "encoding" => {"code" => "marc"}, "type" => "publication"}
-          ],
-          "note" => [
-            {"type" => "edition", "value" => "2nd ed."}
-          ],
-          "contributor" => [
-            {
-              "name" => [
-                {"value" => "H.M. Stationery Off."}
-              ],
-              "role" => [
-                {
-                  "value" => "publisher",
-                  "code" => "pbl",
-                  "uri" => "http://id.loc.gov/vocabulary/relators/pbl",
-                  "source" => {
-                    "code" => "marcrelator",
-                    "uri" => "http://id.loc.gov/vocabulary/relators/"
-                  }
-                }
-              ],
-              "type" => "organization"
-            }
-          ],
-          "location" => [
-            {"value" => "London"},
-            {"source" => {"code" => "marccountry"}, "code" => "enk"}
-          ]
-        }
-      end
-
-      it "renders everything correctly" do
-        # Prefers the unencoded place name and date
-        is_expected.to eq "2nd ed. - London : H.M. Stationery Off., [192-?]-[193-?]"
       end
     end
   end

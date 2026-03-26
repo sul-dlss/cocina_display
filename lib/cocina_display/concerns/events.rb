@@ -126,7 +126,10 @@ module CocinaDisplay
       # All root level events associated with the object.
       # @return [Array<CocinaDisplay::Events::Event>]
       def events
-        @events ||= path("$.description.event.*").map { |event| CocinaDisplay::Events::Event.new(event) }
+        @events ||= path("$.description.event.*").map do |cocina|
+          event = CocinaDisplay::Events::Event.new(cocina)
+          event.imprint? ? CocinaDisplay::Events::Imprint.new(cocina) : event
+        end
       end
 
       # The adminMetadata creation event (When was it was deposited?)
@@ -144,12 +147,9 @@ module CocinaDisplay
       end
 
       # Array of CocinaDisplay::Imprint objects for all relevant Cocina events.
-      # Considers publication, creation, capture, and copyright events.
-      # Considers event types as well as date types if the event is untyped.
-      # Prefers events where the date was not encoded, if any.
-      # @return [Array<CocinaDisplay::Imprint>] The list of Imprint objects
+      # @return [Array<CocinaDisplay::Imprint>]
       def imprint_events
-        events.filter(&:imprint?)
+        events.filter { |event| event.is_a? CocinaDisplay::Events::Imprint }
       end
 
       # All dates associated with the object via an event.
