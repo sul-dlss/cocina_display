@@ -39,7 +39,7 @@ module CocinaDisplay
       # @return [Array<String>]
       # @see CocinaDisplay::Title#display_title
       def additional_titles
-        (Array(primary_title&.parallel_values) + secondary_titles.flat_map(&:title_values))
+        (primary_title.main_value.siblings + secondary_titles.flat_map(&:parallel_values))
           .map(&:display_title).compact_blank
       end
 
@@ -49,13 +49,13 @@ module CocinaDisplay
       # @param exclude_primary [Boolean] Exclude primary titles. Defaults to false.
       def title_display_data(exclude_primary: false)
         target_titles = exclude_primary ? secondary_titles : all_titles
-        DisplayData.from_objects(target_titles.flat_map(&:title_values))
+        DisplayData.from_objects(target_titles.flat_map(&:parallel_values))
       end
 
       # The first title marked primary, or the first without a type.
       # @return [Title, nil]
       def primary_title
-        all_titles.find { |title| title.primary? }.presence || all_titles.find { |title| !title.type? }
+        all_titles.find { |title| title.primary? }.presence || all_titles.find { |title| !title.typed? }
       end
 
       # All titles except the primary title.
