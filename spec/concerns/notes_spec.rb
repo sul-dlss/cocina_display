@@ -43,8 +43,8 @@ RSpec.describe CocinaDisplay::CocinaRecord do
 
       it "returns an array of Note objects" do
         expect(record.notes).to contain_exactly(
-          be_a(CocinaDisplay::Note).and(have_attributes(to_s: "This is a note", type: nil, label: "Note")),
-          be_a(CocinaDisplay::Note).and(have_attributes(to_s: "This is another note", type: "biographical historical", label: "Biographical/Historical"))
+          be_a(CocinaDisplay::Notes::Note).and(have_attributes(to_s: "This is a note", type: nil, label: "Note")),
+          be_a(CocinaDisplay::Notes::Note).and(have_attributes(to_s: "This is another note", type: "biographical historical", label: "Biographical/Historical"))
         )
       end
     end

@@ -51,14 +51,17 @@ RSpec.describe CocinaDisplay::Titles::Title do
 
     describe "#type" do
       it "uses the type of the main title value" do
+        expect(subject).to be_typed
+        expect(subject).not_to be_own_typed
         expect(subject.type).to eq "alternative"
       end
     end
 
     describe "#parallel_values" do
-      it "returns all values except the main value" do
+      it "returns all values" do
         expect(subject.parallel_values.map(&:to_s)).to eq [
           "ha-Yeled ḥalom : maḥazeh be-arbaʻah ḥalaḳim",
+          "הילד חלום : מחזה בארבעה חלקים",
           "The Child Dreams : play in four parts"
         ]
       end
@@ -80,7 +83,7 @@ RSpec.describe CocinaDisplay::Titles::Title do
 
     it "uses the type of the main value for the parallel values" do
       subject.parallel_values.each do |value|
-        expect(value).to be_type
+        expect(value).to be_typed
         expect(value.type).to eq "alternative"
       end
     end
@@ -108,7 +111,7 @@ RSpec.describe CocinaDisplay::Titles::Title do
 
     describe "#transliterated_value" do
       it "considers the value transliterated based on the script and language" do
-        expect(subject.title_values[1]).to be_transliterated
+        expect(subject.parallel_values[1]).to be_transliterated
       end
     end
   end
