@@ -34,23 +34,26 @@ module CocinaDisplay
         primary_title&.sort_title || "\u{10FFFF}"
       end
 
-      # Any additional titles for the object excluding the primary title.
+      # Any additional titles for the object excluding the main value of the primary title.
+      # Includes parallel titles of the primary title and all titles from secondary titles.
       # @return [Array<String>]
       # @see CocinaDisplay::Title#display_title
       def additional_titles
-        secondary_titles.map(&:display_title).compact_blank
+        (Array(primary_title&.parallel_values) + secondary_titles.flat_map(&:title_values))
+          .map(&:display_title).compact_blank
       end
 
-      # All {Title} objects, grouped by their label for display.
+      # All {TitleValue} objects, grouped by their label for display.
       # @note All primary titles are included under "Title", not just the first.
       # @return [Array<DisplayData>]
       # @param exclude_primary [Boolean] Exclude primary titles. Defaults to false.
       def title_display_data(exclude_primary: false)
-        DisplayData.from_objects(exclude_primary ? secondary_titles : all_titles)
+        target_titles = exclude_primary ? secondary_titles : all_titles
+        DisplayData.from_objects(target_titles.flat_map(&:title_values))
       end
 
       # The first title marked primary, or the first without a type.
-      # @return [Array<Title>]
+      # @return [Title, nil]
       def primary_title
         all_titles.find { |title| title.primary? }.presence || all_titles.find { |title| !title.type? }
       end
@@ -62,16 +65,14 @@ module CocinaDisplay
       end
 
       # All {Title} objects built from the Cocina titles.
-      # Flattens parallel values into separate titles.
       # @return [Array<Title>]
       def all_titles
-        @all_titles ||= cocina_titles.flat_map do |cocina_title|
-          (Array(cocina_title["parallelValue"]).presence || [cocina_title]).map do |value|
-            Title.new(value, part_label: part_label, part_numbers: part_numbers).tap do |title|
-              title.type ||= cocina_title["type"]
-              title.status ||= cocina_title["status"]
-            end
-          end
+        @all_titles ||= cocina_titles.map do |cocina_title|
+          CocinaDisplay::Titles::Title.new(
+            cocina_title,
+            part_label: part_label,
+            part_numbers: part_numbers
+          )
         end
       end
 

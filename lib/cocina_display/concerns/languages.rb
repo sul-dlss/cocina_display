@@ -2,10 +2,10 @@ module CocinaDisplay
   module Concerns
     # Methods for extracting language information from a Cocina object.
     module Languages
-      # Languages objects associated with the object.
-      # @return [Array<CocinaDisplay::Language>]
+      # Languages associated with the object.
+      # @return [Array<CocinaDisplay::Languages::Language>]
       def languages
-        @languages ||= path("$.description.language.*").map { |lang| CocinaDisplay::Language.new(lang) }
+        @languages ||= path("$.description.language.*").map { |lang| CocinaDisplay::Languages::Language.new(lang) }
       end
 
       # Names of languages associated with the object, if recognized by Searchworks.

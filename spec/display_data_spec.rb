@@ -15,7 +15,7 @@ RSpec.describe CocinaDisplay::DisplayData do
         {"code" => "zxx"},
         {"code" => "egy-Egyd"},
         {"value" => "Sumerian", "displayLabel" => "Primary language"}
-      ].map { |lang| CocinaDisplay::Language.new(lang) }
+      ].map { |lang| CocinaDisplay::Languages::Language.new(lang) }
     end
 
     it "groups objects by label and keeps unique, non-blank values" do
@@ -77,7 +77,7 @@ RSpec.describe CocinaDisplay::DisplayData do
     let(:objects) do
       [
         {"value" => "Some text"}
-      ].map { |obj| CocinaDisplay::Language.new(obj) }
+      ].map { |obj| CocinaDisplay::Languages::Language.new(obj) }
     end
 
     it "returns the label as supplied" do
@@ -91,11 +91,11 @@ RSpec.describe CocinaDisplay::DisplayData do
     let(:objects) do
       [
         {"value" => "Some text"}
-      ].map { |obj| CocinaDisplay::Language.new(obj) }
+      ].map { |obj| CocinaDisplay::Languages::Language.new(obj) }
     end
 
     it "returns the objects as supplied" do
-      is_expected.to contain_exactly(be_a(CocinaDisplay::Language))
+      is_expected.to contain_exactly(be_a(CocinaDisplay::Languages::Language))
     end
   end
 

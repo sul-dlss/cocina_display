@@ -81,7 +81,7 @@ module CocinaDisplay
       # @param cocina [Hash] The Cocina structured data for the subject.
       def initialize(cocina)
         super
-        @title = Title.new(cocina)
+        @title = Titles::Title.new(cocina)
       end
 
       # Construct a title string to use for display.
