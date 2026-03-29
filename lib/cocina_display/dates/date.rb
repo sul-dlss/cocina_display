@@ -554,6 +554,11 @@ module CocinaDisplay
       attr_reader :date
 
       def self.normalize_to_edtf(value)
+        unless value
+          notifier&.notify("Invalid date value: #{value}")
+          return
+        end
+
         return "0000" if value.strip == "0"
 
         case value
