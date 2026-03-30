@@ -109,7 +109,7 @@ RSpec.describe CocinaDisplay::DisplayData do
         {"value" => "A real note"},
         {"value" => "https://example.com"},
         {"value" => "A note with a URL in the middle of the text https://example.com and more text"}
-      ].map { |obj| CocinaDisplay::Note.new(obj) }
+      ].map { |obj| CocinaDisplay::Notes::Note.new(obj) }
     end
 
     it "returns the values from the objects" do
@@ -123,7 +123,7 @@ RSpec.describe CocinaDisplay::DisplayData do
         [
           {"value" => "Some text\nwith a note"},
           {"value" => "Another note"}
-        ].map { |obj| CocinaDisplay::Note.new(obj) }
+        ].map { |obj| CocinaDisplay::Notes::Note.new(obj) }
       end
 
       it "returns the values from the objects, splitting on newlines" do

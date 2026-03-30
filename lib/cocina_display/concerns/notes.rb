@@ -5,7 +5,7 @@ module CocinaDisplay
       # Note objects associated with the cocina record.
       # @return [Array<CocinaDisplay::Note>]
       def notes
-        @notes ||= path("$.description.note.*").map { |note| CocinaDisplay::Note.new(note) }
+        @notes ||= path("$.description.note.*").map { |note| CocinaDisplay::Notes::Note.new(note) }
       end
 
       # Text of all abstract notes.

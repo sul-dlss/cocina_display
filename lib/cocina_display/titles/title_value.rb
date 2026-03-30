@@ -1,25 +1,18 @@
 module CocinaDisplay
   module Titles
     # A Title associated with an item in a single language.
-    class TitleValue < CocinaDisplay::ParallelValue
+    class TitleValue < Parallel::ParallelValue
       # Part types for structured titles.
       # @see https://github.com/sul-dlss/cocina-models/blob/main/docs/description_types.md#title-part-types-for-structured-value
       PART_TYPES = ["main title", "nonsorting characters", "part name", "part number", "subtitle"].freeze
 
-      # Create a new TitleValue object.
-      # @param cocina [Hash]
-      # @param part_label [String, nil] part label for digital serials
-      # @param part_numbers [Array<String>] part numbers for related resources
-      def initialize(cocina, part_label: nil, part_numbers: nil)
-        super(cocina)
-        @part_label = part_label
-        @part_numbers = part_numbers
-      end
+      # Inherit part data from the parent title.
+      delegate :part_label, :part_numbers, to: :parent, allow_nil: true
 
       # Custom label used when displaying the title, if any.
       # @return [String, nil]
       def label
-        cocina["displayLabel"].presence || type_label
+        display_label || type_label
       end
 
       # The string representation of the title, for display.
@@ -120,9 +113,9 @@ module CocinaDisplay
       # @return [String, nil]
       def parts_str
         Utils.compact_and_join(
-          Array(title_components["part number"] || @part_numbers) +
+          Array(title_components["part number"] || part_numbers) +
           Array(title_components["part name"]) +
-          [@part_label],
+          [part_label],
           delimiter: ", "
         )
       end

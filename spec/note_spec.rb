@@ -2,7 +2,7 @@
 
 require "spec_helper"
 
-RSpec.describe CocinaDisplay::Note do
+RSpec.describe CocinaDisplay::Notes::Note do
   subject { described_class.new(note) }
 
   describe "#to_s" do
@@ -53,6 +53,56 @@ RSpec.describe CocinaDisplay::Note do
         expect(subject.to_s).to eq "A note about a thing. -- With a delimiter."
       end
     end
+
+    context "with a non-TOC note" do
+      # from druid:gx074xz5520
+      let(:note) do
+        {
+          "value" => "Stanford University. Cabinet, Stanford University--Administration.",
+          "type" => "preferred citation"
+        }
+      end
+
+      it "leaves the value unchanged" do
+        expect(subject.to_s).to eq "Stanford University. Cabinet, Stanford University--Administration."
+      end
+    end
+
+    context "with a TOC with delimiters in the values" do
+      # from druid:bm971cx9348
+      let(:note) do
+        {
+          "structuredValue" => [
+            {"value" => "-- pt.2. Abergavenny"},
+            {"value" => "-- pt.5. Merthyr Tydfil --"}
+          ],
+          "type" => "table of contents",
+          "displayLabel" => "Incomplete contents"
+        }
+      end
+
+      it "returns the values joined with delimiter" do
+        expect(subject.to_s).to eq "pt.2. Abergavenny -- pt.5. Merthyr Tydfil"
+      end
+    end
+
+    context "with a TOC with delimiters in a single value" do
+      # from druid:sw284bk0647
+      let(:note) do
+        {
+          "type" => "table of contents",
+          # rubocop:disable Layout/LineLength
+          "value" => "Progress: its law and cause.--Manners and fashion.--The genesis of science.--The physiology of laughter.--The origin and function of music.--The nebular hypothesis.--Bain on the emotions and the will.--Illogical geology.--The development hypothesis.--The social organism.--Use and beauty.--The sources of architectural types.--The use of anthropomorphism."
+          # rubocop:enable Layout/LineLength
+        }
+      end
+
+      it "re-joins using the delimiter" do
+        # rubocop:disable Layout/LineLength
+        expect(subject.to_s).to eq "Progress: its law and cause. -- Manners and fashion. -- The genesis of science. -- The physiology of laughter. -- The origin and function of music. -- The nebular hypothesis. -- Bain on the emotions and the will. -- Illogical geology. -- The development hypothesis. -- The social organism. -- Use and beauty. -- The sources of architectural types. -- The use of anthropomorphism."
+        # rubocop:enable Layout/LineLength
+      end
+    end
   end
 
   describe "#type" do
@@ -71,26 +121,6 @@ RSpec.describe CocinaDisplay::Note do
 
       it "returns nil" do
         expect(subject.type).to be_nil
-      end
-    end
-  end
-
-  describe "#display_label" do
-    let(:note) do
-      {"value" => "A note about a thing.", "displayLabel" => "A special note"}
-    end
-
-    it "returns the displayLabel for note" do
-      expect(subject.display_label).to eq "A special note"
-    end
-
-    context "when displayLabel is not set" do
-      let(:note) do
-        {"value" => "A note about a thing."}
-      end
-
-      it "returns nil" do
-        expect(subject.display_label).to be_nil
       end
     end
   end
@@ -328,55 +358,43 @@ RSpec.describe CocinaDisplay::Note do
     end
   end
 
-  describe "#flat_value" do
-    context "with a non-TOC note" do
-      # from druid:gx074xz5520
-      let(:note) do
-        {
-          "value" => "Stanford University. Cabinet, Stanford University--Administration.",
-          "type" => "preferred citation"
-        }
-      end
-
-      it "leaves the value unchanged" do
-        expect(subject.flat_value).to eq "Stanford University. Cabinet, Stanford University--Administration."
-      end
+  context "with a parallel transliterated TOC" do
+    # adapted from druid:xx402cm3448
+    # rubocop:disable Layout/LineLength
+    let(:note) do
+      {
+        "parallelValue" => [
+          {
+            "value" => "Maps: -- [1] Generalʹnai͡a karta Rossīĭskoĭ Imperīi na sorokʺ odnu gubernīi͡u razdi͡elennoĭ -- [2] Karta S. Peterburgskoĭ gubernīi izʺ 7 ui͡ezdovʺ",
+            "displayLabel" => "Partial contents"
+          },
+          {
+            "value" => "Maps: -- [1] Генеральная карта Россійской Имперіи на сорокъ одну губернію раздѣленной -- [2] Карта С. Петербургской губерніи изъ 7 уѣздовъ"
+          }
+        ],
+        "type" => "table of contents"
+      }
     end
 
-    context "with a TOC with delimiters in the values" do
-      # from druid:bm971cx9348
-      let(:note) do
-        {
-          "structuredValue" => [
-            {"value" => "-- pt.2. Abergavenny"},
-            {"value" => "-- pt.5. Merthyr Tydfil --"}
-          ],
-          "type" => "table of contents",
-          "displayLabel" => "Incomplete contents"
-        }
-      end
-
-      it "returns the values joined with delimiter" do
-        expect(subject.flat_value).to eq "pt.2. Abergavenny -- pt.5. Merthyr Tydfil"
-      end
+    it "renders itself using the first parallelValue" do
+      expect(subject.to_s).to eq "Maps: -- [1] Generalʹnai͡a karta Rossīĭskoĭ Imperīi na sorokʺ odnu gubernīi͡u razdi͡elennoĭ -- [2] Karta S. Peterburgskoĭ gubernīi izʺ 7 ui͡ezdovʺ"
     end
 
-    context "with a TOC with delimiters in a single value" do
-      # from druid:sw284bk0647
-      let(:note) do
-        {
-          "type" => "table of contents",
-          # rubocop:disable Layout/LineLength
-          "value" => "Progress: its law and cause.--Manners and fashion.--The genesis of science.--The physiology of laughter.--The origin and function of music.--The nebular hypothesis.--Bain on the emotions and the will.--Illogical geology.--The development hypothesis.--The social organism.--Use and beauty.--The sources of architectural types.--The use of anthropomorphism."
-          # rubocop:enable Layout/LineLength
-        }
-      end
+    it "uses the values from the first parallelValue" do
+      expect(subject.values[1]).to eq "[1] Generalʹnai͡a karta Rossīĭskoĭ Imperīi na sorokʺ odnu gubernīi͡u razdi͡elennoĭ"
+    end
 
-      it "re-joins using the delimiter" do
-        # rubocop:disable Layout/LineLength
-        expect(subject.flat_value).to eq "Progress: its law and cause. -- Manners and fashion. -- The genesis of science. -- The physiology of laughter. -- The origin and function of music. -- The nebular hypothesis. -- Bain on the emotions and the will. -- Illogical geology. -- The development hypothesis. -- The social organism. -- Use and beauty. -- The sources of architectural types. -- The use of anthropomorphism."
-        # rubocop:enable Layout/LineLength
-      end
+    it "links the values to their parallel versions" do
+      expect(subject.main_value.siblings.first.values[1]).to eq "[1] Генеральная карта Россійской Имперіи на сорокъ одну губернію раздѣленной"
+    end
+    # rubocop:enable Layout/LineLength
+
+    it "honors the displayLabel for the parallel values if rendered separately" do
+      expect(subject.main_value.label).to eq "Partial contents"
+    end
+
+    it "generates displayLabel for parallel values if not set" do
+      expect(subject.main_value.siblings.first.label).to eq "Table of contents"
     end
   end
 end
