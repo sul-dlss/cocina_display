@@ -120,7 +120,7 @@ RSpec.describe CocinaDisplay::RelatedResource do
   end
 
   describe "#display_data" do
-    subject { described_class.new(cocina_doc).display_data.map { |dd| {dd.label => dd.values} } }
+    subject { CocinaDisplay::DisplayData.to_hash(described_class.new(cocina_doc).display_data) }
 
     context "with title, contributor, and notes using display labels" do
       # taken from druid:hp566jq8781
@@ -159,15 +159,45 @@ RSpec.describe CocinaDisplay::RelatedResource do
         }
       end
 
-      it "combines all display data" do
-        is_expected.to eq([
-          {"Title" => ["Ranulf Higden OSB, Polychronicon (epitome and continuation to 1429). 1r-29v"]},
-          {"Nasmith" => ["Epitome chronicae Cicestrensis, sed extractum e Polychronico, usque ad annum Christi 1429. 1r-29v"]},
-          {"Author" => ["Ranulf Higden OSB"]},
-          {"Incipit" => ["(1r) Ieronimus ad eugenium in epistola 43a dicit quod decime leguntur primum date ab abraham"]},
-          {"Note" => ["Dates are marked in the margin", "Ends with the coronation of Henry VI at St Denis"]},
-          {"Explicit" => ["(29v) videlicet nono die mensis decembris ano etatis sue 10o"]}
-        ])
+      it "uses all data except title, which will be used as the related resource title" do
+        is_expected.to eq(
+          {
+            "Nasmith" => ["Epitome chronicae Cicestrensis, sed extractum e Polychronico, usque ad annum Christi 1429. 1r-29v"],
+            "Author" => ["Ranulf Higden OSB"],
+            "Incipit" => ["(1r) Ieronimus ad eugenium in epistola 43a dicit quod decime leguntur primum date ab abraham"],
+            "Note" => ["Dates are marked in the margin", "Ends with the coronation of Henry VI at St Denis"],
+            "Explicit" => ["(29v) videlicet nono die mensis decembris ano etatis sue 10o"]
+          }
+        )
+      end
+    end
+
+    context "with a title and URL" do
+      # from druid:rr259ws3364
+      let(:cocina_doc) do
+        {
+          "type" => "related to",
+          "displayLabel" => "Related Resource",
+          "title" => [
+            {"value" => "United States masterfile"}
+          ],
+          "note" => [
+            {"value" => "Includes alternate early U.S. government document indexes like American State Papers and Checklist of US Public Documents"}
+          ],
+          "access" => {
+            "url" => [
+              {"value" => "https://searchworks.stanford.edu/view/in00000451323"}
+            ]
+          }
+        }
+      end
+
+      it "does not duplicate title or url in the display data" do
+        is_expected.to eq(
+          {
+            "Note" => ["Includes alternate early U.S. government document indexes like American State Papers and Checklist of US Public Documents"]
+          }
+        )
       end
     end
   end
