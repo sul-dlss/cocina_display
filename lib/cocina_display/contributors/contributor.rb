@@ -90,7 +90,7 @@ module CocinaDisplay
       # @param with_date [Boolean] Include life dates, if present
       # @return [Array<String>]
       def display_names(with_date: false)
-        names.map { |name| name.to_s(with_date: with_date) }.compact_blank
+        names.flat_map { |name| name.parallel_values.map { |pv| pv.to_s(with_date: with_date) } }.compact_blank
       end
 
       # A single primary name for the contributor.
@@ -117,19 +117,9 @@ module CocinaDisplay
       end
 
       # All names in the Cocina as Name objects.
-      # Flattens parallel values into separate Name objects.
       # @return [Array<Name>]
       def names
-        @names ||= Array(cocina["name"]).flat_map do |name|
-          (Array(name["parallelValue"]).presence || [name]).filter_map do |name_value|
-            unless name_value.blank?
-              Name.new(name_value).tap do |name_obj|
-                name_obj.type ||= name["type"]
-                name_obj.status ||= name["status"]
-              end
-            end
-          end
-        end
+        @names ||= Array(cocina["name"]).map { |name| Name.new(name) }
       end
 
       # All roles in the Cocina structured data.

@@ -4,7 +4,7 @@ module CocinaDisplay
     # the same thing in different languages or scripts.
     class ParallelValue
       # Value types (in Cocina) that are used to indicate sibling relationships.
-      PARALLEL_TYPES = ["parallel", "translated", "transliterated", "display"].freeze
+      PARALLEL_TYPES = ["parallel", "translated", "translation", "transliterated", "transliteration", "display"].freeze
 
       # The underlying Cocina hash.
       # @return [Hash]
@@ -46,13 +46,13 @@ module CocinaDisplay
       # Is this value translated?
       # @return [Boolean]
       def translated?
-        role == "translated"
+        role == "translated" || role == "translation"
       end
 
       # Is this value transliterated?
       # @return [Boolean]
       def transliterated?
-        role == "transliterated" || language&.transliterated?
+        role == "transliterated" || role == "transliteration" || language&.transliterated?
       end
 
       # The type, which can be inherited from the main sibling or parent object.
@@ -79,6 +79,19 @@ module CocinaDisplay
       # @return [Boolean]
       def own_typed?
         own_type.present?
+      end
+
+      # The status of the value relative to siblings, if any (e.g., "primary").
+      # @note We treat this the same as "role".
+      # @return [String, nil]
+      def status
+        cocina["status"]
+      end
+
+      # Is this value marked as primary?
+      # @return [Boolean]
+      def primary?
+        status == "primary"
       end
 
       # The language of the value, if specified.

@@ -617,4 +617,70 @@ RSpec.describe CocinaDisplay::Contributors::Contributor do
       it { is_expected.to eq([CocinaDisplay::Identifier.new({"uri" => "https://orcid.org/0000-0002-1825-0097"})]) }
     end
   end
+
+  context "with parallel name values" do
+    # from druid:bb725qd1888
+    let(:cocina) do
+      {
+        "name" => [
+          {
+            "parallelValue" => [
+              {
+                "value" => "Leṿin, Ḥanokh",
+                "type" => "transliteration",
+                "standard" => {"value" => "ALA-LC Romanization tables"},
+                "valueLanguage" => {
+                  "code" => "eng",
+                  "uri" => "https://id.loc.gov/vocabulary/iso639-2/eng",
+                  "source" => {"code" => "iso632-2b"},
+                  "valueScript" => {"code" => "Latn", "source" => {"code" => "iso15924"}}
+                }
+              },
+              {
+                "value" => "לוין, חנוך",
+                "status" => "primary",
+                "standard" => {"value" => "ALA-LC Romanization tables"},
+                "valueLanguage" => {
+                  "code" => "heb",
+                  "uri" => "https://id.loc.gov/vocabulary/iso639-2/heb",
+                  "source" => {"code" => "iso632-2b"},
+                  "valueScript" => {"code" => "Hebr", "source" => {"code" => "iso15924"}}
+                }
+              },
+              {
+                "value" => "Levin, Hanoch",
+                "valueLanguage" => {
+                  "code" => "eng",
+                  "uri" => "https://id.loc.gov/vocabulary/iso639-2/eng",
+                  "source" => {"code" => "iso632-2b"},
+                  "valueScript" => {"code" => "Latn", "source" => {"code" => "iso15924"}}
+                }
+              }
+            ],
+            "uri" => "http://id.loc.gov/authorities/names/n88288195",
+            "source" => {"code" => "naf"}
+          }
+        ],
+        "type" => "person",
+        "status" => "primary",
+        "role" => [
+          {
+            "value" => "creator",
+            "code" => "cre",
+            "uri" => "http://id.loc.gov/vocabulary/relators/cre",
+            "source" => {"code" => "marcrelator", "uri" => "http://id.loc.gov/vocabulary/relators"}
+          }
+        ]
+      }
+    end
+
+    it "uses the name marked primary as the display name" do
+      expect(instance.display_name).to eq("לוין, חנוך")
+    end
+
+    it "detects the transliterated name" do
+      expect(instance.names.first).to have_transliteration
+      expect(instance.names.first.transliterated_value.to_s).to eq("Leṿin, Ḥanokh")
+    end
+  end
 end
