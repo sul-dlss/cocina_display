@@ -39,7 +39,7 @@ module CocinaDisplay
       # @return [Array<String>]
       # @see CocinaDisplay::Title#display_title
       def additional_titles
-        (primary_title.main_value.siblings + secondary_titles.flat_map(&:parallel_values))
+        (Array(primary_title&.main_value&.siblings) + secondary_titles.flat_map(&:parallel_values))
           .map(&:display_title).compact_blank
       end
 
