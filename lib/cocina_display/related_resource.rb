@@ -36,9 +36,10 @@ module CocinaDisplay
     end
 
     # String representation of the related resource.
+    # If not titled, uses a URL or the label as a fallback.
     # @return [String, nil]
     def to_s
-      display_data.flat_map(&:values).first
+      display_title || url || label
     end
 
     # URL to the related resource for link construction.
@@ -57,7 +58,7 @@ module CocinaDisplay
     # Nested display data for the related resource.
     # @return [Array<DisplayData>]
     def display_data
-      title_display_data +
+      title_display_data(exclude_primary: true) +
         contributor_display_data +
         event_display_data +
         general_note_display_data +
@@ -67,6 +68,14 @@ module CocinaDisplay
     end
 
     private
+
+    # Display data for access-related information.
+    # Doesn't duplicate the URL used to link the related resource itself, if any.
+    # @return [Array<DisplayData>]
+    def access_display_data
+      objects = accesses + access_contacts + purls + urls
+      CocinaDisplay::DisplayData.from_objects(objects.reject { |obj| obj.to_s == url.to_s })
+    end
 
     # Key used for i18n lookup of the label, based on the type.
     # Falls back to a generic label for any unknown types.
