@@ -38,6 +38,11 @@ RSpec.describe CocinaDisplay::CocinaRecord do
       it { is_expected.to eq "\u{10FFFF}" }
     end
 
+    describe "#additional_titles" do
+      subject { described_class.new(cocina_doc).additional_titles }
+      it { is_expected.to be_empty }
+    end
+
     describe "#title_display_data" do
       subject { described_class.new(cocina_doc).title_display_data }
       it { is_expected.to be_empty }
