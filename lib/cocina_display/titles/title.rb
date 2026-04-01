@@ -5,10 +5,6 @@ module CocinaDisplay
       # Part data for digital serials, coming from elsewhere in the Cocina.
       attr_reader :part_label, :part_numbers
 
-      # Status of the title, e.g. "primary".
-      # @return [String, nil]
-      attr_accessor :status
-
       # Common display methods reference the main title value. For parallel
       # values, see #translated_value and #transliterated_value.
       delegate :short_title, :full_title, :display_title, :sort_title, to: :main_value
@@ -27,12 +23,6 @@ module CocinaDisplay
       # @return [String]
       def label
         display_label || type_label
-      end
-
-      # Is this marked as a primary title?
-      # @return [Boolean]
-      def primary?
-        status == "primary"
       end
 
       # The string representation of the title, for display.
