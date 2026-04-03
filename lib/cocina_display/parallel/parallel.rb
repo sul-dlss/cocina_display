@@ -47,12 +47,14 @@ module CocinaDisplay
       # The main value among the parallel values, according to these rules:
       # 1. If there's a parallelValue with type "display", use that.
       # 2. If there's a parallelValue marked as primary, use that.
-      # 3. If there's a parallelValue with a non-role type, like "alternative", use that.
-      # 4. Otherwise, use the first parallelValue.
+      # 3. If there's a parallelValue in a vernacular (non-English) language, use that.
+      # 4. If there's a parallelValue with a non-role type, like "alternative", use that.
+      # 5. Otherwise, use the first parallelValue.
       # @return [CocinaDisplay::ParallelValue, nil]
       def main_value
         parallel_values.find(&:display?) ||
           parallel_values.find(&:primary?) ||
+          parallel_values.find(&:vernacular?) ||
           parallel_values.find(&:own_typed?) ||
           parallel_values.first
       end
@@ -79,6 +81,18 @@ module CocinaDisplay
       # @return [Boolean]
       def has_transliteration?
         transliterated_value.present?
+      end
+
+      # The vernacular (non-English) version of the object, if any.
+      # @return [CocinaDisplay::ParallelValue, nil]
+      def vernacular_value
+        parallel_values.find(&:vernacular?)
+      end
+
+      # Is there a vernacular (non-English) version of the object?
+      # @return [Boolean]
+      def has_vernacular?
+        vernacular_value.present?
       end
 
       # The status of the object relative to others, if any (e.g., "primary").

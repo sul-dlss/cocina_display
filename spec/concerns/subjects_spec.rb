@@ -107,6 +107,76 @@ RSpec.describe CocinaDisplay::CocinaRecord do
         is_expected.to eq(["Presidents", "Election"])
       end
     end
+
+    context "with parallel value topic subjects" do
+      # from druid:vb138by0948
+      let(:subjects) do
+        [
+          {
+            "parallelValue" => [
+              {
+                "structuredValue" => [
+                  {
+                    "value" => "Types of images",
+                    "type" => "topic",
+                    "source" => {
+                      "code" => "local"
+                    }
+                  },
+                  {
+                    "value" => "Photography",
+                    "type" => "genre",
+                    "source" => {
+                      "code" => "local"
+                    }
+                  }
+                ],
+                "valueLanguage" => {
+                  "code" => "eng",
+                  "source" => {
+                    "code" => "iso639-2b"
+                  },
+                  "valueScript" => {
+                    "code" => "Latn",
+                    "source" => {
+                      "code" => "iso15924"
+                    }
+                  }
+                }
+              },
+              {
+                "structuredValue" => [
+                  {
+                    "value" => "画像の種類",
+                    "type" => "genre"
+                  },
+                  {
+                    "value" => "写真",
+                    "type" => "topic"
+                  }
+                ],
+                "valueLanguage" => {
+                  "code" => "jpn",
+                  "source" => {
+                    "code" => "iso639-2b"
+                  },
+                  "valueScript" => {
+                    "code" => "Jpan",
+                    "source" => {
+                      "code" => "iso15924"
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      end
+
+      it "extracts the topic values from the parallel values" do
+        is_expected.to eq(["Types of images", "写真"])
+      end
+    end
   end
 
   describe "#subject_names" do
@@ -537,6 +607,86 @@ RSpec.describe CocinaDisplay::CocinaRecord do
           ]
         ))
       )
+    end
+
+    context "with parallelValued subjects" do
+      # from druid:vb138by0948
+      let(:subjects) do
+        [
+          {
+            "parallelValue" => [
+              {
+                "structuredValue" => [
+                  {
+                    "value" => "Types of images",
+                    "type" => "topic",
+                    "source" => {
+                      "code" => "local"
+                    }
+                  },
+                  {
+                    "value" => "Photography",
+                    "type" => "genre",
+                    "source" => {
+                      "code" => "local"
+                    }
+                  }
+                ],
+                "valueLanguage" => {
+                  "code" => "eng",
+                  "source" => {
+                    "code" => "iso639-2b"
+                  },
+                  "valueScript" => {
+                    "code" => "Latn",
+                    "source" => {
+                      "code" => "iso15924"
+                    }
+                  }
+                }
+              },
+              {
+                "structuredValue" => [
+                  {
+                    "value" => "画像の種類",
+                    "type" => "genre"
+                  },
+                  {
+                    "value" => "写真",
+                    "type" => "topic"
+                  }
+                ],
+                "valueLanguage" => {
+                  "code" => "jpn",
+                  "source" => {
+                    "code" => "iso639-2b"
+                  },
+                  "valueScript" => {
+                    "code" => "Jpan",
+                    "source" => {
+                      "code" => "iso15924"
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      end
+
+      it "uses the vernacular value for display" do
+        expect(subject.first.objects.first).to have_vernacular
+        expect(CocinaDisplay::DisplayData.to_hash(subject)).to eq(
+          {
+            "Subject" => ["画像の種類 > 写真"]
+          }
+        )
+      end
+
+      it "stores the translated values for access" do
+        expect(subject.first.objects.first).to have_translation
+        expect(subject.first.objects.first.translated_value.to_s).to eq("Types of images > Photography")
+      end
     end
   end
 end
