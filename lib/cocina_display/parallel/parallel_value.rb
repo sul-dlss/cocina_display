@@ -43,10 +43,18 @@ module CocinaDisplay
         role == "display"
       end
 
+      # Is this value in a native (non-English) language?
+      # @return [Boolean]
+      def vernacular?
+        language.present? && !language.english?
+      end
+
       # Is this value translated?
+      # True if the role is "translated" or "translation", or if there is
+      # a parallel vernacular value but this one is in English.
       # @return [Boolean]
       def translated?
-        role == "translated" || role == "translation"
+        role == "translated" || role == "translation" || (siblings.any?(&:vernacular?) && language&.english?)
       end
 
       # Is this value transliterated?

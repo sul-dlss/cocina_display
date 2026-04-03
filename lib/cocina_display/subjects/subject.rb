@@ -1,68 +1,23 @@
 module CocinaDisplay
   module Subjects
-    # Base class for subjects in Cocina structured data.
-    class Subject
-      attr_reader :cocina, :delimiter
+    # A Subject in Cocina structured data, possibly in multiple languages.
+    class Subject < Parallel::Parallel
+      # String representation uses the main parallel value.
+      delegate :to_s, to: :main_value
 
-      # Initialize a Subject object with Cocina structured data.
-      # @param cocina [Hash] The Cocina structured data for the subject.
-      # @param delimiter [String] The delimiter to use when flattening for display
-      def initialize(cocina, delimiter: " > ")
-        @cocina = cocina
-        @delimiter = delimiter
-      end
-
-      # The top-level type of the subject.
-      # @see https://github.com/sul-dlss/cocina-models/blob/main/docs/description_types.md#subject-types
-      # @return [String, nil]
-      def type
-        cocina["type"]
-      end
-
-      # Array of display strings for each value in the subject.
-      # Used for search, where each value should be indexed separately.
-      # @return [Array<String>]
-      def values
-        subject_values.map(&:to_s).compact_blank
-      end
-
-      # The value to use for display.
-      # Genre values are capitalized; other subject values are not.
-      # @return [String]
-      def to_s
-        (type == "genre") ? flat_value&.upcase_first : flat_value
-      end
-
-      # A string representation of the entire subject, concatenated for display.
-      # @return [String]
-      def flat_value
-        Utils.compact_and_join(values, delimiter: delimiter)
-      end
-
-      # Label used to render the subject for display.
-      # Uses a displayLabel if available, otherwise looks up via type.
+      # Label used when displaying the Subject.
       # @return [String]
       def label
-        cocina["displayLabel"].presence || type_label
-      end
-
-      # Individual values composing this subject.
-      # Can be multiple if the Cocina featured nested data.
-      # All SubjectValues inherit the type of their parent Subject.
-      # @return [Array<SubjectValue>]
-      def subject_values
-        @subject_values ||= (Array(cocina["parallelValue"]).presence || [cocina]).flat_map do |node|
-          if SubjectValue.atomic_types.include?(type)
-            SubjectValue.from_cocina(node, type: type)
-          else
-            Utils.flatten_nested_values(node, atomic_types: SubjectValue.atomic_types).flat_map do |value|
-              SubjectValue.from_cocina(value, type: value["type"] || type)
-            end
-          end
-        end
+        display_label || type_label
       end
 
       private
+
+      # The class to use for the parallel values that make up this subject.
+      # @return [Class]
+      def parallel_value_class
+        SubjectValue
+      end
 
       # Type-specific label for this subject.
       # @return [String]
