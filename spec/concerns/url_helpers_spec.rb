@@ -1,9 +1,7 @@
 require "spec_helper"
 
 RSpec.describe CocinaDisplay::CocinaRecord do
-  let(:druid) { "bx658jh7339" }
   let(:cocina_json) { File.read(file_fixture("#{druid}.json")) }
-  let(:cocina_doc) { JSON.parse(cocina_json) }
 
   subject { described_class.from_json(cocina_json) }
 
@@ -35,6 +33,17 @@ RSpec.describe CocinaDisplay::CocinaRecord do
 
       it "returns the correct oEmbed URL" do
         expect(subject.oembed_url).to eq "https://sul-purl-stage.stanford.edu/embed.json?url=https%3A%2F%2Fsul-purl-stage.stanford.edu%2Fqr918wy2257"
+      end
+    end
+
+    context "with hide title" do
+      let(:shared_args) { {hide_title: true} }
+      let(:druid) { "bx658jh7339" }
+      let(:other_subject) { described_class.from_json(File.read(file_fixture("bb099mt5053.json"))) }
+
+      it "returns urls" do
+        expect(subject.oembed_url(params: shared_args)).to eq "https://purl.stanford.edu/embed.json?hide_title=true&url=https%3A%2F%2Fpurl.stanford.edu%2Fbx658jh7339"
+        expect(other_subject.oembed_url(params: shared_args)).to eq "https://purl.stanford.edu/embed.json?hide_title=true&url=https%3A%2F%2Fpurl.stanford.edu%2Fbb099mt5053"
       end
     end
   end
