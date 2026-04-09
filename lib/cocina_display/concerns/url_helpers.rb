@@ -19,8 +19,11 @@ module CocinaDisplay
       def oembed_url(params: {})
         return if (!is_a?(CocinaDisplay::RelatedResource) && collection?) || purl_url.blank?
 
-        params[:url] ||= purl_url
-        "#{purl_base_url}/embed.json?#{params.to_query}"
+        ### Note that searchworks_traject_indexer sends in a single instance of params for all oembed_url calls.
+        ### We dup the params to avoid modifying the original hash.
+        embed_params = params.dup
+        embed_params[:url] ||= purl_url
+        "#{purl_base_url}/embed.json?#{embed_params.to_query}"
       end
 
       # The download URL to get the entire object as a .zip file.
