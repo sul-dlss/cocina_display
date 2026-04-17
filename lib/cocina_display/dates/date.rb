@@ -83,7 +83,7 @@ module CocinaDisplay
       # @return [String]
       def self.normalize_to_edtf(value)
         unless value
-          notifier&.notify("Invalid date value: #{value}")
+          notifier&.notify("Invalid date value.", context: {value: value})
           return
         end
 
@@ -513,7 +513,7 @@ module CocinaDisplay
         begin
           date = ISO8601::Date.new(value)
         rescue ISO8601::Errors::UnknownPattern
-          notifier&.notify("Invalid date value \"#{value}\" for iso8601 encoding")
+          notifier&.notify("Invalid date value for iso8601 encoding.", context: {value: value})
           return nil
         end
 
@@ -532,7 +532,7 @@ module CocinaDisplay
         when /^\d{4}-\d{3}$/, /^\d{7}$/
           ::Date.edtf(date.to_s)
         else
-          notifier&.notify("Unhandled date value \"#{value}\" for iso8601 encoding")
+          notifier&.notify("Unhandled date value for iso8601 encoding.", context: {value: value})
           nil
         end
       end
@@ -542,7 +542,7 @@ module CocinaDisplay
     class W3cdtfFormat < Date
       def self.normalize_to_edtf(value)
         unless value
-          notifier&.notify("Invalid date value: #{value}")
+          notifier&.notify("Invalid date value for W3CDTF encoding.", context: {value: value})
           return
         end
         super.gsub("-00", "")

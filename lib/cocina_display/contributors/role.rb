@@ -53,7 +53,7 @@ module CocinaDisplay
 
         Role.marc_relators.fetch(code)
       rescue
-        CocinaDisplay.notifier&.notify("Invalid marc relator: #{code}")
+        CocinaDisplay.notifier&.notify("Invalid marc relator.", context: {code: code})
         nil
       end
 
