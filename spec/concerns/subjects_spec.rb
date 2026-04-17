@@ -332,7 +332,7 @@ RSpec.describe CocinaDisplay::CocinaRecord do
 
         it "returns the value as a string and notifies of a parse error" do
           is_expected.to eq(["d1843"])
-          expect(notifier).to have_received(:notify).with("Invalid date value \"d1843\" for iso8601 encoding")
+          expect(notifier).to have_received(:notify).with("Invalid date value for iso8601 encoding.", context: {value: "d1843"})
         end
       end
     end
