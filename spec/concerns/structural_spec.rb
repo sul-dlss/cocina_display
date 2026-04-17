@@ -64,6 +64,7 @@ RSpec.describe CocinaDisplay::CocinaRecord do
     context "when there is an image but it has zero dimensions" do
       let(:cocina_doc) do
         {
+          "externalIdentifier" => "druid:bk264hq9320",
           "structural" => {
             "contains" => [
               {

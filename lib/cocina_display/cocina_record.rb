@@ -6,6 +6,7 @@ module CocinaDisplay
     include CocinaDisplay::Concerns::Accesses
     include CocinaDisplay::Concerns::Events
     include CocinaDisplay::Concerns::Contributors
+    include CocinaDisplay::Concerns::Druid
     include CocinaDisplay::Concerns::Identifiers
     include CocinaDisplay::Concerns::Notes
     include CocinaDisplay::Concerns::Titles

@@ -10,9 +10,9 @@ module CocinaDisplay
 
       # Initialize the FileSet with Cocina structural data.
       # @param cocina [Hash] Cocina structured data for a single FileSet
+      # @param druid [String] DRUID (without "druid:" prefix) of the object this fileset belongs to
       # @param base_url [String] URL to Stacks environment that will serve this fileset
-      # @param druid [String, nil] DRUID of the object this fileset belongs to
-      def initialize(cocina, base_url: "https://stacks.stanford.edu", druid: nil)
+      def initialize(cocina, druid:, base_url: "https://stacks.stanford.edu")
         @cocina = cocina
         @base_url = base_url
         @druid = druid

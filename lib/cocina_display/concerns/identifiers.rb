@@ -2,24 +2,6 @@ module CocinaDisplay
   module Concerns
     # Methods for extracting and formatting identifiers from Cocina records.
     module Identifiers
-      # The DRUID for the object, with the +druid:+ prefix.
-      # @note A {RelatedResource} may not have a DRUID.
-      # @return [String, nil]
-      # @example
-      #   record.druid #=> "druid:bb099mt5053"
-      def druid
-        cocina_doc["externalIdentifier"] || purl_url&.split("/")&.last
-      end
-
-      # The DRUID for the object, without the +druid:+ prefix.
-      # @note A {RelatedResource} may not have a DRUID.
-      # @return [String, nil]
-      # @example
-      #   record.bare_druid #=> "bb099mt5053"
-      def bare_druid
-        druid&.delete_prefix("druid:")
-      end
-
       # The DOI for the object, if there is one – just the identifier part.
       # @return [String, nil]
       # @example

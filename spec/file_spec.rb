@@ -1,7 +1,8 @@
 require "spec_helper"
 
 RSpec.describe CocinaDisplay::Structural::File do
-  subject { described_class.new(cocina) }
+  subject { described_class.new(cocina, druid:) }
+  let(:druid) { "bc798xr9549" }
 
   describe "#download_url" do
     context "when file has a space" do

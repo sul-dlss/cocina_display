@@ -101,10 +101,11 @@ module CocinaDisplay
       end
 
       # DRUIDs of virtual objects this object is a part of.
+      # NOTE: not all virtual objects have this relationship in the description.related_resources.
       # @return [Array<String>]
       # @example "hj097bm8879"
       def virtual_object_parents
-        related_resources.filter { |res| res.type == "part of" }.map(&:druid).compact_blank
+        related_resources.filter_map { |res| res.purl_url&.split("/")&.last if res.type == "part of" }.compact_blank
       end
 
       # The thumbnail file for this object, if any.
