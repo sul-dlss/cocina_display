@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    cocina_display (2.2.0)
+    cocina_display (2.3.0)
       activesupport (>= 7)
       edtf (~> 3.2)
       geo_coord (~> 0.2)
@@ -186,4 +186,4 @@ DEPENDENCIES
   yard (~> 0.9.37)
 
 BUNDLED WITH
-   4.0.10
+  4.0.10
