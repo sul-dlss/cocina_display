@@ -98,9 +98,9 @@ module CocinaDisplay
       # Generate a download URL for this file from stacks.
       # @return [String, nil]
       def download_url
-        return unless file_id.present?
+        return unless filename.present?
 
-        "#{base_url}/file/druid:#{file_id}"
+        "#{base_url}/file/druid:#{druid}/#{ERB::Util.url_encode(filename)}"
       end
 
       private

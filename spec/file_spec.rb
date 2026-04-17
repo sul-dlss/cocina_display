@@ -4,15 +4,17 @@ RSpec.describe CocinaDisplay::Structural::File do
   subject { described_class.new(cocina) }
 
   describe "#download_url" do
-    let(:cocina) do
-      {
-        "externalIdentifier" => "https://cocina.sul.stanford.edu/file/bc798xr9549-bc798xr9549_3/bc798xr9549_30C_Kalsang_Yulgial_img.jp2",
-        "filename" => "bc798xr9549_30C_Kalsang_Yulgial_img.jp2"
-      }
-    end
+    context "when file has a space" do
+      let(:cocina) do
+        {
+          "externalIdentifier" => "https://cocina.sul.stanford.edu/file/bc798xr9549-bc798xr9549_3/bc798xr9549_30C_Kalsang_Yulgial_img.jp2",
+          "filename" => "bc798xr9549_30C_Kalsang Yulgial_img.jp2"
+        }
+      end
 
-    it "generates a download URL for the file" do
-      expect(subject.download_url).to eq("https://stacks.stanford.edu/file/druid:bc798xr9549/bc798xr9549_30C_Kalsang_Yulgial_img.jp2")
+      it "generates a download URL for the file" do
+        expect(subject.download_url).to eq("https://stacks.stanford.edu/file/druid:bc798xr9549/bc798xr9549_30C_Kalsang%20Yulgial_img.jp2")
+      end
     end
   end
 
