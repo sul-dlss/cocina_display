@@ -10,9 +10,9 @@ module CocinaDisplay
 
       # Initialize the File with Cocina file data.
       # @param cocina [Hash] Cocina structured data for a single file
-      # @param druid [String, nil] DRUID of the object this file belongs to
+      # @param druid [String] DRUID (without "druid:" prefix) of the object this file belongs to
       # @note Staging objects can't infer their DRUID and need it passed in explicitly.
-      def initialize(cocina, base_url: "https://stacks.stanford.edu", druid: nil)
+      def initialize(cocina, druid:, base_url: "https://stacks.stanford.edu")
         @cocina = cocina
         @base_url = base_url
         @druid = druid
@@ -92,42 +92,24 @@ module CocinaDisplay
       # @return [String, nil]
       # @example "ts786ny5936%2FPC0170_s1_E_0204"
       def iiif_id
-        ERB::Util.url_encode(file_id.delete_suffix(".jp2")) if file_id.present? && jp2_image?
+        ERB::Util.url_encode(file_id.delete_suffix(".jp2")) if jp2_image?
       end
 
       # Generate a download URL for this file from stacks.
-      # @return [String, nil]
+      # @return [String]
       def download_url
-        return unless filename.present?
-
         "#{base_url}/file/druid:#{druid}/#{ERB::Util.url_encode(filename)}"
       end
 
       private
 
-      # External identifier for the file, minus the URL prefix.
-      # @return [String, nil]
-      # @note Staging and production formats differ.
-      # @example production
-      #   "fn851zf9475-fn851zf9475_1/fn851zf9475_00_0001.jp2"
-      # @example staging
-      #   "ddbd323d-0dd9-4f14-ba72-336c2bccfb29"
-      def external_id
-        cocina["externalIdentifier"]&.delete_prefix("https://cocina.sul.stanford.edu/file/")
-      end
-
-      # The DRUID of the object this file belongs to.
-      # @note Staging objects can't infer this from the externalIdentifier.
-      # @return [String, nil]
-      def druid
-        @druid || external_id.split("-").first if external_id.present?
-      end
+      attr_reader :druid
 
       # Combination of the DRUID and filename to uniquely identify the file.
-      # @return [String, nil]
+      # @return [String]
       # @example "ts786ny5936/PC0170_s1_E_0204.jp2"
       def file_id
-        "#{druid}/#{filename}" if druid.present? && filename.present?
+        "#{druid}/#{filename}"
       end
     end
   end
