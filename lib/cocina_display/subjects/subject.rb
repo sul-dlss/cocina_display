@@ -2,8 +2,8 @@ module CocinaDisplay
   module Subjects
     # A Subject in Cocina structured data, possibly in multiple languages.
     class Subject < Parallel::Parallel
-      # String representation uses the main parallel value.
-      delegate :to_s, to: :main_value
+      # String representation and parts reference the main parallel value.
+      delegate :to_s, :delimiter, :subject_parts, :values, to: :main_value
 
       # Label used when displaying the Subject.
       # @return [String]
