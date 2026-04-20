@@ -17,7 +17,7 @@ module CocinaDisplay
       # @example
       #   record.bare_druid #=> "bb099mt5053"
       def bare_druid
-        druid.delete_prefix("druid:")
+        druid&.delete_prefix("druid:")
       end
     end
   end
