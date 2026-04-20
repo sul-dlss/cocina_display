@@ -12,8 +12,7 @@ afa: Afroasiatic (Other)
 afh: Afrihili (Artificial language)
 afr: Afrikaans
 ain: Ainu
-# ajm is deprecated
-ajm: Aljamía
+ajm: Aljamía # deprecated
 aka: Akan
 akk: Akkadian
 alb: Albanian
@@ -32,8 +31,7 @@ arn: Mapuche
 arp: Arapaho
 art: Artificial (Other)
 arw: Arawak
-# ase from iso639-3
-ase: American Sign Language
+ase: American Sign Language # from iso639-3
 asm: Assamese
 ast: Bable
 ath: Athapascan (Other)
@@ -75,8 +73,7 @@ bur: Burmese
 byn: Bilin
 cad: Caddo
 cai: Central American Indian (Other)
-# cam is deprecated
-cam: Khmer
+cam: Khmer # deprecated
 car: Carib
 cat: Catalan
 cau: Caucasian (Other)
@@ -119,6 +116,7 @@ den: Slavey
 dgr: Tlicho
 din: Dinka
 div: Divehi
+dnt: Mid Grand Valley Dani # from iso639-3
 doi: Dogri
 dra: Dravidian (Other)
 dsb: Lower Sorbian
@@ -129,26 +127,21 @@ dyu: Dyula
 dzo: Dzongkha
 efi: Efik
 egy: Egyptian
-# per RFC 5646 and ISO 15924
-egy-Egyd: Egyptian, Demotic
+egy-Egyd: Egyptian, Demotic # per RFC 5646 and ISO 15924
 eka: Ekajuk
 elx: Elamite
 eng: English
 enm: English, Middle (1100-1500)
 epo: Esperanto
-# esk is deprecated
-esk: Eskimo languages
-# esp is deprecated
-esp: Esperanto
+esk: Eskimo languages # deprecated
+esp: Esperanto # deprecated
 est: Estonian
-# eth is deprecated
-eth: Ethiopic
+eth: Ethiopic # deprecated
 ewe: Ewe
 ewo: Ewondo
 fan: Fang
 fao: Faroese
-# far is deprecated
-far: Faroese
+far: Faroese # deprecated
 fat: Fanti
 fij: Fijian
 fil: Filipino
@@ -156,8 +149,7 @@ fin: Finnish
 fiu: Finno-Ugrian (Other)
 fon: Fon
 fre: French
-# fri is deprecated
-fri: Frisian
+fri: Frisian # deprecated
 frm: French, Middle (ca. 1300-1600)
 fro: French, Old (ca. 842-1300)
 frr: North Frisian
@@ -166,12 +158,9 @@ fry: Frisian
 ful: Fula
 fur: Friulian
 gaa: Gã
-# gae is deprecated
-gae: Scottish Gaelic
-# gag is deprecated
-gag: Galician
-# gal is deprecated
-gal: Oromo
+gae: Scottish Gaelic # deprecated
+gag: Galician # deprecated
+gal: Oromo # deprecated
 gay: Gayo
 gba: Gbaya
 gem: Germanic (Other)
@@ -193,8 +182,7 @@ grc: Greek, Ancient (to 1453)
 gre: Greek, Modern (1453-)
 grn: Guarani
 gsw: Swiss German
-# gua is deprecated
-gua: Guarani
+gua: Guarani # deprecated
 guj: Gujarati
 gwi: Gwich'in
 hai: Haida
@@ -227,12 +215,10 @@ inc: Indic (Other)
 ind: Indonesian
 ine: Indo-European (Other)
 inh: Ingush
-# int is deprecated
-int: Interlingua (International Auxiliary Language Association)
+int: Interlingua (International Auxiliary Language Association) # deprecated
 ipk: Inupiaq
 ira: Iranian (Other)
-# iri is deprecated
-iri: Irish
+iri: Irish # deprecated
 iro: Iroquoian (Other)
 ita: Italian
 jav: Javanese
@@ -273,17 +259,14 @@ kru: Kurukh
 kua: Kuanyama
 kum: Kumyk
 kur: Kurdish
-# kus is deprecated
-kus: Kusaie
+kus: Kusaie # deprecated
 kut: Kootenai
 lad: Ladino
 lah: Lahndā
 lam: Lamba (Zambia and Congo)
-# lan is deprecated
-lan: Occitan (post 1500)
+lan: Occitan (post 1500) # deprecated
 lao: Lao
-# lap is deprecated
-lap: Sami
+lap: Sami # deprecated
 lat: Latin
 lav: Latvian
 lez: Lezgian
@@ -312,8 +295,7 @@ mao: Maori
 map: Austronesian (Other)
 mar: Marathi
 mas: Maasai
-# max is deprecated
-max: Manx
+max: Manx # deprecated
 may: Malay
 mdf: Moksha
 mdr: Mandar
@@ -323,16 +305,14 @@ mic: Micmac
 min: Minangkabau
 # mis: Miscellaneous languages
 mkh: Mon-Khmer (Other)
-# mla is deprecated
-mla: Malagasy
+mla: Malagasy # deprecated
 mlg: Malagasy
 mlt: Maltese
 mnc: Manchu
 mni: Manipuri
 mno: Manobo languages
 moh: Mohawk
-# mol is deprecated
-mol: Moldavian
+mol: Moldavian # deprecated
 mon: Mongolian
 mos: Mooré
 # mul: Multiple languages
@@ -396,6 +376,7 @@ por: Portuguese
 pra: Prakrit languages
 pro: Provençal (to 1500)
 pus: Pushto
+quc: K'iche' # from iso639-3
 que: Quechua
 raj: Rajasthani
 rap: Rapanui
@@ -414,27 +395,24 @@ sai: South American Indian (Other)
 sal: Salishan languages
 sam: Samaritan Aramaic
 san: Sanskrit
-# sao is deprecated
-sao: Samoan
+sao: Samoan # deprecated
 sas: Sasak
 sat: Santali
-# scc is deprecated
-scc: Serbian
+scc: Serbian # deprecated
 scn: Sicilian Italian
 sco: Scots
-# scr is deprecated
-scr: Croatian
+scr: Croatian # deprecated
 sel: Selkup
 sem: Semitic (Other)
 sga: Irish, Old (to 1100)
 sgn: Sign languages
 shn: Shan
-# sho is deprecated
-sho: Shona
+sho: Shona # deprecated
 sid: Sidamo
 sin: Sinhalese
 sio: Siouan (Other)
 sit: Sino-Tibetan (Other)
+skr: Saraiki # from iso639-3
 sla: Slavic (Other)
 slo: Slovak
 slv: Slovenian
@@ -447,8 +425,7 @@ smo: Samoan
 sms: Skolt Sami
 sna: Shona
 snd: Sindhi
-# snh is deprecated
-snh: Sinhalese
+snh: Sinhalese # deprecated
 snk: Soninke
 sog: Sogdian
 som: Somali
@@ -460,8 +437,7 @@ srn: Sranan
 srp: Serbian
 srr: Serer
 ssa: Nilo-Saharan (Other)
-# sso is deprecated
-sso: Sotho
+sso: Sotho # deprecated
 ssw: Swazi
 suk: Sukuma
 sun: Sundanese
@@ -469,19 +445,15 @@ sus: Susu
 sux: Sumerian
 swa: Swahili
 swe: Swedish
-# swz is deprecated
-swz: Swazi
+swz: Swazi # deprecated
 syc: Syriac
 syr: Syriac, Modern
-# tag is deprecated
-tag: Tagalog
+tag: Tagalog # deprecated
 tah: Tahitian
 tai: Tai (Other)
-# taj is deprecated
-taj: Tajik
+taj: Tajik # deprecated
 tam: Tamil
-# tar is deprecated
-tar: Tatar
+tar: Tatar # deprecated
 tat: Tatar
 tel: Telugu
 tem: Temne
@@ -501,13 +473,12 @@ tmh: Tamashek
 tog: Tonga (Nyasa)
 ton: Tongan
 tpi: Tok Pisin
-# tru is deprecated
-tru: Truk
+tru: Truk # deprecated
+trw: Torwali # from iso639-3
 tsi: Tsimshian
 tsn: Tswana
 tso: Tsonga
-# tsw is deprecated
-tsw: Tswana
+tsw: Tswana # deprecated
 tuk: Turkmen
 tum: Tumbuka
 tup: Tupi languages
