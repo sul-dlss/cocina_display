@@ -687,6 +687,14 @@ RSpec.describe CocinaDisplay::CocinaRecord do
         expect(subject.first.objects.first).to have_translation
         expect(subject.first.objects.first.translated_value.to_s).to eq("Types of images > Photography")
       end
+
+      it "uses the main value for individual subject parts" do
+        expect(subject.first.objects.first.values).to eq(["画像の種類", "写真"])
+      end
+
+      it "uses the main value for the delimiter" do
+        expect(subject.first.objects.first.delimiter).to eq(" > ")
+      end
     end
   end
 end
