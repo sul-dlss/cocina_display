@@ -477,6 +477,37 @@ RSpec.describe CocinaDisplay::CocinaRecord do
     end
   end
 
+  describe "#coordinates_as_bbox" do
+    context "with a point and a bounding box" do
+      let(:subjects) do
+        [
+          {
+            "type" => "point coordinates",
+            "structuredValue" => [
+              {"value" => "36.740468", "type" => "latitude"},
+              {"value" => "-121.24658", "type" => "longitude"}
+            ]
+          },
+          {
+            "type" => "bounding box coordinates",
+            "structuredValue" => [
+              {"value" => "-121.24658", "type" => "west"},
+              {"value" => "36.740468", "type" => "south"},
+              {"value" => "-120.051476", "type" => "east"},
+              {"value" => "37.633575", "type" => "north"}
+            ]
+          }
+        ]
+      end
+
+      subject { cocina_record.coordinates_as_bbox.first }
+
+      it "returns only the box in bounding box format (not the point)" do
+        is_expected.to eq([[36.740468, -121.24658], [37.633575, -120.051476]])
+      end
+    end
+  end
+
   describe "#coordinates_as_point" do
     context "with a point and a bounding box" do
       let(:subjects) do

@@ -39,6 +39,14 @@ module CocinaDisplay
         coordinate_objects.map(&:as_point).uniq
       end
 
+      # All valid coordinate data formatted as bounding boxes.
+      # Format is [[min_lat, min_long], [max_lat, max_long]].
+      # @note Points are not included since they can't be represented as a box.
+      # @return [Array<Array<Array<Float>>>]
+      def coordinates_as_bbox
+        coordinate_objects.map(&:as_bbox).compact.uniq
+      end
+
       # Identifiers assigned by geonames.org for places related to the object.
       # @return [Array<String>]
       # @example ["6252001", "5368361"]

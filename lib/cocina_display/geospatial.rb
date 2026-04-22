@@ -130,6 +130,13 @@ module CocinaDisplay
         nil
       end
 
+      # Format as a bounding box.
+      # @note This is impossible for a single point; we always return nil.
+      # @return [nil]
+      def as_bbox
+        nil
+      end
+
       # Format as a space-separated x y (longitude latitude) pair.
       # @note Limits decimals to 6 places.
       # @example "-118.2437 34.0522"
@@ -197,7 +204,7 @@ module CocinaDisplay
 
       # Format using the CQL ENVELOPE representation.
       # @note Limits decimals to 6 places.
-      # @example "ENVELOPE(-118.243700, -117.952200, 34.199600, 34.052200)"
+      # @example "ENVELOPE(-118.2437, -117.9522, 34.1996, 34.0522)"
       # @return [String]
       def as_envelope
         "ENVELOPE(%.6f, %.6f, %.6f, %.6f)" % [
@@ -214,6 +221,14 @@ module CocinaDisplay
         distance = min_point.distance(max_point)
         center = min_point.endpoint(distance / 2, azimuth)
         "%.6f %.6f" % [center.lng, center.lat]
+      end
+
+      # Format the bounding box as an array of two coordinate pairs [[S, W], [N, E]].
+      # @note Limits decimals to 6 places.
+      # @return [Array<Array<Float>>]
+      # @example [[-118.2437, 34.0522], [-117.9522, 34.1996]]
+      def as_bbox
+        [[min_point.lat, min_point.lng], [max_point.lat, max_point.lng]]
       end
     end
 
