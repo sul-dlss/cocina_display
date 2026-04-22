@@ -307,7 +307,8 @@ RSpec.describe CocinaDisplay::Dates::Date do
         "196x",
         "0",
         "-1",
-        "-35"
+        "-35",
+        "uuuu"
       ]
     end
     let(:cocina_dates) { date_values.map { |v| {"value" => v, "encoding" => {"code" => "edtf"}} } }
@@ -316,6 +317,7 @@ RSpec.describe CocinaDisplay::Dates::Date do
     it "sorts dates correctly" do
       sorted_dates = dates.sort
       expect(sorted_dates.map(&:value)).to eq([
+        "uuuu",
         "-35",
         "-1",
         "0",

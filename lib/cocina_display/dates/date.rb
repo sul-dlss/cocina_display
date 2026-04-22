@@ -253,7 +253,7 @@ module CocinaDisplay
       # @return [String]
       def sort_key
         # Even if not parsed, we might need to sort it for display later
-        return "" unless parsed_date?
+        return "" unless parsed_date? && known?
 
         # Use the start of an interval for sorting
         sort_date = date.is_a?(EDTF::Interval) ? date.from : date
