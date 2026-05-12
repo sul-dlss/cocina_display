@@ -20,14 +20,25 @@ module CocinaDisplay
 
       # Structured data for all individual files in the object.
       # Traverses nested FileSet structure to return a flattened array.
+      # Optionally filter by filename or MIME type regex, or by role.
+      # Filters are combined with AND logic (all must match).
+      # @param filename [String, nil] Regular expression to match against filenames.
+      # @param mime_type [String, nil] Regular expression to match against MIME types.
+      # @param use [String, nil] Usage type to match against (e.g., "thumbnail").
       # @return [Array<CocinaDisplay::Structural::File>]
       # @example
       #  record.files.each do |file|
       #   puts file.filename #=> "image1.jpg"
       #   puts file.size #=> 123456
       #  end
-      def files
-        filesets.flat_map(&:files)
+      # @example Filter to only thumbnail JP2 files
+      #  record.files(filename: /\.jp2$/, use: "thumbnail")
+      def files(filename: nil, mime_type: nil, use: nil)
+        results = filesets.flat_map(&:files)
+        results.filter! { |file| file.filename =~ filename } if filename
+        results.filter! { |file| file.mime_type =~ mime_type } if mime_type
+        results.filter! { |file| file.use == use } if use
+        results
       end
 
       # All unique MIME types of files in this object.

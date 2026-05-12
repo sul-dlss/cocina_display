@@ -14,6 +14,24 @@ RSpec.describe CocinaDisplay::CocinaRecord do
       expect(subject.files.first.filename).to eq("bb099mt5053_sl.m4a")
       expect(subject.files.first.size).to eq(13832365)
     end
+
+    context "with filename filter" do
+      it "returns only files matching the filename regex" do
+        expect(subject.files(filename: /\.jp2$/).first.filename).to eq("bb099mt5053_img_1.jp2")
+      end
+    end
+
+    context "with MIME type filter" do
+      it "returns only files matching the MIME type regex" do
+        expect(subject.files(mime_type: /^audio\//).first.filename).to eq("bb099mt5053_sl.m4a")
+      end
+    end
+
+    context "with use filter" do
+      it "returns only files matching the usage" do
+        expect(subject.files(use: "annotation")).to be_empty
+      end
+    end
   end
 
   describe "#file_mime_types" do
