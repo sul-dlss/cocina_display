@@ -29,7 +29,7 @@ Gem::Specification.new do |spec|
   spec.executables = spec.files.grep(%r{\Aexe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
-  spec.add_dependency "janeway-jsonpath", "~> 0.6" # for nested JSON queries
+  spec.add_dependency "janeway-jsonpath", ">= 0.6", "< 2" # for nested JSON queries
   spec.add_dependency "activesupport", ">= 7" # for helpers like present?
   spec.add_dependency "edtf", "~> 3.2" # for parsing dates
   spec.add_dependency "iso8601", "~> 0.13.0" # for parsing dates
