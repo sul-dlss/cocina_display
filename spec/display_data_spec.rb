@@ -12,7 +12,7 @@ RSpec.describe CocinaDisplay::DisplayData do
         {"value" => ""},
         {"code" => "eng", "source" => {"code" => "iso639-2"}},
         {"value" => "English"},
-        {"code" => "zxx"},
+        {"code" => "mis"},
         {"code" => "egy-Egyd"},
         {"value" => "Sumerian", "displayLabel" => "Primary language"}
       ].map { |lang| CocinaDisplay::Languages::Language.new(lang) }

@@ -62,7 +62,7 @@ RSpec.describe CocinaDisplay::CocinaRecord do
     context "with language with iso639 code that is not a Searchworks language" do
       let(:languages) do
         [
-          {"code" => "zxx"} # maps to "No linguistic content"
+          {"code" => "mis"} # maps to "Miscellaneous languages"
         ]
       end
 
@@ -124,7 +124,7 @@ RSpec.describe CocinaDisplay::CocinaRecord do
           {"value" => ""},
           {"code" => "eng", "source" => {"code" => "iso639-2"}},
           {"value" => "English"},
-          {"code" => "zxx", "source" => {"code" => "iso639-2b"}},
+          {"code" => "mis", "source" => {"code" => "iso639-2b"}},
           {"code" => "egy-Egyd"},
           {"value" => "Sumerian", "displayLabel" => "Primary language"}
         ]
