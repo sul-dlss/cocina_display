@@ -218,7 +218,7 @@ nl: "New Caledonia"
 nm: "Northern Mariana Islands" # discontinued
 nmu: "New Mexico"
 nn: "Vanuatu"
-no: "Norway"
+"no": "Norway" # "no" is a reserved word in YAML, so it must be quoted
 np: "Nepal"
 nq: "Nicaragua"
 nr: "Nigeria"
