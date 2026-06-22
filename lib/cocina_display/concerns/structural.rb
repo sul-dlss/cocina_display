@@ -22,8 +22,8 @@ module CocinaDisplay
       # Traverses nested FileSet structure to return a flattened array.
       # Optionally filter by filename or MIME type regex, or by role.
       # Filters are combined with AND logic (all must match).
-      # @param filename [String, nil] Regular expression to match against filenames.
-      # @param mime_type [String, nil] Regular expression to match against MIME types.
+      # @param filename [Regexp, nil] Regular expression to match against filenames.
+      # @param mime_type [Regexp, nil] Regular expression to match against MIME types.
       # @param use [String, nil] Usage type to match against (e.g., "thumbnail").
       # @return [Array<CocinaDisplay::Structural::File>]
       # @example
