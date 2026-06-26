@@ -112,6 +112,12 @@ RSpec.describe CocinaDisplay::CocinaRecord do
         is_expected.to eq(["Website", "Website|Archived website"])
       end
     end
+
+    context "with a resource that has no resource types" do
+      it "does not map" do
+        is_expected.to eq([])
+      end
+    end
   end
 
   describe "#mods_resource_types" do
