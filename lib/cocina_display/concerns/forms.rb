@@ -191,7 +191,7 @@ module CocinaDisplay
       # Is the object a digital resource without a more specific resource type?
       # @return [Boolean]
       def digital_only?
-        resource_type_values.all?("digital")
+        resource_type_values.present? && resource_type_values.all?("digital")
       end
 
       # Map a MODS or LC resource type to SearchWorks format value(s).
