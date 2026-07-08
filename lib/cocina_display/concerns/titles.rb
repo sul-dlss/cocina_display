@@ -26,6 +26,10 @@ module CocinaDisplay
         primary_title&.display_title
       end
 
+      # SDR no longer populates a label field with pregenerated titles; this
+      # alias is provided for backwards compatibility.
+      alias_method :label, :display_title
+
       # A string value for sorting by title that sorts missing values last.
       # If there are multiple primary titles, uses the first.
       # @see CocinaDisplay::Title#sort_title
