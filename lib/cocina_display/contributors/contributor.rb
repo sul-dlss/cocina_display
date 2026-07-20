@@ -76,7 +76,7 @@ module CocinaDisplay
       # @return [String, nil]
       # @example "author, editor, publisher"
       def display_role
-        roles.map(&:to_s).join(", ") if role?
+        roles.join(", ") if role?
       end
 
       # The primary display name for the contributor as a string.
