@@ -16,6 +16,9 @@ if RSpec.configuration.files_to_run.count > 1
   SimpleCov::RSpec.start(list_uncovered_lines: true)
 end
 
+# Disable external HTTP requests; tests should stub them out
+WebMock.disable_net_connect!(allow_localhost: true)
+
 require "cocina_display"
 
 RSpec.configure do |config|
