@@ -11,7 +11,7 @@ module CocinaDisplay
       # For self-deposit resource types, the flat value comprises primary and any subtypes.
       # @return [String]
       def flat_value
-        return super unless stanford_self_deposit?
+        return super unless stanford_self_deposit? && structured?
         return primary_type unless subtypes.any?
 
         "#{primary_type} (#{subtypes.join(", ")})"
@@ -32,6 +32,12 @@ module CocinaDisplay
 
       private
 
+      # Is this a structured resource type?
+      # @return [Boolean]
+      def structured?
+        cocina.key?("structuredValue")
+      end
+
       # @return [String]
       def source
         cocina.dig("source", "value")
@@ -46,7 +52,7 @@ module CocinaDisplay
       # The primary type, if this is a structured self-deposit resource type.
       # @return [String, nil]
       def primary_type
-        type_components["type"].first
+        type_components["type"].first if structured?
       end
 
       # The subtypes, if this is a structured self-deposit resource type.

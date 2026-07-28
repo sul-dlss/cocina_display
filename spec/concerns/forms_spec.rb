@@ -342,6 +342,26 @@ RSpec.describe CocinaDisplay::CocinaRecord do
       let(:forms) do
         [
           {
+            "value" => "Data",
+            "type" => "resource type",
+            "source" => {
+              "value" => "Stanford self-deposit resource types"
+            }
+          }
+        ]
+      end
+
+      it "includes self-deposit resource types in the genre section" do
+        is_expected.to eq({
+          "Genre" => ["Portrait", "Biography", "Data"]
+        })
+      end
+    end
+
+    context "with structured self-deposit resource types" do
+      let(:forms) do
+        [
+          {
             "structuredValue" => [
               {"value" => "Mixed Materials", "type" => "type"},
               {"value" => "Data", "type" => "subtype"},
@@ -356,7 +376,7 @@ RSpec.describe CocinaDisplay::CocinaRecord do
         ]
       end
 
-      it "includes self-deposit resource types in the genre section" do
+      it "combines the parts into a single entry in genre section" do
         is_expected.to eq({
           "Genre" => ["Portrait", "Biography", "Mixed Materials (Data, Software, 3D model)"]
         })
