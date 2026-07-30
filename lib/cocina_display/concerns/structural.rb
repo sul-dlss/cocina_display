@@ -99,7 +99,7 @@ module CocinaDisplay
       def virtual_object?
         return false if filesets.any?
 
-        path("$.structural.hasMemberOrders.*.members.*").any?
+        member_enumeration.any?
       end
 
       # DRUIDs of members of this virtual object.
@@ -108,7 +108,11 @@ module CocinaDisplay
       def virtual_object_members
         return [] unless virtual_object?
 
-        path("$.structural.hasMemberOrders.*.members.*").map { |druid| druid.delete_prefix("druid:") }
+        member_enumeration.map { |druid| druid.delete_prefix("druid:") }
+      end
+
+      def member_enumeration
+        @member_enumeration ||= path("$.structural.hasMemberOrders.*.members.*")
       end
 
       # DRUIDs of virtual objects this object is a part of.
