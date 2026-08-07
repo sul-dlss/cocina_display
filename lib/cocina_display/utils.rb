@@ -52,26 +52,31 @@ module CocinaDisplay
 
     # Recursively remove empty values from a hash, including nested hashes and arrays.
     # @param [Hash, String, NilClass] node The object to process
+    # @param [Array<String>] preserve_keys Keys that should be kept even if their value is blank
     # @return [Hash, String] The hash with empty values removed, string if the node you pass in is a string
     # @example
     #  hash = { "name" => "", "age" => nil, "address => { "city" => "Anytown", "state" => [] } }
     #  #  Utils.remove_empty_values(hash)
     #  #=> { "address" => { "city" => "Anytown" } }
-    def self.deep_compact_blank(node)
+    def self.deep_compact_blank(node, preserve_keys: [])
       return node unless node.is_a?(Hash)
 
+      preserve_keys = preserve_keys.map(&:to_s)
+
       node.each_with_object({}) do |(key, value), output|
+        preserve_key = preserve_keys.include?(key.to_s)
+
         case value
         when Hash
-          nested = deep_compact_blank(value)
-          output[key] = nested unless nested.empty?
+          nested = deep_compact_blank(value, preserve_keys: preserve_keys)
+          output[key] = nested if !nested.empty? || preserve_key
         when Array
-          compacted_array = value.map { |v| deep_compact_blank(v) }.compact_blank
-          output[key] = compacted_array unless compacted_array.empty?
+          compacted_array = value.map { |v| deep_compact_blank(v, preserve_keys: preserve_keys) }.compact_blank
+          output[key] = compacted_array if !compacted_array.empty? || preserve_key
         when TrueClass, FalseClass
           output[key] = value
         else
-          output[key] = value if value.present?
+          output[key] = value if value.present? || preserve_key
         end
       end
     end
