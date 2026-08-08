@@ -160,6 +160,51 @@ RSpec.describe CocinaDisplay::Utils do
         is_expected.to eq(hash)
       end
     end
+
+    context "with preserve_keys" do
+      subject { described_class.deep_compact_blank(hash, preserve_keys: ["label"]) }
+
+      let(:hash) do
+        {
+          "name" => "John Doe",
+          "label" => "",
+          "address" => {
+            "street" => "123 Main St",
+            "label" => nil,
+            "city" => ""
+          }
+        }
+      end
+
+      it "keeps blank values for the given keys" do
+        is_expected.to eq({
+          "name" => "John Doe",
+          "label" => "",
+          "address" => {
+            "street" => "123 Main St",
+            "label" => nil
+          }
+        })
+      end
+    end
+
+    context "with preserve_keys as symbols and hash keys as strings" do
+      subject { described_class.deep_compact_blank(hash, preserve_keys: [:label]) }
+
+      let(:hash) do
+        {
+          "name" => "John Doe",
+          "label" => ""
+        }
+      end
+
+      it "keeps blank values regardless of string/symbol mismatch" do
+        is_expected.to eq({
+          "name" => "John Doe",
+          "label" => ""
+        })
+      end
+    end
   end
 
   describe "#compact_and_join" do
