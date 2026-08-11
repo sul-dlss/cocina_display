@@ -20,15 +20,17 @@ module CocinaDisplay
         # @return [Coordinates, nil]
         def from_structured_values(structured_values)
           if structured_values.size == 2
-            lat = structured_values.find { |v| v["type"] == "latitude" }&.dig("value")
-            lng = structured_values.find { |v| v["type"] == "longitude" }&.dig("value")
-            Point.from_coords(lat: lat, lng: lng)
+            Point.from_coords(
+              lat: structured_value(structured_values, "latitude"),
+              lng: structured_value(structured_values, "longitude")
+            )
           elsif structured_values.size == 4
-            north = structured_values.find { |v| v["type"] == "north" }&.dig("value")
-            south = structured_values.find { |v| v["type"] == "south" }&.dig("value")
-            east = structured_values.find { |v| v["type"] == "east" }&.dig("value")
-            west = structured_values.find { |v| v["type"] == "west" }&.dig("value")
-            BoundingBox.from_coords(west: west, east: east, north: north, south: south)
+            BoundingBox.from_coords(
+              west: structured_value(structured_values, "west"),
+              east: structured_value(structured_values, "east"),
+              north: structured_value(structured_values, "north"),
+              south: structured_value(structured_values, "south")
+            )
           end
         end
 
@@ -53,6 +55,36 @@ module CocinaDisplay
 
           # Use the matching parser to parse the string
           parser_class.parse(match_str)
+        end
+
+        private
+
+        # Find a single coordinate value of the given type in structured data.
+        # @param [Array<Hash>] structured_values
+        # @param [String] type like "west" or "latitude"
+        # @return [String, nil]
+        def structured_value(structured_values, type)
+          value = structured_values.find { |v| v["type"] == type }&.dig("value")
+          normalize_value(value) if value.present?
+        end
+
+        # Standardize a single coordinate value so that Geo::Coord can parse it.
+        # Chooses a normalizer based on the string format, since structured values
+        # can be decimal degrees or DMS, including the packed MARC 034 form.
+        # @param [String] value
+        # @return [String, nil] nil if the format isn't recognized
+        # @example "W1210000" becomes "121°0′0″W"
+        def normalize_value(value)
+          # Remove all whitespace for easier matching/parsing
+          match_str = value.gsub(/\s+/, "")
+
+          # Try each normalizer in order until one matches; bail out if none do
+          normalizer_class = [
+            DMSCoordinateNormalizer,
+            DecimalCoordinateNormalizer
+          ].find { |normalizer| normalizer.supports?(match_str) }
+
+          normalizer_class&.normalize_coord(match_str)
         end
       end
 
@@ -146,35 +178,72 @@ module CocinaDisplay
       end
     end
 
-    # A bounding box defined by two corner points.
+    # A bounding box defined by its southwest and northeast corner points.
+    # The box can wrap east-west across the antimeridian, in which case its west
+    # edge is numerically east of its east edge. Both Solr's rectangle syntax and
+    # GeoJSON spell a crossing box that way, as do MARC 034 $d/$e, which are the
+    # westernmost and easternmost longitudes rather than the minimum and maximum.
+    # @see https://datatracker.ietf.org/doc/html/rfc7946#section-5.2
     class BoundingBox < Coordinates
-      attr_reader :min_point, :max_point
+      attr_reader :southwest, :northeast
 
       # Construct a BoundingBox from west, east, north, and south string values.
+      # West and east are used as given, so a box that crosses the antimeridian
+      # is preserved instead of rejected.
       # @param [String] west western longitude
       # @param [String] east eastern longitude
       # @param [String] north northern latitude
       # @param [String] south southern latitude
       # @return [BoundingBox, nil] nil if parsing fails
       def self.from_coords(west:, east:, north:, south:)
-        min_point = Geo::Coord.parse("#{south}, #{west}")
-        max_point = Geo::Coord.parse("#{north}, #{east}")
+        southwest = Geo::Coord.parse("#{south}, #{west}")
+        northeast = Geo::Coord.parse("#{north}, #{east}")
 
         # Must be parsable
-        return unless min_point && max_point
+        return unless southwest && northeast
 
-        # Ensure min_point is southwest and max_point is northeast
-        return if min_point.lat > max_point.lat || min_point.lng > max_point.lng
+        # A box can wrap east-west, but never north-south
+        return if southwest.lat > northeast.lat
 
-        new(min_point: min_point, max_point: max_point)
+        new(southwest: southwest, northeast: northeast)
       end
 
-      # Construct a BoundingBox from two Geo::Coord points.
-      # @param [Geo::Coord] min_point
-      # @param [Geo::Coord] max_point
-      def initialize(min_point:, max_point:)
-        @min_point = min_point
-        @max_point = max_point
+      # Construct a BoundingBox from two corner Geo::Coord points.
+      # @param [Geo::Coord] southwest
+      # @param [Geo::Coord] northeast
+      def initialize(southwest:, northeast:)
+        @southwest = southwest
+        @northeast = northeast
+      end
+
+      # The westernmost longitude of the box.
+      # @return [BigDecimal]
+      def west
+        southwest.lng
+      end
+
+      # The easternmost longitude of the box.
+      # @return [BigDecimal]
+      def east
+        northeast.lng
+      end
+
+      # The northernmost latitude of the box.
+      # @return [BigDecimal]
+      def north
+        northeast.lat
+      end
+
+      # The southernmost latitude of the box.
+      # @return [BigDecimal]
+      def south
+        southwest.lat
+      end
+
+      # True if the box wraps east-west across the antimeridian.
+      # @return [Boolean]
+      def crosses_antimeridian?
+        west > east
       end
 
       # Format for display in DMS format, adapted from ISO 6709 standard.
@@ -183,33 +252,31 @@ module CocinaDisplay
       # @return [String]
       # @example "118°14′37″W -- 117°56′55″W / 34°03′08″N -- 34°11′59″N"
       def to_s
-        min_lat, min_lng = format_point(min_point)
-        max_lat, max_lng = format_point(max_point)
-        "#{min_lng} -- #{max_lng} / #{max_lat} -- #{min_lat}"
+        south_str, west_str = format_point(southwest)
+        north_str, east_str = format_point(northeast)
+        "#{west_str} -- #{east_str} / #{north_str} -- #{south_str}"
       end
 
       # Format using the Well-Known Text (WKT) representation.
       # @note Limits decimals to 6 places.
+      # @note A box crossing the antimeridian is split into two polygons at the
+      #   date line, so that every longitude stays within bounds.
       # @see https://en.wikipedia.org/wiki/Well-known_text_representation_of_geometry
+      # @see https://datatracker.ietf.org/doc/html/rfc7946#section-3.1.9
       # @return [String]
       def as_wkt
-        "POLYGON((%.6f %.6f, %.6f %.6f, %.6f %.6f, %.6f %.6f, %.6f %.6f))" % [
-          min_point.lng, min_point.lat,
-          max_point.lng, min_point.lat,
-          max_point.lng, max_point.lat,
-          min_point.lng, max_point.lat,
-          min_point.lng, min_point.lat
-        ]
+        return "POLYGON(#{ring(west, east)})" unless crosses_antimeridian?
+
+        "MULTIPOLYGON((#{ring(west, 180)}), (#{ring(-180, east)}))"
       end
 
       # Format using the CQL ENVELOPE representation.
       # @note Limits decimals to 6 places.
+      # @note West is greater than east for a box crossing the antimeridian.
       # @example "ENVELOPE(-118.2437, -117.9522, 34.1996, 34.0522)"
       # @return [String]
       def as_envelope
-        "ENVELOPE(%.6f, %.6f, %.6f, %.6f)" % [
-          min_point.lng, max_point.lng, max_point.lat, min_point.lat
-        ]
+        "ENVELOPE(%.6f, %.6f, %.6f, %.6f)" % [west, east, north, south]
       end
 
       # The box center point as a space-separated x y (longitude latitude) pair.
@@ -217,18 +284,43 @@ module CocinaDisplay
       # @example "-118.2437 34.0522"
       # @return [String]
       def as_point
-        azimuth = min_point.azimuth(max_point)
-        distance = min_point.distance(max_point)
-        center = min_point.endpoint(distance / 2, azimuth)
-        "%.6f %.6f" % [center.lng, center.lat]
+        center_lng = (west + unwrapped_east) / 2
+        center_lng -= 360 if center_lng > 180
+        "%.6f %.6f" % [center_lng, (south + north) / 2]
       end
 
       # Format the bounding box as an array of two coordinate pairs [[S, W], [N, E]].
       # @note Limits decimals to 6 places.
+      # @note For a box crossing the antimeridian, east is carried past 180 so that
+      #   the pair still reads southwest to northeast.
       # @return [Array<Array<Float>>]
-      # @example [[-118.2437, 34.0522], [-117.9522, 34.1996]]
+      # @example [[34.0522, -118.2437], [34.1996, -117.9522]]
       def as_bbox
-        [[min_point.lat, min_point.lng], [max_point.lat, max_point.lng]]
+        [[south, west], [north, unwrapped_east]]
+      end
+
+      private
+
+      # The east edge as a continuous longitude, carried past 180 if the box
+      # crosses the antimeridian.
+      # @return [BigDecimal]
+      def unwrapped_east
+        crosses_antimeridian? ? east + 360 : east
+      end
+
+      # A closed WKT linear ring for the box, spanning the given longitudes.
+      # @note Limits decimals to 6 places.
+      # @param [Numeric] west_lng
+      # @param [Numeric] east_lng
+      # @return [String]
+      def ring(west_lng, east_lng)
+        "(%.6f %.6f, %.6f %.6f, %.6f %.6f, %.6f %.6f, %.6f %.6f)" % [
+          west_lng, south,
+          east_lng, south,
+          east_lng, north,
+          west_lng, north,
+          west_lng, south
+        ]
       end
     end
 
@@ -313,12 +405,58 @@ module CocinaDisplay
         matches = input_str.match(self::PATTERN)
         return unless matches
 
-        min_lng = normalize_coord(matches[:min_lng])
-        max_lng = normalize_coord(matches[:max_lng])
-        min_lat = normalize_coord(matches[:min_lat])
-        max_lat = normalize_coord(matches[:max_lat])
+        west = normalize_coord(matches[:west])
+        east = normalize_coord(matches[:east])
+        south = normalize_coord(matches[:south])
+        north = normalize_coord(matches[:north])
 
-        BoundingBox.from_coords(west: min_lng, east: max_lng, north: max_lat, south: min_lat)
+        BoundingBox.from_coords(west: west, east: east, north: north, south: south)
+      end
+    end
+
+    # Base class for normalizers that standardize a single coordinate value, as
+    # found in Cocina structured values, so that Geo::Coord can parse it.
+    # Subclasses define a PATTERN and mix in a parser module for normalize_coord.
+    class CoordinateNormalizer < CoordinatesParser
+      # Move a trailing hemisphere letter to the front, since that is where the
+      # parser normalizers expect it.
+      # @example "121.5W" becomes "W121.5"
+      # @param [String] value
+      # @return [String]
+      def self.hemisphere_first(value)
+        value.sub(/\A(.+?)([NESW])\z/, '\2\1')
+      end
+    end
+
+    # Normalizes DMS values, including the packed form used in MARC 034 subfields.
+    # @example W1210000
+    # @example 121°14′48″W
+    class DMSCoordinateNormalizer < CoordinateNormalizer
+      include DMSParser
+
+      # Either DMS punctuation, or a hemisphere paired with packed digits.
+      PATTERN = /[°⁰º′ʹ'″ʺ"]|\A[NESW]\d{4,}\z|\A\d{4,}[NESW]\z/
+
+      # @param [String] value
+      # @return [String, nil]
+      def self.normalize_coord(value)
+        super(hemisphere_first(value))
+      end
+    end
+
+    # Normalizes decimal degree values, either signed or paired with a hemisphere.
+    # @note Degrees are limited to 3 digits so that packed DMS isn't read as decimal.
+    # @example -121.24658
+    # @example W126.04
+    class DecimalCoordinateNormalizer < CoordinateNormalizer
+      include DecimalParser
+
+      PATTERN = /\A[NESW+-]?\d{1,3}(?:\.\d+)?[NESW]?\z/
+
+      # @param [String] value
+      # @return [String]
+      def self.normalize_coord(value)
+        super(hemisphere_first(value))
       end
     end
 
@@ -342,7 +480,7 @@ module CocinaDisplay
     class DMSBoundingBoxParser < BoundingBoxParser
       include DMSParser
 
-      PATTERN = /(?<min_lng>.+?)-+(?<max_lng>.+)\/(?<max_lat>.+?)-+(?<min_lat>.+)/
+      PATTERN = /(?<west>.+?)-+(?<east>.+)\/(?<north>.+?)-+(?<south>.+)/
     end
 
     # Format that pairs hemispheres with decimal degrees.
@@ -350,21 +488,21 @@ module CocinaDisplay
     class DecimalBoundingBoxParser < BoundingBoxParser
       include DecimalParser
 
-      PATTERN = /(?<min_lng>[0-9.EW]+?)-+(?<max_lng>[0-9.EW]+)\/(?<max_lat>[0-9.NS]+?)-+(?<min_lat>[0-9.NS]+)/
+      PATTERN = /(?<west>[0-9.EW]+?)-+(?<east>[0-9.EW]+)\/(?<north>[0-9.NS]+?)-+(?<south>[0-9.NS]+)/
     end
 
     # DMS-format data that appears to come from MARC 034 subfields.
     # @see https://www.oclc.org/bibformats/en/0xx/034.html
     # @example $dW0963700$eW0900700$fN0433000$gN040220
     class MarcDMSBoundingBoxParser < DMSBoundingBoxParser
-      PATTERN = /\$d(?<min_lng>[WENS].+)\$e(?<max_lng>[WENS].+)\$f(?<max_lat>[WENS].+)\$g(?<min_lat>[WENS].+)/
+      PATTERN = /\$d(?<west>[WENS].+)\$e(?<east>[WENS].+)\$f(?<north>[WENS].+)\$g(?<south>[WENS].+)/
     end
 
     # Decimal degree format data that appears to come from MARC 034 subfields.
     # @see https://www.oclc.org/bibformats/en/0xx/034.html
     # @example $d-112.0785250$e-111.6012719$f037.6516503$g036.8583209
     class MarcDecimalBoundingBoxParser < DecimalBoundingBoxParser
-      PATTERN = /\$d(?<min_lng>[0-9.-]+)\$e(?<max_lng>[0-9.-]+)\$f(?<max_lat>[0-9.-]+)\$g(?<min_lat>[0-9.-]+)/
+      PATTERN = /\$d(?<west>[0-9.-]+)\$e(?<east>[0-9.-]+)\$f(?<north>[0-9.-]+)\$g(?<south>[0-9.-]+)/
     end
   end
 end
