@@ -14,6 +14,8 @@ module CocinaDisplay
       # All valid coordinate data formatted for indexing into a Solr RPT field.
       # @note This type of field accommodates both points and bounding boxes.
       # @note In WKT, points have longitude first, unlike {coordinates_as_point}.
+      # @note A box crossing the antimeridian is split at the date line, so it is
+      #   rendered as a MULTIPOLYGON of its two halves.
       # @see https://solr.apache.org/guide/solr/latest/query-guide/spatial-search.html#rpt
       # @return [Array<String>]
       # @example ["POINT(-118.2437 34.0522)", "POLYGON((-118.2437 34.0522, -118.2437 34.1996, -117.9522 34.1996, -117.9522 34.0522, -118.2437 34.0522))"]
@@ -23,6 +25,7 @@ module CocinaDisplay
 
       # All valid coordinate data formatted for indexing into a Solr BBoxField.
       # @note Points are not included since they can't be represented as a box.
+      # @note West is greater than east for a box crossing the antimeridian.
       # @see https://solr.apache.org/guide/solr/latest/query-guide/spatial-search.html#bboxfield
       # @return [Array<String>]
       # @example ["ENVELOPE(-118.2437, -117.9522, 34.1996, 34.0522)"]
@@ -40,8 +43,10 @@ module CocinaDisplay
       end
 
       # All valid coordinate data formatted as bounding boxes.
-      # Format is [[min_lat, min_long], [max_lat, max_long]].
+      # Format is [[south, west], [north, east]].
       # @note Points are not included since they can't be represented as a box.
+      # @note For a box crossing the antimeridian, east is carried past 180 so that
+      #   the pair still reads southwest to northeast.
       # @return [Array<Array<Array<Float>>>]
       def coordinates_as_bbox
         coordinate_objects.map(&:as_bbox).compact.uniq

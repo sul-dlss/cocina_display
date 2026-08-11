@@ -11,6 +11,21 @@ RSpec.describe CocinaDisplay::CocinaRecord do
   end
   let(:cocina_record) { described_class.from_json(cocina_json) }
 
+  # druid:hj948rn6493, an 1802 chart of the Aleutians and far eastern Siberia.
+  # The extent is stated correctly and crosses the antimeridian, so its west edge
+  # is numerically east of its east edge.
+  let(:crossing_box_subject) do
+    {
+      "type" => "bounding box coordinates",
+      "structuredValue" => [
+        {"value" => "E1533200", "type" => "west"},
+        {"value" => "W1420200", "type" => "east"},
+        {"value" => "N0712500", "type" => "north"},
+        {"value" => "N0504400", "type" => "south"}
+      ]
+    }
+  end
+
   describe "#geonames_ids" do
     subject { cocina_record.geonames_ids }
 
@@ -130,6 +145,21 @@ RSpec.describe CocinaDisplay::CocinaRecord do
           is_expected.to eq("36°44′26″N 121°14′48″W")
         end
       end
+
+      context "with lat and long in packed MARC 034 form" do
+        subject { cocina_record.coordinates.first }
+
+        let(:coordinates) do
+          [
+            {"value" => "N0364426", "type" => "latitude"},
+            {"value" => "W1211448", "type" => "longitude"}
+          ]
+        end
+
+        it "normalizes the values before parsing them" do
+          is_expected.to eq("36°44′26″N 121°14′48″W")
+        end
+      end
     end
 
     context "with bounding box coordinates" do
@@ -235,6 +265,38 @@ RSpec.describe CocinaDisplay::CocinaRecord do
 
         it "returns the bounding box in DMS form" do
           is_expected.to eq("121°14′48″W -- 120°03′05″W / 37°38′01″N -- 36°44′26″N")
+        end
+      end
+
+      context "with values in packed MARC 034 form" do
+        subject { cocina_record.coordinates.first }
+
+        let(:subjects) do
+          [
+            {
+              "type" => "bounding box coordinates",
+              "structuredValue" => [
+                {"value" => "W1230000", "type" => "west"},
+                {"value" => "W1210000", "type" => "east"},
+                {"value" => "N0380000", "type" => "north"},
+                {"value" => "N0360000", "type" => "south"}
+              ]
+            }
+          ]
+        end
+
+        it "normalizes the values before parsing them" do
+          is_expected.to eq("123°00′00″W -- 121°00′00″W / 38°00′00″N -- 36°00′00″N")
+        end
+      end
+
+      context "with a box crossing the antimeridian" do
+        subject { cocina_record.coordinates.first }
+
+        let(:subjects) { [crossing_box_subject] }
+
+        it "keeps west and east as given" do
+          is_expected.to eq("153°32′00″E -- 142°02′00″W / 71°25′00″N -- 50°44′00″N")
         end
       end
     end
@@ -370,6 +432,24 @@ RSpec.describe CocinaDisplay::CocinaRecord do
         end
       end
 
+      context "with a box crossing the antimeridian in MARC DMS format" do
+        # druid:hj948rn6493
+        let(:coordinates) { "$dE1533200$eW1420200$fN0712500$gN0504400" }
+
+        it "parses and formats correctly" do
+          is_expected.to eq("153°32′00″E -- 142°02′00″W / 71°25′00″N -- 50°44′00″N")
+        end
+      end
+
+      context "with a box crossing the antimeridian in DMS" do
+        # druid:hj948rn6493
+        let(:coordinates) { "(E 153°32'00\"--W 142°02'00\"/N 71°25'00\"--N 50°44'00\")." }
+
+        it "parses and formats correctly" do
+          is_expected.to eq("153°32′00″E -- 142°02′00″W / 71°25′00″N -- 50°44′00″N")
+        end
+      end
+
       context "with a single point in decimal degrees" do
         # druid:sb789ym1480
         let(:coordinates) { "41.891797, 12.486419" }
@@ -444,6 +524,19 @@ RSpec.describe CocinaDisplay::CocinaRecord do
         expect(subject[1]).to eq("POLYGON((-121.246580 36.740468, -120.051476 36.740468, -120.051476 37.633575, -121.246580 37.633575, -121.246580 36.740468))")
       end
     end
+
+    context "with a bounding box crossing the antimeridian" do
+      subject { cocina_record.coordinates_as_wkt.first }
+
+      let(:subjects) { [crossing_box_subject] }
+
+      it "splits the box into two polygons at the date line" do
+        is_expected.to eq(
+          "MULTIPOLYGON(((153.533333 50.733333, 180.000000 50.733333, 180.000000 71.416667, 153.533333 71.416667, 153.533333 50.733333)), " \
+          "((-180.000000 50.733333, -142.033333 50.733333, -142.033333 71.416667, -180.000000 71.416667, -180.000000 50.733333)))"
+        )
+      end
+    end
   end
 
   describe "#coordinates_as_envelope" do
@@ -475,6 +568,38 @@ RSpec.describe CocinaDisplay::CocinaRecord do
         is_expected.to eq("ENVELOPE(-121.246580, -120.051476, 37.633575, 36.740468)")
       end
     end
+
+    context "with a bounding box in packed MARC 034 form" do
+      subject { cocina_record.coordinates_as_envelope.first }
+
+      let(:subjects) do
+        [
+          {
+            "type" => "bounding box coordinates",
+            "structuredValue" => [
+              {"value" => "W1230000", "type" => "west"},
+              {"value" => "W1210000", "type" => "east"},
+              {"value" => "N0380000", "type" => "north"},
+              {"value" => "N0360000", "type" => "south"}
+            ]
+          }
+        ]
+      end
+
+      it "returns the box in Solr envelope format" do
+        is_expected.to eq("ENVELOPE(-123.000000, -121.000000, 38.000000, 36.000000)")
+      end
+    end
+
+    context "with a bounding box crossing the antimeridian" do
+      subject { cocina_record.coordinates_as_envelope.first }
+
+      let(:subjects) { [crossing_box_subject] }
+
+      it "keeps west greater than east, which is how Solr reads a crossing box" do
+        is_expected.to eq("ENVELOPE(153.533333, -142.033333, 71.416667, 50.733333)")
+      end
+    end
   end
 
   describe "#coordinates_as_bbox" do
@@ -504,6 +629,18 @@ RSpec.describe CocinaDisplay::CocinaRecord do
 
       it "returns only the box in bounding box format (not the point)" do
         is_expected.to eq([[36.740468, -121.24658], [37.633575, -120.051476]])
+      end
+    end
+
+    context "with a bounding box crossing the antimeridian" do
+      subject { cocina_record.coordinates_as_bbox.first }
+
+      let(:subjects) { [crossing_box_subject] }
+
+      it "carries east past 180 so the pair still reads southwest to northeast" do
+        expect(subject.flatten.map { |value| value.to_f.round(6) }).to eq(
+          [50.733333, 153.533333, 71.416667, 217.966667]
+        )
       end
     end
   end
@@ -538,7 +675,17 @@ RSpec.describe CocinaDisplay::CocinaRecord do
       end
 
       it "returns the box center in Solr RPT format" do
-        expect(subject[1]).to eq("-120.652546 37.188545")
+        expect(subject[1]).to eq("-120.649028 37.187022")
+      end
+    end
+
+    context "with a bounding box crossing the antimeridian" do
+      subject { cocina_record.coordinates_as_point.first }
+
+      let(:subjects) { [crossing_box_subject] }
+
+      it "returns a center in the Pacific, not the Atlantic" do
+        is_expected.to eq("-174.250000 61.075000")
       end
     end
   end
