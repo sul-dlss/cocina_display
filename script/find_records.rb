@@ -3,28 +3,29 @@
 # This script is a simple, brute-force method for finding records that
 # exhibit certain characteristics in the public Cocina JSON for testing.
 #
-# It queries purl-fetcher for all DRUIDs released to a specific target and
-# then fetches each corresponding public Cocina record from PURL and examines it.
-#
-# You need to be on VPN to do this, as the purl-fetcher API is only accessible
-# from within the Stanford network.
+# It reads the public PURL sitemap to enumerate all released DRUIDs and then
+# fetches each corresponding public Cocina record from PURL and examines it.
 #
 # To use, modify any of the noted items below, then run:
 # $ bundle exec ruby script/find_records.rb
 #
 # You can exit early with Ctrl-C, and it will report how many records were
-# checked before exiting. Running through an entire target will take awhile,
+# checked before exiting. Running through the entire sitemap will take awhile,
 # on the order of 30 minutes or more.
 
 require "benchmark"
+require "net/http"
 require "pp"
-require "purl_fetcher/client"
+require "rexml/document"
+require "stringio"
+require "uri"
+require "zlib"
 require "cocina_display"
 require "cocina_display/utils"
 
-# This should correspond to one of the release targets available in purl-fetcher,
-# i.e. "Searchworks", "Earthworks", etc.
-RELEASE_TARGET = "Searchworks"
+# The PURL sitemap index. This points to one or more gzipped child sitemaps,
+# each of which lists PURL URLs (one per released DRUID).
+SITEMAP_URL = "https://purl.stanford.edu/system/sitemap/sitemap.xml.gz"
 
 # Modify this expression to match the JSON path you want to search, or just
 # modify the `examine_record` method directly.
@@ -36,8 +37,33 @@ def examine_record(record)
   record.path(PATH_EXPR).map { |value, _node, _key, path| [path, CocinaDisplay::Utils.deep_compact_blank(value)] }
 end
 
-# Track total records in target and how many we've seen
-released_to_target = []
+# Fetch a URL and return the response body, transparently decompressing it if
+# it was served (or named) as gzip.
+def fetch_gzipped(url)
+  body = Net::HTTP.get(URI(url))
+  Zlib::GzipReader.new(StringIO.new(body)).read
+rescue Zlib::GzipFile::Error
+  body
+end
+
+# Extract every <loc> value from a sitemap or sitemap index document.
+def sitemap_locs(xml)
+  REXML::Document.new(xml).get_elements("//loc").map { |loc| loc.text.strip }
+end
+
+# Walk the sitemap index and yield the DRUID for every URL in each child sitemap.
+def each_druid_in_sitemap(sitemap_url)
+  return enum_for(:each_druid_in_sitemap, sitemap_url) unless block_given?
+
+  sitemap_locs(fetch_gzipped(sitemap_url)).each do |child_sitemap_url|
+    sitemap_locs(fetch_gzipped(child_sitemap_url)).each do |purl_url|
+      yield File.basename(URI(purl_url).path)
+    end
+  end
+end
+
+# Track total records and how many we've seen
+druids = []
 processed_records = 0
 
 # Handle Ctrl-C gracefully
@@ -46,24 +72,21 @@ Signal.trap("INT") do
   exit
 end
 
-# Fetch everything from purl-fetcher; note that this is one single HTTP request
-# that returns a massive JSON response – it can be quite slow
-puts "Finding records released to #{RELEASE_TARGET}..."
-client = PurlFetcher::Client::Reader.new
+# Read the sitemap; this involves a handful of HTTP requests (the index plus
+# each child sitemap) that are relatively quick compared to purl-fetcher.
+puts "Finding released records from the PURL sitemap..."
 query_time = Benchmark.realtime do
-  client.released_to(RELEASE_TARGET).each do |record|
-    released_to_target << record["druid"].delete_prefix("druid:")
-  end
-rescue Faraday::ConnectionFailed => e
-  puts "Connection failed: #{e.message}; are you on VPN?"
+  each_druid_in_sitemap(SITEMAP_URL) { |druid| druids << druid }
+rescue => e
+  puts "Failed to read sitemap: #{e.message}"
   exit 1
 end
-puts "Found #{released_to_target.size} records released to #{RELEASE_TARGET} in #{query_time.round(2)} seconds"
+puts "Found #{druids.size} records in the sitemap in #{query_time.round(2)} seconds"
 
 # Iterate through the list of DRUIDs and fetch each one from PURL, creating a
 # CocinaRecord object. Then call our examine_record method on it and if
 # anything was returned, print the DRUID and the results.
-released_to_target.each do |druid|
+druids.each do |druid|
   begin
     cocina_record = CocinaDisplay::CocinaRecord.fetch(druid)
     processed_records += 1
