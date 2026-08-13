@@ -46,14 +46,6 @@ GEM
     edtf (3.3.0)
       activesupport (>= 3.0, < 9.0)
     erb (6.0.4)
-    faraday (2.14.3)
-      faraday-net_http (>= 2.0, < 3.5)
-      json
-      logger
-    faraday-net_http (3.4.4)
-      net-http (~> 0.5)
-    faraday-retry (2.4.0)
-      faraday (~> 2.0)
     geo_coord (0.2.0)
     hashdiff (1.2.1)
     i18n (1.15.2)
@@ -73,8 +65,6 @@ GEM
     minitest (6.0.6)
       drb (~> 2.0)
       prism (~> 1.5)
-    net-http (0.9.1)
-      uri (>= 0.11.1)
     parallel (1.28.0)
     parser (3.3.12.0)
       ast (~> 2.4.1)
@@ -87,10 +77,6 @@ GEM
       date
       stringio
     public_suffix (7.0.5)
-    purl_fetcher-client (3.2.1)
-      activesupport
-      faraday (~> 2.1)
-      faraday-retry (~> 2.4)
     racc (1.8.1)
     rainbow (3.1.1)
     rake (13.4.2)
@@ -180,7 +166,6 @@ DEPENDENCIES
   cocina_display!
   debug (~> 1.11)
   irb
-  purl_fetcher-client (~> 3.1)
   rake (~> 13.0)
   rspec (~> 3.0)
   simplecov (~> 0.22.0)
