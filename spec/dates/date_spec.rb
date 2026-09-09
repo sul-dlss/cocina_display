@@ -436,11 +436,19 @@ RSpec.describe CocinaDisplay::Dates::Date do
       end
     end
 
-    context "with an unencoded but parsable date" do
+    context "with an unencoded date" do
       let(:cocina) { {"value" => "about 933"} }
 
-      it "uses the parsed value" do
-        expect(date.decoded_value).to eq("933 CE")
+      it "preserves the original value" do
+        expect(date.decoded_value).to eq("about 933")
+      end
+    end
+
+    context "with an unencoded value that resembles an uncertain date range" do
+      let(:cocina) { {"value" => "[1928-193-?]"} }
+
+      it "preserves the original value" do
+        expect(date.decoded_value).to eq("[1928-193-?]")
       end
     end
 

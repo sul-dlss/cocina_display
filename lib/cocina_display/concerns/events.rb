@@ -64,7 +64,7 @@ module CocinaDisplay
         date = pub_date(ignore_qualified: ignore_qualified)
         return unless date&.parsed_date?
 
-        date.decoded_value(allowed_precisions: [:year, :decade, :century])
+        date.decoded_value(allowed_precisions: [:year, :decade, :century], preserve_unencoded: false)
       end
 
       # String for sorting lexicographically by publication date.
