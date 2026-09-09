@@ -335,6 +335,15 @@ module CocinaDisplay
       def self.supports?(input_str)
         input_str.match?(self::PATTERN)
       end
+
+      # Move a trailing hemisphere letter to the front, since that is where the
+      # decimal normalizer expects it.
+      # @example "121.5W" becomes "W121.5"
+      # @param [String] value
+      # @return [String]
+      def self.hemisphere_first(value)
+        value.sub(/\A(.+?)([NESW])\z/, '\2\1')
+      end
     end
 
     # Mixin that adds normalization for decimal degree coordinates.
@@ -345,17 +354,28 @@ module CocinaDisplay
 
       module Helpers
         # Convert hemispheres to plus/minus signs for parsing.
+        # @note The hemisphere can either lead or trail the degrees.
         # @param [String] coord_str
         # @return [String]
         def normalize_coord(coord_str)
-          coord_str.tr("EN", "+").tr("WS", "-")
+          hemisphere_first(coord_str).tr("EN", "+").tr("WS", "-")
         end
       end
     end
 
     # Mixin that adds normalization for DMS coordinates.
     module DMSParser
-      POINT_PATTERN = /(?<hem>[NESW])(?<deg>\d{1,3})[°⁰º]?(?:(?<min>\d{1,2})[ʹ′']?)?(?:(?<sec>\d{1,2})[ʺ"″]?)?/
+      # The degrees, minutes, and seconds of a coordinate, without a hemisphere.
+      DMS_PATTERN = /(?<deg>\d{1,3})[°⁰º]?(?:(?<min>\d{1,2})[ʹ′']?)?(?:(?<sec>\d{1,2})[ʺ"″]?)?/
+
+      # A single coordinate, with the hemisphere either leading or trailing the
+      # degrees. A hemisphere is required, so that a bare number is not read as
+      # a coordinate. Both spellings are common in MARC 034 and 255$c, and the
+      # trailing form is what {Coordinates#format_point} itself emits.
+      # @note A trailing hemisphere cannot be followed by digits, otherwise a
+      #   MARC 034 $b scale like "$b3100000W120°00′00″" would read the scale as
+      #   the degrees and steal the hemisphere from the coordinate after it.
+      POINT_PATTERN = /(?:(?<hem>[NESW])#{DMS_PATTERN}|#{DMS_PATTERN}(?<hem>[NESW])(?!\d))/
 
       def self.included(base)
         base.const_set(:POINT_PATTERN, POINT_PATTERN)
@@ -418,14 +438,6 @@ module CocinaDisplay
     # found in Cocina structured values, so that Geo::Coord can parse it.
     # Subclasses define a PATTERN and mix in a parser module for normalize_coord.
     class CoordinateNormalizer < CoordinatesParser
-      # Move a trailing hemisphere letter to the front, since that is where the
-      # parser normalizers expect it.
-      # @example "121.5W" becomes "W121.5"
-      # @param [String] value
-      # @return [String]
-      def self.hemisphere_first(value)
-        value.sub(/\A(.+?)([NESW])\z/, '\2\1')
-      end
     end
 
     # Normalizes DMS values, including the packed form used in MARC 034 subfields.
@@ -436,12 +448,6 @@ module CocinaDisplay
 
       # Either DMS punctuation, or a hemisphere paired with packed digits.
       PATTERN = /[°⁰º′ʹ'″ʺ"]|\A[NESW]\d{4,}\z|\A\d{4,}[NESW]\z/
-
-      # @param [String] value
-      # @return [String, nil]
-      def self.normalize_coord(value)
-        super(hemisphere_first(value))
-      end
     end
 
     # Normalizes decimal degree values, either signed or paired with a hemisphere.
@@ -452,12 +458,6 @@ module CocinaDisplay
       include DecimalParser
 
       PATTERN = /\A[NESW+-]?\d{1,3}(?:\.\d+)?[NESW]?\z/
-
-      # @param [String] value
-      # @return [String]
-      def self.normalize_coord(value)
-        super(hemisphere_first(value))
-      end
     end
 
     # Parse for decimal degree points, like "41.891797, 12.486419".
@@ -468,10 +468,12 @@ module CocinaDisplay
     end
 
     # Parser for DMS-format points, like "N34°03′08″ W118°14′37″".
+    # @note The hemisphere can either lead or trail the degrees in each half.
+    # @example 34°03′08″N 118°14′37″W
     class DMSPointParser < PointParser
       include DMSParser
 
-      PATTERN = /(?<lat>[^EW]+)(?<lng>[^NS]+)/
+      PATTERN = /(?<lat>[NS][^NS]+|[^NS]+[NS])(?<lng>[EW][^EW]+|[^EW]+[EW])/
     end
 
     # DMS-format bounding boxes with varying punctuation, delimited by -- and /.

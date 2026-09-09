@@ -290,6 +290,28 @@ RSpec.describe CocinaDisplay::CocinaRecord do
         end
       end
 
+      context "with values in packed MARC 034 form with a trailing hemisphere" do
+        subject { cocina_record.coordinates.first }
+
+        let(:subjects) do
+          [
+            {
+              "type" => "bounding box coordinates",
+              "structuredValue" => [
+                {"value" => "1230000W", "type" => "west"},
+                {"value" => "1210000W", "type" => "east"},
+                {"value" => "0380000N", "type" => "north"},
+                {"value" => "0360000N", "type" => "south"}
+              ]
+            }
+          ]
+        end
+
+        it "normalizes the values before parsing them" do
+          is_expected.to eq("123°00′00″W -- 121°00′00″W / 38°00′00″N -- 36°00′00″N")
+        end
+      end
+
       context "with a box crossing the antimeridian" do
         subject { cocina_record.coordinates.first }
 
@@ -464,6 +486,40 @@ RSpec.describe CocinaDisplay::CocinaRecord do
 
         it "parses and reformats correctly" do
           is_expected.to eq("41°53′30″N 12°29′11″E")
+        end
+      end
+
+      context "with DMS and the hemisphere after the degrees" do
+        let(:coordinates) { "100°20′00″W--99°30′00″W/31°00′00″N--30°30′00″N" }
+
+        it "parses and formats correctly" do
+          is_expected.to eq("100°20′00″W -- 99°30′00″W / 31°00′00″N -- 30°30′00″N")
+        end
+      end
+
+      context "with decimal degrees and the hemisphere after the degrees" do
+        let(:coordinates) { "024.93W--011.87E/066.64N--042.71N" }
+
+        it "parses and formats correctly" do
+          is_expected.to eq("24°55′48″W -- 11°52′12″E / 66°38′24″N -- 42°42′36″N")
+        end
+      end
+
+      context "with a single point and the hemisphere after the degrees" do
+        let(:coordinates) { "34°03′08″N 118°14′37″W" }
+
+        it "parses and formats correctly" do
+          is_expected.to eq("34°03′08″N 118°14′37″W")
+        end
+      end
+
+      # The trailing hemisphere form we emit has to parse, so that a value that
+      # has already been through this gem is not treated as unparseable.
+      context "with a bounding box in the form this gem emits" do
+        let(:coordinates) { "100°20′00″W -- 99°30′00″W / 31°00′00″N -- 30°30′00″N" }
+
+        it "round trips to the same string" do
+          is_expected.to eq("100°20′00″W -- 99°30′00″W / 31°00′00″N -- 30°30′00″N")
         end
       end
     end
