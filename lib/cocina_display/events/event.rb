@@ -161,9 +161,17 @@ module CocinaDisplay
       end
 
       # Locations associated with this event as a single string.
+      # Renders every parallel value, so vernacular and transliterated forms
+      # of the same place both appear.
       # @return [String]
       def place_str
-        locations.map(&:to_s).compact_blank.uniq.join(", ")
+        location_values.map(&:to_s).compact_blank.uniq.join(", ")
+      end
+
+      # All locations associated with this event, in every language/script.
+      # @return [Array<CocinaDisplay::Events::LocationValue>]
+      def location_values
+        locations.flat_map(&:parallel_values)
       end
     end
   end

@@ -747,6 +747,30 @@ RSpec.describe CocinaDisplay::CocinaRecord do
       it { is_expected.to eq ["England"] }
     end
 
+    context "with publication event with a parallel location" do
+      let(:events) do
+        [
+          {
+            "date" => [
+              {"value" => "1979", "type" => "publication"}
+            ],
+            "location" => [
+              {
+                "parallelValue" => [
+                  {"value" => "개성시", "valueLanguage" => {"code" => "kor", "valueScript" => {"code" => "Kore"}}},
+                  {"value" => "Kaesŏng-si", "valueLanguage" => {"code" => "kor", "valueScript" => {"code" => "Latn"}}}
+                ]
+              }
+            ]
+          }
+        ]
+      end
+
+      it "uses the main (vernacular) value" do
+        is_expected.to eq ["개성시"]
+      end
+    end
+
     context "with event locations that are not publication" do
       let(:events) do
         [

@@ -113,6 +113,31 @@ RSpec.describe CocinaDisplay::Events::Imprint do
           is_expected.to eq "London, 1921"
         end
       end
+
+      context "with a parallel place name" do
+        let(:cocina) do
+          {
+            "date" => [
+              {"value" => "1979", "type" => "publication"}
+            ],
+            "contributor" => [
+              {"name" => [{"value" => "Kaesŏng Publishing"}]}
+            ],
+            "location" => [
+              {
+                "parallelValue" => [
+                  {"value" => "개성시", "valueLanguage" => {"code" => "kor", "valueScript" => {"code" => "Kore"}}},
+                  {"value" => "Kaesŏng-si", "valueLanguage" => {"code" => "kor", "valueScript" => {"code" => "Latn"}}}
+                ]
+              }
+            ]
+          }
+        end
+
+        it "renders the vernacular and transliterated place names" do
+          is_expected.to eq "개성시 : Kaesŏng-si : Kaesŏng Publishing, 1979"
+        end
+      end
     end
 
     context "with multiple publication places" do

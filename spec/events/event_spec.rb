@@ -214,6 +214,35 @@ RSpec.describe CocinaDisplay::Events::Event do
           is_expected.to eq "England, 1921"
         end
       end
+
+      context "with a parallel place name (as seen in jz685db6670)" do
+        let(:cocina) do
+          {
+            "type" => "creation",
+            "date" => [
+              {"value" => "1979-01", "type" => "creation", "encoding" => {"code" => "w3cdtf"}}
+            ],
+            "location" => [
+              {
+                "parallelValue" => [
+                  {
+                    "value" => "개성시",
+                    "valueLanguage" => {"code" => "kor", "valueScript" => {"code" => "Kore"}}
+                  },
+                  {
+                    "value" => "Kaesŏng-si",
+                    "valueLanguage" => {"code" => "kor", "valueScript" => {"code" => "Latn"}}
+                  }
+                ]
+              }
+            ]
+          }
+        end
+
+        it "renders the vernacular and transliterated place names" do
+          is_expected.to eq "개성시, Kaesŏng-si, January 1979"
+        end
+      end
     end
 
     context "with a publication place and date" do
