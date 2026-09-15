@@ -50,7 +50,7 @@ module CocinaDisplay
       # 3. Keep only unique locations after decoding
       # @return [Array<String>]
       def display_locations
-        unencoded_locs, encoded_locs = locations.partition { |loc| loc.unencoded_value? }
+        unencoded_locs, encoded_locs = location_values.partition { |loc| loc.unencoded_value? }
         locs_for_display = unencoded_locs.presence || encoded_locs
         locs_for_display.map(&:to_s).compact_blank.uniq
       end
