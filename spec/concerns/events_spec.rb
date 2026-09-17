@@ -951,7 +951,7 @@ RSpec.describe CocinaDisplay::CocinaRecord do
         expect(subject).to eq(
           {
             "Publication date" => ["[1758 - Unknown?]"],
-            "Production date" => ["Unknown"],
+            "Production date" => ["invalid-date"],
             "Copyright date" => ["100 BCE"],
             "Fictional date" => ["1990s"]
           }
@@ -1155,7 +1155,7 @@ RSpec.describe CocinaDisplay::CocinaRecord do
       it "uses the event displayLabel as the heading" do
         expect(subject).to eq(
           {
-            "Court location and trial date" => ["Ludwigsberg (Germany), February 6, 1946 - March 22, 1946"]
+            "Court location and trial date" => ["Ludwigsberg (Germany), 02/06/1946 - 03/22/1946"]
           }
         )
       end

@@ -157,7 +157,7 @@ module CocinaDisplay
       # Dates associated with this event as a single string.
       # @return [String]
       def date_str
-        display_dates.map(&:qualified_value).compact_blank.uniq.to_sentence
+        display_dates.map(&:to_s).compact_blank.uniq.to_sentence
       end
 
       # Locations associated with this event as a single string.

@@ -60,14 +60,14 @@ RSpec.describe CocinaDisplay::Events::Event do
           {
             "date" => [
               {"value" => "17uu", "type" => "publication", "encoding" => {"code" => "edtf"}},
-              {"value" => "no date here", "type" => "creation"},
+              {"value" => "custom date", "type" => "creation"},
               {"value" => "1920-09", "type" => "capture", "encoding" => {"code" => "w3cdtf"}}
             ]
           }
         end
 
         it "concatenates and orders all dates" do
-          is_expected.to eq "Unknown, 18th century, and September 1920"
+          is_expected.to eq "custom date, 18th century, and September 1920"
         end
       end
 
