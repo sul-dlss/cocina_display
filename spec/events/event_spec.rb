@@ -67,7 +67,7 @@ RSpec.describe CocinaDisplay::Events::Event do
         end
 
         it "concatenates and orders all dates" do
-          is_expected.to eq "Unknown, 18th century, and September 1920"
+          is_expected.to eq "no date here, 18th century, and September 1920"
         end
       end
 
