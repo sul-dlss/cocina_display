@@ -73,6 +73,7 @@ module CocinaDisplay
 
       # Download rights for the object.
       # @note Individual files may have differing download rights.
+      # @note Collections have no download rights, so this is always nil for them.
       # @return [String, nil]
       # @example "world", "stanford_only", "none", "location-based"
       def download_rights
@@ -95,7 +96,7 @@ module CocinaDisplay
       # Is the object downloadable in some capacity?
       # @return [Boolean]
       def downloadable?
-        download_rights != "none"
+        download_rights.present? && download_rights != "none"
       end
 
       # Is the object viewable by anyone?
@@ -111,8 +112,11 @@ module CocinaDisplay
       end
 
       # Is the object both viewable and downloadable by anyone?
+      # @note Collections have no download rights, so only view rights are considered.
       # @return [Boolean]
       def world_access?
+        return world_viewable? if collection?
+
         world_viewable? && world_downloadable?
       end
 
@@ -147,8 +151,11 @@ module CocinaDisplay
       end
 
       # Is the object both viewable and downloadable by Stanford affiliates?
+      # @note Collections have no download rights, so only view rights are considered.
       # @return [Boolean]
       def stanford_access?
+        return stanford_viewable? if collection?
+
         stanford_viewable? && stanford_downloadable?
       end
 

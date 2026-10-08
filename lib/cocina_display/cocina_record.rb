@@ -17,6 +17,7 @@ module CocinaDisplay
     include CocinaDisplay::Concerns::Geospatial
     include CocinaDisplay::Concerns::Structural
     include CocinaDisplay::Concerns::RelatedResources
+    include CocinaDisplay::Concerns::ContentType
 
     # Fetch a public Cocina document from PURL and create a CocinaRecord.
     # @param druid [String] The bare DRUID of the object to fetch.
@@ -49,21 +50,6 @@ module CocinaDisplay
     # @return [Time]
     def modified_time
       Time.parse(cocina_doc["modified"])
-    end
-
-    # SDR content type of the object.
-    # @return [String, nil]
-    # @see https://github.com/sul-dlss/cocina-models/blob/main/openapi.yml#L532-L546
-    # @example
-    #  record.content_type #=> "image"
-    def content_type
-      cocina_doc["type"]&.delete_prefix("https://cocina.sul.stanford.edu/models/")
-    end
-
-    # True if the object is a collection.
-    # @return [Boolean]
-    def collection?
-      content_type == "collection"
     end
 
     # Copyright statement from Cocina access metadata.

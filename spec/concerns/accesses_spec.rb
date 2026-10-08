@@ -293,6 +293,46 @@ RSpec.describe CocinaDisplay::CocinaRecord do
       it { is_expected.not_to be_location_only_access }
       it { is_expected.to be_citation_only_access }
     end
+
+    context "world-viewable collection" do
+      let(:cocina_json) do
+        {
+          "type" => "https://cocina.sul.stanford.edu/models/collection",
+          "access" => {"view" => "world"}
+        }.to_json
+      end
+
+      it { is_expected.to be_viewable }
+      it { is_expected.not_to be_downloadable }
+      it { is_expected.to be_world_viewable }
+      it { is_expected.not_to be_world_downloadable }
+      it { is_expected.to be_world_access }
+      it { is_expected.to be_stanford_viewable }
+      it { is_expected.not_to be_stanford_downloadable }
+      it { is_expected.to be_stanford_access }
+      it { is_expected.not_to be_stanford_only_access }
+      it { is_expected.not_to be_dark_access }
+      it { is_expected.not_to be_location_only_access }
+      it { is_expected.not_to be_citation_only_access }
+    end
+
+    context "dark collection" do
+      let(:cocina_json) do
+        {
+          "type" => "https://cocina.sul.stanford.edu/models/collection",
+          "access" => {"view" => "dark"}
+        }.to_json
+      end
+
+      it { is_expected.not_to be_viewable }
+      it { is_expected.not_to be_downloadable }
+      it { is_expected.not_to be_world_access }
+      it { is_expected.not_to be_stanford_access }
+      it { is_expected.not_to be_stanford_only_access }
+      it { is_expected.not_to be_location_only_access }
+      it { is_expected.not_to be_citation_only_access }
+      it { is_expected.to be_dark_access }
+    end
   end
 
   describe "#accesses" do
