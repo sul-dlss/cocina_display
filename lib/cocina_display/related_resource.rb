@@ -15,6 +15,7 @@ module CocinaDisplay
     include CocinaDisplay::Concerns::Forms
     include CocinaDisplay::Concerns::Languages
     include CocinaDisplay::Concerns::Geospatial
+    include CocinaDisplay::Concerns::ContentType
 
     # Description of the relation to the source record.
     # @return [String]

@@ -72,6 +72,21 @@ RSpec.describe CocinaDisplay::RelatedResource do
         it { is_expected.to eq "https://purl.stanford.edu/xx111yy2223/iiif3/manifest" }
       end
     end
+
+    context "when the related resource is part of a collection" do
+      subject { described_class.new(cocina_doc) }
+
+      let(:cocina_doc) do
+        {
+          "type" => "part of",
+          "title" => [{"value" => "the collection title"}]
+        }
+      end
+
+      it { is_expected.not_to be_collection }
+      it { is_expected.not_to be_world_access }
+      it { is_expected.not_to be_stanford_access }
+    end
   end
 
   describe "link construction" do
