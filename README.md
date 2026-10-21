@@ -186,13 +186,15 @@ end
 
 ## Development
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `bundle exec rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment. This is a useful place to try out JSONPath expressions with `CocinaRecord#path`.
+After checking out the repo, run `bin/setup` to install dependencies. Then, run `bin/rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment. This is a useful place to try out JSONPath expressions with `CocinaRecord#path`.
+
+Code is linted using [standard](https://github.com/standardrb/standard). CI will fail if code is not formatted according to the spec. You can lint locally with `bin/standardrb`, and pass `--fix` to fix any issues reported.
 
 Tests are written using [rspec](https://rspec.info), with coverage automatically measured via [simplecov](https://github.com/simplecov-ruby/simplecov). CI will fail if coverage drops below 100%. For convenience, if you invoke a single spec file locally, coverage will not be reported.
 
 Documentation is generated using [yard](https://yardoc.org). You can generate it locally by running `yardoc`, or `yard server --reload` to start a local server and watch for changes as you edit. There is a GitHub action that automatically generates and publishes the documentation to GitHub Pages on every push/merge to `main`.
 
-To release a new version, update the version number in `version.rb`, run `bundle` to update `Gemfile.lock`, commit your changes, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and the created tag, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+To release a new version, update the version number in `version.rb`, run `bundle` to update `Gemfile.lock`, commit your changes, and then run `bin/rake release`, which will create a git tag for the version, push git commits and the created tag, and push the `.gem` file to [rubygems.org](https://rubygems.org).
 
 ## Background
 
