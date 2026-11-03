@@ -25,6 +25,13 @@ module CocinaDisplay
           label: I18n.t("cocina_display.field_label.use_and_reproduction"))
       end
 
+      # Display data for access restrictions.
+      # @return [Array<CocinaDisplay::DisplayData>]
+      def access_restriction_display_data
+        CocinaDisplay::DisplayData.from_strings([access_restriction],
+          label: I18n.t("cocina_display.field_label.access_restriction"))
+      end
+
       # Display data for the copyright statement.
       # Exhibits and EarthWorks handle copyright like descriptive metadata.
       # @return [Array<CocinaDisplay::DisplayData>]

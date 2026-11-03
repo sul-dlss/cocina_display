@@ -8,6 +8,7 @@ en:
         repository: Repository
         url: Location
         shelf_locator: Shelf locator
+      access_restriction: Access restrictions
       copyright: Copyright
       event:
         date:

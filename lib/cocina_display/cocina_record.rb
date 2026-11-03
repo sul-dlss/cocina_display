@@ -64,6 +64,12 @@ module CocinaDisplay
       cocina_doc.dig("access", "useAndReproductionStatement")
     end
 
+    # Restriction on access from Cocina access metadata.
+    # @return [String, nil]
+    def access_restriction
+      cocina_doc.dig("access", "restrictionOnAccess")
+    end
+
     # Description of the license
     # @return [String, nil]
     def license_description
