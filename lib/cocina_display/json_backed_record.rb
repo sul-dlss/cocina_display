@@ -16,6 +16,15 @@ module CocinaDisplay
       @cocina_doc = cocina_doc
     end
 
+    # Create a record from a Cocina JSON string.
+    # @param cocina_json [String]
+    # @param deep_compact [Boolean] If true, compact the JSON to remove blank values.
+    # @return [CocinaDisplay::CocinaRecord]
+    def self.from_json(cocina_json, deep_compact: false)
+      cocina_doc = JSON.parse(cocina_json)
+      deep_compact ? new(Utils.deep_compact_blank(cocina_doc)) : new(cocina_doc)
+    end
+
     # Evaluate a JSONPath expression against the Cocina document.
     # @return [Enumerator] An enumerator that yields results matching the expression.
     # @param path_expression [String] The JSONPath expression to evaluate.
