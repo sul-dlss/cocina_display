@@ -29,15 +29,6 @@ module CocinaDisplay
       from_json(response.body, deep_compact: deep_compact) if response.is_a?(Net::HTTPSuccess)
     end
 
-    # Create a CocinaRecord from a JSON string.
-    # @param cocina_json [String]
-    # @param deep_compact [Boolean] If true, compact the JSON to remove blank values.
-    # @return [CocinaDisplay::CocinaRecord]
-    def self.from_json(cocina_json, deep_compact: false)
-      cocina_doc = JSON.parse(cocina_json)
-      deep_compact ? new(Utils.deep_compact_blank(cocina_doc)) : new(cocina_doc)
-    end
-
     # Timestamp when the Cocina was created.
     # @note This is for the metadata itself, not the object.
     # @return [Time]
@@ -76,5 +67,12 @@ module CocinaDisplay
     def license
       cocina_doc.dig("access", "license")
     end
+
+    # Release metadata for the object, as fetched from PURL.
+    # @return [CocinaDisplay::MetaRecord, nil] The release metadata record
+    def release_metadata
+      @release_metadata ||= MetaRecord.fetch(bare_druid)
+    end
+    delegate :released_to?, :released_to_sitemap?, :released_to_searchworks?, :released_to_earthworks?, to: :release_metadata, allow_nil: true
   end
 end

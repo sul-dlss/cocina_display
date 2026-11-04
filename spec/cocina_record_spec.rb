@@ -154,4 +154,42 @@ RSpec.describe CocinaDisplay::CocinaRecord do
       # rubocop:enable Layout/LineLength
     end
   end
+
+  describe "release metadata" do
+    let(:meta_json) do
+      {
+        "$schemaVersion" => 1,
+        "sitemap" => true,
+        "searchworks" => false,
+        "earthworks" => false
+      }.to_json
+    end
+
+    before do
+      stub_request(:get, "https://purl.stanford.edu/#{druid}.meta_json")
+        .to_return(body: meta_json, status: 200)
+    end
+
+    context "when an object is released to a target" do
+      it "returns true for that target" do
+        expect(subject.released_to?(:sitemap)).to be true
+        expect(subject.released_to_sitemap?).to be true
+      end
+    end
+
+    context "when an object is not released to a target" do
+      it "returns false for that target" do
+        expect(subject.released_to?(:searchworks)).to be false
+        expect(subject.released_to_searchworks?).to be false
+        expect(subject.released_to?(:earthworks)).to be false
+        expect(subject.released_to_earthworks?).to be false
+      end
+    end
+
+    context "when a target is not listed in the release metadata" do
+      it "returns nil for that target" do
+        expect(subject.released_to?(:doesnt_exist)).to be_nil
+      end
+    end
+  end
 end
