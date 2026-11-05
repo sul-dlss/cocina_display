@@ -625,6 +625,8 @@ RSpec.describe CocinaDisplay::Dates::Date do
       "250 B.C." => Date.parse("-0249-01-01")..Date.parse("-249-12-31"),
       "Anno M.DC.LXXXI." => Date.parse("1681-01-01")..Date.parse("1681-12-31"),
       "624[1863 or 1864]" => Date.parse("1863-01-01")..Date.parse("1863-12-31"),
+      "1617-21" => Date.parse("1617-01-01")..Date.parse("1621-12-31"),
+      "923-24" => Date.parse("0923-01-01")..Date.parse("0924-12-31"),
       "chez Villeneuve" => nil,
       "‏4264681 או 368" => nil
     }.each do |data, expected|
