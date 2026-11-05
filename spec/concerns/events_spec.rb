@@ -833,6 +833,25 @@ RSpec.describe CocinaDisplay::CocinaRecord do
 
       it { is_expected.to eq ["England"] }
     end
+
+    context "with MARC country codes for states and countries" do
+      # inspired by druid:gp165nr6491
+      let(:events) do
+        [
+          {
+            "date" => [
+              {"value" => "1900", "type" => "publication"}
+            ],
+            "location" => [
+              {"source" => {"code" => "marccountry"}, "code" => "enk"},
+              {"source" => {"code" => "marccountry"}, "code" => "miu"} # michigan
+            ]
+          }
+        ]
+      end
+
+      it { is_expected.to eq ["England"] }
+    end
   end
 
   describe "#admin_creation_event" do
