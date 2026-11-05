@@ -44,6 +44,7 @@ module CocinaDisplay
           # Try to match against known date formats using their regexes
           # Order matters here; more specific formats should be checked first
           date_class ||= [
+            ShorthandYearRangeFormat,
             UndeclaredEdtfFormat,
             MMDDYYYYFormat,
             MMDDYYFormat,
@@ -605,6 +606,19 @@ module CocinaDisplay
     class UnparseableDate < ExtractorDateFormat
       def self.parse_date(value)
         nil
+      end
+    end
+
+    # Extractor for dates like YYYY-2X, which look like EDTF seasons but are
+    # actually shorthand year ranges. We don't want to parse as EDTF.
+    class ShorthandYearRangeFormat < ExtractorDateFormat
+      REGEX = /^(?<start_date>\d+)(?:-(?<end_year>2[1234]))$/
+
+      def self.normalize_to_edtf(value)
+        matches = value.match(self::REGEX)
+        start_date = matches[:start_date]
+        end_date = start_date.sub(/.{2}$/, matches[:end_year])
+        "#{start_date.rjust(4, "0")}/#{end_date.rjust(4, "0")}"
       end
     end
 
