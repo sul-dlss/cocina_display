@@ -59,6 +59,14 @@ module CocinaDisplay
         place_subject_parts.map { |s| s.geonames_id }.compact.uniq
       end
 
+      # A single set of coordinates representing the item's extent.
+      # Prefers metadata that was originally structured (not parsed).
+      # Prefers full bounding boxes to points.
+      # @return [Geospatial::Coordinates, nil]
+      def extent
+        (bbox_coordinate_objects.presence || map_coordinate_objects || coordinate_objects).first
+      end
+
       private
 
       # {Subject} objects with types that could contain coordinate information.
@@ -77,6 +85,23 @@ module CocinaDisplay
       # @return [Array<Subjects::CoordinatesSubjectPart>]
       def coordinate_subject_parts
         subject_parts.filter { |s| s.is_a? CocinaDisplay::Subjects::CoordinatesSubjectPart }
+      end
+
+      # All coordinate values that came from structured bounding box subjects.
+      # These coordinates were not parsed from DMS strings and are more reliable.
+      # @return [Array<Geospatial::Coordinates>]
+      def bbox_coordinate_objects
+        coordinate_subject_parts
+          .filter { |s| s.type == "bounding box coordinates" }
+          .filter_map(&:coordinates)
+      end
+
+      # All coordinate values that came from strings, e.g. MARC 034.
+      # @return [Array<Geospatial::Coordinates>]
+      def map_coordinate_objects
+        coordinate_subject_parts
+          .filter { |s| s.type == "map coordinates" }
+          .filter_map(&:coordinates)
       end
     end
   end
