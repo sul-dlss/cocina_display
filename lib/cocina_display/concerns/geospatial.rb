@@ -59,6 +59,16 @@ module CocinaDisplay
         place_subject_parts.map { |s| s.geonames_id }.compact.uniq
       end
 
+      # A single bounding box representing the item, used for viewers.
+      # Prefers metadata that was originally structured (not parsed).
+      # Format is [[south, west], [north, east]].
+      # @note For a box crossing the antimeridian, east is carried past 180, as in {coordinates_as_bbox}.
+      # @return [Array<Array<Float>>, nil] nil if no coordinates describe a box
+      # @example [[45.935134, -104.048932], [49.00048013, -96.79802337]]
+      def extent
+        (bbox_coordinate_objects.presence || coordinate_objects).filter_map(&:as_bbox).first
+      end
+
       private
 
       # {Subject} objects with types that could contain coordinate information.
@@ -77,6 +87,15 @@ module CocinaDisplay
       # @return [Array<Subjects::CoordinatesSubjectPart>]
       def coordinate_subject_parts
         subject_parts.filter { |s| s.is_a? CocinaDisplay::Subjects::CoordinatesSubjectPart }
+      end
+
+      # All coordinate values that came from structured bounding box subjects.
+      # These coordinates were not parsed from DMS strings and are more reliable.
+      # @return [Array<Geospatial::Coordinates>]
+      def bbox_coordinate_objects
+        coordinate_subject_parts
+          .filter { |s| s.type == "bounding box coordinates" }
+          .filter_map(&:coordinates)
       end
     end
   end
