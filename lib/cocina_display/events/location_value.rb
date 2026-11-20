@@ -6,7 +6,7 @@ module CocinaDisplay
       # Decodes a MARC country code if present and no value was present.
       # @return [String, nil]
       def to_s
-        cocina["value"] || country_name
+        cocina["value"] || country_name || state_name
       end
 
       # Is there an unencoded value (name) for this location?
@@ -16,9 +16,17 @@ module CocinaDisplay
       end
 
       # Decoded country name if the location is encoded with a MARC country code.
+      # MARC country codes can denote countries as well as US/Canadian states.
       # @return [String, nil]
       def country_name
-        Location.marc_countries[code] if marc_country? && valid_country_code?
+        Location.marc_countries[code] if marc_country_encoded? && valid_country_code?
+      end
+
+      # Decoded state name if the location is encoded with a MARC country code.
+      # MARC country codes can denote countries as well as US/Canadian states.
+      # @return [String, nil]
+      def state_name
+        Location.marc_states[code] if marc_country_encoded? && valid_country_code?
       end
 
       private
@@ -38,7 +46,7 @@ module CocinaDisplay
 
       # Is this location encoded with a MARC country code?
       # @return [Boolean]
-      def marc_country?
+      def marc_country_encoded?
         cocina.dig("source", "code") == "marccountry"
       end
     end
