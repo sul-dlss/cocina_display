@@ -7,4 +7,4 @@ gemspec
 
 gem "irb"
 gem "debug", "~> 1.11"
-gem "webmock", "~> 3.34"
+gem "webmock", "~> 3.36"
