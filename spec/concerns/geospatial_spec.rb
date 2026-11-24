@@ -658,6 +658,83 @@ RSpec.describe CocinaDisplay::CocinaRecord do
     end
   end
 
+  describe "#extent" do
+    subject { cocina_record.extent&.as_bbox }
+
+    # GIS records state the extent twice: the "map coordinates" string under description.subject, and
+    # the structured box under description.geographic.
+    let(:geographic_subjects) { [] }
+    let(:cocina_json) do
+      {
+        "description" => {
+          "subject" => subjects,
+          "geographic" => [{"subject" => geographic_subjects}]
+        }
+      }.to_json
+    end
+
+    def rounded(box)
+      box&.flatten&.map { |value| value.to_f.round(6) }
+    end
+
+    context "with no coordinates" do
+      it { is_expected.to be_nil }
+    end
+
+    # druid:hz939nd5660
+    context "with map coordinates and a structured bounding box" do
+      let(:subjects) do
+        [{"type" => "map coordinates", "value" => "W 180°--E 180°/N 71°18ʹ43ʺ--S 15°23ʹ10ʺ"}]
+      end
+      let(:geographic_subjects) do
+        [
+          {
+            "type" => "bounding box coordinates",
+            "structuredValue" => [
+              {"value" => "-104.048932", "type" => "west"},
+              {"value" => "45.935134", "type" => "south"},
+              {"value" => "-96.79802337", "type" => "east"},
+              {"value" => "49.00048013", "type" => "north"}
+            ]
+          }
+        ]
+      end
+
+      it "prefers the structured bounding box" do
+        expect(rounded(subject)).to eq([45.935134, -104.048932, 49.00048, -96.798023])
+      end
+    end
+
+    context "with only map coordinates" do
+      let(:subjects) do
+        [{"type" => "map coordinates", "value" => "W 123°23ʹ15ʺ--W 122°31ʹ44ʺ/N 39°23ʹ57ʺ--N 38°17ʹ55ʺ"}]
+      end
+
+      it "uses them as a fallback" do
+        expect(rounded(subject)).to eq([38.298611, -123.3875, 39.399167, -122.528889])
+      end
+    end
+
+    context "with a point and map coordinates" do
+      let(:subjects) do
+        [
+          {
+            "type" => "point coordinates",
+            "structuredValue" => [
+              {"value" => "36.740468", "type" => "latitude"},
+              {"value" => "-121.24658", "type" => "longitude"}
+            ]
+          },
+          {"type" => "map coordinates", "value" => "W 123°23ʹ15ʺ--W 122°31ʹ44ʺ/N 39°23ʹ57ʺ--N 38°17ʹ55ʺ"}
+        ]
+      end
+
+      it "skips the point, which can't be a box" do
+        expect(rounded(subject)).to eq([38.298611, -123.3875, 39.399167, -122.528889])
+      end
+    end
+  end
+
   describe "#coordinates_as_bbox" do
     context "with a point and a bounding box" do
       let(:subjects) do
